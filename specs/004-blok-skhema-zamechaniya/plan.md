@@ -51,10 +51,10 @@ specs/004-blok-skhema-zamechaniya/
 
 ```text
 docs/process/bpmn/
-├── build.mjs                   # новый: scaffold набора + разница (атомы 1–3)
-├── eurosteklo_process.drawio   # вывод build.mjs (перезапись)
-├── view.html                   # перенос XML в data-mxgraph (атом 4)
-└── eurosteklo_process.png      # снимок chrome (атом 4)
+├── build.mjs                   # новый: scaffold набора + разница (атомы .2–.4)
+├── eurosteklo_process.drawio   # вывод build.mjs (атомы .2–.4)
+├── view.html                   # перенос XML в data-mxgraph (атом .5)
+└── eurosteklo_process.png      # снимок chrome (атом .6)
 ```
 
 **Structure Decision**: правятся только файлы в `docs/process/bpmn/`; `data.md`, `tz-fix*.md`, варианты v1–v5 не трогаются.

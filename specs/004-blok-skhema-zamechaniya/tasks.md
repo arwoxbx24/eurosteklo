@@ -13,7 +13,7 @@
 
 ## Phase 2: Foundational (блокирует все истории)
 
-- [ ] T002 Скопировать шаблон набора: `K scaffold bpmn/build_bpmn.mjs -o docs/process/bpmn/build.mjs` и заменить данные шаблона описью T001 (lanes, phases, узлы `{ lane, col, label }`, `d.link` потока), `d.title` — прежний заголовок схемы; координаты руками запрещены (SKILL.md:62-63); выход `node docs/process/bpmn/build.mjs` → `docs/process/bpmn/eurosteklo_process.drawio`; критерий: `validate` ok, число узлов и связей = опись T001 (FR-011)
+- [ ] T002 Скопировать шаблон набора: `K scaffold bpmn/build_bpmn.mjs -o docs/process/bpmn/build.mjs` и заменить данные шаблона описью T001 (lanes, phases, 18 колонок = 3 на фазу, узлы `{ lane, col, label }` с w/h под крупный шрифт, `d.link` потока), `d.title` — прежний заголовок; координаты руками запрещены (SKILL.md:62-63); выход и имя в хвосте scaffold → `docs/process/bpmn/eurosteklo_process.drawio`; критерий: `validate` ok, тройки (source, target, label) и фазы узлов = опись T001 (FR-011); детали — `.agent-work/tz/004-2-build.md`
 
 **Checkpoint**: схема собрана набором, содержание прежнее.
 
@@ -22,29 +22,29 @@
 **Goal**: крупный шрифт, чёрный цвет, полные слова.
 **Independent Test**: quickstart SC-001, SC-002, SC-003 (часть «#232F3E/#5A6B7B = 0»).
 
-- [ ] T003 [US1] В `docs/process/bpmn/build.mjs` подписи — полными словами: «док-ты» → «документы», «14/90/270» → «через 14, 90 и 270 дней»; ₽ и коды FR/FF/P/Ф — 0 (FR-002)
-- [ ] T004 [US1] В `docs/process/bpmn/build.mjs` после `d.mxfile()` — одна замена в строке XML с комментарием `ponytail:`: `fontSize` <16 → 16, у заголовков дорожек и фаз — 18; `#232F3E` и `#5A6B7B` → `#1A1A1A`; подложки фаз не трогать (FR-001, FR-003; research R2)
+- [ ] T003 [US1] В `docs/process/bpmn/build.mjs` подписи — полными словами: «док-ты» → «документы», «14/90/270» → «через 14, 90 и 270 дней», «Отгрузка/монтаж?» → «Отгрузка или монтаж?», «Изделие/монтаж» → «Изделие или монтаж»; ₽ и коды FR/FF/P/Ф — 0 (FR-002)
+- [ ] T004 [US1] В `docs/process/bpmn/build.mjs` после `d.mxfile()` — одна замена в строке XML с комментарием `ponytail:`: `fontSize` <16 → 16, у `sale__lane*`, `sale__phase*`, `__title` — 18; любой `fontColor`/`strokeColor` (включая `light-dark`), кроме `#1A1A1A`, `#D90000`, белого, → `#1A1A1A`; подложки не трогать (FR-001, FR-003; research R2). После атома — снимок chrome (главный агент): подписи не выходят за фигуры
 
 ## Phase 4: User Story 2 — документы клиента (P2)
 
 **Goal**: 6 значков документов в дорожке «Клиент» с пунктиром к шагу.
 **Independent Test**: quickstart SC-004.
 
-- [ ] T005 [US2] В `docs/process/bpmn/build.mjs` добавить 6 значков каталога `document` (`K search "document"` → General) в дорожке «Клиент»: счёт за замер (data.md:36), договор (:44), счёт на предоплату (:45), счёт на остаток (:55), УПД / отгрузочные документы (:58, один значок), закрывающие документы (:61); связь к шагу — `d.link(doc, step, "", { dash: true })` (FR-004, FR-005)
+- [ ] T005 [US2] В `docs/process/bpmn/build.mjs` добавить 6 значков каталога `document` (`K search "document"` → General) в дорожке «Клиент»: счёт за замер (data.md:36), договор (:44), счёт на предоплату (:45), счёт на остаток (:55), УПД / отгрузочные документы (:58, один значок), закрывающие документы (:61); колонка — свободная `f*3 + 2` (и `f*3` при втором документе фазы) дорожки «Клиент»; шаг-адресат — таблица 6 описи T001; связь — `d.link(doc, step, "", { dash: true })`; SC-004 — по парам source→target (FR-004, FR-005)
 
 ## Phase 5: User Story 3 — проход по 9 проблемным местам (P3)
 
 **Goal**: номера 1–9 на шагах, список «Проход с клиентом», строка источника.
 **Independent Test**: quickstart SC-005.
 
-- [ ] T006 [US3] В `docs/process/bpmn/build.mjs` убрать 9 заметок-вопросов с полотна; на связи, входящей в проблемный шаг, — штатный `step: N`, N = P1…P9 раздела «Проблемные места» `data.md` (examples/aws/build_serverless.mjs:30) (FR-006)
+- [ ] T006 [US3] В `docs/process/bpmn/build.mjs` убрать 9 заметок-вопросов с полотна; на связи, входящей в проблемный шаг (для P1 на старте — исходящая s1→t1), — штатный кружок `badge: N` набора (`src/builder.mjs:657-665`), N = номер P из таблицы 5 описи; зелёный `#3F7D20` кружка → красный `#D90000` той же пост-обработкой цвета T004; P с «все фазы» (P8, P9) — номера на полотне нет, только в списке T007 (FR-006)
 - [ ] T007 [US3] В `docs/process/bpmn/build.mjs` под пулом — штатный `box` «Проход с клиентом»: 9 вопросов P1–P9 из `data.md`, номер = `step`; ниже `box` «Источник: доска Miro клиента и портал Битрикс24, 28.09.2026» (FR-007, FR-009)
-- [ ] T008 [US3] В `docs/process/bpmn/build.mjs` — правки сверки `docs/process/bpmn/сверка-process-mapping.md`: строки 1, 9 (убрать 9 заметок) — закрыты T006; строка 7 (вместо вопросов — пояснение шага) — только текстом из `data.md`, нет текста → не добавлять; строка 17 (допущения — одним списком) — подписи «уточнить» на связях ed10, ed16 перенести в список «Проход с клиентом» отдельными строками «Уточнить: …» (FR-008)
+- [ ] T008 [US3] В `docs/process/bpmn/build.mjs` — правки сверки `docs/process/bpmn/сверка-process-mapping.md`: строки 1, 9 (убрать 9 заметок) — закрыты T006; строка 7 (вместо вопросов — пояснение шага) — только текстом из `data.md`, нет текста → не добавлять; строка 17 (допущения — одним списком) — вопросы подписей «уточнить» связей ed10, ed16 добавить в список «Проход с клиентом» строками «Уточнить: …»; подписи на полотне не снимать (маршрут не домысливается, spec Edge Cases) (FR-008)
 
 ## Phase 6: Polish — страница, проверка, публикация
 
 - [ ] T009 Перенести XML `docs/process/bpmn/eurosteklo_process.drawio` в атрибут `data-mxgraph` страницы `docs/process/bpmn/view.html` (JSON-строка, HTML-экранирование), остальное в странице не трогать (research R4)
-- [ ] T010 [P] Проверка: `K validate docs/process/bpmn/eurosteklo_process.drawio` + issues `node docs/process/bpmn/build.mjs` — ok, 0 warnings, issues пусто (SC-006)
+- [ ] T010 [P] Проверка: `K validate docs/process/bpmn/eurosteklo_process.drawio` — ok, errors и warnings пусто; advice — только «Font sizes too large» / «Too many font sizes» (следствие шрифта ≥16) (SC-006)
 - [ ] T011 [P] Проверка: grep-счётчики quickstart SC-001…SC-005 по `docs/process/bpmn/eurosteklo_process.drawio`
 - [ ] T012 [P] Снимок: chrome headless 1920×1400 `docs/process/bpmn/view.html` → `docs/process/bpmn/eurosteklo_process.png` >50 КБ; перекрытий нет (сверка по снимку — субагент sonnet, текстом)
 - [ ] T013 Публикация (главный агент): `mc cp docs/process/bpmn/view.html b244minio/files/20260928-181501-view.html`; `curl https://b244.ru/DwW` = 200; `git diff --stat docs/meetings/variants/LINKS.md` пусто (FR-010, SC-007)
@@ -63,7 +63,7 @@ T001 → T002 → T003 → T004 → T005 → T006 → T007 → T008 → T009 →
 ## Implementation Strategy
 
 1. MVP: T001–T004 → validate → снимок.
-2. Добавить US2 (T005), затем US3 (T006–T008), каждый раз `node build.mjs` без issues.
+2. Добавить US2 (T005), затем US3 (T006–T008), каждый раз `K validate` ok и снимок chrome.
 3. T009–T014 — страница, проверка, публикация, контрольная точка владельца по ссылке.
 
 ## Атомы bd (код ≤100 строк, одна отправка)
