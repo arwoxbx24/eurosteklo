@@ -1,0 +1,8 @@
+.env
+.env.*
+secrets/
+client-materials/private/
+.DS_Store
+*.tmp
+*.log
+
