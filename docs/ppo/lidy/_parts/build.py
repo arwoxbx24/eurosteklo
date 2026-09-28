@@ -36,8 +36,12 @@ intro = """<section><h2>Как пользоваться</h2><p>Откройте 
 body = intro + legend
 tochki = (P / "tochki.html").read_text(encoding="utf8")
 sost = (P / "sostoyaniya.html").read_text(encoding="utf8")
+import re
+m = re.search(r'<section id="top5">.*?</section>', tochki, re.S)
+top5 = m.group(0) if m else ""
+tochki = tochki.replace(top5, "")
 (P.parent / "obsledovanie-lidy.html").write_text(page(
     "Евростекло · Лиды: предпроектное обследование",
     "Вопросы к клиенту по конфликтным точкам схемы «Лиды»: что спросить, как спросить, что уточнить по каждому состоянию.",
-    body + tochki + sost, card_css), encoding="utf8")
+    body + top5 + tochki + sost, card_css), encoding="utf8")
 print("ok")

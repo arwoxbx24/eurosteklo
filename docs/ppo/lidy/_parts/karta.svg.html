@@ -1,0 +1,247 @@
+<svg class="map" viewBox="0 0 1600 1036" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Карта процесса «Лиды» Евростекла в упрощённом BPMN: каналы, лид, конвертация, отказ; конфликтные точки 1–12">
+<style>
+.map text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;fill:#1f2937}
+.map .ttl{font-size:19px;font-weight:700}
+.map .sub{font-size:14px;fill:#5f6670}
+.map .lane-h{font-size:16px;font-weight:700}
+.map .lbl{font-size:14px}
+.map .b{font-size:14px;font-weight:700}
+.map .h16{font-size:16px;font-weight:700}
+.map .gray{font-size:14px;fill:#6b7280;font-style:italic}
+.map .node{fill:#fff;stroke:#1f2937;stroke-width:1.4}
+.map .frame{fill:#f7f9fc;stroke:#1f2937;stroke-width:1.4}
+.map .ln-solid{fill:none;stroke:#1f2937;stroke-width:2}
+.map .ln-dash{fill:none;stroke:#8a9099;stroke-width:1.6;stroke-dasharray:7 5}
+.map .assoc{fill:none;stroke:#8a9099;stroke-width:1.4;stroke-dasharray:2 4}
+.map .pt circle{fill:#d93025;stroke:#fff;stroke-width:2}
+.map .pt text{fill:#fff;font-size:15px;font-weight:700}
+.map .portal{fill:#fff;stroke:#7b8494;stroke-width:1.4;stroke-dasharray:8 6}
+.map .chip{fill:#eef2f7;stroke:#9aa3af;stroke-width:1}
+</style>
+<defs>
+<marker id="ah-solid" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f2937"/></marker>
+<marker id="ah-dash" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8a9099"/></marker>
+</defs>
+<rect x="0" y="0" width="1600" height="1036" fill="#fbfaf7"/>
+<text x="20" y="30" class="ttl" text-anchor="start">Процесс «Лиды» — карта по доске Miro (упрощённый BPMN)</text>
+<text x="1580" y="30" class="sub" text-anchor="end">доска «Copy of Евростекло», только чтение; контакты салонов не выводятся</text>
+<rect x="20" y="44" width="1560" height="750" fill="#fff" stroke="#4b5563" stroke-width="1.6"/>
+<rect x="20" y="44" width="56" height="80" fill="#eef1f5" stroke="#4b5563" stroke-width="1.2"/>
+<line x1="20" y1="124" x2="1580" y2="124" stroke="#9aa0a6" stroke-width="1.2"/>
+<text class="lane-h" text-anchor="middle" transform="translate(54.0,84.0) rotate(-90)">Клиент</text>
+<rect x="20" y="124" width="56" height="130" fill="#eef1f5" stroke="#4b5563" stroke-width="1.2"/>
+<line x1="20" y1="254" x2="1580" y2="254" stroke="#9aa0a6" stroke-width="1.2"/>
+<text class="lane-h" text-anchor="middle" transform="translate(54.0,189.0) rotate(-90)">Каналы</text>
+<rect x="20" y="254" width="56" height="280" fill="#fff4e0" stroke="#4b5563" stroke-width="1.2"/>
+<rect x="76" y="254" width="1504" height="280" fill="#fffaf1"/>
+<line x1="20" y1="534" x2="1580" y2="534" stroke="#9aa0a6" stroke-width="1.2"/>
+<text class="lane-h" text-anchor="middle" transform="translate(44.0,394.0) rotate(-90)">? Кто разбирает</text>
+<text class="lane-h" text-anchor="middle" transform="translate(64.0,394.0) rotate(-90)">(роль не названа)</text>
+<rect x="20" y="534" width="56" height="110" fill="#eef1f5" stroke="#4b5563" stroke-width="1.2"/>
+<line x1="20" y1="644" x2="1580" y2="644" stroke="#9aa0a6" stroke-width="1.2"/>
+<text class="lane-h" text-anchor="middle" transform="translate(44.0,589.0) rotate(-90)">Менеджер</text>
+<text class="lane-h" text-anchor="middle" transform="translate(64.0,589.0) rotate(-90)">ОП</text>
+<rect x="20" y="644" width="56" height="150" fill="#eef1f5" stroke="#4b5563" stroke-width="1.2"/>
+<line x1="20" y1="794" x2="1580" y2="794" stroke="#9aa0a6" stroke-width="1.2"/>
+<text class="lane-h" text-anchor="middle" transform="translate(44.0,719.0) rotate(-90)">Битрикс24</text>
+<text class="lane-h" text-anchor="middle" transform="translate(64.0,719.0) rotate(-90)">(система)</text>
+<line x1="76" y1="44" x2="76" y2="794" stroke="#4b5563" stroke-width="1.2"/>
+<g><title>Старт (на доске отдельного узла нет — клиент обращается через канал)</title><circle cx="140" cy="84" r="16" fill="#fff" stroke="#1f2937" stroke-width="1.6"/></g>
+<text x="166" y="89" class="b" text-anchor="start">Обращение клиента</text>
+<path d="M96,150 L96,142 L1242,142 L1242,150" fill="none" stroke="#8a9099" stroke-width="1.4"/>
+<polyline points="140,100 140,140" class="ln-dash" marker-end="url(#ah-dash)"/>
+<g><title>id Miro 3074457358429708938 · канал «Артиллерийская» (салон; контакты на доске — ПДн, здесь не выводятся)</title><rect x="96" y="160" width="138" height="50" rx="10" class="node"/>
+<text x="165" y="190" class="lbl" text-anchor="middle">Артиллерийская</text>
+</g>
+<g><title>Артиллерийская → ЛИД: связи на доске нет, выведено по расположению</title>
+<polyline points="165,210 485,282" class="ln-dash" marker-end="url(#ah-dash)"/>
+</g>
+<g><title>id Miro 3074457358429708935 · канал «Нарвская» (салон; контакты на доске — ПДн, здесь не выводятся)</title><rect x="240" y="160" width="138" height="50" rx="10" class="node"/>
+<text x="309" y="190" class="lbl" text-anchor="middle">Нарвская</text>
+</g>
+<g><title>Нарвская → ЛИД: связи на доске нет, выведено по расположению</title>
+<polyline points="309,210 522,282" class="ln-dash" marker-end="url(#ah-dash)"/>
+</g>
+<g><title>id Miro 3074457358429708936 · канал «Ленинский» (салон; контакты на доске — ПДн, здесь не выводятся)</title><rect x="384" y="160" width="138" height="50" rx="10" class="node"/>
+<text x="453" y="190" class="lbl" text-anchor="middle">Ленинский</text>
+</g>
+<g><title>Ленинский → ЛИД: связи на доске нет, выведено по расположению</title>
+<polyline points="453,210 559,282" class="ln-dash" marker-end="url(#ah-dash)"/>
+</g>
+<g><title>id Miro 3458764681641484921 · канал «Челнокова» (салон; контакты на доске — ПДн, здесь не выводятся)</title><rect x="528" y="160" width="138" height="50" rx="10" class="node"/>
+<text x="597" y="190" class="lbl" text-anchor="middle">Челнокова</text>
+</g>
+<g><title>коннектор Miro 3458764681641805249: Челнокова → ЛИД (связь есть на доске)</title>
+<polyline points="597,210 596,282" class="ln-solid" marker-end="url(#ah-solid)"/>
+</g>
+<g><title>id Miro 3074457358429708937 · канал «Сарафан»</title><rect x="672" y="160" width="138" height="50" rx="10" class="node"/>
+<text x="741" y="190" class="lbl" text-anchor="middle">Сарафан</text>
+</g>
+<g><title>Сарафан → ЛИД: связи на доске нет, выведено по расположению</title>
+<polyline points="741,210 633,282" class="ln-dash" marker-end="url(#ah-dash)"/>
+</g>
+<g><title>id Miro 3074457358429708943 · канал «vk.ru»</title><rect x="816" y="160" width="138" height="50" rx="10" class="node"/>
+<text x="885" y="190" class="lbl" text-anchor="middle">vk.ru</text>
+</g>
+<g><title>vk.ru → ЛИД: связи на доске нет, выведено по расположению</title>
+<polyline points="885,210 670,282" class="ln-dash" marker-end="url(#ah-dash)"/>
+</g>
+<g><title>id Miro 3074457358429708944 · канал «Telegram»</title><rect x="960" y="160" width="138" height="50" rx="10" class="node"/>
+<text x="1029" y="190" class="lbl" text-anchor="middle">Telegram</text>
+</g>
+<g><title>Telegram → ЛИД: связи на доске нет, выведено по расположению</title>
+<polyline points="1029,210 707,282" class="ln-dash" marker-end="url(#ah-dash)"/>
+</g>
+<g><title>id Miro 3458764681641922534 · канал «Авито»</title><rect x="1104" y="160" width="138" height="50" rx="10" class="node"/>
+<text x="1173" y="190" class="lbl" text-anchor="middle">Авито</text>
+</g>
+<g><title>коннектор Miro 3458764681641922880: Авито → ЛИД (связь есть на доске)</title>
+<polyline points="1173,210 744,282" class="ln-solid" marker-end="url(#ah-solid)"/>
+</g>
+<text x="96" y="300" class="gray" text-anchor="start">Кто разбирает лид и за какой срок —</text>
+<text x="96" y="320" class="gray" text-anchor="start">на доске не указано</text>
+<g><title>id Miro 3074457358429708934 (рамка) / 3074457358429708933 (подпись «ЛИД - B2B, B2C»)</title>
+<rect x="470" y="284" width="290" height="66" class="frame"/>
+<text x="615.0" y="313" class="h16" text-anchor="middle">ЛИД — B2B, B2C</text>
+<text x="615.0" y="335" class="gray" text-anchor="middle">рамка на доске</text>
+</g>
+<g><title>id Miro 3074457358430916255 · «Конвертация ЛИД-а в Сделку с обязательным занесением всех реквизитов в карточку компании»; исполнитель на доске не указан</title>
+<rect x="880" y="280" width="240" height="112" rx="12" class="node"/>
+<text x="1000.0" y="303" class="lbl" text-anchor="middle">Конвертация ЛИД-а в Сделку</text>
+<text x="1000.0" y="321" class="lbl" text-anchor="middle">с обязательным занесением</text>
+<text x="1000.0" y="339" class="lbl" text-anchor="middle">всех реквизитов</text>
+<text x="1000.0" y="357" class="lbl" text-anchor="middle">в карточку компании</text>
+<text x="1000.0" y="380" class="gray" text-anchor="middle">на доске роль не указана</text>
+</g>
+<g><title>ЛИД → Конвертация: связи на доске нет, выведено по расположению</title>
+<polyline points="760,317 878,317" class="ln-dash" marker-end="url(#ah-dash)"/>
+</g>
+<g><title>id Miro 3074457358431590461 · ромб «Воронка отказников» (на доске без связей)</title>
+<polygon points="615,402 695,452 615,502 535,452" fill="#fff" stroke="#1f2937" stroke-width="1.6"/>
+<text x="615" y="449" class="b" text-anchor="middle">Воронка</text>
+<text x="615" y="467" class="b" text-anchor="middle">отказников</text>
+</g>
+<g><title>ЛИД → Воронка отказников: связи на доске нет, выведено по расположению</title>
+<polyline points="615,350 615,400" class="ln-dash" marker-end="url(#ah-dash)"/>
+</g>
+<g><title>id Miro 3074457358431099074 · причина отказа «Закупка не согласована» (на доске без связей)</title>
+<rect x="790" y="392" width="264" height="30" rx="8" class="node"/>
+<text x="922.0" y="412" class="lbl" text-anchor="middle">Закупка не согласована</text>
+</g>
+<polyline points="695,452 788,407" class="ln-dash" marker-end="url(#ah-dash)"/>
+<polyline points="1054,407 1092,441.45" class="ln-dash" marker-end="url(#ah-dash)"/>
+<g><title>id Miro 3074457358431099075 · причина отказа «Закупили у конкурентов» (на доске без связей)</title>
+<rect x="790" y="426" width="264" height="30" rx="8" class="node"/>
+<text x="922.0" y="446" class="lbl" text-anchor="middle">Закупили у конкурентов</text>
+</g>
+<polyline points="695,452 788,441" class="ln-dash" marker-end="url(#ah-dash)"/>
+<polyline points="1054,441 1092,453.35" class="ln-dash" marker-end="url(#ah-dash)"/>
+<g><title>id Miro 3074457358431099076 · причина отказа «Тендер конечника не состоялся» (на доске без связей)</title>
+<rect x="790" y="460" width="264" height="30" rx="8" class="node"/>
+<text x="922.0" y="480" class="lbl" text-anchor="middle">Тендер конечника не состоялся</text>
+</g>
+<polyline points="695,452 788,475" class="ln-dash" marker-end="url(#ah-dash)"/>
+<polyline points="1054,475 1092,465.25" class="ln-dash" marker-end="url(#ah-dash)"/>
+<g><title>id Miro 3074457358431099077 · причина отказа «Закупка отложена» (на доске без связей)</title>
+<rect x="790" y="494" width="264" height="30" rx="8" class="node"/>
+<text x="910.0" y="514" class="lbl" text-anchor="middle">Закупка отложена</text>
+</g>
+<polyline points="695,452 788,509" class="ln-dash" marker-end="url(#ah-dash)"/>
+<polyline points="1054,509 1092,477.15" class="ln-dash" marker-end="url(#ah-dash)"/>
+<g><title>Финал «Отказ» (на доске отдельного узла нет; выведено из «Воронки отказников»)</title>
+<circle cx="1112" cy="460" r="17" fill="#fff" stroke="#1f2937" stroke-width="4"/></g>
+<text x="1138" y="465" class="b" text-anchor="start">Отказ</text>
+<text x="96" y="604" class="gray" text-anchor="start">на доске для лида шагов МОП нет</text>
+<g><title>id Miro 3074457358429708946 · рамка «Битрикс24»</title>
+<rect x="110" y="682" width="180" height="74" class="frame"/>
+<text x="200.0" y="724" class="h16" text-anchor="middle">Битрикс24</text>
+</g>
+<g><title>комментарий Miro 3458764685196477350 (к.7350), прикреплён к рамке «Битрикс24»</title>
+<path d="M350,662 L340,662 L340,704 L350,704" fill="none" stroke="#4b5563" stroke-width="1.6"/>
+<polyline points="290,700 340,683" class="assoc"/>
+<text x="352" y="680" class="lbl" text-anchor="start">к.7350: «структура карточек: ЛИДа, компании,</text>
+<text x="352" y="698" class="lbl" text-anchor="start">сделки (от Л.А., М.А.)»</text>
+</g>
+<g><title>комментарий Miro 3458764685196477365 (к.7365); на доске прикреплён к узлу «Конвертация» 3074457358430916255</title>
+<path d="M350,728 L340,728 L340,772 L350,772" fill="none" stroke="#4b5563" stroke-width="1.6"/>
+<polyline points="290,740 340,750" class="assoc"/>
+<text x="352" y="746" class="lbl" text-anchor="start">к.7365: «единый формат занесения информации</text>
+<text x="352" y="764" class="lbl" text-anchor="start">о контрагенте» (на доске — у узла «Конвертация»)</text>
+</g>
+<g><title>Конвертация → Сделка «Предварительный расчёт»: связи на доске нет, выведено по расположению</title>
+<polyline points="1120,336 1200,336 1200,700" class="ln-dash" marker-end="url(#ah-dash)"/>
+</g>
+<g><title>id Miro 3074457358430445405 · рамка «Сделка: стадия ПРЕДВАРИТЕЛЬНЫЙ РАСЧЕТ» — финал этой карты</title>
+<circle cx="1200" cy="719" r="17" fill="#fff" stroke="#1f2937" stroke-width="4"/>
+<text x="1230" y="713" class="b" text-anchor="start">Сделка: стадия</text>
+<text x="1230" y="731" class="b" text-anchor="start">ПРЕДВАРИТЕЛЬНЫЙ РАСЧЁТ</text>
+<text x="1230" y="751" class="gray" text-anchor="start">финал этой карты</text>
+</g>
+<text x="20" y="818" class="gray" text-anchor="start">Права доступа по ролям — на доске нет (не знаем)</text>
+<rect x="20" y="834" width="1150" height="192" rx="10" class="portal"/>
+<text x="40" y="860" class="h16" text-anchor="start">Как в портале сейчас (запись экрана интегратора, со слов)</text>
+<text x="40" y="890" class="lbl" text-anchor="start">Источники лида в портале:</text>
+<g><title>портал: источник «Звонок» (as-is §2.5)</title><rect x="40" y="902" width="90" height="28" rx="6" class="chip"/>
+<text x="85.0" y="921" class="lbl" text-anchor="middle">Звонок</text>
+</g>
+<g><title>портал: источник «Приложение» (as-is §2.5)</title><rect x="140" y="902" width="110" height="28" rx="6" class="chip"/>
+<text x="195.0" y="921" class="lbl" text-anchor="middle">Приложение</text>
+</g>
+<g><title>портал: источник «Почта» (as-is §2.5)</title><rect x="40" y="940" width="70" height="28" rx="6" class="chip"/>
+<text x="75.0" y="959" class="lbl" text-anchor="middle">Почта</text>
+</g>
+<g><title>портал: источник «Открытая линия (Авито)» (as-is §2.5)</title><rect x="120" y="940" width="190" height="28" rx="6" class="chip"/>
+<text x="215.0" y="959" class="lbl" text-anchor="middle">Открытая линия (Авито)</text>
+</g>
+<text x="40" y="1000" class="sub" text-anchor="start">frame_0001, 0006, 0014, 0023</text>
+<text x="370" y="890" class="lbl" text-anchor="start">5 стадий лида (frame_0001, frame_0021):</text>
+<g><title>портал: стадия лида «Не обработан 982» (frame_0001)</title><rect x="370" y="906" width="160" height="40" rx="8" class="node"/>
+<text x="450.0" y="931" class="b" text-anchor="middle">Не обработан 982</text>
+</g>
+<polyline points="530,926 558,926" class="ln-dash" marker-end="url(#ah-dash)"/>
+<g><title>портал: стадия лида «В работе 291» (frame_0001)</title><rect x="560" y="906" width="130" height="40" rx="8" class="node"/>
+<text x="625.0" y="931" class="b" text-anchor="middle">В работе 291</text>
+</g>
+<polyline points="690,926 718,926" class="ln-dash" marker-end="url(#ah-dash)"/>
+<g><title>портал: стадия лида «Обработан 1552» (frame_0001)</title><rect x="720" y="906" width="150" height="40" rx="8" class="node"/>
+<text x="795.0" y="931" class="b" text-anchor="middle">Обработан 1552</text>
+</g>
+<g><title>портал: стадия «Качественный лид» (frame_0021)</title><rect x="920" y="886" width="170" height="30" rx="8" fill="#eaf6ec" stroke="#2e7d32" stroke-width="1.4"/>
+<text x="1005" y="906" class="lbl" text-anchor="middle">Качественный лид</text>
+</g>
+<g><title>портал: стадия «Некачественный лид» (frame_0021)</title><rect x="920" y="936" width="170" height="30" rx="8" fill="#fdecea" stroke="#c62828" stroke-width="1.4"/>
+<text x="1005" y="956" class="lbl" text-anchor="middle">Некачественный лид</text>
+</g>
+<polyline points="870,926 918,901" class="ln-dash" marker-end="url(#ah-dash)"/>
+<polyline points="870,926 918,951" class="ln-dash" marker-end="url(#ah-dash)"/>
+<text x="370" y="996" class="gray" text-anchor="start">«за лидами не следят» (речь 00:00:07) — 982 лида в «Не обработан»</text>
+<rect x="1190" y="834" width="390" height="192" rx="10" fill="#fff" stroke="#c3c8cf" stroke-width="1.2"/>
+<text x="1206" y="858" class="h16" text-anchor="start">Легенда</text>
+<line x1="1206" y1="879" x2="1256" y2="879" class="ln-solid" marker-end="url(#ah-solid)"/>
+<text x="1270" y="884" class="lbl" text-anchor="start">связь есть на доске</text>
+<line x1="1206" y1="900" x2="1256" y2="900" class="ln-dash" marker-end="url(#ah-dash)"/>
+<text x="1270" y="905" class="lbl" text-anchor="start">связи на доске нет (по расположению)</text>
+<g class="pt"><circle cx="1220" cy="923" r="11"/><text x="1220" y="928" text-anchor="middle" style="font-size:13px">N</text></g>
+<text x="1270" y="928" class="lbl" text-anchor="start">конфликтная точка (наведите — суть)</text>
+<polygon points="1220,935 1236,946 1220,957 1204,946" fill="#fff" stroke="#1f2937" stroke-width="1.4"/>
+<text x="1270" y="951" class="lbl" text-anchor="start">шлюз (развилка)</text>
+<circle cx="1214" cy="969" r="9" fill="#fff" stroke="#1f2937" stroke-width="1.6"/>
+<circle cx="1244" cy="969" r="9" fill="#fff" stroke="#1f2937" stroke-width="3.5"/>
+<text x="1270" y="974" class="lbl" text-anchor="start">старт (тонкий) · финал (жирный)</text>
+<path d="M1230,982 L1220,982 L1220,1002 L1230,1002" fill="none" stroke="#4b5563" stroke-width="1.6"/>
+<text x="1270" y="997" class="lbl" text-anchor="start">заметка (комментарий доски)</text>
+<rect x="1206" y="1004" width="50" height="20" fill="#f7f9fc" stroke="#1f2937" stroke-width="1.2"/>
+<text x="1270" y="1020" class="lbl" text-anchor="start">рамка доски · скругл. — задача</text>
+<g class="pt"><title>Точка 1: 8 каналов, со стрелкой в «ЛИД» только 2 (Челнокова, Авито) — как попадают остальные</title><circle cx="1266" cy="185" r="14"/><text x="1266" y="190" text-anchor="middle">1</text></g>
+<g class="pt"><title>Точка 2: портал видит «Звонок», «Приложение», «Почта», «Открытая линия (Авито)»; сарафан, vk.ru, Telegram, салоны в записи не показаны</title><circle cx="330" cy="916" r="14"/><text x="330" y="921" text-anchor="middle">2</text></g>
+<g class="pt"><title>Точка 3: кто разбирает лид и за какой срок — роль не названа</title><circle cx="268" cy="320" r="14"/><text x="268" y="325" text-anchor="middle">3</text></g>
+<g class="pt"><title>Точка 4: в названии рамки «B2B, B2C», а путь один</title><circle cx="470" cy="350" r="14"/><text x="470" y="355" text-anchor="middle">4</text></g>
+<g class="pt"><title>Точка 5: на доске лид сразу идёт к конвертации; в портале 5 стадий, 982 «Не обработан», «за лидами не следят»</title><circle cx="1120" cy="926" r="14"/><text x="1120" y="931" text-anchor="middle">5</text></g>
+<g class="pt"><title>Точка 6: недозвон — на доске нет: сколько попыток, куда уходит лид</title><circle cx="645" cy="380" r="14"/><text x="645" y="385" text-anchor="middle">6</text></g>
+<g class="pt"><title>Точка 7: повторная заявка / клиент уже есть в базе — не описано</title><circle cx="820" cy="298" r="14"/><text x="820" y="303" text-anchor="middle">7</text></g>
+<g class="pt"><title>Точка 8: «обязательно все реквизиты в карточку компании» — состава нет; у B2C-физлица компании нет</title><circle cx="1120" cy="280" r="14"/><text x="1120" y="285" text-anchor="middle">8</text></g>
+<g class="pt"><title>Точка 9: что есть после конвертации: сделка на какой стадии; «Предв. расчёт» левее «Заявки», стрелок между стадиями нет</title><circle cx="1170" cy="684" r="14"/><text x="1170" y="689" text-anchor="middle">9</text></g>
+<g class="pt"><title>Точка 10: «единый формат контрагента» и «структура карточек (от Л.А., М.А.)» — самих документов нет; «от» ≠ «одобрено»</title><circle cx="290" cy="682" r="14"/><text x="290" y="687" text-anchor="middle">10</text></g>
+<g class="pt"><title>Точка 11: отказ: «Воронка отказников» и 4 причины без связей; «Некачественный лид» и «Сделка провалена» в портале — одно или разное</title><circle cx="706" cy="410" r="14"/><text x="706" y="415" text-anchor="middle">11</text></g>
+<g class="pt"><title>Точка 12: «Закупка отложена» лежит среди причин отказа, но по смыслу это перенос</title><circle cx="1036" cy="509" r="14"/><text x="1036" y="514" text-anchor="middle">12</text></g>
+</svg>
