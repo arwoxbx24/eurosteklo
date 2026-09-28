@@ -63,8 +63,8 @@ addEventListener('mouseup',function(){on=false;w.classList.remove('drag')});
 addEventListener('mousemove',function(e){if(!on)return;w.scrollLeft=sl-(e.pageX-x);w.scrollTop=st-(e.pageY-y)});})();</script>"""
 (OUT / KARTA).write_text(page(
     "Евростекло · Лиды: карта процесса",
-    "Схема клиента, перенесённая в BPMN: кто что делает, где стрелки есть и где их нет. Красный номер — нажмите, откроется вопрос к встрече.",
-    pasport + legend + f'<section><h2>Карта «Лиды»</h2><p class="src">Карту можно тянуть мышью; масштаб — кнопки справа внизу или Ctrl + колесо.</p><div class="mapwrap">{svg}</div></section>' + pan,
+    "Схема клиента, перенесённая в BPMN: кто что делает, где связи есть и где их нет. Красный номер — нажмите, откроется вопрос к встрече.",
+    (f'<section><details><summary><b>Паспорт процесса: кто есть кто</b> — клиент, каналы, роли (раскрыть)</summary>{pasport}</details></section>' if pasport else '') + legend + f'<section><h2>Карта «Лиды»</h2><p class="src">Карту можно тянуть мышью; масштаб — кнопки справа внизу или Ctrl + колесо.</p><div class="mapwrap">{svg}</div></section>' + pan,
     map_css, docnav(KARTA)), encoding="utf8")
 
 # ---------- Подробная версия (прежний документ целиком) ----------
