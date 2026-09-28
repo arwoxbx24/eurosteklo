@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Евростекло — матрица разрывов</title>
+  <style>
+    :root { --ink:#17221d; --muted:#526058; --line:#b8c5bc; --paper:#f7f8f5; --green:#b9dfc2; --yellow:#ffe29a; --red:#ffb9af; --deep-red:#a8231d; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:#e8ede8; color:var(--ink); font:16px/1.42 Arial, sans-serif; }
+    main { width:1600px; margin:0 auto; padding:36px 42px 48px; background:var(--paper); }
+    header { display:flex; justify-content:space-between; gap:30px; align-items:flex-start; border-bottom:3px solid #24362c; padding-bottom:22px; }
+    h1 { font-size:34px; line-height:1.12; margin:0; max-width:900px; }
+    .badge { max-width:480px; padding:12px 16px; background:#17221d; color:#fff; font-weight:700; line-height:1.35; }
+    .intro { color:var(--muted); margin:18px 0 20px; font-size:18px; }
+    .phase-strip { display:grid; grid-template-columns:repeat(6, 1fr); align-items:center; margin:18px 0; border:1px solid var(--line); background:#fff; }
+    .phase-strip span { position:relative; min-height:48px; padding:13px 23px 11px 14px; font-weight:700; border-right:1px solid var(--line); }
+    .phase-strip span:not(:last-child)::after { content:"→"; position:absolute; right:7px; color:#455c4b; font-size:21px; top:9px; }
+    .phase-strip span:last-child { border:0; }
+    .legend { display:flex; align-items:center; flex-wrap:wrap; gap:10px 18px; margin:16px 0 20px; padding:14px 16px; border-left:6px solid #344d3d; background:#fff; }
+    .legend strong { font-size:18px; }
+    .key, .status { display:inline-flex; align-items:center; gap:7px; font-weight:700; }
+    .key::before { content:""; width:18px; height:18px; border:1px solid rgba(0,0,0,.35); }
+    .key.good::before { background:var(--green); } .key.partial::before { background:var(--yellow); } .key.gap::before { background:var(--red); }
+    .matrix-wrap { overflow:hidden; border:1px solid #66756a; background:#fff; }
+    table { width:100%; border-collapse:collapse; table-layout:fixed; }
+    col.phase { width:7%; } col.stage { width:12%; } col.board { width:20%; } col.docs { width:16%; } col.portal { width:16%; } col.gap { width:16%; } col.question { width:13%; }
+    th, td { vertical-align:top; padding:13px 14px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
+    th { background:#203329; color:#fff; font-size:17px; text-align:left; }
+    th .muted { color:#e1e9e3; }
+    th:last-child, td:last-child { border-right:0; }
+    tr:last-child td { border-bottom:0; }
+    .phase { background:#d9e3da; font-weight:700; font-size:18px; }
+    .stage { font-weight:700; background:#f0f3ee; }
+    .muted { color:var(--muted); }
+    .good { background:var(--green); } .partial { background:var(--yellow); } .gap { background:var(--red); }
+    .status { padding:2px 7px; margin-bottom:6px; border:1px solid rgba(0,0,0,.32); background:rgba(255,255,255,.52); font-size:14px; text-transform:uppercase; letter-spacing:.03em; }
+    .marker { display:inline-flex; align-items:center; justify-content:center; width:29px; height:29px; margin-left:5px; border-radius:50%; background:var(--deep-red); color:#fff; font-weight:700; font-size:13px; vertical-align:middle; }
+    .problems { margin-top:28px; padding:22px; background:#fff; border-top:4px solid var(--deep-red); }
+    h2 { font-size:25px; margin:0 0 16px; }
+    .problem-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; }
+    .problem { min-height:115px; padding:13px; border:1px solid #e1aaa4; background:#fff5f3; }
+    .problem b { color:#861a14; } .problem p { margin:6px 0 0; }
+    footer { margin-top:24px; padding-top:16px; border-top:1px solid var(--line); color:var(--muted); }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Евростекло — процесс продаж: как на вашей доске и что видно в портале</h1>
+      <div class="badge">Вариант 4 · Стиль: Heat Map &amp; Heatmap Style · Нотация: матрица разрывов «как должно быть / как сейчас»</div>
+    </header>
+    <p class="intro">Матрица помогает на встрече увидеть, где процесс на доске совпадает с тем, что видно в портале, а где требуется решение клиента.</p>
+
+    <div class="phase-strip" aria-label="Ориентир по фазам">
+      <span>Ф1 Заявка</span><span>Ф2 Расчёт и замер</span><span>Ф3 Договор и оплата</span><span>Ф4 Производство</span><span>Ф5 Отгрузка / монтаж</span><span>Ф6 Сервис</span>
+    </div>
+
+    <section class="legend" aria-label="Легенда цветовой шкалы">
+      <strong>Шкала матрицы</strong>
+      <span class="key good">зелёный — есть</span>
+      <span class="key partial">жёлтый — частично / уточнить</span>
+      <span class="key gap">красный — нет или проблема</span>
+      <span class="muted">Цвет всегда дополнен текстовой меткой.</span>
+    </section>
+
+    <div class="matrix-wrap">
+      <table>
+        <colgroup><col class="phase"><col class="stage"><col class="board"><col class="docs"><col class="portal"><col class="gap"><col class="question"></colgroup>
+        <thead><tr><th>Фаза</th><th>Этапы доски</th><th>Как на доске<br><span class="muted">шаги, кто делает</span></th><th>Документы и правила</th><th>В портале сейчас<br><span class="muted">этап, цифра</span></th><th>Разрыв</th><th>Вопрос клиенту</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="phase" rowspan="2">Ф1<br>Заявка</td>
+            <td class="stage">Источники → лид</td>
+            <td>Сарафан, vk.ru, Telegram, Авито, 4 салона → «Лид B2B, B2C».</td>
+            <td>—</td>
+            <td class="partial"><span class="status">частично</span><br>Лиды: «Не обработан» 982; «В работе» 291 (75,3 млн ₽); «Обработан» 1552 (23,9 млн ₽). <span class="marker">P1</span></td>
+            <td class="gap"><span class="status">проблема</span><br>982 лида не обработаны. <span class="marker">P1</span></td>
+            <td>Кто разбирает новые заявки и за какой срок?</td>
+          </tr>
+          <tr>
+            <td class="stage">Лид → сделка</td>
+            <td>Конвертация лида в сделку с обязательным занесением всех реквизитов в карточку компании.</td>
+            <td>В группе «Товары» обязательно все заказанные позиции.</td>
+            <td class="gap"><span class="status">проблема</span><br>Две воронки: «Активные продажи» и «Общая». Роли с доски в портале не видны. <span class="marker">P8</span> <span class="marker">P9</span></td>
+            <td class="gap"><span class="status">проблема</span><br>Этапы двух воронок не совпадают с доской. <span class="marker">P9</span></td>
+            <td>Какая воронка рабочая? Кто отвечает на каждом этапе?</td>
+          </tr>
+          <tr>
+            <td class="phase" rowspan="2">Ф2<br>Расчёт и замер</td>
+            <td class="stage">1. Предварительный расчёт</td>
+            <td>Менеджер ОП: счёт на оплату замера, контроль оплаты; формирует задание на замер.</td>
+            <td>Предварительная оценка.</td>
+            <td class="partial"><span class="status">частично</span><br>«Предварительная заявка» 1166 (60,3 млн ₽).</td>
+            <td class="gap"><span class="status">проблема</span><br>До замеров и проектирования дошли 17 сделок. <span class="marker">P2</span></td>
+            <td>Что мешает дойти до замера?</td>
+          </tr>
+          <tr>
+            <td class="stage">2. Заявка</td>
+            <td>Руководитель ПО распределяет задание, контролирует замер и проектирование.</td>
+            <td>Чертёж DXF; чертёж PDF; спецификация фурнитуры; спецификация расходных материалов; монтажная схема PDF.</td>
+            <td class="partial"><span class="status">частично</span><br>«Замеры и проектирование» 17 (0,13 млн ₽).</td>
+            <td class="gap"><span class="status">проблема</span><br>Задачи по звонкам пропущены, реакции нет. <span class="marker">P8</span></td>
+            <td>Кто отвечает на каждом этапе?</td>
+          </tr>
+          <tr>
+            <td class="phase" rowspan="3">Ф3<br>Договор и оплата</td>
+            <td class="stage">3. Договор</td>
+            <td>Менеджер ОП отправляет договор юристу, согласует правки, формирует документы для подписания.</td>
+            <td>Типовая форма КП; типовая форма договора; спецификация к договору из «Товаров».</td>
+            <td class="partial"><span class="status">частично</span><br>«Согласование сделки» 1.</td>
+            <td class="gap"><span class="status">нет</span><br>Этапа «Договор» в портале не видно. <span class="marker">P3</span></td>
+            <td>Где это фиксируется сейчас?</td>
+          </tr>
+          <tr>
+            <td class="stage">4. Подписание</td>
+            <td>Менеджер ОП отправляет договор заказчику; загружает скан подписанного с обеих сторон договора.</td>
+            <td>Документы для подписания.</td>
+            <td class="gap"><span class="status">нет</span><br>Этапа «Подписание» в портале не видно. <span class="marker">P3</span></td>
+            <td class="gap"><span class="status">нет</span><br>Не видно отдельного этапа подписания.</td>
+            <td>Где это фиксируется сейчас?</td>
+          </tr>
+          <tr>
+            <td class="stage">5. Предоплата</td>
+            <td>Менеджер ОП отправляет счёт на предоплату.</td>
+            <td>Предоплата не менее 35 %; напоминание через 2–3 дня; смена этапа «Договор» через 3 рабочих дня.</td>
+            <td class="partial"><span class="status">частично</span><br>«Оплата» 39 (1,5 млн ₽).</td>
+            <td class="gap"><span class="status">нет</span><br>Этапа «Предоплата» в портале не видно. <span class="marker">P3</span></td>
+            <td>Где это фиксируется сейчас?</td>
+          </tr>
+          <tr>
+            <td class="phase" rowspan="2">Ф4<br>Производство и снабжение</td>
+            <td class="stage">6. В производстве</td>
+            <td>Менеджер ОП оформляет заказ для запуска; руководитель ПТО запускает заказ и добавляет его в производственный график.</td>
+            <td>Заказ в производство; заявка на внутреннее потребление.</td>
+            <td class="partial"><span class="status">частично</span><br>«Производство» 507 (13,0 млн ₽).</td>
+            <td class="gap"><span class="status">проблема</span><br>Много сделок остаётся в процессе. <span class="marker">P4</span></td>
+            <td>Кто и когда переводит сделку дальше?</td>
+          </tr>
+          <tr>
+            <td class="stage">7. Изготовлено</td>
+            <td>Руководитель ОС формирует заказ фурнитуры, график поставок, логистику; при наличии на складе — внутреннее потребление.</td>
+            <td>Уведомления: руководителю ПТО о запуске; руководителю производства; менеджеру о дате готовности.</td>
+            <td class="gap"><span class="status">нет</span><br>Этапа «Изготовлено» в портале не видно. <span class="marker">P4</span></td>
+            <td class="gap"><span class="status">нет</span><br>Нет видимого перехода после производства.</td>
+            <td>Кто и когда переводит сделку дальше?</td>
+          </tr>
+          <tr>
+            <td class="phase" rowspan="2">Ф5<br>Отгрузка или монтаж</td>
+            <td class="stage">8. Отгрузка</td>
+            <td>Менеджер ОП: сообщение о готовности, счёт на остаток, контроль 100 % оплаты, доверенность на груз, дата отгрузки, документы в службу доставки.</td>
+            <td>Счёт на оплату остатка; УПД; отгрузочные документы.</td>
+            <td class="gap"><span class="status">нет</span><br>Этапа «Отгрузка» в портале не видно. <span class="marker">P5</span></td>
+            <td class="gap"><span class="status">нет</span><br>Отгрузка не видна отдельным этапом.</td>
+            <td>Монтаж — после отгрузки или вместо неё?</td>
+          </tr>
+          <tr>
+            <td class="stage">10. Монтаж <span class="muted">?</span></td>
+            <td>Менеджер ОП: задание на монтаж; руководитель службы сервиса распределяет задание, согласует дату и время, контролирует выезд и качество (фото).</td>
+            <td>Наряд-задание; монтажная схема.</td>
+            <td class="good"><span class="status">есть</span><br>«Монтаж» 41.</td>
+            <td class="partial"><span class="status">уточнить</span><br>Монтаж — отдельная ветка после «Изготовлено», параллельно отгрузке — уточнить. <span class="marker">P5</span></td>
+            <td>Монтаж — после отгрузки или вместо неё?</td>
+          </tr>
+          <tr>
+            <td class="phase" rowspan="2">Ф6<br>Завершение и сервис</td>
+            <td class="stage">9. Сделка завершена</td>
+            <td>Сделка завершена.</td>
+            <td>Закрывающие документы.</td>
+            <td class="good"><span class="status">есть</span><br>«Закрытие сделки».</td>
+            <td class="partial"><span class="status">уточнить</span><br>Связь с закрывающими документами не видна.</td>
+            <td>Уточнить порядок.</td>
+          </tr>
+          <tr>
+            <td class="stage">Сервис</td>
+            <td>Ассистент ОП контролирует возврат закрывающих документов; звонит клиенту через 14 / 90 / 270 дней.</td>
+            <td>Закрывающие документы.</td>
+            <td class="gap"><span class="status">нет</span><br>Звонки 14 / 90 / 270 в портале не видны. <span class="marker">P6</span></td>
+            <td class="gap"><span class="status">нет</span><br>Сервисные звонки не видны.</td>
+            <td>Звоните ли клиенту после сделки?</td>
+          </tr>
+          <tr>
+            <td class="phase">Отказ</td>
+            <td class="stage">Воронка отказников</td>
+            <td>Причины: закупка не согласована; закупили у конкурентов; тендер конечника не состоялся; закупка отложена.</td>
+            <td>—</td>
+            <td class="gap"><span class="status">нет</span><br>Воронки отказников в портале не видно. <span class="marker">P7</span></td>
+            <td class="gap"><span class="status">нет</span><br>Не видно, куда уходит сделка при отказе.</td>
+            <td>Куда уходит сделка при отказе?</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <section class="problems">
+      <h2>Проблемные места — подтвердить с клиентом</h2>
+      <div class="problem-grid">
+        <div class="problem"><b>P1 · Ф1</b><p>982 лида «Не обработан».<br>Кто разбирает новые заявки и за какой срок?</p></div>
+        <div class="problem"><b>P2 · Ф2</b><p>1166 сделок на первом этапе, до замера дошли 17.<br>Что мешает дойти до замера?</p></div>
+        <div class="problem"><b>P3 · Ф3</b><p>Нет этапов «Договор», «Подписание», «Предоплата».<br>Где это фиксируется сейчас?</p></div>
+        <div class="problem"><b>P4 · Ф4</b><p>Нет этапа «Изготовлено»; 507 сделок в «Производстве».<br>Кто и когда переводит сделку дальше?</p></div>
+        <div class="problem"><b>P5 · Ф5</b><p>Нет этапа «Отгрузка»; порядок монтажа и отгрузки не ясен.<br>Монтаж — после отгрузки или вместо неё?</p></div>
+        <div class="problem"><b>P6 · Ф6</b><p>Звонки 14 / 90 / 270 в портале не видны.<br>Звоните ли клиенту после сделки?</p></div>
+        <div class="problem"><b>P7 · Отказ</b><p>Воронки отказников в портале не видно.<br>Куда уходит сделка при отказе?</p></div>
+        <div class="problem"><b>P8 · Все фазы</b><p>Задачи по звонкам просрочены, роли с доски в портале не видны.<br>Кто отвечает на каждом этапе?</p></div>
+        <div class="problem"><b>P9 · Все фазы</b><p>В портале две воронки, этапы не совпадают с доской.<br>Какая воронка рабочая?</p></div>
+      </div>
+    </section>
+    <footer>Источники: ваша доска процесса (Miro) и запись экрана портала Битрикс24, 28.09.2026. Группировка по фазам — аналитическая, для обсуждения.</footer>
+  </main>
+</body>
+</html>

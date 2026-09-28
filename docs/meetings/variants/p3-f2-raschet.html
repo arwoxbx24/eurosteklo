@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ф2 · Расчёт и замер</title>
+<style>
+  :root{
+    --ink:#000000;--paper:#ffffff;--accent:#002fa7;--accent-soft:#eef1fb;
+    --red:#d12600;--hair:#b9bdc9;--muted:#555a63;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;border-radius:0;}
+  html,body{background:var(--paper);color:var(--ink);}
+  body{font-family:"Helvetica Neue",Helvetica,Arial,"Segoe UI",sans-serif;
+    font-size:20px;line-height:1.3;-webkit-font-smoothing:antialiased;}
+  .canvas{width:1600px;max-width:100%;margin:0 auto;padding:44px 44px 26px;
+    display:flex;flex-direction:column;min-height:812px;}
+
+  .head{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;
+    border-bottom:3px solid var(--ink);padding-bottom:20px;}
+  .head h1{font-size:40px;line-height:1.1;font-weight:800;letter-spacing:-.5px;}
+  .head .sub{font-size:20px;color:var(--muted);margin-top:8px;}
+  .badge{border:1px solid var(--ink);padding:14px 18px;font-size:16px;font-weight:700;
+    white-space:nowrap;flex-shrink:0;}
+  .badge b{color:var(--accent);}
+
+  .stages{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap;}
+  .st{display:inline-flex;align-items:center;gap:10px;font-size:20px;}
+  .st .c{width:34px;height:34px;border:2px solid var(--ink);border-radius:50%;
+    display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;}
+
+  .flow{margin-top:34px;border-top:3px solid var(--ink);padding-top:26px;}
+  .flow h2{font-size:26px;font-weight:800;letter-spacing:-.3px;margin-bottom:20px;}
+  .row{display:flex;align-items:stretch;gap:16px;flex-wrap:wrap;}
+  .tile{border:2px solid var(--ink);padding:22px 22px;flex:1 1 240px;display:flex;
+    flex-direction:column;gap:10px;min-height:230px;}
+  .tile .role{font-size:14px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+    color:var(--accent);}
+  .tile .act{font-size:22px;font-weight:700;line-height:1.25;}
+  .tile .doc{font-size:17px;color:var(--muted);margin-top:auto;border-top:1px dashed var(--hair);
+    padding-top:10px;}
+  .arrow{font-size:46px;font-weight:800;color:var(--ink);align-self:center;flex:none;padding:0 4px;}
+
+  .p2{margin-top:30px;border:3px solid var(--red);background:var(--paper);
+    border-left:16px solid var(--red);padding:26px 30px;display:flex;gap:24px;align-items:center;}
+  .p2 .pdot{width:64px;height:64px;border-radius:50%;background:var(--red);color:#fff;
+    font-weight:800;font-size:26px;display:inline-flex;align-items:center;justify-content:center;flex:none;}
+  .p2 .fact{font-size:24px;font-weight:800;line-height:1.25;}
+  .p2 .fact span{color:var(--red);}
+  .p2 .q{margin-top:8px;font-size:22px;color:var(--ink);}
+  .p2 .q::before{content:"Вопрос клиенту: ";font-weight:800;}
+  .foot{margin-top:auto;border-top:1px solid var(--hair);padding-top:12px;
+    font-size:14px;color:var(--muted);}
+</style>
+</head>
+<body>
+<div class="canvas">
+
+  <header class="head">
+    <div>
+      <h1>Ф2 · Расчёт и замер</h1>
+      <p class="sub">Этапы 1–2 доски процесса</p>
+    </div>
+    <div class="badge">Вариант 1 · Стиль: <b>Minimalism &amp; Swiss Style</b></div>
+  </header>
+
+  <div class="stages">
+    <span class="st"><span class="c">1</span>Предварительный расчёт</span>
+    <span class="st"><span class="c">2</span>Заявка</span>
+  </div>
+
+  <section class="flow">
+    <h2>Шаги расчёта и замера</h2>
+    <div class="row">
+      <div class="tile">
+        <div class="role">Менеджер ОП</div>
+        <div class="act">Счёт на оплату замера, контроль оплаты</div>
+        <div class="doc">Документ: предварительная оценка · этап 1</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="tile">
+        <div class="role">Менеджер ОП</div>
+        <div class="act">Формирует задание на замер</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="tile">
+        <div class="role">Руководитель ПО</div>
+        <div class="act">Распределяет задание, контролирует замер и проектирование</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="tile">
+        <div class="role">Этап 2 · Заявка</div>
+        <div class="act">Документы по результатам замера</div>
+        <div class="doc">чертёж DXF · чертёж PDF · спецификация фурнитуры · спецификация расходных материалов · монтажная схема PDF</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="p2">
+    <span class="pdot">P2</span>
+    <div>
+      <div class="fact">В портале: <span>1166 сделок</span> на первом этапе, до замера дошли <span>только 17</span>.</div>
+      <div class="q">Что мешает дойти до замера?</div>
+    </div>
+  </section>
+
+  <footer class="foot">Источник: ваша доска процесса (Miro) и запись экрана портала Битрикс24, 28.09.2026. Фаза Ф2 — этапы 1–2 доски; цепочка подтверждена стрелками доски.</footer>
+
+</div>
+</body>
+</html>

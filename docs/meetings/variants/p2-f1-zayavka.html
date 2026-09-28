@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Ф1 · Заявка</title>
+<style>
+  :root{
+    --ink:#000000;
+    --paper:#ffffff;
+    --accent:#002fa7;
+    --red:#d12600;
+    --hair:#b9bdc9;
+    --muted:#555a63;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:var(--paper);color:var(--ink);}
+  body{
+    font-family:"Helvetica Neue",Helvetica,Arial,"Segoe UI",sans-serif;
+    font-size:20px;line-height:1.3;-webkit-font-smoothing:antialiased;
+  }
+  .screen{
+    width:1600px;height:900px;
+    margin:0 auto;padding:52px 60px 34px;
+    display:flex;flex-direction:column;
+    background:var(--paper);
+  }
+  /* Header */
+  .head{display:flex;justify-content:space-between;align-items:flex-start;
+    gap:32px;border-bottom:3px solid var(--ink);padding-bottom:22px;}
+  .head h1{font-size:40px;font-weight:800;letter-spacing:-1px;}
+  .badge{border:1px solid var(--ink);padding:12px 18px;font-size:18px;font-weight:700;white-space:nowrap;}
+  .badge b{color:var(--accent);}
+
+  /* Steps row */
+  .flow{display:flex;align-items:stretch;gap:18px;margin-top:44px;flex:1;}
+  .tile{
+    flex:1;border:2px solid var(--ink);
+    padding:22px;display:flex;flex-direction:column;gap:12px;
+  }
+  .tile .role{display:block;border-bottom:2px solid var(--ink);
+    font-size:20px;font-weight:700;letter-spacing:.04em;
+    padding-bottom:10px;text-transform:uppercase;}
+  .tile .act{font-size:20px;font-weight:800;line-height:1.25;}
+  .tile ul{list-style:none;margin-top:4px;}
+  .tile li{position:relative;padding-left:16px;font-size:20px;line-height:1.35;}
+  .tile li::before{content:"—";position:absolute;left:0;font-weight:800;}
+  .arrow{flex:none;align-self:center;font-size:44px;font-weight:800;line-height:1;color:var(--red);}
+
+  /* Red P1 block */
+  .p1{
+    margin-top:34px;border:3px solid var(--red);background:var(--red);
+    color:#fff;padding:24px 28px;
+    display:flex;align-items:center;gap:24px;
+  }
+  .p1 .tag{flex:none;border:2px solid #fff;border-radius:50%;
+    width:64px;height:64px;display:flex;align-items:center;justify-content:center;
+    font-size:24px;font-weight:800;}
+  .p1 .t{font-size:32px;font-weight:800;line-height:1.1;letter-spacing:-.5px;}
+  .p1 .q{margin-top:6px;background:#fff;color:var(--red);
+    display:inline-block;padding:6px 14px;font-size:24px;font-weight:800;}
+
+  /* Footer */
+  .foot{margin-top:26px;border-top:1px solid var(--hair);padding-top:12px;
+    font-size:15px;color:var(--muted);display:flex;justify-content:space-between;gap:20px;}
+</style>
+</head>
+<body>
+<div class="screen">
+
+  <header class="head">
+    <div><h1>Ф1 · Заявка</h1></div>
+    <div class="badge">Вариант 2 · <b>Стиль: Minimalism &amp; Swiss Style</b> · Нотация: шаги слева направо</div>
+  </header>
+
+  <div class="flow">
+    <div class="tile">
+      <span class="role">Источники → лид</span>
+      <div class="act">Заявки приходят из пяти каналов</div>
+      <ul>
+        <li>Сарафан</li>
+        <li>vk.ru</li>
+        <li>Telegram</li>
+        <li>Авито</li>
+        <li>4 салона: Артиллерийская · Нарвская · Ленинский · Челнокова</li>
+      </ul>
+      <div class="act">→ Лид B2B / B2C</div>
+    </div>
+
+    <div class="arrow">→</div>
+
+    <div class="tile">
+      <span class="role">Менеджер ОП</span>
+      <div class="act">Конвертация лида в сделку</div>
+      <ul>
+        <li>Обязательное занесение всех реквизитов в карточку компании</li>
+      </ul>
+    </div>
+
+    <div class="arrow">→</div>
+
+    <div class="tile">
+      <span class="role">Менеджер ОП</span>
+      <div class="act">Позиции заказа</div>
+      <ul>
+        <li>В группе «ТОВАРЫ» обязательно указываются все заказанные позиции</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="p1">
+    <div class="tag">P1</div>
+    <div>
+      <div class="t">В портале 982 лида «Не обработан»</div>
+      <div class="q">Вопрос: кто разбирает новые заявки и за какой срок?</div>
+    </div>
+  </div>
+
+  <footer class="foot">
+    <span>Источники: доска процесса (Miro) и запись экрана портала Битрикс24, 28.09.2026. Только факты раздела «Ф1».</span>
+    <span>P1 — по данным портала сейчас</span>
+  </footer>
+
+</div>
+</body>
+</html>

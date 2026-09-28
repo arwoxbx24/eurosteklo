@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Евростекло — процесс продаж</title>
+  <style>
+    :root { --ink:#172033; --paper:#f7f8fb; --line:#d6dbe5; --red:#dc2626; --f1:#2563eb; --f2:#0891b2; --f3:#7c3aed; --f4:#16a34a; --f5:#ea580c; --f6:#db2777; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--paper); color:var(--ink); font:600 16px/1.35 Arial, Helvetica, sans-serif; }
+    .page { width:1600px; min-height:100vh; margin:0 auto; padding:38px 42px 28px; }
+    header { display:flex; align-items:flex-start; justify-content:space-between; gap:30px; border-bottom:5px solid var(--ink); padding-bottom:22px; }
+    h1 { font-size:36px; line-height:1.08; margin:0; max-width:890px; letter-spacing:-.7px; }
+    .badge { width:405px; padding:13px 16px; background:#ffdc45; border:2px solid var(--ink); border-radius:2px; font-size:18px; line-height:1.25; }
+    .intro { margin:22px 0 17px; font-size:18px; color:#46536b; }
+    .process { display:grid; grid-template-columns:repeat(6, 1fr); gap:0; }
+    .chevron { min-height:96px; color:#fff; display:flex; align-items:center; padding:17px 28px 17px 33px; margin-left:-13px; clip-path:polygon(0 0, calc(100% - 23px) 0, 100% 50%, calc(100% - 23px) 100%, 0 100%, 23px 50%); }
+    .chevron:first-child { margin-left:0; clip-path:polygon(0 0, calc(100% - 23px) 0, 100% 50%, calc(100% - 23px) 100%, 0 100%); padding-left:18px; }
+    .chevron strong { display:block; font-size:23px; line-height:1.05; }
+    .chevron span { display:block; font-size:16px; margin-top:5px; }
+    .f1 { background:var(--f1); } .f2 { background:var(--f2); } .f3 { background:var(--f3); } .f4 { background:var(--f4); } .f5 { background:var(--f5); } .f6 { background:var(--f6); }
+    .phase-grid { display:grid; grid-template-columns:repeat(6, 1fr); border:2px solid var(--ink); border-top:0; background:#fff; }
+    .phase { min-height:540px; padding:17px 15px 18px; border-right:2px solid var(--line); position:relative; }
+    .phase:last-child { border-right:0; }
+    h2 { font-size:22px; margin:0 0 10px; line-height:1.1; }
+    h3 { font-size:17px; text-transform:uppercase; letter-spacing:.4px; margin:17px 0 7px; color:#536078; }
+    p { margin:0 0 8px; }
+    ul { margin:0; padding-left:19px; }
+    li { margin:0 0 6px; }
+    .stage { display:inline-block; padding:2px 7px; margin:0 3px 5px 0; border-radius:2px; color:#fff; font-weight:800; }
+    .role { display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; margin:0 3px 3px 0; border:2px solid var(--ink); border-radius:50%; background:#fff; color:var(--ink); font-size:11px; font-weight:900; vertical-align:middle; }
+    .question { display:inline-flex; align-items:center; justify-content:center; width:21px; height:21px; border-radius:50%; background:#ffdc45; border:2px solid var(--ink); font-size:13px; font-weight:900; vertical-align:middle; }
+    .problem { position:absolute; right:10px; top:12px; width:31px; height:31px; border-radius:50%; background:var(--red); color:#fff; display:grid; place-items:center; font-size:12px; font-weight:900; border:2px solid #fff; }
+    .branch { display:grid; grid-template-columns:repeat(6, 1fr); margin:0 0 24px; }
+    .refusal { grid-column:2 / 4; background:#fff0f0; border:2px solid var(--red); border-top:0; padding:15px 18px 17px; position:relative; }
+    .refusal:before { content:"↓  Отказ"; position:absolute; top:-36px; left:50%; transform:translateX(-50%); color:#fff; background:var(--red); border-radius:2px; padding:6px 15px; font-weight:900; }
+    .refusal h2 { color:var(--red); }
+    .portal { border:3px solid var(--ink); background:#fff; padding:18px 20px 54px; }
+    .portal-head { display:flex; justify-content:space-between; align-items:baseline; gap:20px; }
+    .portal h2 { font-size:24px; }
+    .portal-note { color:#536078; font-size:16px; }
+    .bars { display:grid; grid-template-columns:repeat(6, 1fr); gap:14px; align-items:end; min-height:252px; padding-top:27px; }
+    .bar-group { min-height:225px; display:flex; align-items:end; justify-content:center; gap:9px; border-bottom:3px solid var(--ink); padding:0 4px; position:relative; }
+    .bar-group:before { content:attr(data-phase); position:absolute; top:-25px; left:0; color:#536078; font-size:15px; font-weight:800; }
+    .bar { position:relative; display:flex; align-items:flex-start; justify-content:center; color:#fff; font-size:13px; font-weight:900; }
+    .bar b { position:absolute; bottom:calc(100% + 5px); color:var(--ink); font-size:18px; }
+    .bar small { position:absolute; bottom:-48px; width:104px; text-align:center; color:#46536b; font-size:12px; font-weight:700; line-height:1.1; }
+    .b1 { width:62px; height:152px; background:var(--f1); } .b2 { width:74px; height:180px; background:var(--f1); } .b3 { width:1px; height:3px; background:var(--f2); } .b4 { width:1px; height:1px; background:var(--f3); } .b5 { width:3px; height:6px; background:var(--f3); } .b6 { width:32px; height:78px; background:var(--f4); } .b7 { width:3px; height:6px; background:var(--f5); }
+    .no-number { align-self:center; font-size:14px; color:#536078; text-align:center; border:2px dashed #aab3c2; padding:12px 6px; }
+    .legend-row { display:grid; grid-template-columns:1.1fr 1.5fr; gap:20px; margin-top:24px; }
+    .legend, .problems { background:#fff; border:2px solid var(--ink); padding:18px; }
+    .legend h2, .problems h2 { font-size:22px; }
+    .roles { display:flex; flex-wrap:wrap; gap:10px 16px; }
+    .role-item { display:flex; align-items:center; gap:7px; white-space:nowrap; }
+    .problems { border-color:var(--red); }
+    .problem-list { display:grid; grid-template-columns:repeat(3, 1fr); gap:12px 18px; }
+    .problem-item { border-left:6px solid var(--red); padding-left:9px; font-size:15px; }
+    .problem-item b { color:var(--red); }
+    footer { margin-top:23px; padding-top:15px; border-top:2px solid var(--line); color:#536078; font-size:15px; }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <h1>Евростекло — процесс продаж: как на вашей доске и что видно в портале</h1>
+      <div class="badge">Вариант 3 · Стиль: Flat Design · Нотация: цепочка создания ценности (value stream)</div>
+    </header>
+    <p class="intro">Шесть фаз собраны по вашей доске. Там, где порядок или связь не подтверждены, стоит знак <span class="question">?</span> — это нужно обсудить.</p>
+
+    <section aria-label="Цепочка создания ценности">
+      <div class="process">
+        <div class="chevron f1"><div><strong>Ф1 · Заявка</strong><span>лид → сделка</span></div></div>
+        <div class="chevron f2"><div><strong>Ф2 · Расчёт и замер</strong><span>этапы 1–2</span></div></div>
+        <div class="chevron f3"><div><strong>Ф3 · Договор и оплата</strong><span>этапы 3–5</span></div></div>
+        <div class="chevron f4"><div><strong>Ф4 · Производство</strong><span>этапы 6–7</span></div></div>
+        <div class="chevron f5"><div><strong>Ф5 · Отгрузка или монтаж</strong><span>этапы 8, 10 · порядок уточнить</span></div></div>
+        <div class="chevron f6"><div><strong>Ф6 · Сервис</strong><span>этап 9 · порядок уточнить</span></div></div>
+      </div>
+      <div class="phase-grid">
+        <article class="phase"><span class="problem">P1</span><span class="problem" style="top:51px">P8</span><span class="problem" style="top:90px">P9</span>
+          <h2>Вход заявки</h2><h3>Этапы доски</h3><p>Источники заявок → «Лид B2B, B2C» → перевод лида в сделку <span class="question">?</span></p><h3>Кто делает</h3><p>Роль на доске не указана <span class="question">?</span></p><h3>Что заполняем</h3><p>Все реквизиты — в карточку компании; все заказанные позиции — в группе «Товары».</p><h3>Сроки</h3><p>Срок не указан <span class="question">?</span></p>
+        </article>
+        <article class="phase"><span class="problem">P2</span>
+          <h2><span class="stage f2">1</span><span class="stage f2">2</span>Расчёт и замер</h2><h3>Что происходит</h3><ul><li>Предварительный расчёт.</li><li>Заявка.</li><li>Счёт на замер и контроль оплаты.</li><li>Задание на замер, распределение и контроль замера и проектирования.</li></ul><h3>Кто делает</h3><p><span class="role">МОП</span> <span class="role">ПО</span></p><h3>Документы</h3><p>Предварительная оценка; DXF, PDF, спецификация фурнитуры и расходных материалов, монтажная схема PDF.</p><h3>Сроки</h3><p>Срок не указан <span class="question">?</span></p>
+        </article>
+        <article class="phase"><span class="problem">P3</span>
+          <h2><span class="stage f3">3</span><span class="stage f3">4</span><span class="stage f3">5</span>Договор и оплата</h2><h3>Что происходит</h3><ul><li>Договор — юристу и заказчику.</li><li>Согласование правок и подписание.</li><li>Скан договора и счёт на предоплату.</li></ul><h3>Кто делает</h3><p><span class="role">МОП</span></p><h3>Документы</h3><p>КП, типовая форма договора, спецификация из «Товаров».</p><h3>Сроки и правила</h3><p>Предоплата от 35 %; напоминание через 2–3 дня; смена этапа «Договор» через 3 рабочих дня.</p>
+        </article>
+        <article class="phase"><span class="problem">P4</span>
+          <h2><span class="stage f4">6</span><span class="stage f4">7</span>Производство</h2><h3>Что происходит</h3><ul><li>Заказ для запуска в производство.</li><li>Внутреннее потребление.</li><li>Производственный график.</li><li>Заказ фурнитуры, график поставок и логистика.</li></ul><h3>Кто делает</h3><p><span class="role">МОП</span> <span class="role">ПТО</span> <span class="role">ОС</span></p><h3>Документы</h3><p>Заказ в производство; заявка на внутреннее потребление.</p><h3>Сроки и правила</h3><p>Уведомления ПТО, руководителю производства и менеджеру о дате готовности.</p>
+        </article>
+        <article class="phase"><span class="problem">P5</span>
+          <h2><span class="stage f5">8</span><span class="stage f5">10</span>Отгрузка или монтаж</h2><h3>Что происходит</h3><p>После «Изготовлено»: отгрузка и отдельная ветка монтажа <span class="question">?</span></p><h3>Кто делает</h3><p><span class="role">МОП</span> <span class="role">СС</span></p><h3>Документы</h3><p>Счёт на остаток, УПД, наряд-задание, монтажная схема.</p><h3>Сроки и правила</h3><p>100 % оплата; доверенность на груз; дата отгрузки; согласование даты и времени монтажа; контроль выезда и качества (фото).</p>
+        </article>
+        <article class="phase"><span class="problem">P6</span>
+          <h2><span class="stage f6">9</span>Завершение и сервис</h2><h3>Что происходит</h3><p>Сделка завершена; контроль возврата закрывающих документов; звонки клиенту.</p><h3>Кто делает</h3><p><span class="role">АОП</span></p><h3>Документы</h3><p>Закрывающие документы.</p><h3>Сроки и правила</h3><p>Звонки через 14 / 90 / 270 дней.</p>
+        </article>
+      </div>
+      <div class="branch"><aside class="refusal"><span class="problem">P7</span><h2>Ветка «Отказ»</h2><p>Воронка отказников: закупка не согласована; закупили у конкурентов; тендер конечника не состоялся; закупка отложена.</p><p>Куда уходит сделка при отказе? <span class="question">?</span></p></aside></div>
+    </section>
+
+    <section class="portal" aria-label="Портал сейчас">
+      <div class="portal-head"><h2>Портал сейчас</h2><p class="portal-note">Столбики показывают число сделок; высота и ширина пропорциональны числу.</p></div>
+      <div class="bars">
+        <div class="bar-group" data-phase="Ф1 · Заявка"><div class="bar b1"><b>982</b><small>Лиды «Не обработан»</small></div><div class="bar b2"><b>1166</b><small>Предварительная заявка</small></div></div>
+        <div class="bar-group" data-phase="Ф2 · Расчёт и замер"><div class="bar b3"><b>17</b><small>Замеры и проектирование</small></div></div>
+        <div class="bar-group" data-phase="Ф3 · Договор и оплата"><div class="bar b4"><b>1</b><small>Согласование сделки</small></div><div class="bar b5"><b>39</b><small>Оплата</small></div></div>
+        <div class="bar-group" data-phase="Ф4 · Производство"><div class="bar b6"><b>507</b><small>Производство</small></div></div>
+        <div class="bar-group" data-phase="Ф5 · Отгрузка или монтаж"><div class="bar b7"><b>41</b><small>Монтаж</small></div></div>
+        <div class="bar-group" data-phase="Ф6 · Завершение и сервис"><div class="no-number">«Закрытие сделки»<br>без цифры</div></div>
+      </div>
+    </section>
+
+    <section class="legend-row">
+      <div class="legend"><h2>Кто делает</h2><div class="roles"><div class="role-item"><span class="role">МОП</span>Менеджер ОП</div><div class="role-item"><span class="role">АОП</span>Ассистент ОП</div><div class="role-item"><span class="role">ПО</span>Руководитель ПО</div><div class="role-item"><span class="role">ПТО</span>Руководитель ПТО</div><div class="role-item"><span class="role">ОС</span>Руководитель ОС</div><div class="role-item"><span class="role">СС</span>Руководитель службы сервиса</div></div></div>
+      <div class="problems"><h2>Проблемные места — подтвердить с клиентом</h2><div class="problem-list"><div class="problem-item"><b>P1</b> 982 лида «Не обработан». Кто разбирает новые заявки и за какой срок?</div><div class="problem-item"><b>P2</b> 1166 сделок на первом этапе, до замера дошли 17. Что мешает дойти до замера?</div><div class="problem-item"><b>P3</b> В портале нет этапов «Договор», «Подписание», «Предоплата». Где это фиксируется сейчас?</div><div class="problem-item"><b>P4</b> Нет этапа «Изготовлено»; 507 сделок в «Производстве». Кто и когда переводит сделку дальше?</div><div class="problem-item"><b>P5</b> Нет этапа «Отгрузка»; порядок монтажа и отгрузки не ясен. Монтаж — после отгрузки или вместо неё?</div><div class="problem-item"><b>P6</b> Звонки 14 / 90 / 270 в портале не видны. Звоните ли клиенту после сделки?</div><div class="problem-item"><b>P7</b> Воронки отказников в портале не видно. Куда уходит сделка при отказе?</div><div class="problem-item"><b>P8</b> Задачи по звонкам просрочены, роли с доски в портале не видны. Кто отвечает на каждом этапе?</div><div class="problem-item"><b>P9</b> В портале две воронки, этапы не совпадают с доской. Какая воронка рабочая?</div></div></div>
+    </section>
+    <footer>Источники: ваша доска процесса (Miro) и запись экрана портала Битрикс24, 28.09.2026. Группировка по фазам — аналитическая, для обсуждения.</footer>
+  </main>
+</body>
+</html>
