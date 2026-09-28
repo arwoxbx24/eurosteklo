@@ -337,6 +337,11 @@ body{
 .zone li{margin-bottom:5px}
 .zone.ask li{line-height:1.25}
 .slide-blockers .blk td{padding:5px 12px}
+.tp{display:inline-block;font-size:15px;font-weight:800;padding:1px 10px;border-radius:999px;border:2px solid currentColor;white-space:nowrap}
+.tp-cond::before{content:"▤ "}.tp-fork::before{content:"⑂ "}.tp-conf::before{content:"⚡ "}
+.tp-cond{color:#28597a;background:#e8eff5}.tp-fork{color:#8a5a00;background:#fbf1d9}.tp-conf{color:#8c1d1d;background:#f8e3e3;border-style:dashed}
+.blk:has(.tp) td:nth-child(2){width:15%;font-weight:400}
+.blk:has(.tp) th:nth-child(2){width:15%}
 </style>
 </head>
 <body>
@@ -386,6 +391,65 @@ body{
     </tbody>
   </table>
   <footer>Источники: docs/ppo/05-raci-reglamenty.md (разд. 1–3) — строки 1, 3–7; docs/ppo/prosto/3-process.md — строки 2 и 3. Колонка «Что без этого стоит» — вывод, не цитата.</footer>
+</section>
+
+<section class="slide" id="p3">
+  <header><span class="num">3</span><h2>Как мы работаем с тем, чему нельзя верить</h2><p class="lead">Сверяем доску, комментарии, схему и портал; спорное превращаем в вопрос и не берём в задание.</p></header>
+  <ol class="flow">
+    <li class="step"><b>1. Разложить доску на вход и выход стадии</b><span>старший аналитик</span></li>
+    <li class="step"><b>2. Сверить четыре слоя: узел, комментарий, схема, портал</b><span>старший аналитик</span></li>
+    <li class="step"><b>3. Найти разрыв: роль, порядок, срок, документ, сущность</b><span>старший аналитик</span></li>
+    <li class="step"><b>4. Задать вопрос «Покажите на последней сделке» и «5 почему»</b><span>аналитик с клиентом</span></li>
+    <li class="step"><b>5. Пометить статусом; в ТЗ не идти, пока клиент не ответит</b><span>старший аналитик</span></li>
+  </ol>
+  <div class="zones">
+    <div class="zone see"><h3>Что видим</h3><ul>
+      <li>37 противоречий между слоями; 13 из них блокируют ТЗ. <small class="src">источник: k3-conflicts.md, разд. 2</small></li>
+      <li>45 разрывов: выход одной стадии не равен входу следующей. <small class="src">источник: k1-prepost.md, разд. 3</small></li>
+      <li>28 развилок без условия, владельца решения и понятного выхода. <small class="src">источник: k2-forks.md, сводка</small></li>
+    </ul></div>
+    <div class="zone ask"><h3>Что спросить</h3><ol>
+      <li>Спрашиваем про последний случай, не про «как обычно». <em class="show">Покажите: последнюю закрытую сделку на экране.</em></li>
+      <li>Просим показать, а не рассказать. <em class="show">Покажите: документ, карточку или платёж, о котором речь.</em></li>
+      <li>Спрашиваем «почему» до причины, не подсказывая ответ. <em class="show">Покажите: один отказ или сорванный срок.</em></li>
+    </ol></div>
+    <div class="zone unk"><h3>Чего не знаем</h3><ul>
+      <li>Ответов людей ещё нет, всё по доске и записи. <span class="st st-unk">не знаем</span></li>
+      <li>Порядок стадий на доске виден только по расположению. <span class="st st-unk">не знаем</span> <small class="src">источник: k1-prepost.md, разд. 0</small></li>
+      <li>Первичных файлов клиента в репозитории нет, часть ссылок не проверена. <span class="st st-unk">не знаем</span> <small class="src">источник: k3-conflicts.md, разд. 1</small></li>
+    </ul></div>
+  </div>
+  <footer>Источники: разбор доски «Copy of Евростекло» (docs/ppo/konflikty/k1–k3); метод: 01-metodika.md, разд. 2–3.</footer>
+</section>
+
+<section class="slide slide-blockers" id="p4">
+  <header><span class="num">4</span><h2>Что должно быть до и после шага — и где это не сходится</h2><p class="lead">Пять мест, где без ответа клиента нельзя писать требование.</p></header>
+  <table class="blk">
+    <thead><tr><th>№</th><th>Тип</th><th>Что не сходится</th><th>Вопрос клиенту</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td><span class="tp tp-conf">противоречие</span></td><td>Порядок стадий не задан связями; «Предв. расчёт» стоит левее «Заявки» <small class="src">П-44, К-02</small></td><td><em class="show">Покажите: воронку в Битрикс24 и одну сделку с датами переходов по всем стадиям</em></td></tr>
+      <tr><td>2</td><td><span class="tp tp-conf">противоречие</span></td><td>На доске 10 стадий (без лида); в портале другие названия и две воронки <small class="src">К-01, П-45</small></td><td><em class="show">Покажите: настройки обеих воронок со всеми стадиями и какая из них рабочая</em></td></tr>
+      <tr><td>3</td><td><span class="tp tp-cond">условие</span></td><td>Предоплата: нет шага «контролирует получение», порог 35 % без базы расчёта <small class="src">П-22, П-23</small></td><td><em class="show">Покажите: платёж по последнему заказу и от какой суммы посчитаны 35 %</em></td></tr>
+      <tr><td>4</td><td><span class="tp tp-cond">условие</span></td><td>Замер: результат как объект не назван, исполнитель не назван <small class="src">П-13, П-14</small></td><td><em class="show">Покажите: результат замера по одному заказу и кто выезжал на замер</em></td></tr>
+      <tr><td>5</td><td><span class="tp tp-cond">условие</span></td><td>«Изготовлено», «монтаж выполнен», «изделие получено» не определены <small class="src">П-31, П-35, П-38</small></td><td><em class="show">Покажите: по последнему заказу, какая отметка означает «изготовлено», «монтаж принят», «получено»</em></td></tr>
+    </tbody>
+  </table>
+  <footer>Источники: docs/ppo/konflikty/k1-prepost.md, docs/ppo/konflikty/k3-conflicts.md</footer>
+</section>
+
+<section class="slide slide-blockers" id="p5">
+  <header><span class="num">5</span><h2>Развилки и противоречия, которые надо закрыть с клиентом</h2><p class="lead">На доске у этих мест нет условия, владельца или выхода: настроить их нельзя.</p></header>
+  <table class="blk">
+    <thead><tr><th>№</th><th>Тип</th><th>Что не сходится</th><th>Вопрос клиенту</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td><span class="tp tp-fork">развилка</span></td><td>Воронка отказников ни с чем не связана, владельца нет <small class="src">Р-01, К-13</small></td><td><em class="show">Покажите: последнюю сделку в отказе: с какой стадии, кто и где нажал «отказ».</em></td></tr>
+      <tr><td>2</td><td><span class="tp tp-fork">развилка</span></td><td>Монтаж и отгрузка в одном узле, условия выбора нет <small class="src">Р-19, Р-20, К-03</small></td><td><em class="show">Покажите: сделки с монтажом и без. Кто и по какому признаку выбирает?</em></td></tr>
+      <tr><td>3</td><td><span class="tp tp-conf">противоречие</span></td><td>Автосмена стадии через 3 рабочих дня: куда и от чего <small class="src">Р-14, К-05</small></td><td><em class="show">Покажите: сделку, у которой стадия сменилась сама. Из какой стадии в какую?</em></td></tr>
+      <tr><td>4</td><td><span class="tp tp-conf">противоречие</span></td><td>Договор: типовая форма против формы Заказчика <small class="src">Р-11, К-25</small></td><td><em class="show">А если Заказчик не принимает типовую форму: кто правит договор и согласует?</em></td></tr>
+      <tr><td>5</td><td><span class="tp tp-conf">противоречие</span></td><td>Звонки 14/90/270: Ассистент ОП; точка отсчёта не задана <small class="src">К-08, К-14</small></td><td><em class="show">Покажите: задачу «Позвонить клиенту». Кому она ставится, от какой даты считаете?</em></td></tr>
+    </tbody>
+  </table>
+  <footer>Источники: docs/ppo/konflikty/k2-forks.md, docs/ppo/konflikty/k3-conflicts.md</footer>
 </section>
 
 </main>
