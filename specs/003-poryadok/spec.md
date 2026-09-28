@@ -56,7 +56,7 @@
 | В1 | Песочница — только тесты | `sandbox/*euro*`, `*drawio*` — нет | в порядке |
 | В2 | Временное убрано | `/tmp/eurosteklo` удалён | в порядке |
 | В3 | Рабочий проект чист | `.agent-work/`, `.beads.gate.lock` в `.gitignore` (ab4df73); `git status` пуст | в порядке |
-| В4 | GitHub | удалённого нет; `gh repo create` отклонён | ждёт разрешения владельца |
+| В4 | GitHub | https://github.com/arwoxbx24/eurosteklo — PRIVATE, создан владельцем 28.09 19:30, уведомления ignored, gitleaks 0 | в порядке |
 | В5 | ТЗ через проверку спецификации до opencode | закон CLAUDE.md (983f5a5) | действует |
 
 ## Критерии успеха
