@@ -165,6 +165,7 @@ writeFileSync(
     toolbar: "zoom layers",
     nav: true,
     zoom: 1,
+    "allow-zoom-out": false,
     "auto-fit": false,
   });
   writeFileSync(viewPath, head + escapeAttr(graphConfig) + tail);
