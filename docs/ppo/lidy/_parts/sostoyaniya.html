@@ -1,0 +1,237 @@
+<section id="sostoyaniya">
+<h2>Модель состояний лида</h2>
+
+<p>Сравниваем два источника. <b>Доска</b> — клон доски клиента «Copy of Евростекло», на ней нарисовано, как клиент хочет работать <small class="src">portal-as-is.md:103; TOCHKI.md:3</small>. <b>Портал</b> — то, что показал прежний интегратор на записи экрана Битрикс24 (сам портал мы не открывали, поэтому всё про портал — «со слов») <small class="src">portal-as-is.md:3; k3-conflicts.md:87</small>. Главное расхождение: на доске у лида нет промежуточных состояний, от каналов он сразу идёт к «Конвертации», а в портале у лида 5 стадий, 982 лида лежат в «Не обработан», и «за ними не следят» <small class="src">TOCHKI.md:11; portal-as-is.md:19–21, 93</small>.</p>
+
+<table class="tbl">
+<thead>
+<tr><th>Состояние</th><th>На доске</th><th>В портале</th><th>Что непонятно</th></tr>
+</thead>
+<tbody>
+
+<tr>
+<td><b>Обращение</b> (до лида)</td>
+<td><span class="st st-board">на доске</span> 8 каналов: салоны Артиллерийская, Нарвская, Ленинский, Челнокова, а ещё Сарафан, vk.ru, Telegram, Авито. Стрелка в рамку «ЛИД» идёт только от Челнокова и Авито <span class="pt">1</span> <small class="src">3074457358429708938, 3074457358429708935, 3074457358429708936, 3458764681641484921, 3074457358429708937, 3074457358429708943, 3074457358429708944, 3458764681641922534; коннекторы 3458764681641805249, 3458764681641922880; k2-forks.md:31</small></td>
+<td><span class="st st-said">со слов</span> Видны источники «Звонок», «Приложение», «Почта», «Открытая линия (Авито)». Сарафан, vk.ru, Telegram и салоны в записи не показаны <span class="pt">2</span> <small class="src">portal-as-is.md:64–68</small></td>
+<td><span class="st st-conf">противоречие</span> Как попадают в систему 6 каналов без стрелки — сами или их заносят руками? Каналы доски и источники портала не совпадают <span class="pt">1</span> <span class="pt">2</span> <small class="src">k1-prepost.md:56; k3-conflicts.md:68</small></td>
+</tr>
+
+<tr>
+<td><b>Лид создан / Не обработан</b></td>
+<td><span class="st st-unk">не знаем</span> Есть только рамка «ЛИД - B2B, B2C»; отдельного состояния «не обработан» нет. Кто разбирает лид — не сказано <span class="pt">3</span>. В названии B2B и B2C, а путь один <span class="pt">4</span> <small class="src">3074457358429708934; k2-forks.md:31</small></td>
+<td><span class="st st-said">со слов</span> Стадия «Не обработан»: 982 лида, 0 ₽. Интегратор: «за ними не следят» <span class="pt">5</span> <small class="src">portal-as-is.md:19–21, 93</small></td>
+<td><span class="st st-unk">не знаем</span> Кто берёт новый лид и за какое время; что делают со старыми необработанными <span class="pt">3</span> <span class="pt">5</span> <small class="src">k1-prepost.md:55; 2-voprosy.md:14–15</small></td>
+</tr>
+
+<tr>
+<td><b>В работе</b></td>
+<td><span class="st st-unk">не знаем</span> На доске такого состояния нет <small class="src">TOCHKI.md:11</small></td>
+<td><span class="st st-said">со слов</span> Стадия «В работе»: 291 лид, 75 269 169 ₽. В карточке лида есть поле «Ответственный», в примере — «Продавец-консультант» <span class="pt">5</span> <small class="src">portal-as-is.md:19–20, 40, 82</small></td>
+<td><span class="st st-unk">не знаем</span> Что именно делают с лидом в этой стадии и кто за это отвечает <span class="pt">3</span> <small class="src">k1-prepost.md:55</small></td>
+</tr>
+
+<tr>
+<td><b>Недозвон</b></td>
+<td><span class="st st-unk">не знаем</span> Слова «недозвон» на доске нет <span class="pt">6</span> <small class="src">k2-forks.md:19, 30</small></td>
+<td><span class="st st-unk">не знаем</span> Отдельной стадии нет. Есть авто-задачи «Пропущенный вызов», задачи по звонкам висят с пометкой «Просрочена» <small class="src">portal-as-is.md:19, 65, 75, 97</small></td>
+<td><span class="st st-unk">не знаем</span> Сколько попыток, через какое время, куда уходит лид после них (некачественный? отказ? ждёт?) и кто решает <span class="pt">6</span> <small class="src">k2-forks.md:30; 2-voprosy.md:17, 86</small></td>
+</tr>
+
+<tr>
+<td><b>Повтор / дубль</b></td>
+<td><span class="st st-unk">не знаем</span> Случай «клиент уже есть в базе» не описан <span class="pt">7</span> <small class="src">k2-forks.md:32</small></td>
+<td><span class="st st-unk">не знаем</span> В записи не показано <small class="src">portal-as-is.md:15–23 (нет упоминания)</small></td>
+<td><span class="st st-unk">не знаем</span> Как замечают повторную заявку; новый лид или старая карточка <span class="pt">7</span> <small class="src">2-voprosy.md:18; TOCHKI.md:13</small></td>
+</tr>
+
+<tr>
+<td><b>Некачественный</b></td>
+<td><span class="st st-unk">не знаем</span> Такого состояния нет. Есть «Воронка отказников» и 4 причины, ни с чем не связанные <span class="pt">11</span> <small class="src">3074457358431590461; k2-forks.md:25</small></td>
+<td><span class="st st-said">со слов</span> Стадия «Некачественный лид» (красная); в карточке — «На некачественного лида» <small class="src">portal-as-is.md:19, 40</small></td>
+<td><span class="st st-conf">противоречие</span> «Некачественный лид» в портале и «Воронка отказников» на доске — одно и то же или разное? По какому признаку лид считают некачественным <span class="pt">11</span> <small class="src">k3-conflicts.md:48; 2-voprosy.md:16</small></td>
+</tr>
+
+<tr>
+<td><b>Качественный / готов к конвертации</b></td>
+<td><span class="st st-board">на доске</span> «Конвертация ЛИД-а в Сделку с обязательным занесением всех реквизитов в карточку компании». Какие реквизиты — не сказано <span class="pt">8</span> <small class="src">3074457358430916255; k1-prepost.md:54</small></td>
+<td><span class="st st-said">со слов</span> Стадия «Качественный лид» (зелёная) <small class="src">portal-as-is.md:19</small></td>
+<td><span class="st st-unk">не знаем</span> Как понять, что лид готов стать сделкой; какие поля обязательны; что делать с физлицом, у которого нет «карточки компании» <span class="pt">8</span> <small class="src">k1-prepost.md:54; k3-conflicts.md:66</small></td>
+</tr>
+
+<tr>
+<td><b>Конвертирован в сделку</b></td>
+<td><span class="st st-board">на доске</span> После узла «Конвертация» справа стоит рамка «ПРЕДВАРИТЕЛЬНЫЙ РАСЧЕТ», но стрелки к ней нет — порядок только по расположению <span class="pt">9</span> <small class="src">3074457358430916255; 3074457358430445405; k1-prepost.md:11, 36</small></td>
+<td><span class="st st-said">со слов</span> Стадия лида «Обработан»: 1552 лида, 23 947 712 ₽; в карточке кнопка «Завершить обработку лида». Первая стадия сделки — «Предварительная заявка» (1166) в «Активных продажах» или «Квалификация заявки» в «Общей» <small class="src">portal-as-is.md:19–20, 28, 31, 34, 40</small></td>
+<td><span class="st st-conf">противоречие</span> «Обработан» = «сделка создана»? — не знаем. В какой воронке и на какой стадии рождается сделка; на доске «Предв. расчёт» левее «Заявки» <span class="pt">9</span> <small class="src">k3-conflicts.md:37; TOCHKI.md:15</small></td>
+</tr>
+
+<tr>
+<td><b>Отказ</b></td>
+<td><span class="st st-board">на доске</span> Ромб «Воронка отказников» и 4 причины: «Закупка не согласована», «Закупили у конкурентов», «Тендер конечника не состоялся», «Закупка отложена»; комментарий «Отказ». Связей нет ни с одной стадией <span class="pt">11</span> <small class="src">3074457358431590461; 3074457358431099074–077; к.7339; k2-forks.md:25–26</small></td>
+<td><span class="st st-said">со слов</span> У лида — «Некачественный лид»; у сделки — «Сделка провалена» в воронке «Общая»; робот «Контроль» сообщает «Руководителю», что сделка провалена <small class="src">portal-as-is.md:19, 28, 57</small></td>
+<td><span class="st st-conf">противоречие</span> Отказ фиксируют на лиде или на сделке; из каких стадий; кто переводит; обязательна ли причина; что с клиентом потом <span class="pt">11</span> <small class="src">k1-prepost.md:58; k2-forks.md:28; k3-conflicts.md:48</small></td>
+</tr>
+
+<tr>
+<td><b>Отложен</b></td>
+<td><span class="st st-board">на доске</span> «Закупка отложена» лежит среди причин отказа <span class="pt">12</span> <small class="src">3074457358431099077</small></td>
+<td><span class="st st-unk">не знаем</span> В записи не показано <small class="src">portal-as-is.md:15–23 (нет упоминания)</small></td>
+<td><span class="st st-unk">не знаем</span> Это потеря или перенос? Кто и когда перезванивает, до какого срока ждут <span class="pt">12</span> <small class="src">k2-forks.md:27</small></td>
+</tr>
+
+</tbody>
+</table>
+
+<h3>Переходы между состояниями</h3>
+<p>На доске нарисованы только стрелки «канал → ЛИД» (для двух каналов); у остальных переходов нет ни стрелок, ни условий <small class="src">k2-forks.md:15–16; k3-conflicts.md:25</small>. Где источника нет — пишем «не знаем».</p>
+
+<table class="tbl">
+<thead>
+<tr><th>Из → В</th><th>Событие</th><th>Кто</th><th>Условие</th></tr>
+</thead>
+<tbody>
+
+<tr>
+<td>Обращение → Лид</td>
+<td><span class="st st-board">на доске</span> Стрелка в «ЛИД» от Челнокова и Авито; для 6 других каналов — не знаем <span class="pt">1</span> <small class="src">3458764681641805249; 3458764681641922880; k1-prepost.md:56</small>. В портале лид с Авито приходит как «Открытая линия (Авито)» <span class="st st-said">со слов</span> <small class="src">portal-as-is.md:64</small></td>
+<td><span class="st st-unk">не знаем</span> <span class="pt">3</span> <small class="src">k1-prepost.md:55</small></td>
+<td><span class="st st-unk">не знаем</span></td>
+</tr>
+
+<tr>
+<td>Не обработан → В работе</td>
+<td><span class="st st-unk">не знаем</span> На доске нет <small class="src">TOCHKI.md:11</small></td>
+<td><span class="st st-unk">не знаем</span> В портале у лида есть «Ответственный» («Продавец-консультант») — он ли переводит, не знаем <span class="pt">3</span> <small class="src">portal-as-is.md:40, 82</small></td>
+<td><span class="st st-unk">не знаем</span> Срок реакции не задан <small class="src">k1-prepost.md:55</small></td>
+</tr>
+
+<tr>
+<td>В работе → Недозвон → ?</td>
+<td><span class="st st-unk">не знаем</span> <span class="pt">6</span> <small class="src">k2-forks.md:30</small></td>
+<td><span class="st st-unk">не знаем</span></td>
+<td><span class="st st-unk">не знаем</span> Число попыток и интервал не заданы <small class="src">k2-forks.md:30</small></td>
+</tr>
+
+<tr>
+<td>Новое обращение → Повтор / дубль</td>
+<td><span class="st st-unk">не знаем</span> <span class="pt">7</span> <small class="src">k2-forks.md:32</small></td>
+<td><span class="st st-unk">не знаем</span></td>
+<td><span class="st st-unk">не знаем</span></td>
+</tr>
+
+<tr>
+<td>В работе → Некачественный</td>
+<td><span class="st st-said">со слов</span> В карточке есть «На некачественного лида» <small class="src">portal-as-is.md:40</small>; на доске — не знаем</td>
+<td><span class="st st-unk">не знаем</span></td>
+<td><span class="st st-unk">не знаем</span> <span class="pt">11</span> <small class="src">2-voprosy.md:16</small></td>
+</tr>
+
+<tr>
+<td>В работе → Качественный</td>
+<td><span class="st st-unk">не знаем</span> На доске нет <small class="src">TOCHKI.md:11</small></td>
+<td><span class="st st-unk">не знаем</span></td>
+<td><span class="st st-unk">не знаем</span> <small class="src">k1-prepost.md:54</small></td>
+</tr>
+
+<tr>
+<td>Качественный → Конвертирован в сделку</td>
+<td><span class="st st-board">на доске</span> «Конвертация ЛИД-а в Сделку» <small class="src">3074457358430916255</small></td>
+<td><span class="st st-unk">не знаем</span> Роль не названа <span class="pt">3</span> <small class="src">k1-prepost.md:55</small></td>
+<td><span class="st st-board">на доске</span> «обязательное занесение всех реквизитов в карточку компании»; «единый формат занесения информации о контрагенте» — состава и формата нет <span class="pt">8</span> <span class="pt">10</span> <small class="src">3074457358430916255; к.7365; k2-forks.md:32</small></td>
+</tr>
+
+<tr>
+<td>Конвертирован → сделка «Предварительный расчёт»</td>
+<td><span class="st st-unk">не знаем</span> Стрелки нет, только расположение <span class="pt">9</span> <small class="src">3074457358430445405; k1-prepost.md:36</small></td>
+<td><span class="st st-unk">не знаем</span></td>
+<td><span class="st st-unk">не знаем</span> <small class="src">k1-prepost.md:97</small></td>
+</tr>
+
+<tr>
+<td>Любое → Отказ</td>
+<td><span class="st st-unk">не знаем</span> Ромб и 4 причины без связей <span class="pt">11</span> <small class="src">3074457358431590461; k2-forks.md:25</small></td>
+<td><span class="st st-unk">не знаем</span> <small class="src">k2-forks.md:25–26</small></td>
+<td><span class="st st-board">на доске</span> только список из 4 причин; одна причина или несколько, обязательна ли — не знаем <small class="src">3074457358431099074–077; k2-forks.md:26</small></td>
+</tr>
+
+<tr>
+<td>Отказ («Закупка отложена») → снова в работу</td>
+<td><span class="st st-unk">не знаем</span> <span class="pt">12</span> <small class="src">3074457358431099077; k2-forks.md:27</small></td>
+<td><span class="st st-unk">не знаем</span> <small class="src">k2-forks.md:27–28</small></td>
+<td><span class="st st-unk">не знаем</span> Даты возврата нет <small class="src">k2-forks.md:27</small></td>
+</tr>
+
+</tbody>
+</table>
+</section>
+
+<section id="stories">
+<h2>Проверка пользовательских историй</h2>
+
+<p>Пользовательская история — одна фраза «Как &lt;кто&gt;, я хочу &lt;что сделать&gt;, чтобы &lt;зачем&gt;». Ниже — истории, которые можно собрать из надписей на доске. Проверяем, чего в каждой не хватает: <b>кто</b> это делает (роль), <b>как понять, что сделано</b> (критерий приёмки) и <b>что бывает не по правилу</b> (исключения). Где на доске пусто — ставим «?». Недозвон, повторная заявка и срок разбора лида на доске вообще не описаны, поэтому историй по ним собрать нельзя <span class="pt">3</span> <span class="pt">6</span> <span class="pt">7</span> <small class="src">k2-forks.md:19, 30, 32; k1-prepost.md:55</small>.</p>
+
+<h3>История 1. Лиды из всех каналов</h3>
+<p><i>«Как ? (роль не названа), я хочу, чтобы обращения из салонов, Сарафана, vk.ru, Telegram и Авито попадали в «ЛИД», чтобы ? (цель на доске не названа)».</i></p>
+<table class="tbl">
+<tbody>
+<tr><th>Взято с доски</th><td><span class="st st-board">на доске</span> Рамка «ЛИД - B2B, B2C» и 8 каналов; стрелки только от Челнокова и Авито <small class="src">3074457358429708934; коннекторы 3458764681641805249, 3458764681641922880; k1-prepost.md:110</small></td></tr>
+<tr><th>Нет роли</th><td><span class="st st-unk">не знаем</span> Кто принимает обращение <span class="pt">3</span> <small class="src">k1-prepost.md:55</small></td></tr>
+<tr><th>Нет «как понять, что сделано»</th><td><span class="st st-unk">не знаем</span> Появился ли лид с правильным «Источником» по каждому каналу; в портале из этих каналов видно только Авито <span class="pt">2</span> <small class="src">portal-as-is.md:64–68</small></td></tr>
+<tr><th>Нет исключений</th><td><span class="st st-unk">не знаем</span> Канал без стрелки — лид заводят руками? Организация и частное лицо — путь один или разный <span class="pt">4</span> <small class="src">k1-prepost.md:56; k2-forks.md:31</small></td></tr>
+<tr><th>Вопрос клиенту</th><td>«Покажите: список последних лидов с полем «источник» по каждому каналу» <small class="src">k1-prepost.md:56</small></td></tr>
+<tr><th>Точки</th><td><span class="pt">1</span> <span class="pt">2</span> <span class="pt">3</span> <span class="pt">4</span></td></tr>
+</tbody>
+</table>
+
+<h3>История 2. Конвертация лида в сделку</h3>
+<p><i>«Как ? (роль не названа), я хочу конвертировать лид в сделку, занося все реквизиты в карточку компании, чтобы ? (цель не названа; рядом на доске — «единый формат занесения информации о контрагенте»)».</i></p>
+<table class="tbl">
+<tbody>
+<tr><th>Взято с доски</th><td><span class="st st-board">на доске</span> «Конвертация ЛИД-а в Сделку с обязательным занесением всех реквизитов в карточку компании»; комментарий «единый формат занесения информации о контрагенте» <small class="src">3074457358430916255; к.7365</small></td></tr>
+<tr><th>Нет роли</th><td><span class="st st-unk">не знаем</span> Исполнитель конвертации на доске не назван <span class="pt">3</span> <small class="src">k1-prepost.md:55</small></td></tr>
+<tr><th>Нет «как понять, что сделано»</th><td><span class="st st-unk">не знаем</span> Список «всех реквизитов» и признак «лид готов стать сделкой» не заданы; на какой стадии появляется сделка — не сказано <span class="pt">8</span> <span class="pt">9</span> <small class="src">k1-prepost.md:54; TOCHKI.md:15</small></td></tr>
+<tr><th>Нет исключений</th><td><span class="st st-unk">не знаем</span> Частное лицо — у него нет «карточки компании»; клиент пока не даёт реквизиты; компания уже есть в базе <span class="pt">7</span> <span class="pt">8</span> <small class="src">k3-conflicts.md:66; k2-forks.md:32</small></td></tr>
+<tr><th>Вопрос клиенту</th><td>«Покажите: одну заполненную карточку юрлица и одну карточку физлица после конвертации» <small class="src">k1-prepost.md:54</small></td></tr>
+<tr><th>Точки</th><td><span class="pt">3</span> <span class="pt">7</span> <span class="pt">8</span> <span class="pt">9</span></td></tr>
+</tbody>
+</table>
+
+<h3>История 3. Структура карточек</h3>
+<p><i>«Как ? (роль не названа), я хочу заполнять карточки лида, компании и сделки по одной структуре (от Л.А., М.А.), чтобы ? (цель не названа)».</i></p>
+<table class="tbl">
+<tbody>
+<tr><th>Взято с доски</th><td><span class="st st-board">на доске</span> Комментарий «структура карточек: ЛИДа, компании, сделки (от Л.А., М.А.)» на рамке «Битрикс24» <small class="src">к.7350; 3074457358429708946; k3-conflicts.md:77</small></td></tr>
+<tr><th>Нет роли</th><td><span class="st st-unk">не знаем</span> Кто заполняет и кто следит за заполнением <small class="src">k3-conflicts.md:77</small></td></tr>
+<tr><th>Нет «как понять, что сделано»</th><td><span class="st st-unk">не знаем</span> Самой структуры нет; «от» не значит «одобрено» <span class="pt">10</span> <small class="src">k3-conflicts.md:77; TOCHKI.md:16</small></td></tr>
+<tr><th>Нет исключений</th><td><span class="st st-unk">не знаем</span> Сейчас карточка компании почти пустая — «ничего такого нету» <span class="st st-said">со слов</span> <small class="src">portal-as-is.md:98</small></td></tr>
+<tr><th>Вопрос клиенту</th><td>«Покажите: структуру карточек лида, компании и сделки от Л.А. и М.А. и чек-лист, о котором речь» <small class="src">k3-conflicts.md:77</small></td></tr>
+<tr><th>Точки</th><td><span class="pt">10</span></td></tr>
+</tbody>
+</table>
+
+<h3>История 4. Отказ с причиной</h3>
+<p><i>«Как ? (роль не названа), я хочу отправить клиента в «Воронку отказников» с одной из 4 причин, чтобы ? (цель не названа)».</i></p>
+<table class="tbl">
+<tbody>
+<tr><th>Взято с доски</th><td><span class="st st-board">на доске</span> Ромб «Воронка отказников»; причины «Закупка не согласована», «Закупили у конкурентов», «Тендер конечника не состоялся», «Закупка отложена»; комментарий «Отказ» <small class="src">3074457358431590461; 3074457358431099074–077; к.7339</small></td></tr>
+<tr><th>Нет роли</th><td><span class="st st-unk">не знаем</span> Кто переводит в отказ и кто выбирает причину <span class="pt">11</span> <small class="src">k2-forks.md:25–26</small></td></tr>
+<tr><th>Нет «как понять, что сделано»</th><td><span class="st st-unk">не знаем</span> Обязательна ли причина; с каких стадий можно уйти в отказ; что происходит с клиентом дальше <small class="src">k1-prepost.md:58; k2-forks.md:28</small></td></tr>
+<tr><th>Нет исключений</th><td><span class="st st-unk">не знаем</span> Причины нет в списке (например, «не дозвонились»); отказ после предоплаты <span class="st st-conf">противоречие</span> В портале есть «Некачественный лид» и «Сделка провалена» — одно ли это <small class="src">k2-forks.md:26, 29; portal-as-is.md:19, 28</small></td></tr>
+<tr><th>Вопрос клиенту</th><td>«Покажите: последние 5 отказных сделок и как в них указана причина» <small class="src">k1-prepost.md:58</small></td></tr>
+<tr><th>Точки</th><td><span class="pt">11</span></td></tr>
+</tbody>
+</table>
+
+<h3>История 5. Отложенная закупка</h3>
+<p><i>«Как ? (роль не названа), я хочу отметить, что закупка отложена, чтобы ? (на доске не сказано: клиента считают потерянным или ждут его возвращения)».</i></p>
+<table class="tbl">
+<tbody>
+<tr><th>Взято с доски</th><td><span class="st st-board">на доске</span> Причина «Закупка отложена» в списке причин отказа <small class="src">3074457358431099077</small></td></tr>
+<tr><th>Нет роли</th><td><span class="st st-unk">не знаем</span> Кто напоминает клиенту <small class="src">k2-forks.md:27</small></td></tr>
+<tr><th>Нет «как понять, что сделано»</th><td><span class="st st-unk">не знаем</span> Нет даты возврата и срока «до когда ждём» <small class="src">k2-forks.md:27</small></td></tr>
+<tr><th>Нет исключений</th><td><span class="st st-unk">не знаем</span> Клиент не вернулся через полгода — закрывают или звонят дальше <small class="src">k2-forks.md:27</small></td></tr>
+<tr><th>Вопрос клиенту</th><td>«Покажите: как сейчас узнаёте, что пора перезвонить клиенту, отложившему закупку» <small class="src">k2-forks.md:27</small></td></tr>
+<tr><th>Точки</th><td><span class="pt">12</span></td></tr>
+</tbody>
+</table>
+</section>
