@@ -12,6 +12,6 @@
 | v4-heatmap-matrix.html | 20260928-161838-v4-heatmap-matrix.html | https://b244.ru/bYv |
 | v5-editorial-poster.html | 20260928-161839-v5-editorial-poster.html | https://b244.ru/vhV |
 
-| drawio-ai-kit BPMN (песочница `sandbox/test-drawio-eurosteklo/view.html`) | 20260928-181501-view.html | https://b244.ru/DwW |
+| drawio-ai-kit BPMN (исходник `docs/process/bpmn/eurosteklo_process.drawio`) | 20260928-181501-view.html | https://b244.ru/DwW |
 
 Дубли без согласования (не использовать): F4z, 4HH, Pcx, gkT, m7x.
