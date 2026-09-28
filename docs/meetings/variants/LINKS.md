@@ -13,5 +13,6 @@
 | v5-editorial-poster.html | 20260928-161839-v5-editorial-poster.html | https://b244.ru/vhV |
 
 | drawio-ai-kit BPMN (исходник `docs/process/bpmn/eurosteklo_process.drawio`) | 20260928-181501-view.html | https://b244.ru/DwW |
+| ППО: методика, опросник, архитектура Б24 (исходник `docs/ppo/*.md` → `docs/ppo/ppo-eurosteklo.html`, pandoc) | 20260928-211447-ppo-eurosteklo.html | https://b244.ru/tgf |
 
 Дубли без согласования (не использовать): F4z, 4HH, Pcx, gkT, m7x.
