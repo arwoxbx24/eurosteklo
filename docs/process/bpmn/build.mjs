@@ -12,6 +12,9 @@ const d = new Diagram("bpmn");
 // Крупный шрифт — размер задач и ширина дорожки (выбор владельца 28.09).
 const TASK = { w: 170, h: 90 };
 
+// Широкий шаг колонок пула (90 px) — даёт место подписям связей и документов (TZ 004.6).
+const GAP = 90;
+
 // Compute pool width from children before creating anything
 const poolChildren = [
   start("s1", { lane: 0, col: 1, label: "Заявка клиента" }),
@@ -25,25 +28,25 @@ const poolChildren = [
   { ...userTask("c2", { lane: 0, col: 13, label: "Изделие или монтаж" }), ...TASK },
   { ...userTask("t7", { lane: 1, col: 13, label: "Отгрузка: оплата" }), ...TASK },
   { ...userTask("t8", { lane: 5, col: 13, label: "Монтаж: дата, фото" }), ...TASK },
-  gateway("gw1", { lane: 2, col: 13, label: "Отгрузка или монтаж?", type: "exclusive" }),
+  { ...gateway("gw1", { lane: 2, col: 13, label: "Отгрузка или монтаж?", type: "exclusive" }), w: 90, h: 90 },
   { ...userTask("t9", { lane: 6, col: 16, label: "Вернуть документы" }), ...TASK },
   { ...userTask("t10", { lane: 4, col: 16, label: "Звонки клиенту через 14, 90 и 270 дней" }), ...TASK },
-  end("e1", { lane: 3, col: 16, label: "Сделка завершена" }),
-  end("e2", { lane: 1, col: 16, label: "Отказ", type: "error" }),
+  { ...end("e1", { lane: 3, col: 16, label: "Сделка завершена" }), w: 80, h: 80 },
+  { ...end("e2", { lane: 1, col: 16, label: "Отказ", type: "error" }), w: 80, h: 80 },
 
   // T005: 6 document icons in lane 0 (Клиент) — kind:box with document shape style
-  { kind: "box", id: "doc_inv", lane: 0, col: 4, label: "Счёт за замер", w: 80, h: 50, style: "shape=document;whiteSpace=wrap;html=1;fillColor=#F5F8FB;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=10;" },
-  { kind: "box", id: "doc_agr", lane: 0, col: 6, label: "Договор", w: 80, h: 50, style: "shape=document;whiteSpace=wrap;html=1;fillColor=#F5F8FB;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=10;" },
-  { kind: "box", id: "doc_prep", lane: 0, col: 8, label: "Счёт на предоплату", w: 80, h: 50, style: "shape=document;whiteSpace=wrap;html=1;fillColor=#F5F8FB;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=10;" },
-  { kind: "box", id: "doc_bal", lane: 0, col: 12, label: "Счёт на оплату остатка", w: 90, h: 50, style: "shape=document;whiteSpace=wrap;html=1;fillColor=#F5F8FB;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=10;" },
-  { kind: "box", id: "doc_upd", lane: 0, col: 14, label: "УПД и отгрузочные документы", w: 100, h: 50, style: "shape=document;whiteSpace=wrap;html=1;fillColor=#F5F8FB;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=10;" },
-  { kind: "box", id: "doc_close", lane: 0, col: 16, label: "Закрывающие документы", w: 90, h: 50, style: "shape=document;whiteSpace=wrap;html=1;fillColor=#F5F8FB;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=10;" },
+  { kind: "box", id: "doc_inv", lane: 0, col: 4, label: "Счёт за замер", w: 120, h: 70, style: "shape=document;whiteSpace=wrap;html=1;fillColor=#F5F8FB;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=10;" },
+  { kind: "box", id: "doc_agr", lane: 0, col: 6, label: "Договор", w: 120, h: 70, style: "shape=document;whiteSpace=wrap;html=1;fillColor=#F5F8FB;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=10;" },
+  { kind: "box", id: "doc_prep", lane: 0, col: 8, label: "Счёт на предоплату", w: 140, h: 70, style: "shape=document;whiteSpace=wrap;html=1;fillColor=#F5F8FB;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=10;" },
+  { kind: "box", id: "doc_bal", lane: 0, col: 12, label: "Счёт на оплату остатка", w: 160, h: 70, style: "shape=document;whiteSpace=wrap;html=1;fillColor=#F5F8FB;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=10;" },
+  { kind: "box", id: "doc_upd", lane: 0, col: 14, label: "УПД и отгрузочные документы", w: 170, h: 70, style: "shape=document;whiteSpace=wrap;html=1;fillColor=#F5F8FB;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=10;" },
+  { kind: "box", id: "doc_close", lane: 0, col: 16, label: "Закрывающие документы", w: 160, h: 70, style: "shape=document;whiteSpace=wrap;html=1;fillColor=#F5F8FB;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=10;" },
 ];
 
 // Compute pool dimensions for box width
 const maxCol = Math.max(1, ...poolChildren.map(c => (c.col ?? 0) + 1));
 const pCellW = Math.max(...poolChildren.map(c => c.w || 0), 80);
-const contentW = maxCol * pCellW + 40 * (maxCol - 1);
+const contentW = maxCol * pCellW + GAP * (maxCol - 1);
 const poolW = 2 * 16 + 170 + contentW;
 
 // T007: checklist box below the pool
@@ -86,6 +89,7 @@ const proc = pool("sale", "Евростекло: процесс продаж", {
     "6. Завершение и сервис",
   ],
   laneLabel: 170,
+  gap: GAP,
 }, poolChildren);
 
 // Root phantom stacks pool + boxes vertically (dir: "col" default)
@@ -146,3 +150,22 @@ writeFileSync(
   "/root/workspaces/projects/clients/eurosteklo/docs/process/bpmn/eurosteklo_process.drawio",
   xml,
 );
+
+// TZ 004.6: перенос нового D в V (атрибут data-mxgraph, как в ТЗ 004.5) + zoom:1 / auto-fit:false.
+// Строка-страница остаётся неизменной, меняется только JSON в атрибуте (кодировка: & -> &amp;, ' -> &#39;).
+{
+  const viewPath = "/root/workspaces/projects/clients/eurosteklo/docs/process/bpmn/view.html";
+  const head =
+    '<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Евростекло — процесс продаж (BPMN)</title></head><body style="margin:0"><div class="mxgraph" data-mxgraph=\'';
+  const tail =
+    "'></div><script src=\"https://viewer.diagrams.net/js/viewer-static.min.js\"></script></body></html>";
+  const escapeAttr = (s) => s.replace(/&/g, "&amp;").replace(/'/g, "&#39;");
+  const graphConfig = JSON.stringify({
+    xml,
+    toolbar: "zoom layers",
+    nav: true,
+    zoom: 1,
+    "auto-fit": false,
+  });
+  writeFileSync(viewPath, head + escapeAttr(graphConfig) + tail);
+}
