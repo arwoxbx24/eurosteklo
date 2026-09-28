@@ -47,6 +47,8 @@ common_css = """.docnav{margin-top:10px;font-size:15px}.docnav a{color:var(--acc
 
 # ---------- Карта ----------
 svg = (P / "karta.svg.html").read_text(encoding="utf8")
+pasport_f = P / "pasport.html"
+pasport = pasport_f.read_text(encoding="utf8") if pasport_f.exists() else ""
 # Красные точки карты — ссылки на вопрос в документе встречи.
 svg = re.sub(r'<g class="pt">(<title>Точка (\d+):.*?</g>)',
              lambda m: f'<a href="{SHORT}#t{m.group(2)}" target="{WIN_OBSL}"><g class="pt ptlink">{m.group(1)}</a>',
@@ -62,7 +64,7 @@ addEventListener('mousemove',function(e){if(!on)return;w.scrollLeft=sl-(e.pageX-
 (OUT / KARTA).write_text(page(
     "Евростекло · Лиды: карта процесса",
     "Схема клиента, перенесённая в BPMN: кто что делает, где стрелки есть и где их нет. Красный номер — нажмите, откроется вопрос к встрече.",
-    legend + f'<section><h2>Карта «Лиды»</h2><p class="src">Карту можно тянуть мышью; масштаб — кнопки справа внизу или Ctrl + колесо.</p><div class="mapwrap">{svg}</div></section>' + pan,
+    pasport + legend + f'<section><h2>Карта «Лиды»</h2><p class="src">Карту можно тянуть мышью; масштаб — кнопки справа внизу или Ctrl + колесо.</p><div class="mapwrap">{svg}</div></section>' + pan,
     map_css, docnav(KARTA)), encoding="utf8")
 
 # ---------- Подробная версия (прежний документ целиком) ----------
@@ -79,14 +81,14 @@ card_css = common_css + """.card{border:1px solid var(--line);border-left:6px so
 .card ul{margin:0;padding-left:20px}
 @media (max-width:700px){.card dl{grid-template-columns:1fr}.card dt{margin-top:6px}}"""
 intro = f"""<section><h2>Как пользоваться</h2><p>Это подробная версия: источники, состояния лида, пользовательские истории. На встрече работайте по короткой версии «<a href="{SHORT}" target="{WIN_OBSL}">Вопросы к встрече</a>», сюда — за деталями.</p>
-<nav class="toc"><a href="#top5">С чего начать</a> · <a href="#tochki">12 конфликтных точек</a> · <a href="#sostoyaniya">Состояния лида</a> · <a href="#stories">Пользовательские истории</a></nav></section>"""
+<nav class="toc"><a href="#top5">С чего начать</a> · <a href="#tochki">Конфликтные точки</a> · <a href="#sostoyaniya">Состояния лида</a> · <a href="#stories">Пользовательские истории</a></nav></section>"""
 full_tochki = re.sub(r'<span class="pt">(\d+)</span>',
                      lambda m: f'<a class="pt" href="{KARTA}" target="{WIN_KARTA}" title="Показать на карте">{m.group(1)}</a>',
                      tochki_body)
 (OUT / FULL).write_text(page(
     "Евростекло · Лиды: предпроектное обследование (подробно)",
     "Полная версия: что на доске, что в портале, почему противоречие, все вопросы и уточнения, состояния и истории.",
-    intro + legend + top5 + full_tochki + sost, card_css, docnav(FULL)), encoding="utf8")
+    intro + pasport + legend + top5 + full_tochki + sost, card_css, docnav(FULL)), encoding="utf8")
 
 # ---------- Короткая версия: сценарий встречи ----------
 def txt(s):
@@ -175,6 +177,6 @@ document.getElementById('save').onclick=function(){var o=['# Лиды — отв
 document.getElementById('clear').onclick=function(){if(confirm('Очистить все ответы?')){d={};put();location.reload()}};})();</script>"""
 (OUT / SHORT).write_text(page(
     "Евростекло · Лиды: вопросы к встрече",
-    "12 ключевых вопросов по красным точкам карты. Спрашиваете — клиент подтверждает или поправляет — вы отмечаете.",
-    how + f'<section><h2>Вопросы</h2>{rows}</section>' + tail, short_css, docnav(SHORT)), encoding="utf8")
+    f"{len(cards)} ключевых вопросов по красным точкам карты. Спрашиваете — клиент подтверждает или поправляет — вы отмечаете.",
+    how + (f'<section><details><summary><b>Паспорт: кто есть кто</b> (раскрыть)</summary>{pasport}</details></section>' if pasport else '') + f'<section><h2>Вопросы</h2>{rows}</section>' + tail, short_css, docnav(SHORT)), encoding="utf8")
 print("ok", len(cards), "точек, порядок", order)
