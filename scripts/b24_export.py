@@ -21,10 +21,8 @@ PROJ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(PROJ, "client-materials", "private", "b24-export")
 B24 = "/root/workspaces/tools/b24"
 
-DEAL_IDS = [4844, 6778]
 COMPANY_IDS = [2372, 2398, 3218]
 OWNER_TYPE = {"deal": 2, "company": 4, "contact": 3}
-DEAL_STATUS_ENTITIES = ["DEAL_STAGE_24", "DEAL_STAGE_26"]
 
 DEAL_LIST_SELECT = ["ID", "TITLE", "STAGE_ID", "CATEGORY_ID", "OPPORTUNITY", "DATE_CREATE"]
 
@@ -100,7 +98,25 @@ def is_blank(value):
 # --------------------------------------------------------------------------
 
 
-def collect_meta(errors, index):
+def category_entities(company_items):
+    """Воронки сделок из списков сделок компаний: 0 -> DEAL_STAGE, N -> DEAL_STAGE_N."""
+    cats = set()
+    for _, _, payload in company_items:
+        for d in as_list(payload["deals"]):
+            if isinstance(d, dict):
+                c = d.get("CATEGORY_ID")
+                if c not in (None, "", "0"):
+                    try:
+                        cats.add(int(c))
+                    except (TypeError, ValueError):
+                        pass
+    entities = {"DEAL_STAGE"}  # классическая воронка 0 может не встретиться в сделках — берём всегда
+    for c in sorted(cats):
+        entities.add("DEAL_STAGE_%d" % c)
+    return sorted(entities)
+
+
+def collect_meta(errors, index, entities):
     labels = {}
     fields = {}
     for kind, method in (("deal", "crm.deal.fields"), ("company", "crm.company.fields"), ("contact", "crm.contact.fields")):
@@ -118,7 +134,7 @@ def collect_meta(errors, index):
 
     stage_rows = []
     stage_map = {}
-    for entity in DEAL_STATUS_ENTITIES:
+    for entity in entities:
         res = safe(errors, "crm.status.list", [_filt("ENTITY_ID", entity)], "all", "crm.status.list %s" % entity)
         for row in as_list(res):
             if isinstance(row, dict):
@@ -132,19 +148,23 @@ def collect_meta(errors, index):
     return labels, stage_map
 
 
+def parse_stage(stage_id):
+    """'C24:WON' -> (24, 'WON'); 'WON' -> (0, 'WON'); 'C14:UC_X' -> (14, 'UC_X')"""
+    s = str(stage_id)
+    if ":" in s:
+        pre, status = s.split(":", 1)
+        pre = pre.strip()
+        if pre.startswith("C") and pre[1:].isdigit():
+            return int(pre[1:]), status
+        return 0, status
+    return 0, s
+
+
 def stage_name(stage_map, stage_id):
     if not stage_id:
         return None
-    parts = str(stage_id).split(":")
-    if len(parts) >= 3:
-        status = parts[-1]
-        cat = int(parts[1]) if parts[1].isdigit() else 0
-    elif len(parts) == 2:
-        status = parts[1]
-        cat = 0
-    else:
-        return None
-    entity = "DEAL_STAGE_26" if cat else "DEAL_STAGE_24"
+    cat, status = parse_stage(stage_id)
+    entity = "DEAL_STAGE" if cat == 0 else "DEAL_STAGE_%d" % cat
     return stage_map.get((entity, status))
 
 
@@ -239,10 +259,10 @@ def collect_contact_ids(deal_items, company_items):
             for x in v:
                 walk(x)
 
-    for _, contacts, _ in deal_items:
-        walk(contacts)
-    for _, contacts, _ in company_items:
-        walk(contacts)
+    for _, _, payload in deal_items:
+        walk(payload.get("contacts"))
+    for _, _, payload in company_items:
+        walk(payload.get("contacts"))
     return sorted(ids)
 
 
@@ -336,7 +356,8 @@ def build_readme(index, labels, stage_map, deal_items, company_items, contact_it
                 continue
             t = d.get("TITLE") or d.get("ID")
             s = stage_name(stage_map, d.get("STAGE_ID"))
-            L.append("  - %s (%s)%s" % (t, d.get("STAGE_ID"), " — %s" % s if s else ""))
+            # ID берём из самой сделки, а не из заголовка: заголовок сделки 5258 содержит чужой номер (4832).
+            L.append("  - [ID %s] %s (%s)%s" % (d.get("ID"), t, d.get("STAGE_ID"), " — %s" % s if s else ""))
         L.append("- Реквизиты: %d" % len(as_list(payload["requisites"])))
         L.append("- Деятельность (activity): %d" % len(as_list(payload["activities"])))
         L.append("- Комментарии (timeline): %d" % len(as_list(payload["comments"])))
@@ -387,17 +408,30 @@ def main():
     }
     os.makedirs(OUT, exist_ok=True)
 
-    labels, stage_map = collect_meta(errors, index)
-
-    deal_items = []
-    for did in DEAL_IDS:
-        entity, contacts, payload = export_deal(errors, index, labels, did)
-        deal_items.append((did, entity, payload))
-
     company_items = []
     for cid in COMPANY_IDS:
-        entity, contacts, payload = export_company(errors, index, labels, stage_map, cid)
+        entity, contacts, payload = export_company(errors, index, {}, {}, cid)
         company_items.append((cid, entity, payload))
+
+    # статусы выгружаем по всем воронкам, встреченным в сделках компаний
+    entities = category_entities(company_items)
+    labels, stage_map = collect_meta(errors, index, entities)
+
+    # все сделки всех трёх компаний, без фиксированного списка
+    deal_ids = set()
+    for cid, entity, payload in company_items:
+        for d in as_list(payload["deals"]):
+            if isinstance(d, dict) and d.get("ID"):
+                try:
+                    deal_ids.add(int(d["ID"]))
+                except (TypeError, ValueError):
+                    pass
+    deal_ids = sorted(deal_ids)
+
+    deal_items = []
+    for did in deal_ids:
+        entity, contacts, payload = export_deal(errors, index, labels, did)
+        deal_items.append((did, entity, payload))
 
     contact_ids = collect_contact_ids(deal_items, company_items)
     contact_items = []
