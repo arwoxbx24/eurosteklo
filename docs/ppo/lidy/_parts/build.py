@@ -32,7 +32,7 @@ def docnav(current):
     items = [(KARTA, "Карта процесса", WIN_KARTA), (SHORT, "Вопросы к встрече", WIN_OBSL),
              (FULL, "Подробная версия", WIN_OBSL)]
     links = [f'<b>{t}</b>' if f == current else f'<a href="{f}" target="{w}">{t}</a>' for f, t, w in items]
-    return '<nav class="docnav">Лиды: ' + " · ".join(links) + "</nav>"
+    return '<nav class="docnav"><a href="../index.html">☰ Оглавление</a> · Лиды: ' + " · ".join(links) + "</nav>"
 
 
 legend = """<section><h2>Как читать</h2><div class="legend">
@@ -49,22 +49,51 @@ common_css = """.docnav{margin-top:10px;font-size:15px}.docnav a{color:var(--acc
 svg = (P / "karta.svg.html").read_text(encoding="utf8")
 pasport_f = P / "pasport.html"
 pasport = pasport_f.read_text(encoding="utf8") if pasport_f.exists() else ""
-# Красные точки карты — ссылки на вопрос в документе встречи.
+# Красные точки карты — ссылки на вопрос в документе встречи; id="pN" для навигатора.
+PTS = []
+for m in re.finditer(r'<g class="pt"><title>Точка (\d+):\s*(.*?)</title><circle cx="([\d.]+)" cy="([\d.]+)"', svg, re.S):
+    n, cx, cy = int(m.group(1)), float(m.group(3)), float(m.group(4))
+    layer = "А" if cy < 900 else ("Б" if cy < 1650 else "В")  # границы блоков А/Б/В на холсте
+    PTS.append((layer, round(cy / 90), cx, n, html.unescape(m.group(2))))
 svg = re.sub(r'<g class="pt">(<title>Точка (\d+):.*?</g>)',
-             lambda m: f'<a href="{SHORT}#t{m.group(2)}" target="{WIN_OBSL}"><g class="pt ptlink">{m.group(1)}</a>',
+             lambda m: f'<a href="{SHORT}#t{m.group(2)}" target="{WIN_OBSL}"><g class="pt ptlink" id="p{m.group(2)}">{m.group(1)}</a>',
              svg, flags=re.S)
+LAYERS = {"А": "Доска Романа", "Б": "По ТЗ", "В": "Портал"}
+navbar = '<div class="ptnav" id="ptnav"><span class="ptnav-h">Найти точку:</span>'
+for L in "АБВ":
+    items = sorted((p for p in PTS if p[0] == L), key=lambda p: p[3])  # по номеру внутри слоя
+    if not items:
+        continue
+    navbar += f'<span class="ptg"><b>{L}. {LAYERS[L]}</b>' + "".join(
+        f'<button type="button" data-p="{n}" title="{html.escape(t)}">{n}</button>' for _, _, _, n, t in items) + "</span>"
+navbar += '<div class="ptsel" id="ptsel">Нажмите номер — карта прокрутится к точке и подсветит её.</div></div>'
 map_css = common_css + """.mapwrap{overflow:auto;cursor:grab;border:1px solid var(--line);border-radius:8px;background:#fff}
 .mapwrap.drag{cursor:grabbing;user-select:none}
 .mapwrap svg{width:100%;min-width:1400px;height:auto;display:block}
+.ptnav{position:sticky;top:0;z-index:20;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin-bottom:10px;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.ptnav-h{font-weight:700}.ptg{display:inline-flex;gap:4px;align-items:center;flex-wrap:wrap}.ptg b{font-size:14px;color:var(--muted);margin-right:2px}
+.ptg button{min-width:32px;height:32px;border-radius:50%;border:0;background:var(--pt);color:#fff;font:800 15px system-ui,sans-serif;cursor:pointer}
+.ptg button.on{outline:3px solid #1d2530}
+.ptsel{flex:1 1 100%;font-size:15px;color:var(--ink)}.ptsel a{color:var(--accent);font-weight:700}
+@keyframes ptflash{0%,100%{stroke-width:2;r:14}50%{stroke:#ffd400;stroke-width:8;r:26}}
+.pt.flash circle{animation:ptflash .7s ease-in-out 4;stroke:#ffd400}
 .ptlink{cursor:pointer}.ptlink:hover circle{fill:#8c1d1d}"""
 pan = """<script>(function(){var w=document.querySelector('.mapwrap');if(!w)return;var x,y,sl,st,on=false;
 w.addEventListener('mousedown',function(e){if(e.target.closest('a'))return;on=true;x=e.pageX;y=e.pageY;sl=w.scrollLeft;st=w.scrollTop;w.classList.add('drag')});
 addEventListener('mouseup',function(){on=false;w.classList.remove('drag')});
-addEventListener('mousemove',function(e){if(!on)return;w.scrollLeft=sl-(e.pageX-x);w.scrollTop=st-(e.pageY-y)});})();</script>"""
+addEventListener('mousemove',function(e){if(!on)return;w.scrollLeft=sl-(e.pageX-x);w.scrollTop=st-(e.pageY-y)});
+function go(n){var g=document.getElementById('p'+n);if(!g)return;g.scrollIntoView({behavior:'smooth',block:'center',inline:'center'});
+document.querySelectorAll('.pt.flash').forEach(function(x){x.classList.remove('flash')});void g.getBBox();g.classList.add('flash');
+document.querySelectorAll('.ptg button').forEach(function(b){b.classList.toggle('on',b.dataset.p==n)});
+var t=g.querySelector('title');document.getElementById('ptsel').innerHTML='<b>Точка '+n+'.</b> '+(t?t.textContent.replace(/^Точка \\d+:\\s*/,''):'')+' · <a href="{SHORT}#t'+n+'" target="{WIN_OBSL}">вопрос к встрече →</a>';}
+document.getElementById('ptnav').addEventListener('click',function(e){var b=e.target.closest('button[data-p]');if(b)go(b.dataset.p)});
+function fromHash(){var m=location.hash.match(/^#p(\\d+)$/);if(m)setTimeout(function(){go(m[1])},150)}
+addEventListener('hashchange',fromHash);fromHash();})();</script>"""
+pan = pan.replace("{SHORT}", SHORT).replace("{WIN_OBSL}", WIN_OBSL)
 (OUT / KARTA).write_text(page(
     "Евростекло · Лиды: карта процесса",
     "Схема клиента, перенесённая в BPMN: кто что делает, где связи есть и где их нет. Красный номер — нажмите, откроется вопрос к встрече.",
-    (f'<section><details><summary><b>Паспорт процесса: кто есть кто</b> — клиент, каналы, роли (раскрыть)</summary>{pasport}</details></section>' if pasport else '') + legend + f'<section><h2>Карта «Лиды»</h2><p class="src">Карту можно тянуть мышью; масштаб — кнопки справа внизу или Ctrl + колесо.</p><div class="mapwrap">{svg}</div></section>' + pan,
+    (f'<section><details><summary><b>Паспорт процесса: кто есть кто</b> — клиент, каналы, роли (раскрыть)</summary>{pasport}</details></section>' if pasport else '') + legend + f'<section><h2>Карта «Лиды»</h2><p class="src">Карту можно тянуть мышью; масштаб — кнопки справа внизу или Ctrl + колесо.</p>' + navbar + f'<div class="mapwrap">{svg}</div></section>' + pan,
     map_css, docnav(KARTA)), encoding="utf8")
 
 # ---------- Подробная версия (прежний документ целиком) ----------
@@ -83,7 +112,7 @@ card_css = common_css + """.card{border:1px solid var(--line);border-left:6px so
 intro = f"""<section><h2>Как пользоваться</h2><p>Это подробная версия: источники, состояния лида, пользовательские истории. На встрече работайте по короткой версии «<a href="{SHORT}" target="{WIN_OBSL}">Вопросы к встрече</a>», сюда — за деталями.</p>
 <nav class="toc"><a href="#top5">С чего начать</a> · <a href="#tochki">Конфликтные точки</a> · <a href="#sostoyaniya">Состояния лида</a> · <a href="#stories">Пользовательские истории</a></nav></section>"""
 full_tochki = re.sub(r'<span class="pt">(\d+)</span>',
-                     lambda m: f'<a class="pt" href="{KARTA}" target="{WIN_KARTA}" title="Показать на карте">{m.group(1)}</a>',
+                     lambda m: f'<a class="pt" href="{KARTA}#p{m.group(1)}" target="{WIN_KARTA}" title="Показать на карте">{m.group(1)}</a>',
                      tochki_body)
 (OUT / FULL).write_text(page(
     "Евростекло · Лиды: предпроектное обследование (подробно)",
@@ -131,7 +160,7 @@ def row(n, first):
     extra = "".join(f'<p class="xq">Ещё: {html.escape(e)}</p>' for e in c["extra"])
     tag = '<span class="first">начать с этого</span>' if first else ""
     return f"""<article class="q" id="t{n}">
-<div class="qh"><a class="pt" href="{KARTA}" target="{WIN_KARTA}" title="Точка {n} на карте">{n}</a><h3>{html.escape(c['title'])}</h3><span class="tp">{html.escape(c['type'])}</span>{tag}</div>
+<div class="qh"><a class="pt" href="{KARTA}#p{n}" target="{WIN_KARTA}" title="Точка {n} на карте">{n}</a><h3>{html.escape(c['title'])}</h3><span class="tp">{html.escape(c['type'])}</span>{tag}</div>
 <p class="ask">{html.escape(c['q'])}</p>{extra}
 <details><summary>А если… ({len(c['ifs'])})</summary><ul>{ifs}</ul></details>
 <div class="ans" data-n="{n}"><span class="lbl">Ответ клиента:</span>
@@ -180,3 +209,27 @@ document.getElementById('clear').onclick=function(){if(confirm('Очистить
     f"{len(cards)} ключевых вопросов по красным точкам карты. Спрашиваете — клиент подтверждает или поправляет — вы отмечаете.",
     how + (f'<section><details><summary><b>Паспорт: кто есть кто</b> (раскрыть)</summary>{pasport}</details></section>' if pasport else '') + f'<section><h2>Вопросы</h2>{rows}</section>' + tail, short_css, docnav(SHORT)), encoding="utf8")
 print("ok", len(cards), "точек, порядок", order)
+
+# ---------- Управляющий файл docs/ppo/index.html ----------
+INDEX_CSS = common_css + """.blocks{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.blockc{border:1px solid var(--line);border-radius:10px;padding:16px 18px;background:#fff}
+.blockc h3{margin:0 0 8px}.blockc ul{margin:6px 0 0;padding-left:20px}.blockc li{margin:4px 0}.blockc a{color:var(--accent);font-weight:600}
+.soon{color:var(--muted)}.badge{font-size:13px;font-weight:700;border-radius:6px;padding:1px 8px;background:#e5f3e9;color:#1f6b3a;border:1px solid #1f6b3a}
+.badge.wip{background:#fbf1d9;color:#8a5a00;border-color:#8a5a00}"""
+index_body = f"""<section><h2>Как пользоваться</h2><p>Скачайте папку <code>docs/ppo</code> целиком — все файлы связаны ссылками. На встрече два окна: <b>карта процесса</b> и <b>вопросы к встрече</b>. Красный номер на карте открывает вопрос; номер в вопросе открывает карту и подсвечивает точку. Масштаб — кнопки справа внизу, Ctrl + колесо.</p></section>
+<section><h2>Процессы</h2><div class="blocks">
+<div class="blockc"><h3>1. Лиды <span class="badge">утверждено 28.09</span></h3><p>От обращения клиента до сделки. {len(cards)} конфликтных точек.</p><ul>
+<li><a href="lidy/{KARTA}" target="{WIN_KARTA}">Карта процесса (BPMN, 3 слоя)</a></li>
+<li><a href="lidy/{SHORT}" target="{WIN_OBSL}">Вопросы к встрече</a></li>
+<li><a href="lidy/{FULL}" target="{WIN_OBSL}">Подробная версия обследования</a></li></ul></div>
+<div class="blockc"><h3>2. Сделки <span class="badge wip">в работе</span></h3><p class="soon">Расчёт и замер → договор и оплата → производство → отгрузка / монтаж → закрытие. Слои: доска Романа, ТЗ 2024–2025, статусная модель Б24 ↔ 1С (1С — «неизвестно, уточнить»).</p><ul class="soon"><li>Карта процесса — готовится</li><li>Вопросы к встрече — готовится</li></ul></div>
+</div></section>
+<section><h2>Основания и правила</h2><ul>
+<li><b>Доска Романа</b> — его предположение о процессе, не истина; расхождения выносим клиенту.</li>
+<li><b>Базовая линия</b> — ТЗ 2024–2025 (UNVERIFIED до подтверждения клиентом).</li>
+<li><b>Портал</b> — справочно; проверит интегратор отдельным аудитом (по команде владельца).</li>
+<li>Журнал решений владельца: <code>docs/ppo/00-resheniya-vladeltsa.md</code>. Обезличенные исходники: <code>client-materials/sanitized-*.md</code>.</li></ul></section>"""
+(OUT.parent / "index.html").write_text(page("Евростекло · предпроектное обследование",
+    "Управляющий файл: процессы, карты, вопросы к встрече. Всё связано ссылками.", index_body, INDEX_CSS,
+    '<nav class="docnav"><b>☰ Оглавление</b></nav>'), encoding="utf8")
+print("index ok")
