@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Евростекло — процесс продаж (Вариант 2 · Bento Box Grid)</title>
+<style>
+  :root{
+    --bg:#F5F5F7;
+    --card:#FFFFFF;
+    --ink:#1B1F27;
+    --muted:#5B6472;
+    --line:#E7E9EE;
+    --blue:#0B5394;
+    --blue-soft:#E7F0F8;
+    --red:#C93A2B;
+    --red-soft:#FBE9E6;
+    --green:#2E7D46;
+    --amber:#B26A00;
+    --radius:24px;
+    --shadow:0 4px 6px rgba(0,0,0,0.05);
+    --shadow-lg:0 12px 28px rgba(0,0,0,0.08);
+    --gap:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    font-size:16px;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .canvas{
+    width:1600px;
+    max-width:100%;
+    margin:0 auto;
+    padding:34px 40px 48px;
+  }
+
+  /* Header */
+  .header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:24px;
+    background:var(--card);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:26px 30px;
+    margin-bottom:20px;
+  }
+  .header h1{
+    font-size:27px;
+    line-height:1.2;
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .header p{
+    margin:0;
+    color:var(--muted);
+    font-size:16px;
+  }
+  .plaque{
+    flex:none;
+    background:var(--blue);
+    color:#fff;
+    border-radius:18px;
+    padding:16px 22px;
+    max-width:380px;
+    box-shadow:var(--shadow-lg);
+  }
+  .plaque .t{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;opacity:.85;margin-bottom:6px;}
+  .plaque .b{font-size:18px;font-weight:700;line-height:1.25;}
+  .plaque .b em{font-style:normal;opacity:.9;font-weight:500;}
+
+  /* L1 row */
+  .l1-row{
+    display:flex;
+    align-items:stretch;
+    gap:0;
+    margin-bottom:var(--gap);
+  }
+  .phase-l1{
+    flex:1;
+    background:var(--card);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:22px 20px;
+    border-top:6px solid var(--blue);
+    position:relative;
+    min-height:120px;
+    display:flex;
+    flex-direction:column;
+  }
+  .phase-l1 .num{
+    font-size:13px;
+    font-weight:700;
+    color:var(--blue);
+    letter-spacing:0.1em;
+    margin-bottom:8px;
+  }
+  .phase-l1 h3{
+    margin:0 0 6px;
+    font-size:22px;
+    line-height:1.15;
+  }
+  .phase-l1 .sub{
+    color:var(--muted);
+    font-size:15px;
+    flex:1;
+  }
+  .phase-l1 .tag{
+    font-size:13px;
+    font-weight:700;
+    color:var(--blue);
+    margin-top:10px;
+  }
+  .phase-l1.offset{
+    border-top-color:var(--red);
+  }
+  .phase-l1.offset .num{color:var(--red);}
+  .phase-l1.offset h3{color:var(--red);}
+  .arrow{
+    flex:none;
+    width:34px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--blue);
+    font-size:22px;
+    font-weight:700;
+  }
+
+  /* L2 bento grid */
+  .l2-grid{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:16px;
+    align-items:start;
+  }
+  .tile{
+    background:var(--card);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:22px 22px 24px;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+  }
+  .tile .t-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:12px;
+  }
+  .tile .t-head .t-tag{
+    font-size:12px;
+    font-weight:700;
+    color:var(--blue);
+    letter-spacing:0.08em;
+  }
+  .tile h4{
+    margin:0 0 8px;
+    font-size:21px;
+    line-height:1.15;
+  }
+  .tile h5{font-size:16px;margin:14px 0 8px;color:var(--ink);}
+  .tile p{ margin:6px 0; }
+  .tile .note{
+    color:var(--muted);
+    font-size:15px;
+  }
+  .muted{color:var(--muted);}
+  .small{font-size:15px;}
+
+  /* P marker */
+  .pmark{
+    position:absolute;
+    top:14px;
+    right:14px;
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    background:var(--red);
+    color:#fff;
+    font-size:13px;
+    font-weight:800;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 2px 6px rgba(201,58,43,.4);
+    z-index:2;
+    cursor:help;
+  }
+
+  /* chips */
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;}
+  .chips.top{margin-top:0;}
+  .chip{
+    background:var(--blue-soft);
+    color:var(--blue);
+    font-size:13px;
+    font-weight:600;
+    padding:5px 11px;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+  .chip.src{background:#EEF3F7;color:#2B3A4A;border:1px solid var(--line);}
+  .chip.rule{background:#FFF4E5;color:var(--amber);}
+  .chip.warn{background:var(--red-soft);color:var(--red);}
+
+  /* step list */
+  .steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px;}
+  .steps li{
+    position:relative;
+    padding-left:14px;
+    font-size:15.5px;
+  }
+  .steps li::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:.62em;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:var(--blue);
+  }
+  .steps li strong{color:var(--blue);font-weight:700;}
+
+  /* stage badges */
+  .stages{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;}
+  .stage{
+    font-size:13px;
+    font-weight:700;
+    border:1.5px solid var(--blue);
+    color:var(--blue);
+    border-radius:14px;
+    padding:5px 12px;
+  }
+
+  /* wide tiles (portal span 2, legend full width) */
+  .span2{grid-column:span 2;}
+  .full{grid-column:1/-1;}
+
+  /* reject tile */
+  .tile.reject{
+    background:linear-gradient(180deg,#FDF1EF,#fff);
+    border:1.5px solid #F3C6BF;
+  }
+  .tile.reject h4{color:var(--red);}
+
+  /* accent (portal) tile */
+  .tile.accent{
+    background:var(--blue);
+    color:#fff;
+    box-shadow:var(--shadow-lg);
+  }
+  .tile.accent h4{color:#fff;}
+  .tile.accent .muted,.tile.accent .small{color:rgba(255,255,255,.85);}
+  .tile.accent .t-tag{color:rgba(255,255,255,.8) !important;}
+
+  /* portal funnel */
+  .funnel{display:flex;flex-direction:column;gap:8px;margin-top:6px;}
+  .fbar{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    background:#F2F5F9;
+    border-radius:12px;
+    padding:8px 14px;
+  }
+  .tile.accent .fbar{background:rgba(255,255,255,.12);}
+  .fbar .fl{flex:1;font-weight:600;font-size:15px;}
+  .fbar .fr{font-weight:700;font-size:15px;white-space:nowrap;}
+  .fbar .fr small{font-weight:500;opacity:.75;}
+
+  /* quote */
+  .quote{
+    border-left:4px solid var(--blue);
+    background:var(--blue-soft);
+    padding:10px 14px;
+    border-radius:12px;
+    font-size:15px;
+    margin:8px 0;
+  }
+  .tile.accent .quote{background:rgba(255,255,255,.12);border-left-color:rgba(255,255,255,.5);}
+
+  /* portal props */
+  .props{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0 10px;}
+  .prop{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:8px 14px;
+    min-width:130px;
+    box-shadow:var(--shadow);
+  }
+  .tile.accent .prop{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2);}
+  .prop .pn{font-size:24px;font-weight:800;line-height:1;}
+  .prop .pn small{font-size:13px;font-weight:600;margin-left:4px;}
+  .prop .plab{font-size:13px;color:var(--muted);margin-top:2px;}
+  .tile.accent .prop .plab{color:rgba(255,255,255,.8);}
+
+  /* legend */
+  .legend .legi{
+    display:flex;
+    gap:12px;
+    padding:9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .legend .legi:last-child{border-bottom:none;padding-bottom:0;}
+  .legend .lpn{
+    flex:none;
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    background:var(--red);
+    color:#fff;
+    font-weight:800;
+    font-size:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-top:2px;
+  }
+  .legend .lq{font-weight:700;font-size:14px;margin-bottom:1px;}
+  .legend .la{font-size:13px;color:var(--muted);line-height:1.4;}
+
+  .footer{
+    background:var(--card);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:18px 24px;
+    font-size:15px;
+    color:var(--muted);
+    margin-top:22px;
+    text-align:center;
+  }
+</style>
+</head>
+<body>
+<div class="canvas">
+
+  <!-- ШАПКА -->
+  <div class="header">
+    <div>
+      <h1>Евростекло — процесс продаж: как на вашей доске и что видно в портале</h1>
+      <p>Сводка по результатам встречи 28.09.2026 · для обсуждения</p>
+    </div>
+    <div class="plaque">
+      <div class="t">Вариант 2</div>
+      <div class="b">Стиль: Bento Box Grid<br><em>Нотация: декомпозиция процесса L1 → L2 (фазы → шаги)</em></div>
+    </div>
+  </div>
+
+  <!-- УРОВЕНЬ L1: фазы -->
+  <div class="l1-row">
+    <div class="phase-l1">
+      <div class="num">ФАЗА 1</div>
+      <h3>Заявка</h3>
+      <div class="sub">Источник заявки → лид → сделка</div>
+      <div class="tag">Этапы: лид → сделка</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="phase-l1">
+      <div class="num">ФАЗА 2</div>
+      <h3>Расчёт и замер</h3>
+      <div class="sub">Счёт за замер, задание, проектирование</div>
+      <div class="tag">Этапы: 1 · 2</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="phase-l1">
+      <div class="num">ФАЗА 3</div>
+      <h3>Договор и оплата</h3>
+      <div class="sub">Юрист, подписание, предоплата</div>
+      <div class="tag">Этапы: 3 · 4 · 5</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="phase-l1">
+      <div class="num">ФАЗА 4</div>
+      <h3>Производство и снабжение</h3>
+      <div class="sub">Запуск, график, поставки</div>
+      <div class="tag">Этапы: 6 · 7</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="phase-l1">
+      <div class="num">ФАЗА 5</div>
+      <h3>Отгрузка или монтаж</h3>
+      <div class="sub">Оплата остатка, доставка, монтаж</div>
+      <div class="tag">Этапы: 8 · 10</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="phase-l1">
+      <div class="num">ФАЗА 6</div>
+      <h3>Завершение и сервис</h3>
+      <div class="sub">Закрывающие документы, звонки</div>
+      <div class="tag">Этап: 9</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="phase-l1 offset">
+      <div class="num">ВЕТКА</div>
+      <h3>Отказ</h3>
+      <div class="sub">Воронка отказников</div>
+      <div class="tag">Вопрос: P7</div>
+    </div>
+  </div>
+
+  <!-- УРОВЕНЬ L2: раскрытие фаз (сетка 3 колонки, плитки по содержимому) -->
+  <div class="l2-grid">
+
+    <!-- Ф1 — Заявка -->
+    <div class="tile">
+      <span class="pmark" title="P1: 982 лида не обработан">P1</span>
+      <div class="t-head">
+        <span class="t-tag">ФАЗА 1 — ЗАЯВКА</span>
+      </div>
+      <h4>Источники заявок</h4>
+      <div class="chips top">
+        <span class="chip src">Сарафан</span>
+        <span class="chip src">vk.ru</span>
+        <span class="chip src">Telegram</span>
+        <span class="chip src">Авито</span>
+        <span class="chip src">Салон «Артиллерийская»</span>
+        <span class="chip src">Салон «Нарвская»</span>
+        <span class="chip src">Салон «Ленинский»</span>
+        <span class="chip src">Салон «Челнокова»</span>
+      </div>
+      <div style="margin:10px 0 0;"><strong>→ Лид B2B, B2C</strong></div>
+      <p class="small muted" style="margin-top:8px;">Конвертация лида в сделку — с обязательным занесением всех реквизитов в карточку компании. В группе «ТОВАРЫ» указываются все заказанные позиции.</p>
+    </div>
+
+    <!-- Ф2 — Расчёт и замер -->
+    <div class="tile">
+      <span class="pmark" title="P2: 1166 сделок на первом этапе, до замера дошли 17">P2</span>
+      <div class="t-head"><span class="t-tag">ФАЗА 2 — РАСЧЁТ И ЗАМЕР</span></div>
+      <div class="stages">
+        <span class="stage">1 · Предварительный расчёт</span>
+        <span class="stage">2 · Заявка</span>
+      </div>
+      <h5>Кто и что делает</h5>
+      <ul class="steps">
+        <li><strong>Менеджер ОП:</strong> счёт на оплату замера, контролирует оплату. Документ «Предварительная оценка».</li>
+        <li><strong>Менеджер ОП:</strong> формирует задание на замер.</li>
+        <li><strong>Руководитель ПО:</strong> распределяет задание, контролирует замер и проектирование.</li>
+      </ul>
+      <h5>Документы</h5>
+      <div class="chips">
+        <span class="chip">Чертёж DXF</span>
+        <span class="chip">Чертёж PDF</span>
+        <span class="chip">Спецификация фурнитуры</span>
+        <span class="chip">Спецификация расходных материалов</span>
+        <span class="chip">Монтажная схема PDF</span>
+      </div>
+    </div>
+
+    <!-- Ф3 — Договор и оплата -->
+    <div class="tile">
+      <span class="pmark" title="P3: в портале нет этапов Договор, Подписание, Предоплата">P3</span>
+      <div class="t-head"><span class="t-tag">ФАЗА 3 — ДОГОВОР И ОПЛАТА</span></div>
+      <div class="stages">
+        <span class="stage">3 · Договор</span>
+        <span class="stage">4 · Подписание</span>
+        <span class="stage">5 · Предоплата</span>
+      </div>
+      <h5>Кто и что делает</h5>
+      <ul class="steps">
+        <li><strong>Менеджер ОП:</strong> отправляет договор юристу, согласует правки, формирует документы для подписания.</li>
+        <li><strong>Менеджер ОП:</strong> отправляет договор заказчику.</li>
+        <li><strong>Менеджер ОП:</strong> загружает скан подписанного с обеих сторон договора, отправляет счёт на предоплату.</li>
+      </ul>
+      <h5>Правила</h5>
+      <div class="chips">
+        <span class="chip rule">Предоплата не менее 35 %</span>
+        <span class="chip rule">Напоминание менеджеру через 2–3 дня</span>
+        <span class="chip rule">Смена этапа «Договор» через 3 рабочих дня</span>
+      </div>
+    </div>
+
+    <!-- Ф4 — Производство и снабжение -->
+    <div class="tile">
+      <span class="pmark" title="P4: в портале нет этапа Изготовлено, 507 сделок в Производстве">P4</span>
+      <div class="t-head"><span class="t-tag">ФАЗА 4 — ПРОИЗВОДСТВО И СНАБЖЕНИЕ</span></div>
+      <div class="stages">
+        <span class="stage">6 · В производстве</span>
+        <span class="stage">7 · Изготовлено</span>
+      </div>
+      <ul class="steps">
+        <li><strong>Менеджер ОП:</strong> оформляет заказ для запуска в производство, формирует заявку на внутреннее потребление.</li>
+        <li><strong>Руководитель ПТО:</strong> запускает заказ в производство, добавляет в производственный график.</li>
+        <li><strong>Руководитель ОС:</strong> заказ фурнитуры, график поставок, логистика; при наличии на складе — внутреннее потребление.</li>
+      </ul>
+      <p class="small muted" style="margin-top:10px;"><strong>Уведомления:</strong> руководителю ПТО о запуске, руководителю производства, менеджеру о дате готовности.</p>
+    </div>
+
+    <!-- Ф5 — Отгрузка или монтаж -->
+    <div class="tile">
+      <span class="pmark" title="P5: в портале нет этапа Отгрузка, порядок монтажа не ясен">P5</span>
+      <div class="t-head"><span class="t-tag">ФАЗА 5 — ОТГРУЗКА ИЛИ МОНТАЖ</span></div>
+      <div class="stages">
+        <span class="stage">8 · Отгрузка</span>
+        <span class="stage">10 · Монтаж</span>
+        <span class="chip warn" style="font-size:12px;">монтаж после «Изготовлено» — уточнить</span>
+      </div>
+      <div style="display:flex;gap:18px;flex:1;">
+        <div style="flex:1;">
+          <h5>Кто и что делает</h5>
+          <ul class="steps">
+            <li><strong>Менеджер ОП:</strong> сообщение о готовности, счёт на оплату остатка, контроль 100 % оплаты, доверенность на груз, дата отгрузки, отгрузочные документы в службу доставки.</li>
+            <li><strong>Менеджер ОП:</strong> задание на монтаж, отгрузочные документы.</li>
+            <li><strong>Руководитель службы сервиса:</strong> распределяет задание, согласует дату и время монтажа, контролирует выезд и качество (фото).</li>
+          </ul>
+        </div>
+        <div style="flex:1;">
+          <h5>Документы</h5>
+          <div class="chips">
+            <span class="chip">Счёт на оплату остатка</span>
+            <span class="chip">УПД</span>
+            <span class="chip">Наряд-задание</span>
+            <span class="chip">Монтажная схема</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ф6 — Завершение и сервис -->
+    <div class="tile">
+      <span class="pmark" title="P6: звонки 14/90/270 в портале не видны">P6</span>
+      <div class="t-head"><span class="t-tag">ФАЗА 6 — ЗАВЕРШЕНИЕ И СЕРВИС</span></div>
+      <div class="stages">
+        <span class="stage">9 · Сделка завершена</span>
+      </div>
+      <ul class="steps">
+        <li><strong>Ассистент ОП:</strong> контролирует возврат закрывающих документов.</li>
+        <li><strong>Ассистент ОП:</strong> звонит клиенту через 14 / 90 / 270 дней.</li>
+      </ul>
+      <div class="chips">
+        <span class="chip">14 дней</span>
+        <span class="chip">90 дней</span>
+        <span class="chip">270 дней</span>
+      </div>
+    </div>
+
+    <!-- Отказ -->
+    <div class="tile reject">
+      <span class="pmark" title="P7: воронки отказников в портале не видно">P7</span>
+      <div class="t-head"><span class="t-tag">ВЕТКА — ОТКАЗ</span></div>
+      <h4>Воронка отказников</h4>
+      <ul class="steps">
+        <li>Закупка не согласована.</li>
+        <li>Закупили у конкурентов.</li>
+        <li>Тендер конечника не состоялся.</li>
+        <li>Закупка отложена.</li>
+      </ul>
+      <p class="small muted" style="margin-top:10px;">В портале воронку отказников пока не видно — куда уходит сделка при отказе, уточнить.</p>
+    </div>
+
+    <!-- ПОРТАЛ СЕЙЧАС (широкая плитка, span 2) -->
+    <div class="tile accent span2">
+      <div class="t-head">
+        <span class="t-tag">СЕЙЧАС В ПОРТАЛЕ</span>
+        <div class="props" style="margin:0;">
+          <span class="prop"><div class="pn">982</div><div class="plab">лидов «Не обработан»</div></span>
+          <span class="prop"><div class="pn">291 <small>75,3 млн ₽</small></div><div class="plab">лидов «В работе»</div></span>
+          <span class="prop"><div class="pn">1552 <small>23,9 млн ₽</small></div><div class="plab">лидов «Обработан»</div></span>
+        </div>
+      </div>
+      <h4>Воронки сделок</h4>
+      <p class="small">В портале две воронки: «Активные продажи» и «Общая» — этапы в них не совпадают с доской.</p>
+      <div class="funnel">
+        <div class="fbar"><span class="fl">Предварительная заявка</span><span class="fr">1166 <small>60,3 млн ₽</small></span></div>
+        <div class="fbar"><span class="fl">Замеры и проектирование</span><span class="fr">17 <small>0,13 млн ₽</small></span></div>
+        <div class="fbar"><span class="fl">Согласование сделки</span><span class="fr">1</span></div>
+        <div class="fbar"><span class="fl">Оплата</span><span class="fr">39 <small>1,5 млн ₽</small></span></div>
+        <div class="fbar"><span class="fl">Производство</span><span class="fr">507 <small>13,0 млн ₽</small></span></div>
+        <div class="fbar"><span class="fl">Монтаж</span><span class="fr">41</span></div>
+        <div class="fbar"><span class="fl">Закрытие сделки</span><span class="fr">—</span></div>
+      </div>
+      <div style="display:flex;gap:14px;margin-top:18px;">
+        <div class="quote" style="flex:1;">«Воронка неправильно работает, многие вещи остаются длительно на процессе»</div>
+        <div class="quote" style="flex:1;">«Большое количество задач пропущены, никто на это не реагирует»</div>
+      </div>
+      <div class="chips" style="margin-top:14px;">
+        <span class="chip warn" style="background:rgba(201,58,43,.15);">P8 · задачи просрочены, роли (ПО, ПТО, ОС, сервис) в портале не видны</span>
+        <span class="chip warn" style="background:rgba(201,58,43,.15);">P9 · две воронки, этапы не совпадают с доской</span>
+      </div>
+    </div>
+
+    <!-- ЛЕГЕНДА P1–P9 (на всю ширину) -->
+    <div class="tile legend full">
+      <div class="t-head"><span class="t-tag">ПРОБЛЕМНЫЕ МЕСТА</span></div>
+      <h4>Подтвердить с клиентом</h4>
+      <div class="legi">
+        <span class="lpn">P1</span>
+        <div><div class="lq">982 лида «Не обработан»</div><div class="la">Кто разбирает новые заявки и за какой срок?</div></div>
+      </div>
+      <div class="legi">
+        <span class="lpn">P2</span>
+        <div><div class="lq">1166 сделок на первом этапе, до замера дошли 17</div><div class="la">Что мешает дойти до замера?</div></div>
+      </div>
+      <div class="legi">
+        <span class="lpn">P3</span>
+        <div><div class="lq">В портале нет этапов «Договор», «Подписание», «Предоплата»</div><div class="la">Где это фиксируется сейчас?</div></div>
+      </div>
+      <div class="legi">
+        <span class="lpn">P4</span>
+        <div><div class="lq">В портале нет этапа «Изготовлено»; 507 сделок в «Производстве»</div><div class="la">Кто и когда переводит сделку дальше?</div></div>
+      </div>
+      <div class="legi">
+        <span class="lpn">P5</span>
+        <div><div class="lq">В портале нет этапа «Отгрузка»; порядок монтажа не ясен</div><div class="la">Монтаж — после отгрузки или вместо неё?</div></div>
+      </div>
+      <div class="legi">
+        <span class="lpn">P6</span>
+        <div><div class="lq">Звонки 14 / 90 / 270 в портале не видны</div><div class="la">Звоните ли клиенту после сделки?</div></div>
+      </div>
+      <div class="legi">
+        <span class="lpn">P7</span>
+        <div><div class="lq">Воронки отказников в портале не видно</div><div class="la">Куда уходит сделка при отказе?</div></div>
+      </div>
+      <div class="legi">
+        <span class="lpn">P8</span>
+        <div><div class="lq">Задачи по звонкам просрочены; роли (ПО, ПТО, ОС, сервис) не видны</div><div class="la">Кто отвечает на каждом этапе?</div></div>
+      </div>
+      <div class="legi">
+        <span class="lpn">P9</span>
+        <div><div class="lq">В портале две воронки, этапы не совпадают с доской</div><div class="la">Какая воронка рабочая?</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    Источники: ваша доска процесса (Miro) и запись экрана портала Битрикс24, 28.09.2026. Группировка по фазам — аналитическая, для обсуждения.
+  </div>
+
+</div>
+</body>
+</html>
