@@ -1,0 +1,27 @@
+:root{--ink:#1d2530;--muted:#5b6573;--paper:#fffdf8;--line:#d9d3c7;--accent:#b8480f;
+--board:#1f6b3a;--board-bg:#e5f3e9;--said:#8a5a00;--said-bg:#fbf1d9;--unk:#8c1d1d;--unk-bg:#f8e3e3;--conf:#5b2a86;--conf-bg:#efe6f8;--pt:#d0341c}
+*{box-sizing:border-box}
+body{margin:0;background:#f1ede4;color:var(--ink);font:17px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.page{max-width:1240px;margin:0 auto;padding:28px 20px 60px}
+.page>header{border-top:8px solid var(--accent);background:var(--paper);padding:22px 28px;border-radius:0 0 10px 10px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+h1{margin:0 0 6px;font-size:32px;line-height:1.2}
+.lead{margin:0;color:var(--muted);font-size:18px}
+section{background:var(--paper);margin-top:22px;padding:22px 28px;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+h2{margin:0 0 12px;font-size:25px}
+h3{margin:0;font-size:20px}
+.st{display:inline-block;font-size:14px;font-weight:700;padding:0 9px;border-radius:999px;border:2px solid currentColor;white-space:nowrap;vertical-align:1px}
+.st-board{color:var(--board);background:var(--board-bg)}.st-board::before{content:"✓ "}
+.st-said{color:var(--said);background:var(--said-bg)}.st-said::before{content:"“ "}
+.st-unk{color:var(--unk);background:var(--unk-bg);border-style:dashed}.st-unk::before{content:"? "}
+.st-conf{color:var(--conf);background:var(--conf-bg);border-style:dotted}.st-conf::before{content:"⚡ "}
+.tp{display:inline-block;font-size:14px;font-weight:700;padding:1px 10px;border-radius:6px;background:#eef1f5;color:#2d4a66;border:1px solid #b9c6d4}
+.pt{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;border-radius:50%;background:var(--pt);color:#fff;font-weight:800;font-size:15px;padding:0 4px;vertical-align:middle}
+.src{color:var(--muted);font-size:13px}
+.tbl{width:100%;border-collapse:collapse;margin:10px 0 18px;font-size:16px}
+.tbl th{background:#3d4a5c;color:#fff;text-align:left;padding:8px 10px}
+.tbl td{border-bottom:1px solid var(--line);padding:8px 10px;vertical-align:top}
+.tbl tr:nth-child(even) td{background:#f7f4ed}
+.legend{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;font-size:15px}
+nav.toc a{color:var(--accent);font-weight:600}
+@media (max-width:700px){body{font-size:16px}.page{padding:12px}section,.page>header{padding:16px}h1{font-size:24px}.tbl{display:block;overflow-x:auto}}
+@media print{body{background:#fff}section,.page>header{box-shadow:none}}
