@@ -32,4 +32,4 @@
 ## Размещение навыков
 - Факт (проверено): `git -C eurosteklo rev-parse --show-toplevel` → `/root/workspaces/projects/clients/eurosteklo` (свой репозиторий); `git -C clients rev-parse --show-toplevel` → `/root/workspaces/projects` (другой репозиторий).
 - Документация (code.claude.com/docs/en/skills): «Claude Code loads project skills from `.claude/skills/` in the directory where you start it and in every parent directory up to the repository root».
-- Вывод: `clients/.claude/skills` выше корня репозитория eurosteklo — при старте из eurosteklo штатно не грузится. Масштабирование на других клиентов — отдельным решением после утверждения (варианты: копия набора в репо клиента-шаблона; личные `~/.claude/skills`).
+- Вывод: навыки — только в `.claude/skills` этой директории, никуда не выносить (закон жёсткого контура, `CLAUDE.md`).
