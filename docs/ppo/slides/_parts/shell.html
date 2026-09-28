@@ -337,6 +337,11 @@ body{
 .zone li{margin-bottom:5px}
 .zone.ask li{line-height:1.25}
 .slide-blockers .blk td{padding:5px 12px}
+.tp{display:inline-block;font-size:15px;font-weight:800;padding:1px 10px;border-radius:999px;border:2px solid currentColor;white-space:nowrap}
+.tp-cond::before{content:"▤ "}.tp-fork::before{content:"⑂ "}.tp-conf::before{content:"⚡ "}
+.tp-cond{color:#28597a;background:#e8eff5}.tp-fork{color:#8a5a00;background:#fbf1d9}.tp-conf{color:#8c1d1d;background:#f8e3e3;border-style:dashed}
+.blk:has(.tp) td:nth-child(2){width:15%;font-weight:400}
+.blk:has(.tp) th:nth-child(2){width:15%}
 </style>
 </head>
 <body>
