@@ -1,0 +1,363 @@
+<!-- height: 1500 -->
+<rect x="0" y="0" width="2600" height="1500" fill="#fff" stroke="#4b5563" stroke-width="1.6"/>
+<rect x="0" y="0" width="2600" height="44" fill="#e8f0fb" stroke="#4b5563" stroke-width="1.6"/>
+<text x="14" y="28" font-family="system-ui,sans-serif" font-size="18" font-weight="700" fill="#1f2937" text-anchor="start">Б. По ТЗ 2024–2025 + статусная модель Б24 ↔ 1С (как было задумано)</text>
+<text x="790" y="28" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="start">ФТ-2 «Квалификация заявки / Замер / КП», ФТ-3 «Заключение договора / Оплата», ФТ-4 «Монтаж / Закрытие сделки» — sanitized-tz.md; статусы — sanitized-statusy.md</text>
+<text x="14" y="68" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#1f2937" text-anchor="start">(1) Процесс по ТЗ (BPMN, упрощённо): каждую следующую задачу создаёт Система при смене результирующего статуса предыдущей</text>
+<rect x="0" y="80" width="190" height="180" fill="#eef1f5" stroke="#4b5563" stroke-width="1.2"/>
+<line x1="0" y1="260" x2="2600" y2="260" stroke="#9aa0a6" stroke-width="1.2"/>
+<text x="12" y="106" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#1f2937" text-anchor="start">Система</text>
+<text x="12" y="126" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#1f2937" text-anchor="start">(Б24 + 1С)</text>
+<text x="12" y="248" font-family="system-ui,sans-serif" font-size="14" font-style="italic" fill="#6b7280" text-anchor="start">источник: ТЗ</text>
+<rect x="0" y="260" width="190" height="180" fill="#eef1f5" stroke="#4b5563" stroke-width="1.2"/>
+<line x1="0" y1="440" x2="2600" y2="440" stroke="#9aa0a6" stroke-width="1.2"/>
+<text x="12" y="286" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#1f2937" text-anchor="start">Менеджер</text>
+<text x="12" y="428" font-family="system-ui,sans-serif" font-size="14" font-style="italic" fill="#6b7280" text-anchor="start">источник: ТЗ</text>
+<rect x="0" y="440" width="190" height="140" fill="#eef1f5" stroke="#4b5563" stroke-width="1.2"/>
+<line x1="0" y1="580" x2="2600" y2="580" stroke="#9aa0a6" stroke-width="1.2"/>
+<text x="12" y="466" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#1f2937" text-anchor="start">Конструктор</text>
+<text x="12" y="568" font-family="system-ui,sans-serif" font-size="14" font-style="italic" fill="#6b7280" text-anchor="start">источник: ТЗ</text>
+<rect x="0" y="580" width="190" height="160" fill="#eef1f5" stroke="#4b5563" stroke-width="1.2"/>
+<line x1="0" y1="740" x2="2600" y2="740" stroke="#9aa0a6" stroke-width="1.2"/>
+<text x="12" y="606" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#1f2937" text-anchor="start">Сотрудник</text>
+<text x="12" y="626" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#1f2937" text-anchor="start">производства /</text>
+<text x="12" y="646" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#1f2937" text-anchor="start">монтажа</text>
+<text x="12" y="728" font-family="system-ui,sans-serif" font-size="14" font-style="italic" fill="#6b7280" text-anchor="start">источник: ТЗ</text>
+<rect x="0" y="740" width="190" height="120" fill="#eef1f5" stroke="#4b5563" stroke-width="1.2"/>
+<line x1="0" y1="860" x2="2600" y2="860" stroke="#9aa0a6" stroke-width="1.2"/>
+<text x="12" y="766" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#1f2937" text-anchor="start">Руководитель /</text>
+<text x="12" y="786" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#1f2937" text-anchor="start">Директор</text>
+<text x="12" y="848" font-family="system-ui,sans-serif" font-size="14" font-style="italic" fill="#6b7280" text-anchor="start">источник: ТЗ</text>
+<line x1="0" y1="80" x2="2600" y2="80" stroke="#9aa0a6" stroke-width="1.2"/>
+<g><title>ТЗ ФТ-2: «Предусловия: Менеджер позвонил клиенту. Менеджер задал вопрос “Есть чертежи? Размеры?  / Требуется замер.»</title>
+<circle cx="235" cy="350" r="17" fill="#fff" stroke="#1f2937" stroke-width="1.6"/>
+<text x="200" y="395" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#1f2937" text-anchor="start">Менеджер позвонил:</text>
+<text x="200" y="413" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#1f2937" text-anchor="start">«Чертежи? Размеры?»</text>
+</g>
+<polyline points="252,350 346,350" fill="none" stroke="#1f2937" stroke-width="2" marker-end="url(#arr)"/>
+<g><title>ТЗ ФТ-2: «Менеджер вручную меняет статус Заявки “Требуется замер”» / «Менеджер вручную меняет статус заявки на “Замер не требуется”» — шлюз</title>
+<polygon points="380,318 412,350 380,382 348,350" fill="#fff" stroke="#1f2937" stroke-width="1.6"/></g>
+<text x="372" y="296" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#1f2937" text-anchor="end">замер?</text>
+<polyline points="380,318 380,300 418,300" fill="none" stroke="#1f2937" stroke-width="2" marker-end="url(#arr)"/>
+<polyline points="380,382 380,400 418,400" fill="none" stroke="#1f2937" stroke-width="2" marker-end="url(#arr)"/>
+<g><title>ТЗ ФТ-2: «Клиенту требуется выезд на замеры. В заявке указываются данные местонахождения объекта и удобное время. 1. Менеджер вручную меняет статус Заявки “Требуется замер”.»</title>
+<rect x="420" y="272" width="190" height="56" rx="12" fill="#fff" stroke="#1f2937" stroke-width="1.4"/>
+<text x="515.0" y="296" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Статус заявки</text>
+<text x="515.0" y="314" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">«Требуется замер»</text>
+</g>
+<g><title>ТЗ ФТ-2: «Альтернативный сценарий №1: Клиенту не требуется замер. Клиент предоставил данные для расчета и чертежи. Менеджер внес их в карточку Заявки.1. Менеджер вручную меняет статус заявки на “Замер не требуется”»</title>
+<rect x="420" y="372" width="190" height="56" rx="12" fill="#fff" stroke="#1f2937" stroke-width="1.4"/>
+<text x="515.0" y="396" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">«Замер не требуется»:</text>
+<text x="515.0" y="414" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">чертежи в карточке</text>
+</g>
+<g><title>ТЗ ФТ-2: «2. Система автоматически создает задачу на Конструктора: – Название “Договорится на замер” … Результирующий статус: Встреча назначена /  Отменено»</title>
+<rect x="660" y="470" width="200" height="80" rx="12" fill="#fff" stroke="#1f2937" stroke-width="1.4"/>
+<text x="760.0" y="496" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Договориться на замер</text>
+<text x="760.0" y="515" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">→ «Встреча назначена»</text>
+<text x="760.0" y="534" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">(замер)</text>
+</g>
+<polyline points="610,300 635,300 635,510 658,510" fill="none" stroke="#1f2937" stroke-width="2" marker-end="url(#arr)"/>
+<g><title>ТЗ ФТ-2: «3. При смене статуса “Встреча назначена” Система автоматически создает задачу на Конструктора: – Название “Произвести расчет” … Результирующий статус: Расчет произведен /  Отменено»</title>
+<rect x="910" y="470" width="200" height="80" rx="12" fill="#fff" stroke="#1f2937" stroke-width="1.4"/>
+<text x="1010.0" y="506" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Произвести расчёт</text>
+<text x="1010.0" y="524" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">→ «Расчёт произведен»</text>
+</g>
+<polyline points="860,510 908,510" fill="none" stroke="#1f2937" stroke-width="2" marker-end="url(#arr)"/>
+<polyline points="515,428 515,565 1010,565 1010,552" fill="none" stroke="#1f2937" stroke-width="2" marker-end="url(#arr)"/>
+<text x="525" y="560" font-family="system-ui,sans-serif" font-size="14" font-style="italic" fill="#6b7280" text-anchor="start">без замера — сразу расчёт</text>
+<g><title>ТЗ ФТ-2: «4. При смене статуса “Расчет произведен” Система автоматически создает задачу на Менеджера: – Название “Согласовать КП” … Результирующий статус: КП согласовано /  Отменено»</title>
+<rect x="1160" y="310" width="200" height="80" rx="12" fill="#fff" stroke="#1f2937" stroke-width="1.4"/>
+<text x="1260.0" y="346" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Согласовать КП</text>
+<text x="1260.0" y="364" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">→ «КП согласовано»</text>
+</g>
+<polyline points="1110,510 1135,510 1135,350 1158,350" fill="none" stroke="#1f2937" stroke-width="2" marker-end="url(#arr)"/>
+<g><title>ТЗ ФТ-2: «5. Система изменяет статус Заявки на “Согласование сделки”»</title>
+<rect x="1410" y="115" width="200" height="80" rx="12" fill="#eef4fd" stroke="#1f2937" stroke-width="1.4"/>
+<text x="1510.0" y="141" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Статус заявки</text>
+<text x="1510.0" y="160" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">«Согласование сделки»</text>
+<text x="1510.0" y="179" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">ставит Система</text>
+</g>
+<polyline points="1360,350 1385,350 1385,155 1408,155" fill="none" stroke="#1f2937" stroke-width="2" marker-end="url(#arr)"/>
+<g><title>ТЗ ФТ-3: «Предусловие: Система изменяет статус Заявки на “Согласование сделки”. Менеджер создает договор в 1с и счет на оплату. Основной сценарий: 1. Система создает задачу на менеджера – Название “Подписать договор” … 2. … “Выслать счет” … Результирующий статус: Счет отправлен»</title>
+<rect x="1660" y="285" width="210" height="110" rx="12" fill="#fff" stroke="#1f2937" stroke-width="1.4"/>
+<text x="1765.0" y="307" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Договор и счёт в 1С;</text>
+<text x="1765.0" y="326" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">«Подписать договор» →</text>
+<text x="1765.0" y="345" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">«Договор подписан»;</text>
+<text x="1765.0" y="364" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">«Выслать счёт» →</text>
+<text x="1765.0" y="383" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">«Счёт отправлен»</text>
+</g>
+<polyline points="1610,155 1635,155 1635,340 1658,340" fill="none" stroke="#1f2937" stroke-width="2" marker-end="url(#arr)"/>
+<g><title>ТЗ ФТ-3: «Нотификация: Если Timestemp “Счет отправлен” &gt; 3 дней, тогда уведомление на менеджера “Контроль оплаты счета!” Нотификация: Если Timestemp “Счет отправлен” &gt; 5 дней, тогда уведомление на руководителя “Контроль оплаты счета!”»</title>
+<rect x="1640" y="768" width="250" height="64" rx="12" fill="#fff" stroke="#8a9099" stroke-width="1.4" stroke-dasharray="7 5"/>
+<text x="1765.0" y="796" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">«Контроль оплаты счёта!»:</text>
+<text x="1765.0" y="814" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">&gt; 3 дн. менеджеру, &gt; 5 дн. рук.</text>
+</g>
+<polyline points="1765,395 1765,766" fill="none" stroke="#8a9099" stroke-width="1.6" stroke-dasharray="7 5" marker-end="url(#arrg)"/>
+<g><title>ТЗ ФТ-2–ФТ-4: «Если “Ожидает исполнения” &gt;30 мин … &gt; 5 дней … &gt; 50 мин … &gt; 1 дня ( рабочие дни), тогда Уведомление “Внимание! Просрочка задания! на Руководитель группы …»</title>
+<rect x="640" y="768" width="500" height="64" rx="12" fill="#fff" stroke="#8a9099" stroke-width="1.4" stroke-dasharray="7 5"/>
+<text x="890.0" y="796" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Просрочка любой задачи (&gt; 30 мин / 50 мин / 5 дн. / 1 раб. дн.)</text>
+<text x="890.0" y="814" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">→ «Внимание! Просрочка задания!» руководителю группы</text>
+</g>
+<g><title>ТЗ ФТ-3/ФТ-4: «Автоматизация: Автоматическая проверка статуса счета в 1с.» «Предусловия: оплата по счету пришла. Основной сценарий: Система меняет статус Заявки на “Оплачено” .Система отправляет уведомление менеджеру “Заявка оплачена”»</title>
+<rect x="1910" y="100" width="220" height="110" rx="12" fill="#eef4fd" stroke="#1f2937" stroke-width="1.4"/>
+<text x="2020.0" y="132" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Проверка счёта в 1С →</text>
+<text x="2020.0" y="150" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">статус «Оплачено»,</text>
+<text x="2020.0" y="170" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">уведомление</text>
+<text x="2020.0" y="188" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">«Заявка оплачена»</text>
+</g>
+<polyline points="1870,340 1890,340 1890,155 1908,155" fill="none" stroke="#1f2937" stroke-width="2" marker-end="url(#arr)"/>
+<g><title>ТЗ ФТ-4: «1. Система создает задачу на сотрудника производства – Название “Произвести изделие” – … Результирующий статус: Произведено / Отменено»</title>
+<rect x="1910" y="620" width="180" height="80" rx="12" fill="#fff" stroke="#1f2937" stroke-width="1.4"/>
+<text x="2000.0" y="656" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Произвести изделие</text>
+<text x="2000.0" y="674" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">→ «Произведено»</text>
+</g>
+<polyline points="2000,210 2000,618" fill="none" stroke="#1f2937" stroke-width="2" marker-end="url(#arr)"/>
+<g><title>ТЗ ФТ-4: «3. При смене статуса задачи “Произведено” Система создает задачу на сотрудника монтажа – Название “Монтаж заказа” – … Результирующий статус: Монтаж завершен /  Отменено»</title>
+<rect x="2120" y="620" width="180" height="80" rx="12" fill="#fff" stroke="#1f2937" stroke-width="1.4"/>
+<text x="2210.0" y="646" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Монтаж заказа</text>
+<text x="2210.0" y="665" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">(всегда) →</text>
+<text x="2210.0" y="684" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">«Монтаж завершен»</text>
+</g>
+<polyline points="2090,660 2118,660" fill="none" stroke="#1f2937" stroke-width="2" marker-end="url(#arr)"/>
+<g><title>ТЗ ФТ-4: «3. При смене статуса задачи на “Монтаж завершен” создается задача на сотрудника монтажа – Название “Загрузить акты в 1с” – … Результирующий статус: Документы загружены»</title>
+<rect x="2330" y="620" width="180" height="80" rx="12" fill="#fff" stroke="#1f2937" stroke-width="1.4"/>
+<text x="2420.0" y="646" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Загрузить акты в 1С</text>
+<text x="2420.0" y="665" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">→ «Документы</text>
+<text x="2420.0" y="684" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">загружены»</text>
+</g>
+<polyline points="2300,660 2328,660" fill="none" stroke="#1f2937" stroke-width="2" marker-end="url(#arr)"/>
+<g><title>ТЗ ФТ-4: «4. При смене статуса задачи на “Документы загружены” создается задача на менеджера– Название “Контроль сделки” – … Результирующий статус: Сделка завершена успешно /  Рекламация»</title>
+<rect x="2330" y="310" width="180" height="80" rx="12" fill="#fff" stroke="#1f2937" stroke-width="1.4"/>
+<text x="2420.0" y="355" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Контроль сделки</text>
+</g>
+<polyline points="2420,618 2420,392" fill="none" stroke="#1f2937" stroke-width="2" marker-end="url(#arr)"/>
+<g><title>ТЗ ФТ-4: «5. При смене статуса задачи на “Сделка завершена успешно” Заявка переходит в статус “Исполнена”»</title>
+<rect x="2330" y="110" width="180" height="80" rx="12" fill="#eef4fd" stroke="#1f2937" stroke-width="1.4"/>
+<text x="2420.0" y="146" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Статус заявки</text>
+<text x="2420.0" y="164" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">«Исполнена»</text>
+</g>
+<polyline points="2420,310 2420,192" fill="none" stroke="#1f2937" stroke-width="2" marker-end="url(#arr)"/>
+<text x="2412" y="262" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#1f2937" text-anchor="end">«Сделка завершена</text>
+<text x="2412" y="280" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#1f2937" text-anchor="end">успешно»</text>
+<circle cx="2560" cy="150" r="16" fill="#fff" stroke="#1f2937" stroke-width="3.5"/>
+<polyline points="2510,150 2542,150" fill="none" stroke="#1f2937" stroke-width="2" marker-end="url(#arr)"/>
+<polyline points="2130,130 2328,130" fill="none" stroke="#8a9099" stroke-width="1.6" stroke-dasharray="7 5" marker-end="url(#arrg)"/>
+<text x="2140" y="106" font-family="system-ui,sans-serif" font-size="14" font-style="italic" fill="#6b7280" text-anchor="start">схема ТЗ: «Исполнена» —</text>
+<text x="2140" y="124" font-family="system-ui,sans-serif" font-size="14" font-style="italic" fill="#6b7280" text-anchor="start">автоматически после оплаты</text>
+<g><title>ТЗ ФТ-4: «Альтернативный сценарий: Если статус задачи “Рекламация”, тогда Система создает задачу на руководителя менеджера – Название “Устранение рекламации _ ID заявки” – … Результирующий статус: Рекламация устранена /  Рекламация– Уведомление на Директор»</title>
+<rect x="2250" y="760" width="250" height="80" rx="12" fill="#fff" stroke="#1f2937" stroke-width="1.4"/>
+<text x="2375.0" y="786" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">«Устранение рекламации»:</text>
+<text x="2375.0" y="805" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">рук. менеджеров,</text>
+<text x="2375.0" y="824" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">уведомление Директору</text>
+</g>
+<polyline points="2510,350 2560,350 2560,800 2502,800" fill="none" stroke="#1f2937" stroke-width="2" marker-end="url(#arr)"/>
+<text x="2552" y="745" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#1f2937" text-anchor="end">«Рекламация»</text>
+<text x="14" y="905" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#1f2937" text-anchor="start">(2) Статусная модель Б24 ↔ 1С (лист «Согласованный план»): под статусом — кто ставит; серые линии — соответствие</text>
+<rect x="0" y="920" width="2600" height="175" fill="#fff" stroke="#4b5563" stroke-width="1.2"/>
+<rect x="190" y="1095" width="2410" height="235" fill="#eceef1" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="7 5"/>
+<rect x="0" y="920" width="190" height="175" fill="#eef1f5" stroke="#4b5563" stroke-width="1.2"/>
+<rect x="0" y="1095" width="190" height="235" fill="#eef1f5" stroke="#4b5563" stroke-width="1.2"/>
+<text x="12" y="946" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#1f2937" text-anchor="start">Битрикс24</text>
+<text x="12" y="966" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#1f2937" text-anchor="start">(новые статусы)</text>
+<text x="12" y="1121" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#1f2937" text-anchor="start">1С —</text>
+<text x="12" y="1141" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#1f2937" text-anchor="start">неизвестно,</text>
+<text x="12" y="1161" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#1f2937" text-anchor="start">уточнить</text>
+<text x="12" y="1187" font-family="system-ui,sans-serif" font-size="14" font-style="italic" fill="#6b7280" text-anchor="start">в 1С не смотрели;</text>
+<text x="12" y="1205" font-family="system-ui,sans-serif" font-size="14" font-style="italic" fill="#6b7280" text-anchor="start">только по файлу</text>
+<text x="12" y="1223" font-family="system-ui,sans-serif" font-size="14" font-style="italic" fill="#6b7280" text-anchor="start">статусов</text>
+<polyline points="274.0,1001 274.0,1148" fill="none" stroke="#8a9099" stroke-width="1.6" marker-end="url(#arrg)"/>
+<polyline points="422.0,1001 422.0,1148" fill="none" stroke="#8a9099" stroke-width="1.6" marker-end="url(#arrg)"/>
+<polyline points="718.0,1001 718.0,1148" fill="none" stroke="#8a9099" stroke-width="1.6" marker-end="url(#arrg)"/>
+<polyline points="866.0,1001 866.0,1148" fill="none" stroke="#8a9099" stroke-width="1.6" marker-end="url(#arrg)"/>
+<polyline points="1014.0,1001 1014.0,1148" fill="none" stroke="#8a9099" stroke-width="1.6" marker-end="url(#arrg)"/>
+<polyline points="1162.0,1001 1162.0,1148" fill="none" stroke="#8a9099" stroke-width="1.6" marker-end="url(#arrg)"/>
+<polyline points="1310.0,1001 1310.0,1148" fill="none" stroke="#8a9099" stroke-width="1.6" marker-end="url(#arrg)"/>
+<polyline points="1458.0,1001 1458.0,1148" fill="none" stroke="#8a9099" stroke-width="1.6" marker-end="url(#arrg)"/>
+<polyline points="1606.0,1001 1606.0,1148" fill="none" stroke="#8a9099" stroke-width="1.6" marker-end="url(#arrg)"/>
+<polyline points="1754.0,1001 1754.0,1148" fill="none" stroke="#8a9099" stroke-width="1.6" marker-end="url(#arrg)"/>
+<polyline points="1902.0,1001 1902.0,1148" fill="none" stroke="#8a9099" stroke-width="1.6" marker-end="url(#arrg)"/>
+<polyline points="2050.0,1001 2050.0,1148" fill="none" stroke="#8a9099" stroke-width="1.6" marker-end="url(#arrg)"/>
+<polyline points="2198.0,1001 2198.0,1148" fill="none" stroke="#8a9099" stroke-width="1.6" marker-end="url(#arrg)"/>
+<polyline points="2346.0,1001 2346.0,1148" fill="none" stroke="#8a9099" stroke-width="1.6" marker-end="url(#arrg)"/>
+<polyline points="2494.0,1001 2494.0,1148" fill="none" stroke="#8a9099" stroke-width="1.6" marker-end="url(#arrg)"/>
+<g><title>Статусная модель, ячейка G6, J6: Б24 «Предварительная заявка» — при создании; управляется в Б24</title>
+<rect x="205" y="945" width="138" height="56" rx="6" fill="#eef4fd" stroke="#1f2937" stroke-width="1.4"/>
+<text x="274.0" y="968" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Предварительная</text>
+<text x="274.0" y="988" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">заявка</text>
+</g>
+<rect x="221" y="1007" width="107" height="18" fill="#fff"/>
+<text x="274.0" y="1021" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">при создании;</text>
+<rect x="205" y="1025" width="137" height="18" fill="#fff"/>
+<text x="274.0" y="1039" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">управляется в Б24</text>
+<g><title>Статусная модель, ячейка G7, C7: Б24 «Замеры и проектирование» — менеджер</title>
+<rect x="353" y="945" width="138" height="56" rx="6" fill="#eef4fd" stroke="#1f2937" stroke-width="1.4"/>
+<text x="422.0" y="968" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Замеры и</text>
+<text x="422.0" y="988" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">проектирование</text>
+</g>
+<rect x="388" y="1007" width="69" height="18" fill="#fff"/>
+<text x="422.0" y="1021" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">менеджер</text>
+<g><title>Статусная модель, ячейка G8, D8: Б24 «Согласование сделки» — рук. сервиса или конструктор</title>
+<rect x="501" y="945" width="138" height="56" rx="6" fill="#eef4fd" stroke="#1f2937" stroke-width="1.4"/>
+<text x="570.0" y="968" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Согласование</text>
+<text x="570.0" y="988" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">сделки</text>
+</g>
+<rect x="505" y="1007" width="130" height="18" fill="#fff"/>
+<text x="570.0" y="1021" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">рук. сервиса или</text>
+<rect x="524" y="1025" width="92" height="18" fill="#fff"/>
+<text x="570.0" y="1039" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">конструктор</text>
+<g><title>Статусная модель, ячейка G9, I9: Б24 «Оплата» — из 1С (автоматически)</title>
+<rect x="649" y="945" width="286" height="56" rx="6" fill="#eef4fd" stroke="#1f2937" stroke-width="1.4"/>
+<text x="792.0" y="978" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Оплата</text>
+</g>
+<rect x="708" y="1007" width="168" height="18" fill="#fff"/>
+<text x="792.0" y="1021" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">из 1С (автоматически)</text>
+<g><title>Статусная модель, ячейка G12, I12: Б24 «В производстве» — из 1С (производство)</title>
+<rect x="945" y="945" width="582" height="56" rx="6" fill="#eef4fd" stroke="#1f2937" stroke-width="1.4"/>
+<text x="1236.0" y="978" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">В производстве</text>
+</g>
+<rect x="1156" y="1007" width="160" height="18" fill="#fff"/>
+<text x="1236.0" y="1021" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">из 1С (производство)</text>
+<g><title>Статусная модель, ячейка G17, D17: Б24 «Монтаж» — менеджер в Б24</title>
+<rect x="1537" y="945" width="138" height="56" rx="6" fill="#eef4fd" stroke="#1f2937" stroke-width="1.4"/>
+<text x="1606.0" y="978" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Монтаж</text>
+</g>
+<rect x="1549" y="1007" width="114" height="18" fill="#fff"/>
+<text x="1606.0" y="1021" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">менеджер в Б24</text>
+<g><title>Статусная модель, ячейка G19, I19: Б24 «Закрытие сделки» — из 1С</title>
+<rect x="1685" y="945" width="286" height="56" rx="6" fill="#eef4fd" stroke="#1f2937" stroke-width="1.4"/>
+<text x="1828.0" y="978" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Закрытие сделки</text>
+</g>
+<rect x="1805" y="1007" width="46" height="18" fill="#fff"/>
+<text x="1828.0" y="1021" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">из 1С</text>
+<g><title>Статусная модель, ячейка G21: Б24 «Исполнена» — из 1С («Завершен»)</title>
+<rect x="1981" y="945" width="138" height="56" rx="6" fill="#eef4fd" stroke="#1f2937" stroke-width="1.4"/>
+<text x="2050.0" y="978" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Исполнена</text>
+</g>
+<rect x="1978" y="1007" width="145" height="18" fill="#fff"/>
+<text x="2050.0" y="1021" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">из 1С («Завершен»)</text>
+<g><title>Статусная модель, ячейка G23, I23: Б24 «Рекламация» — менеджер в Б24</title>
+<rect x="2129" y="945" width="138" height="56" rx="6" fill="#eef4fd" stroke="#1f2937" stroke-width="1.4"/>
+<text x="2198.0" y="978" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Рекламация</text>
+</g>
+<rect x="2141" y="1007" width="114" height="18" fill="#fff"/>
+<text x="2198.0" y="1021" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">менеджер в Б24</text>
+<g><title>Статусная модель, ячейка G24, G25: Б24 «Сделка провалена» — менеджер в Б24</title>
+<rect x="2277" y="945" width="286" height="56" rx="6" fill="#eef4fd" stroke="#1f2937" stroke-width="1.4"/>
+<text x="2420.0" y="978" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Сделка провалена</text>
+</g>
+<rect x="2363" y="1007" width="114" height="18" fill="#fff"/>
+<text x="2420.0" y="1021" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">менеджер в Б24</text>
+<g><title>Статусная модель, ячейка H6/B6, C6: 1С «Пред. расчет» — автоматически при создании заказа</title>
+<rect x="205" y="1150" width="138" height="56" rx="6" fill="#fff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="274.0" y="1183" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Пред. расчет</text>
+</g>
+<text x="274.0" y="1226" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">автоматически</text>
+<text x="274.0" y="1244" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">при создании</text>
+<text x="274.0" y="1262" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">заказа</text>
+<g><title>Статусная модель, ячейка B7, C7: 1С «В работе» — ответственный менеджер</title>
+<rect x="353" y="1150" width="138" height="56" rx="6" fill="#fff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="422.0" y="1183" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">В работе</text>
+</g>
+<text x="422.0" y="1226" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">ответственный</text>
+<text x="422.0" y="1244" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">менеджер</text>
+<text x="570.0" y="1174" font-family="system-ui,sans-serif" font-size="14" font-style="italic" fill="#6b7280" text-anchor="middle">в 1С статус</text>
+<text x="570.0" y="1192" font-family="system-ui,sans-serif" font-size="14" font-style="italic" fill="#6b7280" text-anchor="middle">не меняется (D8)</text>
+<g><title>Статусная модель, ячейка B9, C9: 1С «Предоплата» — автоматически (разнесение оплаты)</title>
+<rect x="649" y="1150" width="138" height="56" rx="6" fill="#fff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="718.0" y="1183" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Предоплата</text>
+</g>
+<text x="718.0" y="1226" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">автоматически</text>
+<text x="718.0" y="1244" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">(разнесение</text>
+<text x="718.0" y="1262" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">оплаты)</text>
+<g><title>Статусная модель, ячейка B10, C10: 1С «Переплата» — бухгалтер, только в 1С</title>
+<rect x="797" y="1150" width="138" height="56" rx="6" fill="#fff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="866.0" y="1183" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Переплата</text>
+</g>
+<text x="866.0" y="1226" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">бухгалтер,</text>
+<text x="866.0" y="1244" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">только в 1С</text>
+<g><title>Статусная модель, ячейка B12, C12: 1С «В производстве» — нач. производства, плановик</title>
+<rect x="945" y="1150" width="138" height="56" rx="6" fill="#fff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="1014.0" y="1183" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">В производстве</text>
+</g>
+<text x="1014.0" y="1226" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">нач.</text>
+<text x="1014.0" y="1244" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">производства,</text>
+<text x="1014.0" y="1262" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">плановик</text>
+<g><title>Статусная модель, ячейка B13, C13: 1С «Изготовлен Откосово» — нач. производства, плановик</title>
+<rect x="1093" y="1150" width="138" height="56" rx="6" fill="#fff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="1162.0" y="1174" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Изготовлен</text>
+<text x="1162.0" y="1192" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Откосово</text>
+</g>
+<text x="1162.0" y="1226" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">нач.</text>
+<text x="1162.0" y="1244" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">производства,</text>
+<text x="1162.0" y="1262" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">плановик</text>
+<g><title>Статусная модель, ячейка B14, C14: 1С «Изготовлен» — нач. производства, плановик</title>
+<rect x="1241" y="1150" width="138" height="56" rx="6" fill="#fff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="1310.0" y="1183" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Изготовлен</text>
+</g>
+<text x="1310.0" y="1226" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">нач.</text>
+<text x="1310.0" y="1244" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">производства,</text>
+<text x="1310.0" y="1262" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">плановик</text>
+<g><title>Статусная модель, ячейка B15, C15: 1С «Принято на склад» — нач. производства, плановик</title>
+<rect x="1389" y="1150" width="138" height="56" rx="6" fill="#fff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="1458.0" y="1183" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Принято на склад</text>
+</g>
+<text x="1458.0" y="1226" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">нач.</text>
+<text x="1458.0" y="1244" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">производства,</text>
+<text x="1458.0" y="1262" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">плановик</text>
+<g><title>Статусная модель, ячейка B17, C17: 1С «Монтаж» — ответственный менеджер (в Б24)</title>
+<rect x="1537" y="1150" width="138" height="56" rx="6" fill="#fff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="1606.0" y="1183" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Монтаж</text>
+</g>
+<text x="1606.0" y="1226" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">ответственный</text>
+<text x="1606.0" y="1244" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">менеджер (в</text>
+<text x="1606.0" y="1262" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">Б24)</text>
+<g><title>Статусная модель, ячейка B19, C19: 1С «Документы» — автоматически</title>
+<rect x="1685" y="1150" width="138" height="56" rx="6" fill="#fff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="1754.0" y="1183" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Документы</text>
+</g>
+<text x="1754.0" y="1226" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">автоматически</text>
+<g><title>Статусная модель, ячейка B20, C20: 1С «Завершен частично» — сотрудник за первичку</title>
+<rect x="1833" y="1150" width="138" height="56" rx="6" fill="#fff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="1902.0" y="1174" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Завершен</text>
+<text x="1902.0" y="1192" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">частично</text>
+</g>
+<text x="1902.0" y="1226" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">сотрудник за</text>
+<text x="1902.0" y="1244" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">первичку</text>
+<g><title>Статусная модель, ячейка B21, C21: 1С «Завершен» — сотрудник за первичку</title>
+<rect x="1981" y="1150" width="138" height="56" rx="6" fill="#fff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="2050.0" y="1183" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Завершен</text>
+</g>
+<text x="2050.0" y="1226" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">сотрудник за</text>
+<text x="2050.0" y="1244" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">первичку</text>
+<g><title>Статусная модель, ячейка B23, C23: 1С «Рекламация» — ответственный менеджер</title>
+<rect x="2129" y="1150" width="138" height="56" rx="6" fill="#fff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="2198.0" y="1183" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Рекламация</text>
+</g>
+<text x="2198.0" y="1226" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">ответственный</text>
+<text x="2198.0" y="1244" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">менеджер</text>
+<g><title>Статусная модель, ячейка B24, C24: 1С «Отказ» — ответственный менеджер</title>
+<rect x="2277" y="1150" width="138" height="56" rx="6" fill="#fff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="2346.0" y="1183" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Отказ</text>
+</g>
+<text x="2346.0" y="1226" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">ответственный</text>
+<text x="2346.0" y="1244" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">менеджер</text>
+<g><title>Статусная модель, ячейка B25, C25: 1С «Аннулирован» — ответственный менеджер, вручную</title>
+<rect x="2425" y="1150" width="138" height="56" rx="6" fill="#fff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="2494.0" y="1183" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">Аннулирован</text>
+</g>
+<text x="2494.0" y="1226" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">ответственный</text>
+<text x="2494.0" y="1244" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">менеджер,</text>
+<text x="2494.0" y="1262" font-family="system-ui,sans-serif" font-size="14" fill="#5f6670" text-anchor="middle">вручную</text>
+<rect x="200" y="1344" width="2380" height="120" rx="8" fill="#fffbe6" stroke="#c9a227" stroke-width="1.2"/>
+<text x="216" y="1370" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="start">• Сделка ↔ заказ 1С создаются друг из друга автоматически (План D6): «Новый заказ покупателя в 1С создается автоматически при создании сделки в Б24. Аналагично сделки в Б24 создается автоматически при создании в 1С заказа покупателя.»</text>
+<text x="216" y="1396" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="start">• 4 статуса 1С («В производстве», «Изготовлен Откосово», «Изготовлен», «Принято на склад») видны в Б24 одной стадией «В производстве» (План I12: «Битрикс отабражает статус - в производстве»).</text>
+<text x="216" y="1422" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="start">• Статуса «Отгрузка» нет ни в Б24, ни в 1С («Принято на склад … готово к отгрузке» → сразу «Монтаж»; «Документы» — «после отгрузки и монтажа»).</text>
+<text x="216" y="1448" font-family="system-ui,sans-serif" font-size="14" fill="#1f2937" text-anchor="start">• Направление: «Управляются в битрикс» — Предв. заявка, Замеры, Монтаж, Рекламация; «1С» — Оплата, В производстве, Закрытие сделки (План J6–J23). Схема ТЗ и статусы расходятся в «Исполнена» — см. С18.</text>
+<g class="pt"><title>Точка 2: Замер: в ТЗ развилка «Требуется замер / Замер не требуется», об оплате замера не сказано; на доске замер платный (счёт → оплата → задание)</title><circle cx="440" cy="350" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="440" y="355" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="800" fill="#fff">С2</text></g>
+<g class="pt"><title>Точка 6: «Согласование сделки»: в ТЗ ставит Система после «КП согласовано», в статусах — «рук. сервиса или конструктор»; на доске три стадии (Заявка, Договор, Подписание), договор ведёт Менеджер ОП</title><circle cx="1612" cy="110" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="1612" y="115" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="800" fill="#fff">С6</text></g>
+<g class="pt"><title>Точка 17: Закрывающие документы: в ТЗ акты в 1С загружает монтажник; на доске — УПД, фото, возврат документов Ассистентом ОП; статус «Документы» в файле статусов описан двумя способами</title><circle cx="2512" cy="618" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="2512" y="623" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="800" fill="#fff">С17</text></g>
+<g class="pt"><title>Точка 18: Когда сделка «Исполнена»: схема ТЗ — сразу после оплаты; текст ТЗ — после «Сделка завершена успешно»; статусы — «Документы» → «Завершён» (частично — только для многоуровневого заказа), ставит «ответственный сотрудник за проведение первички», должность не названа</title><circle cx="2235" cy="160" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="2235" y="165" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="800" fill="#fff">С18</text></g>
+<g class="pt"><title>Точка 20: Рекламация: на доске стадии и ветки нет, в ТЗ и статусах есть; кто регистрирует и решает, как выходит, открывается ли закрытая сделка</title><circle cx="2230" cy="790" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="2230" y="795" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="800" fill="#fff">С20</text></g>
+<g class="pt"><title>Точка 22: Сделка ↔ заказ в 1С создают друг друга автоматически (План D6): где рождается сделка, кто ответственный, как избежать дублей (1С — неизвестно, уточнить)</title><circle cx="234.0" cy="1125" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="234.0" y="1130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="800" fill="#fff">С22</text></g>
+<g class="pt"><title>Точка 9: Оплата: доска — предоплата ≥ 35 %; ТЗ — один счёт «на оплату»; статусы — «Предоплата» автоматически при разнесении оплаты бухгалтерией, порог не указан; «Переплата» — бухгалтер только в 1С; кто фиксирует оплату</title><circle cx="792.0" cy="1125" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="792.0" y="1130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="800" fill="#fff">С9</text></g>
+<g class="pt"><title>Точка 12: «Изготовлено»: на доске стадия; в Б24 такой стадии нет — 4 статуса 1С видны одной стадией «В производстве»; кто и когда сообщает дату готовности</title><circle cx="1508.0" cy="1125" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="1508.0" y="1130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="800" fill="#fff">С12</text></g>
