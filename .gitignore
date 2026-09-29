@@ -8,3 +8,4 @@ client-materials/private/
 .agent-work/
 .beads.gate.lock
 
+__pycache__/
