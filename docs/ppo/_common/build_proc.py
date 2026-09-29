@@ -110,11 +110,11 @@ def build(p: Proc):
     map_css = COMMON_CSS + """.mapwrap{overflow:auto;cursor:grab;border:1px solid var(--line);border-radius:8px;background:#fff}
 .mapwrap.drag{cursor:grabbing;user-select:none}
 .mapwrap svg{width:100%;min-width:1400px;height:auto;display:block}
-.ptnav{position:sticky;top:0;z-index:20;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin-bottom:10px;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.08)}
-.ptnav-h{font-weight:700}.ptg{display:inline-flex;gap:4px;align-items:center;flex-wrap:wrap}.ptg b{font-size:14px;color:var(--muted);margin-right:2px}
-.ptg button{min-width:32px;height:32px;border-radius:50%;border:0;background:var(--pt);color:#fff;font:800 15px system-ui,sans-serif;cursor:pointer}
+.ptnav{position:sticky;top:0;z-index:20;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:6px 10px;margin-bottom:10px;display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.08);font-size:15px}
+.ptnav-h{font-weight:700;font-size:15px}.ptg{display:inline-flex;gap:4px;align-items:center;flex-wrap:wrap}.ptg b{font-size:14px;font-weight:700;color:var(--muted);margin-right:2px}
+.ptg button{min-width:28px;height:26px;padding:0 7px;border-radius:13px;border:0;background:var(--pt);color:#fff;font-weight:700;font-size:13px;line-height:26px;font-family:inherit;cursor:pointer}
 .ptg button.on{outline:3px solid #1d2530}
-.ptsel{flex:1 1 100%;font-size:15px;color:var(--ink)}.ptsel a{color:var(--accent);font-weight:700}
+.ptsel{flex:1 1 100%;font-size:14px;color:var(--ink)}.ptsel a{color:var(--accent);font-weight:700}
 @keyframes ptflash{0%,100%{stroke-width:2;r:14}50%{stroke:#ffd400;stroke-width:8;r:26}}
 .pt.flash circle{animation:ptflash .7s ease-in-out 4;stroke:#ffd400}
 .ptlink{cursor:pointer}.ptlink:hover circle{fill:#8c1d1d}"""

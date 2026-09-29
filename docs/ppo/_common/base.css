@@ -1,7 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap');
 :root{--ink:#1d2530;--muted:#5b6573;--paper:#fffdf8;--line:#d9d3c7;--accent:#b8480f;
 --board:#1f6b3a;--board-bg:#e5f3e9;--said:#8a5a00;--said-bg:#fbf1d9;--unk:#8c1d1d;--unk-bg:#f8e3e3;--conf:#5b2a86;--conf-bg:#efe6f8;--pt:#d0341c}
 *{box-sizing:border-box}
-body{margin:0;background:#f1ede4;color:var(--ink);font:17px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+body{margin:0;background:#f1ede4;color:var(--ink);font:17px/1.55 "PT Sans","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
 .page{max-width:1240px;margin:0 auto;padding:28px 20px 60px}
 .page>header{border-top:8px solid var(--accent);background:var(--paper);padding:22px 28px;border-radius:0 0 10px 10px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
 h1{margin:0 0 6px;font-size:32px;line-height:1.2}
@@ -25,3 +26,7 @@ h3{margin:0;font-size:20px}
 nav.toc a{color:var(--accent);font-weight:600}
 @media (max-width:700px){body{font-size:16px}.page{padding:12px}section,.page>header{padding:16px}h1{font-size:24px}.tbl{display:block;overflow-x:auto}}
 @media print{body{background:#fff}section,.page>header{box-shadow:none}}
+
+/* Карты: тот же шрифт для чтения, что и в тексте */
+.map,.map text{font-family:"PT Sans","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif!important}
+button,input,textarea{font-family:inherit}
