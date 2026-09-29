@@ -286,17 +286,29 @@ document.getElementById('clear').onclick=function(){if(confirm('Очистить
 .zoombar{position:fixed;right:14px;bottom:14px;z-index:50;display:flex;gap:4px;align-items:center;background:#fff;border:1px solid #cfc8bb;border-radius:10px;padding:5px;box-shadow:0 3px 12px rgba(0,0,0,.15);font:600 15px system-ui,sans-serif}
 .zoombar button{min-width:38px;height:36px;border:1px solid #cfc8bb;background:#f7f4ed;border-radius:8px;font:700 18px system-ui,sans-serif;cursor:pointer;color:#1d2530}
 .zoombar button[data-z="0"]{font-size:13px;min-width:50px}
-.zoombar .zv{min-width:48px;text-align:center;color:#5b6573}
+.zoombar .zv{min-width:48px;white-space:nowrap;padding:0 4px;text-align:center;color:#5b6573}
 @media print{.zoombar{display:none}}
 </style>
 <script>
+/* Масштаб. На странице с картой (.mapwrap svg) меняется только блок-схема; на остальных — вся страница. */
 (function(){var KEY='zoom:'+location.pathname.split('/').pop(),z=1;
 try{z=parseFloat(localStorage.getItem(KEY))||1}catch(e){}
-var root=document.querySelector('[data-zoom]')||document.body,out=document.querySelector('.zoombar .zv');
-function set(v){z=Math.min(3,Math.max(.4,Math.round(v*10)/10));root.style.zoom=z;out.textContent=Math.round(z*100)+'%';try{localStorage.setItem(KEY,z)}catch(e){}}
+var wrap=document.querySelector('.mapwrap'),svg=wrap&&wrap.querySelector('svg'),
+    root=document.querySelector('[data-zoom]')||document.body,bar=document.querySelector('.zoombar'),out=bar.querySelector('.zv');
+if(svg)bar.title='Масштаб схемы';
+function set(v){var nz=Math.min(4,Math.max(.4,Math.round(v*10)/10));
+ if(svg){var cx=(wrap.scrollLeft+wrap.clientWidth/2)/Math.max(1,wrap.scrollWidth),
+   cy=(scrollY+innerHeight/2-wrap.getBoundingClientRect().top-scrollY)/Math.max(1,wrap.scrollHeight),top0=wrap.getBoundingClientRect().top+scrollY;
+   svg.style.width=(100*nz)+'%';svg.style.minWidth=(1400*nz)+'px';
+   wrap.scrollLeft=cx*wrap.scrollWidth-wrap.clientWidth/2;
+   if(z!==nz&&cy>0&&cy<1)scrollTo(scrollX,top0+cy*wrap.scrollHeight-innerHeight/2);}
+ else root.style.zoom=nz;
+ z=nz;out.textContent=(svg?'схема ':'')+Math.round(z*100)+'%';try{localStorage.setItem(KEY,z)}catch(e){}}
 set(z);
-document.querySelector('.zoombar').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var d=b.dataset.z;set(d==='+'?z+.1:d==='-'?z-.1:1)});
+bar.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var d=b.dataset.z;set(d==='+'?z+.1:d==='-'?z-.1:1)});
 document.addEventListener('keydown',function(e){if(/INPUT|TEXTAREA/.test(e.target.tagName)||e.ctrlKey||e.metaKey)return;if(e.key==='+'||e.key==='=')set(z+.1);else if(e.key==='-')set(z-.1);else if(e.key==='0')set(1)});
+/* Ctrl + колесо над схемой — масштаб только схемы (не всей страницы) */
+if(wrap)wrap.addEventListener('wheel',function(e){if(!(e.ctrlKey||e.metaKey))return;e.preventDefault();set(z+(e.deltaY<0?.1:-.1))},{passive:false});
 })();
 </script>
 </body></html>

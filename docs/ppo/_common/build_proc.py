@@ -133,7 +133,7 @@ addEventListener('hashchange',fromHash);fromHash();})();</script>"""
     (p.out / KARTA).write_text(page(
         f"Евростекло · {p.name}: карта процесса", p.map_lead,
         (f'<section><details><summary><b>Паспорт процесса: кто есть кто</b> — участники, роли (раскрыть)</summary>{pasport}</details></section>' if pasport else '')
-        + legend + f'<section><h2>Карта «{p.name}»</h2><p class="src">Карту можно тянуть мышью; масштаб — кнопки справа внизу или Ctrl + колесо.</p>'
+        + legend + f'<section><h2>Карта «{p.name}»</h2><p class="src">Карту можно тянуть мышью; масштаб схемы — кнопки справа внизу, клавиши + и − или Ctrl + колесо над схемой (меняется только схема).</p>'
         + navbar + f'<div class="mapwrap">{svg}</div></section>' + pan,
         map_css, docnav(KARTA)), encoding="utf8")
 
