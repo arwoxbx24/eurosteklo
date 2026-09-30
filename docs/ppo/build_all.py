@@ -3,11 +3,13 @@
 
 Запуск: python3 docs/ppo/build_all.py
 Перед сборкой процесса вызывается его _parts/stitch.py (склейка слоёв карты), если он есть.
+После оглавления собирается архив ppo-evrosteklo.zip (ppo/index.html + страницы процессов).
 Процесс собирается, только если в его _parts есть все обязательные фрагменты.
 Код выхода 1, если процесс пропущен или stitch.py упал (остальное при этом собирается).
 """
 import subprocess
 import sys
+import zipfile
 from pathlib import Path
 
 HERE = Path(__file__).parent
@@ -80,7 +82,7 @@ for p in PROCS:
 <li><a href="{p.slug}/{f}" target="{WIN_OBSL}">Подробная версия обследования</a></li></ul></div>"""
     else:
         blocks += f"""<div class="blockc"><h3>{title} <span class="badge wip">в работе</span></h3><p class="soon">{desc}</p><ul class="soon"><li>Карта процесса — готовится</li><li>Вопросы к встрече — готовится</li></ul></div>"""
-index_body = f"""<section><h2>Как пользоваться</h2><p>Скачайте папку <code>docs/ppo</code> целиком — все файлы связаны ссылками. На встрече два окна: <b>карта процесса</b> и <b>вопросы к встрече</b>. Красный номер на карте открывает вопрос; номер в вопросе открывает карту и подсвечивает точку. Масштаб — кнопки справа внизу, Ctrl + колесо.</p></section>
+index_body = f"""<section><h2>Как пользоваться</h2><p>Скачайте архив <a href="ppo-evrosteklo.zip">ppo-evrosteklo.zip</a> — все страницы связаны ссылками; распакуйте и откройте <code>ppo/index.html</code>. На встрече два окна: <b>карта процесса</b> и <b>вопросы к встрече</b>. Красный номер на карте открывает вопрос; номер в вопросе открывает карту и подсвечивает точку. Масштаб — кнопки справа внизу, Ctrl + колесо.</p></section>
 <section><h2>Процессы</h2><div class="blocks">{blocks}</div></section>
 <section><h2>Лид и сделка — где граница</h2><ul>
 <li><b>Лид</b> — первичное обращение потенциального клиента из любого канала или рекламного источника, до квалификации.</li>
@@ -100,5 +102,18 @@ index_body = f"""<section><h2>Как пользоваться</h2><p>Скача�
     "Управляющий файл: процессы, карты, вопросы к встрече. Всё связано ссылками.", index_body, INDEX_CSS,
     '<nav class="docnav"><b>☰ Оглавление</b></nav>'), encoding="utf8")
 print("index ok")
+
+# ---------- Архив (после index.html): ppo/index.html + собранные страницы процессов ----------
+ZIP_NAME = "ppo-evrosteklo.zip"
+ZIP_DATE = (2026, 9, 30, 0, 0, 0)  # фиксированная дата: повторная сборка даёт тот же sha256
+zip_files = ["index.html"] + [f"{p.slug}/{f}" for p in PROCS if p.slug in built for f in p.files]
+with zipfile.ZipFile(HERE / ZIP_NAME, "w", zipfile.ZIP_DEFLATED) as z:
+    for rel in sorted(zip_files):
+        zi = zipfile.ZipInfo("ppo/" + rel, date_time=ZIP_DATE)
+        zi.compress_type = zipfile.ZIP_DEFLATED
+        zi.create_system = 3  # Unix
+        zi.external_attr = 0o100644 << 16  # обычный файл rw-r--r--
+        z.writestr(zi, (HERE / rel).read_bytes(), compresslevel=9)
+print("zip ok:", ZIP_NAME, len(zip_files), "файлов")
 if failed:
     sys.exit(1)
