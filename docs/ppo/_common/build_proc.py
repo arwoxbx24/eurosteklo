@@ -17,6 +17,7 @@ from pathlib import Path
 COMMON = Path(__file__).parent
 CSS = (COMMON / "base.css").read_text(encoding="utf8")
 ZOOM = (COMMON / "zoom.html").read_text(encoding="utf8")
+LANES = (COMMON / "lanes.html").read_text(encoding="utf8") if (COMMON / "lanes.html").exists() else ""  # роли слева закреплены (Т5)
 # Имена окон: ссылки открывают документ во втором окне и переиспользуют его.
 WIN_KARTA, WIN_OBSL = "evro-karta", "evro-obsl"
 COMMON_CSS = """.docnav{margin-top:10px;font-size:15px}.docnav a{color:var(--accent);font-weight:600}"""
@@ -134,7 +135,7 @@ addEventListener('hashchange',fromHash);fromHash();})();</script>"""
         f"Евростекло · {p.name}: карта процесса", p.map_lead,
         (f'<section><details><summary><b>Паспорт процесса: кто есть кто</b> — участники, роли (раскрыть)</summary>{pasport}</details></section>' if pasport else '')
         + legend + f'<section><h2>Карта «{p.name}»</h2><p class="src">Карту можно тянуть мышью; масштаб схемы — кнопки справа внизу, клавиши + и − или Ctrl + колесо над схемой (меняется только схема).</p>'
-        + navbar + f'<div class="mapwrap">{svg}</div></section>' + pan,
+        + navbar + f'<div class="mapwrap">{svg}</div></section>' + pan + LANES,
         map_css, docnav(KARTA)), encoding="utf8")
 
     # ---------- Подробная версия ----------
@@ -187,17 +188,24 @@ addEventListener('hashchange',fromHash);fromHash();})();</script>"""
 
     def row(n, first):
         c = cards[n]
-        ifs = "".join(f"<li>{html.escape(i)}</li>" for i in c["ifs"])
-        extra = "".join(f'<p class="xq">Ещё: {html.escape(e)}</p>' for e in c["extra"])
+        # «А если…» — чекбоксы (номер пункта с 1) + одно поле комментария на карточку; ≤ 4 пунктов — раскрыто.
+        ifs = "".join(f'<label><input type="checkbox" data-if="{i}"> {html.escape(t)}</label>' for i, t in enumerate(c["ifs"], 1))
+        ifblock = (f'<details class="ifs"{" open" if len(c["ifs"]) <= 4 else ""}><summary>А если… ({len(c["ifs"])})</summary>'
+                   f'<div class="ifl">{ifs}<input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>'
+                   if c["ifs"] else "")
+        extra = "".join(f'<p class="xq"><label><input type="checkbox" data-ex="{j}"> спросили</label> <span>Ещё: {html.escape(e)}</span></p>'
+                        for j, e in enumerate(c["extra"], 1))
         tag = '<span class="first">начать с этого</span>' if first else ""
         return f"""<article class="q" id="t{n}">
 <div class="qh"><a class="pt" href="{KARTA}#p{n}" target="{WIN_KARTA}" title="Точка {lab(n)} на карте">{lab(n)}</a><h3>{html.escape(c['title'])}</h3><span class="tp">{html.escape(c['type'])}</span>{tag}</div>
 <p class="ask">{html.escape(c['q'])}</p>{extra}
-<details><summary>А если… ({len(c['ifs'])})</summary><ul>{ifs}</ul></details>
-<div class="ans" data-n="{n}"><span class="lbl">Ответ клиента:</span>
+{ifblock}
+<div class="ans" data-n="{n}"><span class="lbl">Статус точки:</span>
 <label><input type="radio" name="a{n}" value="Подтвердил"> подтвердил</label>
 <label><input type="radio" name="a{n}" value="Иначе"> иначе</label>
-<label><input type="radio" name="a{n}" value="Не знает"> не знает / уточнит</label>
+<label><input type="radio" name="a{n}" value="Не знает"> не знает</label>
+<label><input type="radio" name="a{n}" value="Знает другой"> знает другой человек</label>
+<input type="text" class="who" placeholder="кто знает (роль или имя)" hidden>
 <textarea rows="2" placeholder="Как на самом деле — запишите коротко"></textarea></div>
 <p class="more">Ответ закроет: {html.escape(c['gives'])} · <a href="{FULL}#t{n}" target="{WIN_OBSL}">подробно</a></p>
 </article>"""
@@ -213,32 +221,66 @@ addEventListener('hashchange',fromHash);fromHash();})();</script>"""
 .xq{margin:4px 0;font-weight:600;color:#7a3a14}
 details{margin:6px 0}summary{cursor:pointer;color:var(--muted);font-weight:600}
 details ul{margin:6px 0;padding-left:22px}
+.ifl{display:flex;flex-direction:column;gap:4px;margin:6px 0 0 4px}.ifl label{display:flex;gap:8px;align-items:flex-start;cursor:pointer}
+.ifl input[type=checkbox],.xq input{width:18px;height:18px;flex:0 0 auto;margin-top:3px}
+.ifl .ifc,.ans .who{font:15px system-ui,sans-serif;border:1px solid var(--line);border-radius:6px;padding:4px 6px;max-width:420px}
+.xq label{font-weight:600;color:var(--muted);margin-right:4px;cursor:pointer}
+.meet{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-weight:700}.meet input{font:16px system-ui,sans-serif;padding:4px 8px;border:1px solid var(--line);border-radius:6px}
 .ans{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;background:#f7f4ed;border-radius:8px;padding:8px 10px;margin-top:6px}
 .ans .lbl{font-weight:700}.ans textarea{flex:1 1 100%;font:16px system-ui,sans-serif;border:1px solid var(--line);border-radius:6px;padding:6px}
 .more{margin:6px 0 0;font-size:14px;color:var(--muted)}.more a{color:var(--accent)}
 .bar{display:flex;gap:10px;flex-wrap:wrap}.bar button{font:600 15px system-ui,sans-serif;padding:8px 14px;border-radius:8px;border:1px solid var(--line);background:#fff;cursor:pointer}"""
     how = f"""<section><h2>Как вести встречу</h2><ol>
-<li>Второе окно — <a href="{KARTA}" target="{WIN_KARTA}">карта процесса</a>. Красный номер на карте = карточка здесь (номер кликабелен в обе стороны).</li>
+<li>Второе окно — <a href="{KARTA}" target="{WIN_KARTA}">карта процесса</a>. Красный номер на карте = карточка здесь (номер кликабелен в обе стороны). Вверху поставьте дату встречи.</li>
 <li>Читаете крупный вопрос. Клиент показывает на экране {p.item_last}, а не рассказывает «как обычно».</li>
-<li>Отмечаете: подтвердил / иначе / не знает, пишете коротко «как на самом деле». «А если…» — раскрыть, если время есть.</li>
-<li>В конце — «Сохранить ответы»: скачается файл с ответами. Ответы хранятся только в этом браузере.</li></ol>
+<li>Статус точки: подтвердил / иначе / не знает / знает другой человек (впишите, кто). «Как на самом деле» — коротко.</li>
+<li>«А если…» и «Ещё:» — галочка у того, что обсудили; уточнение — в поле «комментарий».</li>
+<li>В конце — «Сохранить ответы»: скачается .md с датой, статусами, отмеченными и не обсуждёнными пунктами. Ответы хранятся только в этом браузере; это черновик, источник — транскрипт видео.</li></ol>
 <p class="src">Порядок: первые 5 — рекомендуемое начало, дальше остальные. Все вопросы подробной версии здесь есть; источники и разбор — в «подробно».</p></section>"""
+    meet = '<section><label class="meet">Дата встречи: <input type="date" id="meet"></label></section>'
     tail = """<section><h2>Итог встречи</h2><div class="bar"><button type="button" id="save">Сохранить ответы (.md)</button><button type="button" id="clear">Очистить ответы</button></div></section>
-<script>(function(){var K='evro-{SLUG}-answers';var d={};try{d=JSON.parse(localStorage.getItem(K)||'{}')}catch(e){}
+<script>(function(){var K='evro-{SLUG}-answers.v2',K1='evro-{SLUG}-answers';
+function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
 function put(){try{localStorage.setItem(K,JSON.stringify(d))}catch(e){}}
-document.querySelectorAll('.ans').forEach(function(b){var n=b.dataset.n,s=d[n]||{};
- b.querySelectorAll('input').forEach(function(i){if(i.value===s.v)i.checked=true;i.addEventListener('change',function(){s.v=i.value;d[n]=s;put()})});
- var t=b.querySelector('textarea');t.value=s.t||'';t.addEventListener('input',function(){s.t=t.value;d[n]=s;put()});});
-document.getElementById('save').onclick=function(){var o=['# {NAME} — ответы клиента','',new Date().toLocaleString('ru-RU'),''];
- document.querySelectorAll('article.q').forEach(function(a){var n=a.id.slice(1),s=d[n]||{};
- o.push('## {PFX}'+n+'. '+a.querySelector('h3').textContent,'Вопрос: '+a.querySelector('.ask').textContent,'Ответ: '+(s.v||'—'),'Как на самом деле: '+(s.t||'—'),'')});
+function blank(){return {v:2,meeting:'',items:{}}}
+var d=null;try{d=JSON.parse(get(K)||'null')}catch(e){d=null}
+if(!d||typeof d!=='object'||d.v!==2){d=blank();var o=null;try{o=JSON.parse(get(K1)||'null')}catch(e){o=null}
+ /* перенос старого формата {N:{v,t}}: старый ключ только читается и не стирается */
+ if(o&&typeof o==='object'){var any=false;Object.keys(o).forEach(function(n){var r=o[n];if(r&&(r.v||r.t)){d.items[n]={s:r.v||'',t:r.t||''};any=true}});if(any)put()}}
+if(!d.items||typeof d.items!=='object')d.items={};
+function it(n){return d.items[n]||(d.items[n]={})}
+function rd(n){return d.items[n]||{}}
+var mt=document.getElementById('meet');mt.value=d.meeting||'';mt.addEventListener('change',function(){d.meeting=mt.value;put()});
+document.querySelectorAll('article.q').forEach(function(a){var n=a.id.slice(1),s=rd(n),b=a.querySelector('.ans'),w=b.querySelector('.who');
+ function sw(){w.hidden=(rd(n).s!=='Знает другой')}
+ b.querySelectorAll('input[type=radio]').forEach(function(i){if(i.value===s.s)i.checked=true;i.addEventListener('change',function(){it(n).s=i.value;sw();put()})});
+ w.value=s.who||'';sw();w.addEventListener('input',function(){it(n).who=w.value;put()});
+ var t=b.querySelector('textarea');t.value=s.t||'';t.addEventListener('input',function(){it(n).t=t.value;put()});
+ [['if','ifs'],['ex','ex']].forEach(function(p){a.querySelectorAll('input[data-'+p[0]+']').forEach(function(c){var k=c.getAttribute('data-'+p[0]);
+  c.checked=!!(s[p[1]]&&s[p[1]][k]);c.addEventListener('change',function(){var x=it(n),m=x[p[1]]||(x[p[1]]={});if(c.checked)m[k]=true;else delete m[k];put()})})});
+ var f=a.querySelector('.ifc');if(f){f.value=s.ifc||'';f.addEventListener('input',function(){it(n).ifc=f.value;put()})}});
+function lt(c){return c.closest('label').textContent.trim()}
+document.getElementById('save').onclick=function(){var o=['# {NAME} — ответы клиента','','Дата встречи: '+(d.meeting||'—'),'Выгружено: '+new Date().toLocaleString('ru-RU'),''],seen={};
+ document.querySelectorAll('article.q').forEach(function(a){var n=a.id.slice(1),s=rd(n),yes=[],no=[];seen[n]=1;
+ o.push('## {PFX}'+n+'. '+a.querySelector('h3').textContent,'Вопрос: '+a.querySelector('.ask').textContent,'Статус: '+(s.s||'—'));
+ if(s.s==='Знает другой'||s.who)o.push('Кто знает: '+(s.who||'—'));
+ o.push('Как на самом деле: '+(s.t||'—'));
+ a.querySelectorAll('input[data-if]').forEach(function(c){(s.ifs&&s.ifs[c.getAttribute('data-if')]?yes:no).push('- '+lt(c))});
+ if(yes.length||no.length){o.push('','А если… — обсудили:');o.push.apply(o,yes.length?yes:['- —']);if(s.ifc)o.push('Комментарий: '+s.ifc);
+  if(no.length){o.push('','Не обсуждали:');o.push.apply(o,no)}}
+ var ex=a.querySelectorAll('input[data-ex]');if(ex.length){o.push('','Ещё:');ex.forEach(function(c){var q=c.closest('.xq').querySelector('span').textContent.replace(/^Ещё:\\s*/,'');
+  o.push('- '+(s.ex&&s.ex[c.getAttribute('data-ex')]?'[спросили] ':'[не спросили] ')+q)})}
+ o.push('')});
+ Object.keys(d.items).forEach(function(n){if(seen[n])return;var s=d.items[n]||{};if(!(s.s||s.t||s.who))return;
+  o.push('## {PFX}'+n+' (карточки на странице нет)','Статус: '+(s.s||'—'),'Кто знает: '+(s.who||'—'),'Как на самом деле: '+(s.t||'—'),'')});
+ o.push('Ответы — рабочий черновик; источник для разблокировки точки — транскрипт видео');
  var u=URL.createObjectURL(new Blob([o.join('\\n')],{type:'text/markdown'}));var l=document.createElement('a');l.href=u;l.download='evrosteklo-{SLUG}-otvety.md';l.click();};
-document.getElementById('clear').onclick=function(){if(confirm('Очистить все ответы?')){d={};put();location.reload()}};})();</script>"""
+document.getElementById('clear').onclick=function(){if(confirm('Очистить все ответы?')){d=blank();put();location.reload()}};})();</script>"""
     tail = tail.replace("{SLUG}", p.slug).replace("{NAME}", p.name).replace("{PFX}", p.pfx)
     (p.out / SHORT).write_text(page(
         f"Евростекло · {p.name}: вопросы к встрече",
         f"{len(cards)} {p.short_lead}",
-        how + (f'<section><details><summary><b>Паспорт: кто есть кто</b> (раскрыть)</summary>{pasport}</details></section>' if pasport else '')
+        meet + how + (f'<section><details><summary><b>Паспорт: кто есть кто</b> (раскрыть)</summary>{pasport}</details></section>' if pasport else '')
         + f'<section><h2>Вопросы</h2>{rows}</section>' + tail, short_css, docnav(SHORT)), encoding="utf8")
     print(p.slug, "ok:", len(cards), "точек, порядок", order)
     return {"cards": cards, "files": p.files}

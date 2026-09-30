@@ -2,8 +2,11 @@
 """Сборка всех процессов ППО и оглавления docs/ppo/index.html.
 
 Запуск: python3 docs/ppo/build_all.py
+Перед сборкой процесса вызывается его _parts/stitch.py (склейка слоёв карты), если он есть.
 Процесс собирается, только если в его _parts есть все обязательные фрагменты.
+Код выхода 1, если процесс пропущен или stitch.py упал (остальное при этом собирается).
 """
+import subprocess
 import sys
 from pathlib import Path
 
@@ -35,10 +38,19 @@ PROCS = [
 REQUIRED = ("karta.svg.html", "tochki.html", "sostoyaniya.html")
 
 built = {}
+failed = False
 for p in PROCS:
+    stitch = p.parts / "stitch.py"
+    if stitch.exists():
+        r = subprocess.run([sys.executable, str(stitch)])
+        if r.returncode:
+            print(p.slug, "пропущен — stitch.py упал, код", r.returncode)
+            failed = True
+            continue
     missing = [f for f in REQUIRED if not (p.parts / f).exists()]
     if missing:
         print(p.slug, "пропущен — нет фрагментов:", ", ".join(missing))
+        failed = True
         continue
     built[p.slug] = build(p)
 
@@ -49,8 +61,8 @@ INDEX_CSS = COMMON_CSS + """.blocks{display:grid;grid-template-columns:repeat(au
 .soon{color:var(--muted)}.badge{font-size:13px;font-weight:700;border-radius:6px;padding:1px 8px;background:#e5f3e9;color:#1f6b3a;border:1px solid #1f6b3a}
 .badge.wip{background:#fbf1d9;color:#8a5a00;border-color:#8a5a00}"""
 BLOCKS = {
-    "lidy": ("1. Лиды", '<span class="badge">утверждено 28.09</span>', "От обращения клиента до сделки."),
-    "sdelki": ("2. Сделки", '<span class="badge">утверждено 29.09</span>',
+    "lidy": ("1. Лиды", '<span class="badge">предварительно утверждено 28.09</span>', "От обращения клиента до сделки."),
+    "sdelki": ("2. Сделки", '<span class="badge">исправлено 30.09</span>',
                "Расчёт и замер → договор и оплата → производство → отгрузка / монтаж → закрытие. Слои: доска Романа, ТЗ 2024–2025 и статусная модель Б24 ↔ 1С (1С — «неизвестно, уточнить»), портал справочно."),
 }
 blocks = ""
@@ -67,12 +79,23 @@ for p in PROCS:
         blocks += f"""<div class="blockc"><h3>{title} <span class="badge wip">в работе</span></h3><p class="soon">{desc}</p><ul class="soon"><li>Карта процесса — готовится</li><li>Вопросы к встрече — готовится</li></ul></div>"""
 index_body = f"""<section><h2>Как пользоваться</h2><p>Скачайте папку <code>docs/ppo</code> целиком — все файлы связаны ссылками. На встрече два окна: <b>карта процесса</b> и <b>вопросы к встрече</b>. Красный номер на карте открывает вопрос; номер в вопросе открывает карту и подсвечивает точку. Масштаб — кнопки справа внизу, Ctrl + колесо.</p></section>
 <section><h2>Процессы</h2><div class="blocks">{blocks}</div></section>
+<section><h2>Лид и сделка — где граница</h2><ul>
+<li><b>Лид</b> — первичное обращение потенциального клиента из любого канала или рекламного источника, до квалификации.</li>
+<li><b>Сделка</b> — работа с квалифицированным клиентом после конвертации лида.</li>
+<li>Вопрос живёт в одном процессе; во втором — только ссылка «см. точку N».</li>
+<li>Квалифицированный, но не конвертированный клиент — ещё лид.</li>
+<li>Повторный клиент — новый лид, привязанный к прежнему контакту.</li>
+<li>Сделка из 1С без лида — исключение, помечается.</li>
+<li>Общие правила для лида и сделки — точка С23.</li></ul>
+<p class="soon">Определения владельца 30.09.2026. Рабочее правило, решение архитектора по поручению владельца 30.09; противоречие с ТЗ ФТ-2 — вопрос клиенту.</p></section>
 <section><h2>Основания и правила</h2><ul>
 <li><b>Доска Романа</b> — его предположение о процессе, не истина; расхождения выносим клиенту.</li>
 <li><b>Базовая линия</b> — ТЗ 2024–2025 (UNVERIFIED до подтверждения клиентом).</li>
 <li><b>Портал</b> — справочно; проверит интегратор отдельным аудитом (по команде владельца).</li>
-<li>Журнал решений владельца: <code>docs/ppo/00-resheniya-vladeltsa.md</code>. Обезличенные исходники: <code>client-materials/sanitized-*.md</code>.</li></ul></section>"""
+<li>Журнал решений владельца <span class="badge">предварительно утверждено 28.09</span>: <code>docs/ppo/00-resheniya-vladeltsa.md</code>. Обезличенные исходники: <code>client-materials/sanitized-*.md</code>.</li></ul></section>"""
 (HERE / "index.html").write_text(page("Евростекло · предпроектное обследование",
     "Управляющий файл: процессы, карты, вопросы к встрече. Всё связано ссылками.", index_body, INDEX_CSS,
     '<nav class="docnav"><b>☰ Оглавление</b></nav>'), encoding="utf8")
 print("index ok")
+if failed:
+    sys.exit(1)
