@@ -50,7 +50,7 @@ INDEX_CSS = COMMON_CSS + """.blocks{display:grid;grid-template-columns:repeat(au
 .badge.wip{background:#fbf1d9;color:#8a5a00;border-color:#8a5a00}"""
 BLOCKS = {
     "lidy": ("1. Лиды", '<span class="badge">утверждено 28.09</span>', "От обращения клиента до сделки."),
-    "sdelki": ("2. Сделки", '<span class="badge wip">на согласовании</span>',
+    "sdelki": ("2. Сделки", '<span class="badge">утверждено 29.09</span>',
                "Расчёт и замер → договор и оплата → производство → отгрузка / монтаж → закрытие. Слои: доска Романа, ТЗ 2024–2025 и статусная модель Б24 ↔ 1С (1С — «неизвестно, уточнить»), портал справочно."),
 }
 blocks = ""
