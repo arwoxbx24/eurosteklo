@@ -15,6 +15,7 @@
    `git tag -a checkpoint/2026-09-30-e3-dvizhok -m "e3" 09437d4f530d9d4e8c54305ef23a0ee556a268f9`
    `git tag -a checkpoint/2026-09-30-e1-sdelki -m "e1" 3898d95a76402934b64529d3a44ddec7293f0a3e`
    `git tag -a checkpoint/2026-09-30-e2-lidy-sdelki -m "e2" 71ea516d915f5d6f0e4a4765531a5410722d89c0`
+   `git tag -a checkpoint/2026-09-30-e4-karta -m "e4" 97bc3cba6a14a6d131bd181f84e3c58a5364b6ef`
    затем `git push origin --tags`.
 3. Удалить пустую ветку `claude/wonderful-pasteur-7tzxeu` (= `575a157`, содержимое в `main`): `git push origin --delete claude/wonderful-pasteur-7tzxeu` — облаку запрещено.
 4. PR №4 (Codex, аудит сессии) — не сливать без «да» владельца.
