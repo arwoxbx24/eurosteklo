@@ -25,6 +25,7 @@ COMMON = Path(__file__).parent
 CSS = (COMMON / "base.css").read_text(encoding="utf8")
 ZOOM = (COMMON / "zoom.html").read_text(encoding="utf8")
 LANES = (COMMON / "lanes.html").read_text(encoding="utf8") if (COMMON / "lanes.html").exists() else ""  # роли слева закреплены (Т5)
+MAPVIEW = (COMMON / "mapview.html").read_text(encoding="utf8") if (COMMON / "mapview.html").exists() else ""  # слои, «Показ клиенту» (e6)
 # Панель справа на карте (e4): «кто за что отвечает» по клику на роль, карточка вопроса по клику на точку.
 PANEL = (COMMON / "mappanel.html").read_text(encoding="utf8") if (COMMON / "mappanel.html").exists() else ""
 # Имена окон: ссылки открывают документ во втором окне и переиспользуют его.
@@ -275,8 +276,8 @@ addEventListener('hashchange',fromHash);fromHash();})();</script>"""
     (p.out / KARTA).write_text(page(
         f"Евростекло · {p.name}: карта процесса", p.map_lead,
         (f'<section><details><summary><b>Паспорт процесса: кто есть кто</b> — участники, роли (раскрыть)</summary>{pasport}</details></section>' if pasport else '')
-        + legend + f'<section><h2>Карта «{p.name}»</h2><p class="src">Карту можно тянуть мышью; масштаб схемы — кнопки справа внизу, клавиши + и − или Ctrl + колесо над схемой (меняется только схема). Подпись роли слева — нажмите: кто за что отвечает. Красный номер — вопрос откроется справа, отметки те же, что на странице вопросов (Ctrl/⌘ + клик — открыть страницу вопросов).</p>'
-        + navbar + f'<div class="mapwrap">{svg}</div></section>' + pan + LANES + mapjs + PANEL,
+        + legend + f'<section><h2>Карта «{p.name}»</h2><p class="src">Карту можно тянуть мышью; масштаб схемы — кнопки справа внизу, клавиши + и − или Ctrl + колесо над схемой (меняется только схема). Подпись роли слева — нажмите: кто за что отвечает. Красный номер — откроется страница вопросов в отдельном окне (клиент вопросов на карте не видит). Над картой: «Слои» — доска Романа, ТЗ 2024–2025 или обе; «Показ клиенту» — прячет наши служебные пометки.</p>'
+        + navbar + f'<div class="mapwrap">{svg}</div></section>' + pan + LANES + MAPVIEW + mapjs + PANEL,
         map_css, docnav(KARTA)), encoding="utf8")
 
     # ---------- Подробная версия ----------

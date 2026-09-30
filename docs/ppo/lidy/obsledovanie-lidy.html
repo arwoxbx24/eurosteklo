@@ -58,9 +58,18 @@ details ul{margin:6px 0;padding-left:22px}
 #povblk ol{margin:6px 0 10px;padding-left:24px}#povblk li{margin:4px 0}#povblk a{color:var(--accent)}#povblk a.pt{color:#fff;text-decoration:none;min-width:26px;height:26px;font-size:13px}
 #povblk li.cut{list-style:none;margin:10px 0 10px -24px;border-top:2px dashed var(--muted);padding-top:4px;color:var(--muted);font-size:14px}
 #povblk button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
-body.onlypov article.q.nopov{display:none}</style></head>
+body.onlypov article.q.nopov{display:none}
+.meetrow{display:flex;gap:10px 16px;align-items:center;flex-wrap:wrap}
+.meetrow button,.bar button.pri{font:600 15px system-ui,sans-serif;padding:8px 14px;border-radius:8px;border:1px solid var(--accent);background:var(--accent);color:#fff;cursor:pointer}
+.amodal{position:fixed;inset:0;z-index:80;background:rgba(20,25,32,.45);display:flex;align-items:center;justify-content:center;padding:16px}
+.amodal[hidden]{display:none}
+.abox{background:#fff;border-radius:12px;max-width:560px;width:100%;padding:18px 22px;box-shadow:0 10px 40px rgba(0,0,0,.3);font-size:17px}
+.abox h3{margin:0 0 10px;font-size:21px}.abox p{margin:6px 0}.abox .bar{margin-top:16px;justify-content:flex-end}
+.anscnt{position:fixed;right:14px;bottom:70px;z-index:50;font:600 14px system-ui,sans-serif;background:#fff;border:1px solid #cfc8bb;border-radius:10px;padding:6px 10px;box-shadow:0 3px 12px rgba(0,0,0,.15);color:#1d2530;cursor:pointer}
+.anscnt.dirty{border-color:#b3261e;color:#8c1d1d}
+@media print{.anscnt,.amodal{display:none}}</style></head>
 <body><div class="page" data-zoom><header><h1>Евростекло · Лиды: вопросы к встрече</h1><p class="lead">16 ключевых вопросов по красным точкам карты. Спрашиваете — клиент подтверждает или поправляет — вы отмечаете.</p><nav class="docnav"><a href="../index.html">☰ Оглавление</a> · Лиды: <a href="karta-lidy.html" target="evro-karta">Карта процесса</a> · <b>Вопросы к встрече</b> · <a href="obsledovanie-lidy-podrobno.html" target="evro-obsl">Подробная версия</a></nav></header>
-<section><label class="meet">Дата встречи: <input type="date" id="meet"></label></section><section id="povblk">
+<section><div class="meetrow"><label class="meet">Дата встречи: <input type="date" id="meet"></label><button type="button" class="finish">Завершить встречу</button></div></section><section id="povblk">
 <h2>Повестка встречи по лидам</h2>
 <p>Порядок — наш вариант, по ходу лида: от обращения до перевода в сделку. Номер точки называем вслух, просим показать на последнем реальном лиде; если ответа нет — спрашиваем, кто знает. Вариант за клиента не выбираем. Всё, что ниже линии отреза, при нехватке времени переносим на следующую встречу. Точка 14 (1С в лидах) в повестку не входит — её обсуждаем на встрече по 1С.</p>
 <ol>
@@ -81,7 +90,8 @@ body.onlypov article.q.nopov{display:none}</style></head>
 <li>Читаете крупный вопрос. Клиент показывает на экране последний реальный лид, а не рассказывает «как обычно».</li>
 <li>Статус точки: подтвердил / иначе / не знает / знает другой человек (впишите, кто). «Как на самом деле» — коротко.</li>
 <li>«А если…» и «Ещё:» — галочка у того, что обсудили; уточнение — в поле «комментарий».</li>
-<li>В конце — «Сохранить ответы»: скачается .md с датой, статусами, отмеченными и не обсуждёнными пунктами. Ответы хранятся только в этом браузере; это черновик, источник — транскрипт видео.</li></ol>
+<li>В конце — «Завершить встречу»: сводка (сколько точек со статусом, какие без статуса, сколько «А если…» отмечено) → вернуться и спросить или сохранить. «Сохранить ответы» скачивает .md с датой, статусами, отмеченными и не обсуждёнными пунктами. Ответы хранятся только в этом браузере; это черновик, источник — транскрипт видео.</li>
+<li>Счётчик справа внизу: «не сохранено» — есть изменения после последнего .md (при закрытии вкладки браузер переспросит). Продолжить в другом браузере — «Загрузить ответы (.md)» тем же файлом: отметки восстановятся целиком.</li></ol>
 <p class="src">Порядок: сначала точки повестки (блок вверху), дальше остальные; «Только повестка» скрывает остальные карточки. Все вопросы подробной версии здесь есть; источники и разбор — в «подробно».</p></section><section><details><summary><b>Паспорт: кто есть кто</b> (раскрыть)</summary><section id="pasport">
 <h2>Паспорт процесса «Лиды»: кто есть кто</h2>
 
@@ -126,7 +136,7 @@ body.onlypov article.q.nopov{display:none}</style></head>
 <div class="qh"><a class="pt" href="karta-lidy.html#p1" target="evro-karta" title="Точка 1 на карте">1</a><h3>Каналов восемь, в лид ведут связи только от двух</h3><span class="tp">предусловие (вход)</span><span class="first">повестка · 1</span></div>
 <p class="ask">«Покажите на последнем лиде из салона: как он оказался в Битрикс24 и кто его туда внёс?»</p><p class="xq"><label><input type="checkbox" data-ex="1"> спросили</label> <span>Ещё: «Покажите: список последних лидов с полем «источник» по каждому каналу»</span></p>
 <details class="ifs" open><summary>А если… (3)</summary><div class="ifl"><label><input type="checkbox" data-if="e1"> А если клиент пришёл в салон лично, без звонка и письма?</label><label><input type="checkbox" data-if="e2"> А если клиент написал во «ВКонтакте» или в Telegram?</label><label><input type="checkbox" data-if="e3"> А если клиент пришёл по рекомендации знакомых (сарафан)?</label><p class="see">↪ А если один и тот же клиент написал сразу в два канала? — этот вопрос задаём <a href="#t7">в точке 7</a></p><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
-<div class="ans" data-n="1"><span class="lbl">Статус точки:</span>
+<div class="ans" data-n="1" data-pov="1"><span class="lbl">Статус точки:</span>
 <label><input type="radio" name="a1" value="Подтвердил"> подтвердил</label>
 <label><input type="radio" name="a1" value="Иначе"> иначе</label>
 <label><input type="radio" name="a1" value="Не знает"> не знает</label>
@@ -139,7 +149,7 @@ body.onlypov article.q.nopov{display:none}</style></head>
 <div class="qh"><a class="pt" href="karta-lidy.html#p2" target="evro-karta" title="Точка 2 на карте">2</a><h3>Источники лида: на доске — каналы, в ТЗ — «АТС», «Почта», «Восстановление»</h3><span class="tp">разный уровень (доска ↔ ТЗ)</span><span class="first">повестка · 1</span></div>
 <p class="ask">«Покажите на последнем лиде: что записано в поле „Источник“ и кто это поле заполнил? И то же — на нескольких лидах до него.»</p>
 <details class="ifs" open><summary>А если… (3)</summary><div class="ifl"><label><input type="checkbox" data-if="e1"> А если клиент увидел объявление на Авито, а потом позвонил — какой источник у лида?</label><label><input type="checkbox" data-if="e5"> А если клиент позвонил в салон — источник «АТС» (как в ТЗ) или салон (как на доске)?</label><label><input type="checkbox" data-if="e4"> А если поле «Источник» осталось пустым?</label><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
-<div class="ans" data-n="2"><span class="lbl">Статус точки:</span>
+<div class="ans" data-n="2" data-pov="1"><span class="lbl">Статус точки:</span>
 <label><input type="radio" name="a2" value="Подтвердил"> подтвердил</label>
 <label><input type="radio" name="a2" value="Иначе"> иначе</label>
 <label><input type="radio" name="a2" value="Не знает"> не знает</label>
@@ -152,7 +162,7 @@ body.onlypov article.q.nopov{display:none}</style></head>
 <div class="qh"><a class="pt" href="karta-lidy.html#p3" target="evro-karta" title="Точка 3 на карте">3</a><h3>Кто разбирает лид и за какой срок</h3><span class="tp">роль</span><span class="first">повестка · 2</span></div>
 <p class="ask">«Покажите на последнем лиде: кто первым взял его в работу и сколько времени прошло от обращения до первого ответа клиенту?»</p><p class="xq"><label><input type="checkbox" data-ex="1"> спросили</label> <span>Ещё: «Покажите: одну заполненную карточку юрлица и одну карточку физлица после конвертации»</span></p>
 <details class="ifs" open><summary>А если… (2)</summary><div class="ifl"><label><input type="checkbox" data-if="e2"> А если заявка пришла в салон — кто её разбирает?</label><label><input type="checkbox" data-if="e3"> А если обратилась организация, а не частное лицо — разбирает тот же человек?</label><p class="see">↪ А если лид пришёл вечером или в выходной? — этот вопрос задаём <a href="../sdelki/obsledovanie-sdelki.html#t23" target="evro-see">в «Сделках» — С23</a></p><p class="see">↪ А если ответственный не взял лид — кто это замечает? — этот вопрос задаём <a href="#t16">в точке 16</a></p><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
-<div class="ans" data-n="3"><span class="lbl">Статус точки:</span>
+<div class="ans" data-n="3" data-pov="2"><span class="lbl">Статус точки:</span>
 <label><input type="radio" name="a3" value="Подтвердил"> подтвердил</label>
 <label><input type="radio" name="a3" value="Иначе"> иначе</label>
 <label><input type="radio" name="a3" value="Не знает"> не знает</label>
@@ -165,7 +175,7 @@ body.onlypov article.q.nopov{display:none}</style></head>
 <div class="qh"><a class="pt" href="karta-lidy.html#p13" target="evro-karta" title="Точка 13 на карте">13</a><h3>«Распорядитель» — кто это</h3><span class="tp">роль</span><span class="first">повестка · 2</span></div>
 <p class="ask">«Как у вас сейчас: кто получает обращение от нового клиента, которого ещё нет в базе, и кто подхватывает обращение, если за него никто не взялся?»</p><p class="xq"><label><input type="checkbox" data-ex="1"> спросили</label> <span>Ещё: «Покажите: кому сейчас приходит уведомление о новом обращении и что этот человек делает с ним первым делом»</span></p>
 <details class="ifs" open><summary>А если… (1)</summary><div class="ifl"><label><input type="checkbox" data-if="e2"> А если обращений много одновременно — их распределяет один человек или группа?</label><p class="see">↪ А если этот человек в отпуске или на больничном — кто его заменяет? — этот вопрос задаём <a href="../sdelki/obsledovanie-sdelki.html#t23" target="evro-see">в «Сделках» — С23</a></p><p class="see">↪ А если обращение пришло вечером или в выходной? — этот вопрос задаём <a href="../sdelki/obsledovanie-sdelki.html#t23" target="evro-see">в «Сделках» — С23</a></p><p class="see">↪ А если и тот, кому передали просроченное обращение, за него не взялся? — этот вопрос задаём <a href="#t16">в точке 16</a></p><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
-<div class="ans" data-n="13"><span class="lbl">Статус точки:</span>
+<div class="ans" data-n="13" data-pov="2"><span class="lbl">Статус точки:</span>
 <label><input type="radio" name="a13" value="Подтвердил"> подтвердил</label>
 <label><input type="radio" name="a13" value="Иначе"> иначе</label>
 <label><input type="radio" name="a13" value="Не знает"> не знает</label>
@@ -178,7 +188,7 @@ body.onlypov article.q.nopov{display:none}</style></head>
 <div class="qh"><a class="pt" href="karta-lidy.html#p16" target="evro-karta" title="Точка 16 на карте">16</a><h3>30 минут без ответа и «Отменено»: что дальше с лидом</h3><span class="tp">развилка</span><span class="first">повестка · 2</span></div>
 <p class="ask">«Как у вас сейчас: что происходит с новым обращением, если за него долго никто не берётся, и кто это замечает?»</p>
 <details class="ifs" open><summary>А если… (3)</summary><div class="ifl"><label><input type="checkbox" data-if="e1"> А если обращение пришло за несколько минут до конца рабочего дня?</label><label><input type="checkbox" data-if="e2"> А если за обращение не взялся и тот, кому его передали?</label><label><input type="checkbox" data-if="e3"> А если работу по обращению закрыли без заявки — что происходит с самим лидом?</label><p class="see">↪ А если клиент перезвонил после того, как работу по нему закрыли? — этот вопрос задаём <a href="#t7">в точке 7</a></p><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
-<div class="ans" data-n="16"><span class="lbl">Статус точки:</span>
+<div class="ans" data-n="16" data-pov="2"><span class="lbl">Статус точки:</span>
 <label><input type="radio" name="a16" value="Подтвердил"> подтвердил</label>
 <label><input type="radio" name="a16" value="Иначе"> иначе</label>
 <label><input type="radio" name="a16" value="Не знает"> не знает</label>
@@ -191,7 +201,7 @@ body.onlypov article.q.nopov{display:none}</style></head>
 <div class="qh"><a class="pt" href="karta-lidy.html#p4" target="evro-karta" title="Точка 4 на карте">4</a><h3>В названии «B2B, B2C», а путь один</h3><span class="tp">развилка</span><span class="first">повестка · 3</span></div>
 <p class="ask">«Покажите на последнем лиде от организации и на последнем лиде от частного лица: что в работе с ними шло по-разному?»</p>
 <details class="ifs" open><summary>А если… (2)</summary><div class="ifl"><label><input type="checkbox" data-if="e1"> А если частное лицо потом просит оформить заказ на фирму?</label><label><input type="checkbox" data-if="e2"> А если организация — подрядчик, который закупает для своего заказчика?</label><p class="see">↪ А если организация приносит договор по своей форме? — этот вопрос задаём <a href="../sdelki/obsledovanie-sdelki.html#t7" target="evro-see">в «Сделках» — С7</a></p><p class="see">↪ А если у частного лица нет реквизитов для карточки компании? — этот вопрос задаём <a href="#t8">в точке 8</a></p><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
-<div class="ans" data-n="4"><span class="lbl">Статус точки:</span>
+<div class="ans" data-n="4" data-pov="3"><span class="lbl">Статус точки:</span>
 <label><input type="radio" name="a4" value="Подтвердил"> подтвердил</label>
 <label><input type="radio" name="a4" value="Иначе"> иначе</label>
 <label><input type="radio" name="a4" value="Не знает"> не знает</label>
@@ -204,7 +214,7 @@ body.onlypov article.q.nopov{display:none}</style></head>
 <div class="qh"><a class="pt" href="karta-lidy.html#p8" target="evro-karta" title="Точка 8 на карте">8</a><h3>«…занесением всех реквизитов в карточку компании» — каких именно</h3><span class="tp">предусловие (готовность к конвертации)</span><span class="first">повестка · 3</span></div>
 <p class="ask">«Покажите на последнем лиде, который стал сделкой: какие данные клиента были заполнены в момент перевода, а какие добавили позже?»</p>
 <details class="ifs" open><summary>А если… (2)</summary><div class="ifl"><label><input type="checkbox" data-if="e1"> А если клиент пока не даёт реквизиты?</label><label><input type="checkbox" data-if="e2"> А если клиент — частное лицо?</label><p class="see">↪ А если компания уже заведена в базе? — этот вопрос задаём <a href="#t7">в точке 7</a></p><p class="see">↪ А если реквизиты потом поменялись — например, договор на другое юрлицо? — этот вопрос задаём <a href="../sdelki/obsledovanie-sdelki.html#t9" target="evro-see">в «Сделках» — С9</a></p><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
-<div class="ans" data-n="8"><span class="lbl">Статус точки:</span>
+<div class="ans" data-n="8" data-pov="3"><span class="lbl">Статус точки:</span>
 <label><input type="radio" name="a8" value="Подтвердил"> подтвердил</label>
 <label><input type="radio" name="a8" value="Иначе"> иначе</label>
 <label><input type="radio" name="a8" value="Не знает"> не знает</label>
@@ -217,7 +227,7 @@ body.onlypov article.q.nopov{display:none}</style></head>
 <div class="qh"><a class="pt" href="karta-lidy.html#p15" target="evro-karta" title="Точка 15 на карте">15</a><h3>Лид или заявка: где кончается лид</h3><span class="tp">постусловие / состояние</span><span class="first">повестка · 4</span></div>
 <p class="ask">«Покажите на последнем обращении: в какой момент вы начинаете называть его заявкой и что в этот момент появляется в системе?»</p>
 <details class="ifs" open><summary>А если… (2)</summary><div class="ifl"><label><input type="checkbox" data-if="e1"> А если клиент позвонил только узнать цену?</label><label><input type="checkbox" data-if="e2"> А если по обращению решили «Создать заявку» — что именно создаётся в системе?</label><p class="see">↪ А если заявка создана, а клиент перестал отвечать — где она остаётся? — этот вопрос задаём <a href="../sdelki/obsledovanie-sdelki.html#t1" target="evro-see">в «Сделках» — С1</a></p><p class="see">↪ А если у клиента уже есть открытая заявка? — этот вопрос задаём <a href="#t7">в точке 7</a></p><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
-<div class="ans" data-n="15"><span class="lbl">Статус точки:</span>
+<div class="ans" data-n="15" data-pov="4"><span class="lbl">Статус точки:</span>
 <label><input type="radio" name="a15" value="Подтвердил"> подтвердил</label>
 <label><input type="radio" name="a15" value="Иначе"> иначе</label>
 <label><input type="radio" name="a15" value="Не знает"> не знает</label>
@@ -230,7 +240,7 @@ body.onlypov article.q.nopov{display:none}</style></head>
 <div class="qh"><a class="pt" href="karta-lidy.html#p9" target="evro-karta" title="Точка 9 на карте">9</a><h3>Что есть после конвертации и на какой стадии сделка</h3><span class="tp">постусловие</span><span class="first">повестка · 5</span></div>
 <p class="ask">«Покажите на последнем лиде, который стал сделкой: на какой стадии появилась сделка и что ответственный сделал в ней первым?»</p>
 <details class="ifs" open><summary>А если… — задаём в других точках (4)</summary><div class="ifl"><p class="see">↪ А если клиенту нужен сначала замер — сделка начинается с той же стадии? — этот вопрос задаём <a href="../sdelki/obsledovanie-sdelki.html#t2" target="evro-see">в «Сделках» — С2</a></p><p class="see">↪ А если расчёт отправили, а клиент думает? — этот вопрос задаём <a href="../sdelki/obsledovanie-sdelki.html#t1" target="evro-see">в «Сделках» — С1</a></p><p class="see">↪ А если клиент отказался сразу после расчёта — куда уходит сделка? — этот вопрос задаём <a href="../sdelki/obsledovanie-sdelki.html#t21" target="evro-see">в «Сделках» — С21</a></p><p class="see">↪ А если сделка по этому клиенту уже была? — этот вопрос задаём <a href="#t7">в точке 7</a></p></div></details>
-<div class="ans" data-n="9"><span class="lbl">Статус точки:</span>
+<div class="ans" data-n="9" data-pov="5"><span class="lbl">Статус точки:</span>
 <label><input type="radio" name="a9" value="Подтвердил"> подтвердил</label>
 <label><input type="radio" name="a9" value="Иначе"> иначе</label>
 <label><input type="radio" name="a9" value="Не знает"> не знает</label>
@@ -243,7 +253,7 @@ body.onlypov article.q.nopov{display:none}</style></head>
 <div class="qh"><a class="pt" href="karta-lidy.html#p7" target="evro-karta" title="Точка 7 на карте">7</a><h3>Повторная заявка от клиента, который уже есть в базе</h3><span class="tp">сценарий</span><span class="first">повестка · 6</span></div>
 <p class="ask">«Покажите на последнем лиде от клиента, который уже обращался раньше: как вы узнали, что он уже был, и что сделали с новой заявкой?»</p>
 <details class="ifs" open><summary>А если… (4)</summary><div class="ifl"><label><input type="checkbox" data-if="e1"> А если у клиента уже есть незакрытая сделка?</label><label><input type="checkbox" data-if="e2"> А если клиент раньше отказался и теперь вернулся?</label><label><input type="checkbox" data-if="e3"> А если от одной организации пишут разные сотрудники?</label><label><input type="checkbox" data-if="e4"> А если частное лицо заказывает второй раз через год?</label><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
-<div class="ans" data-n="7"><span class="lbl">Статус точки:</span>
+<div class="ans" data-n="7" data-pov="6"><span class="lbl">Статус точки:</span>
 <label><input type="radio" name="a7" value="Подтвердил"> подтвердил</label>
 <label><input type="radio" name="a7" value="Иначе"> иначе</label>
 <label><input type="radio" name="a7" value="Не знает"> не знает</label>
@@ -256,7 +266,7 @@ body.onlypov article.q.nopov{display:none}</style></head>
 <div class="qh"><a class="pt" href="karta-lidy.html#p11" target="evro-karta" title="Точка 11 на карте">11</a><h3>Отказ: «воронка отказников» с причинами на доске и «Отменено» в ТЗ</h3><span class="tp">развилка</span><span class="first">повестка · 7</span></div>
 <p class="ask">«Покажите на последнем лиде, который не стал сделкой: где и кем отмечено, что работа с ним закончена, и почему?»</p><p class="xq"><label><input type="checkbox" data-ex="1"> спросили</label> <span>Ещё: «Покажите: последние 5 отказных сделок и как в них указана причина»</span></p>
 <details class="ifs" open><summary>А если… (2)</summary><div class="ifl"><label><input type="checkbox" data-if="e2"> А если причина не из четырёх — например, цена или сроки?</label><label><input type="checkbox" data-if="e3"> А если отказ случился ещё на этапе лида — причину записывают?</label><p class="see">↪ А если клиент отказался уже после расчёта, когда сделка создана? — этот вопрос задаём <a href="../sdelki/obsledovanie-sdelki.html#t21" target="evro-see">в «Сделках» — С21</a></p><p class="see">↪ А если клиент из отказников вернулся? — этот вопрос задаём <a href="#t7">в точке 7</a></p><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
-<div class="ans" data-n="11"><span class="lbl">Статус точки:</span>
+<div class="ans" data-n="11" data-pov="7"><span class="lbl">Статус точки:</span>
 <label><input type="radio" name="a11" value="Подтвердил"> подтвердил</label>
 <label><input type="radio" name="a11" value="Иначе"> иначе</label>
 <label><input type="radio" name="a11" value="Не знает"> не знает</label>
@@ -269,7 +279,7 @@ body.onlypov article.q.nopov{display:none}</style></head>
 <div class="qh"><a class="pt" href="karta-lidy.html#p12" target="evro-karta" title="Точка 12 на карте">12</a><h3>«Закупка отложена» — отказ или перенос</h3><span class="tp">состояние</span><span class="first">повестка · 7</span></div>
 <p class="ask">«Покажите на последнем лиде, где клиент сказал „позже“: что с ним сделали и как вы узнаёте, что пора к нему вернуться?»</p><p class="xq"><label><input type="checkbox" data-ex="1"> спросили</label> <span>Ещё: «Покажите: как сейчас узнаёте, что пора перезвонить клиенту, отложившему закупку»</span></p>
 <details class="ifs" open><summary>А если… (2)</summary><div class="ifl"><label><input type="checkbox" data-if="e1"> А если клиент назвал срок — кто и как напомнит?</label><label><input type="checkbox" data-if="e3"> А если клиент не вернулся и через полгода?</label><p class="see">↪ А если вернулся — это новая сделка или прежняя? — этот вопрос задаём <a href="#t7">в точке 7</a></p><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
-<div class="ans" data-n="12"><span class="lbl">Статус точки:</span>
+<div class="ans" data-n="12" data-pov="7"><span class="lbl">Статус точки:</span>
 <label><input type="radio" name="a12" value="Подтвердил"> подтвердил</label>
 <label><input type="radio" name="a12" value="Иначе"> иначе</label>
 <label><input type="radio" name="a12" value="Не знает"> не знает</label>
@@ -282,7 +292,7 @@ body.onlypov article.q.nopov{display:none}</style></head>
 <div class="qh"><a class="pt" href="karta-lidy.html#p6" target="evro-karta" title="Точка 6 на карте">6</a><h3>Недозвон: что делать, если клиент не отвечает</h3><span class="tp">развилка / сценарий</span><span class="first">повестка · 8</span></div>
 <p class="ask">«Покажите на последнем лиде, до которого не дозвонились с первого раза: что ответственный сделал дальше и чем это закончилось?»</p>
 <details class="ifs" open><summary>А если… (4)</summary><div class="ifl"><label><input type="checkbox" data-if="e1"> А если клиент не ответил и на следующий день — сколько ещё попыток?</label><label><input type="checkbox" data-if="e2"> А если клиент сам перезвонил, но в другой салон или на другой номер?</label><label><input type="checkbox" data-if="e3"> А если клиент не берёт трубку, но отвечает в мессенджере?</label><label><input type="checkbox" data-if="e4"> А если после всех попыток клиент так и не ответил — в какой стадии остаётся лид?</label><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
-<div class="ans" data-n="6"><span class="lbl">Статус точки:</span>
+<div class="ans" data-n="6" data-pov="8"><span class="lbl">Статус точки:</span>
 <label><input type="radio" name="a6" value="Подтвердил"> подтвердил</label>
 <label><input type="radio" name="a6" value="Иначе"> иначе</label>
 <label><input type="radio" name="a6" value="Не знает"> не знает</label>
@@ -295,7 +305,7 @@ body.onlypov article.q.nopov{display:none}</style></head>
 <div class="qh"><a class="pt" href="karta-lidy.html#p5" target="evro-karta" title="Точка 5 на карте">5</a><h3>Состояния лида: на доске их нет, в ТЗ — один статус «Новый»</h3><span class="tp">состояние</span><span class="first">повестка · 9</span></div>
 <p class="ask">«Покажите на последнем лиде: через какие стадии он прошёл и кто переводил его с одной на другую?»</p>
 <details class="ifs" open><summary>А если… (1)</summary><div class="ifl"><label><input type="checkbox" data-if="e2"> А если с клиентом поговорили, а он ещё думает — в какой он стадии?</label><p class="see">↪ А если с лидом неделю никто не работает — что с ним происходит? — этот вопрос задаём <a href="#t16">в точке 16</a></p><p class="see">↪ А если клиент сказал «вернёмся позже» — куда ставят лид? — этот вопрос задаём <a href="#t12">в точке 12</a></p><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
-<div class="ans" data-n="5"><span class="lbl">Статус точки:</span>
+<div class="ans" data-n="5" data-pov="9"><span class="lbl">Статус точки:</span>
 <label><input type="radio" name="a5" value="Подтвердил"> подтвердил</label>
 <label><input type="radio" name="a5" value="Иначе"> иначе</label>
 <label><input type="radio" name="a5" value="Не знает"> не знает</label>
@@ -308,7 +318,7 @@ body.onlypov article.q.nopov{display:none}</style></head>
 <div class="qh"><a class="pt" href="karta-lidy.html#p10" target="evro-karta" title="Точка 10 на карте">10</a><h3>«Единый формат» и «структура карточек» — самих документов нет</h3><span class="tp">документ / user story</span><span class="first">повестка · 9</span></div>
 <p class="ask">«Покажите на последнем лиде: как заполнена его карточка и по какому образцу её заполняли?»</p><p class="xq"><label><input type="checkbox" data-ex="1"> спросили</label> <span>Ещё: «Покажите: структуру карточек лида, компании и сделки от Л.А. и М.А. и чек-лист, о котором речь»</span></p>
 <details class="ifs" open><summary>А если… (1)</summary><div class="ifl"><label><input type="checkbox" data-if="e1"> А если структура карточек ещё обсуждается — кто утверждает окончательный вариант?</label><p class="see">↪ А если для организации и частного лица образец разный? — этот вопрос задаём <a href="#t8">в точке 8</a></p><p class="see">↪ А если данные клиента уже есть в 1С — откуда их берут в карточку? — этот вопрос задаём <a href="#t14">в точке 14</a></p><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
-<div class="ans" data-n="10"><span class="lbl">Статус точки:</span>
+<div class="ans" data-n="10" data-pov="9"><span class="lbl">Статус точки:</span>
 <label><input type="radio" name="a10" value="Подтвердил"> подтвердил</label>
 <label><input type="radio" name="a10" value="Иначе"> иначе</label>
 <label><input type="radio" name="a10" value="Не знает"> не знает</label>
@@ -329,7 +339,9 @@ body.onlypov article.q.nopov{display:none}</style></head>
 <input type="text" class="who" placeholder="кто знает (роль или имя)" hidden>
 <textarea rows="2" placeholder="Как на самом деле — запишите коротко"></textarea></div>
 <p class="more">Ответ закроет: Решение, участвует ли 1С на этапе лида. Если да — правило поиска клиента и назначения ответственного; если нет — этот пункт ТЗ снимается, а поиск повторов (точка 7) решается внутри Битрикс24. · <a href="obsledovanie-lidy-podrobno.html#t14" target="evro-obsl">подробно</a></p>
-</article></section><section><h2>Итог встречи</h2><div class="bar"><button type="button" id="save">Сохранить ответы (.md)</button><button type="button" id="clear">Очистить ответы</button></div></section>
+</article></section><section><h2>Итог встречи</h2><div class="bar"><button type="button" id="save">Сохранить ответы (.md)</button><button type="button" id="load">Загрузить ответы (.md)</button><input type="file" id="loadf" accept=".md,.txt" hidden><button type="button" class="finish pri">Завершить встречу</button><button type="button" id="clear">Очистить ответы</button></div></section>
+<div class="amodal" id="amodal" hidden><div class="abox" role="dialog" aria-modal="true" aria-labelledby="amh"><h3 id="amh"></h3><div id="amb"></div><div class="bar" id="ambar"></div></div></div>
+<button type="button" class="anscnt" id="anscnt" title="Завершить встречу — сводка"></button>
 <script>(function(){var K='evro-lidy-answers.v3',K2='evro-lidy-answers.v2',K1='evro-lidy-answers';
 function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
 function jp(k){try{return JSON.parse(get(k)||'null')}catch(e){return null}}
@@ -346,29 +358,52 @@ if(!d||typeof d!=='object'||d.v!==3){d=blank();var o2=jp(K2),o=jp(K1);
  else if(o&&typeof o==='object'){var any=false;Object.keys(o).forEach(function(n){var r=o[n];if(r&&(r.v||r.t)){d.items[n]={s:r.v||'',t:r.t||''};any=true}});if(any)store(d)}}
 if(!d.items||typeof d.items!=='object')d.items={};return d}
 function store(x){try{localStorage.setItem(K,JSON.stringify(x))}catch(e){}}
-var d=load();
-function put(){store(d)}
+var SLUG='lidy',NAMES={"lidy": "Лиды", "sdelki": "Сделки"},d=load();
 function it(n){return d.items[n]||(d.items[n]={})}
 function rd(n){return d.items[n]||{}}
-var mt=document.getElementById('meet');mt.value=d.meeting||'';mt.addEventListener('change',function(){d.meeting=mt.value;put()});
-document.querySelectorAll('article.q').forEach(function(a){var n=a.id.slice(1),s=rd(n),b=a.querySelector('.ans'),w=b.querySelector('.who');
- function sw(){w.hidden=(rd(n).s!=='Знает другой')}
- b.querySelectorAll('input[type=radio]').forEach(function(i){if(i.value===s.s)i.checked=true;i.addEventListener('change',function(){it(n).s=i.value;sw();put()})});
- w.value=s.who||'';sw();w.addEventListener('input',function(){it(n).who=w.value;put()});
- var t=b.querySelector('textarea');t.value=s.t||'';t.addEventListener('input',function(){it(n).t=t.value;put()});
- [['if','ifs'],['ex','ex']].forEach(function(p){a.querySelectorAll('input[data-'+p[0]+']').forEach(function(c){var k=c.getAttribute('data-'+p[0]);
-  c.checked=!!(s[p[1]]&&s[p[1]][k]);c.addEventListener('change',function(){var x=it(n),m=x[p[1]]||(x[p[1]]={});if(c.checked)m[k]=true;else delete m[k];put()})})});
- var f=a.querySelector('.ifc');if(f){f.value=s.ifc||'';f.addEventListener('input',function(){it(n).ifc=f.value;put()})}});
-/* карта (e4) пишет в тот же ключ из другого окна — отметки подхватываются без перезагрузки */
-addEventListener('storage',function(e){if(e.key!==K)return;d=load();mt.value=d.meeting||'';
- document.querySelectorAll('article.q').forEach(function(a){var n=a.id.slice(1),s=rd(n),b=a.querySelector('.ans'),w=b.querySelector('.who');
+/* отпечаток ответов для «не сохранено»: ключи по порядку, пустые значения и служебное saved не считаются */
+function canon(v){if(v&&typeof v==='object'){var o=[];Object.keys(v).sort().forEach(function(k){if(k==='saved')return;var c=canon(v[k]);if(c!=='')o.push(JSON.stringify(k)+':'+c)});return o.length?'{'+o.join(',')+'}':''}
+ return(v===''||v===false||v==null)?'':JSON.stringify(v)}
+function sig(){return canon({m:d.meeting,i:d.items})}
+function hs(s){var h=5381;for(var i=0;i<s.length;i++)h=(h*33+s.charCodeAt(i))|0;return(h>>>0).toString(36)+'.'+s.length}
+function dirty(){var s=sig();return d.saved&&d.saved.h?hs(s)!==d.saved.h:s!==''}
+function hm(ms){var t=new Date(ms);return('0'+t.getHours()).slice(-2)+':'+('0'+t.getMinutes()).slice(-2)}
+var mt=document.getElementById('meet'),M=document.getElementById('amodal'),cnt=document.getElementById('anscnt'),
+ ALL=[].slice.call(document.querySelectorAll('article.q')),POV=ALL.filter(function(a){return !!a.querySelector('.ans[data-pov]')});
+document.body.appendChild(M);document.body.appendChild(cnt); /* вне масштабируемой .page */
+function scope(){return POV.length?POV:ALL}
+function hasS(a){return !!rd(a.id.slice(1)).s}
+function upd(){var L=scope(),k=L.filter(hasS).length,dt=dirty();
+ cnt.textContent=(POV.length?'повестка ':'точки ')+k+'/'+L.length+(dt?' · не сохранено':d.saved&&d.saved.at?' · сохранено '+hm(d.saved.at):'');cnt.classList.toggle('dirty',dt)}
+function put(){store(d);upd()}
+function render(){mt.value=d.meeting||'';
+ ALL.forEach(function(a){var n=a.id.slice(1),s=rd(n),b=a.querySelector('.ans'),w=b.querySelector('.who');
  b.querySelectorAll('input[type=radio]').forEach(function(i){i.checked=(i.value===s.s)});
  w.value=s.who||'';w.hidden=(s.s!=='Знает другой');b.querySelector('textarea').value=s.t||'';
  [['if','ifs'],['ex','ex']].forEach(function(p){a.querySelectorAll('input[data-'+p[0]+']').forEach(function(c){c.checked=!!(s[p[1]]&&s[p[1]][c.getAttribute('data-'+p[0])])})});
- var f=a.querySelector('.ifc');if(f)f.value=s.ifc||''})});
+ var f=a.querySelector('.ifc');if(f)f.value=s.ifc||''});upd()}
+mt.addEventListener('change',function(){d.meeting=mt.value;put()});
+ALL.forEach(function(a){var n=a.id.slice(1),b=a.querySelector('.ans'),w=b.querySelector('.who'),t=b.querySelector('textarea');
+ b.querySelectorAll('input[type=radio]').forEach(function(i){i.addEventListener('change',function(){it(n).s=i.value;w.hidden=(i.value!=='Знает другой');put()})});
+ w.addEventListener('input',function(){it(n).who=w.value;put()});
+ t.addEventListener('input',function(){it(n).t=t.value;put()});
+ [['if','ifs'],['ex','ex']].forEach(function(p){a.querySelectorAll('input[data-'+p[0]+']').forEach(function(c){var k=c.getAttribute('data-'+p[0]);
+  c.addEventListener('change',function(){var x=it(n),m=x[p[1]]||(x[p[1]]={});if(c.checked)m[k]=true;else delete m[k];put()})})});
+ var f=a.querySelector('.ifc');if(f)f.addEventListener('input',function(){it(n).ifc=f.value;put()})});
+render();
+/* карта (e4) пишет в тот же ключ из другого окна — отметки подхватываются без перезагрузки */
+addEventListener('storage',function(e){if(e.key!==K)return;d=load();render()});
+/* своё окно вместо alert/confirm: заголовок, абзацы (текстом), кнопки [подпись, действие, главная] */
+function modal(h,ps,btns){document.getElementById('amh').textContent=h;var B=document.getElementById('amb'),bar=document.getElementById('ambar');B.innerHTML='';bar.innerHTML='';
+ ps.forEach(function(t){var p=document.createElement('p');p.textContent=t;B.appendChild(p)});
+ btns.forEach(function(x){var e=document.createElement('button');e.type='button';e.textContent=x[0];if(x[2])e.className='pri';e.onclick=function(){M.hidden=true;if(x[1])x[1]()};bar.appendChild(e)});
+ M.hidden=false;bar.lastChild.focus()}
+M.addEventListener('click',function(e){if(e.target===M)M.hidden=true});
+addEventListener('keydown',function(e){if(e.key==='Escape'&&!M.hidden)M.hidden=true});
+function msg(h,t){modal(h,[t],[['Понятно']])}
 function lt(c){return c.closest('label').textContent.trim()}
-document.getElementById('save').onclick=function(){var o=['# Лиды — ответы клиента','','Дата встречи: '+(d.meeting||'—'),'Выгружено: '+new Date().toLocaleString('ru-RU'),''],seen={};
- document.querySelectorAll('article.q').forEach(function(a){var n=a.id.slice(1),s=rd(n),yes=[],no=[];seen[n]=1;
+function md(){var o=['# Лиды — ответы клиента','','Дата встречи: '+(d.meeting||'—'),'Выгружено: '+new Date().toLocaleString('ru-RU'),''],seen={};
+ ALL.forEach(function(a){var n=a.id.slice(1),s=rd(n),yes=[],no=[];seen[n]=1;
  o.push('## '+n+'. '+a.querySelector('h3').textContent,'Вопрос: '+a.querySelector('.ask').textContent,'Статус: '+(s.s||'—'));
  if(s.s==='Знает другой'||s.who)o.push('Кто знает: '+(s.who||'—'));
  o.push('Как на самом деле: '+(s.t||'—'));
@@ -383,9 +418,43 @@ document.getElementById('save').onclick=function(){var o=['# Лиды — отв
  o.push('')});
  Object.keys(d.items).forEach(function(n){if(seen[n])return;var s=d.items[n]||{};if(!(s.s||s.t||s.who))return;
   o.push('## '+n+' (карточки на странице нет)','Статус: '+(s.s||'—'),'Кто знает: '+(s.who||'—'),'Как на самом деле: '+(s.t||'—'),'')});
- o.push('Ответы — рабочий черновик; источник для разблокировки точки — транскрипт видео');
- var u=URL.createObjectURL(new Blob([o.join('\n')],{type:'text/markdown'}));var l=document.createElement('a');l.href=u;l.download='evrosteklo-lidy-otvety.md';l.click();};
-document.getElementById('clear').onclick=function(){if(confirm('Очистить все ответы?')){d=blank();put();location.reload()}};})();</script><script>(function(){var K='evro-lidy-onlypov',b=document.getElementById('onlypov'),ns={};
+ o.push('Ответы — рабочий черновик; источник для разблокировки точки — транскрипт видео','',
+  'Строка ниже — машинный блок для кнопки «Загрузить ответы (.md)»; не редактировать.','');
+ return o.join('\n')}
+/* выгрузка: текст + машинный блок со всем хранилищем v3 («--» экранируется, чтобы не закрыть комментарий) */
+function save(){d.saved={at:Date.now(),h:hs(sig())};store(d);
+ var blk='<!-'+'- evro-answers '+JSON.stringify({slug:SLUG,v:3,data:d}).replace(/--/g,'-\\u002d').replace(/</g,'\\u003c')+' -->';
+ var u=URL.createObjectURL(new Blob([md()+blk+'\n'],{type:'text/markdown'}));var l=document.createElement('a');l.href=u;l.download='evrosteklo-lidy-otvety.md';
+ document.body.appendChild(l);l.click();l.remove();setTimeout(function(){URL.revokeObjectURL(u)},4000);upd()}
+document.getElementById('save').onclick=save;
+/* загрузка .md: машинный блок → проверка процесса → хранилище v3 целиком → перерисовка */
+var lf=document.getElementById('loadf');
+document.getElementById('load').onclick=function(){lf.value='';lf.click()};
+function apply(s,name){var i=s.lastIndexOf('<!-'+'- evro-answers ');
+ if(i<0){msg('Загрузка отменена','Файл «'+name+'» без машинного блока (старый формат) — ответы из него не загрузить. Отметки на странице не изменены.');return}
+ var j=s.indexOf('-->',i),o=null;try{o=JSON.parse(s.slice(i+18,j<0?s.length:j))}catch(e){}
+ if(!o||typeof o!=='object'||!o.data||typeof o.data!=='object'||o.data.v!==3){msg('Загрузка отменена','Машинный блок в файле «'+name+'» повреждён. Отметки на странице не изменены.');return}
+ if(o.slug!==SLUG){msg('Загрузка отменена','Это ответы другого процесса — «'+(NAMES[o.slug]||o.slug)+'», а страница — «Лиды». Откройте страницу вопросов своего процесса. Отметки на странице не изменены.');return}
+ function go(){var x=o.data;if(!x.items||typeof x.items!=='object')x.items={};if(typeof x.meeting!=='string')x.meeting='';
+  d=x;store(d);render();msg('Ответы загружены','Из файла «'+name+'» восстановлены все отметки: статусы, «кто знает», записи, галочки, комментарии и дата встречи.')}
+ if(dirty())modal('Заменить ответы?',['На странице есть ответы, не сохранённые в .md. Загрузка заменит их содержимым файла «'+name+'».'],[['Отмена'],['Заменить',go,true]]);else go()}
+lf.addEventListener('change',function(){var f=lf.files&&lf.files[0];if(!f)return;var r=new FileReader();
+ r.onload=function(){apply(String(r.result||''),f.name)};r.onerror=function(){msg('Загрузка отменена','Не удалось прочитать файл «'+f.name+'».')};r.readAsText(f,'utf-8')});
+/* «Завершить встречу»: сводка, ничего не обязательно */
+function first(L){for(var i=0;i<L.length;i++)if(!hasS(L[i]))return L[i];return null}
+function finish(){var L=scope(),no=L.filter(function(a){return !hasS(a)}),k=0,dt=dirty();
+ ALL.forEach(function(a){var s=rd(a.id.slice(1));a.querySelectorAll('input[data-if]').forEach(function(c){if(s.ifs&&s.ifs[c.getAttribute('data-if')])k++})});
+ modal('Завершить встречу',[(POV.length?'Повестка: ':'Точки: ')+(L.length-no.length)+' из '+L.length+' с отметкой статуса',
+  'Без статуса: '+(no.length?no.map(function(a){return a.querySelector('a.pt').textContent.trim()}).join(', '):'нет'),
+  'Отмечено «А если…»: '+k,
+  'Не сохранено в .md: '+(dt?'да':'нет'+(d.saved&&d.saved.at?' (сохранено '+hm(d.saved.at)+')':''))],
+  [['Вернуться и спросить',function(){var a=first(L)||first(ALL);if(!a)return;a.scrollIntoView({behavior:'smooth',block:'start'});
+    var r=a.querySelector('input[type=radio]');if(r)try{r.focus({preventScroll:true})}catch(e){}}],
+   ['Сохранить ответы (.md) и завершить',save,true]])}
+document.querySelectorAll('.finish').forEach(function(b){b.onclick=finish});cnt.onclick=finish;
+/* закрытие/обновление вкладки с несохранёнными ответами — стандартное окно браузера */
+addEventListener('beforeunload',function(e){if(!dirty())return;e.preventDefault();e.returnValue='';return ''});
+document.getElementById('clear').onclick=function(){if(confirm('Очистить все ответы?')){d=blank();put();render()}};})();</script><script>(function(){var K='evro-lidy-onlypov',b=document.getElementById('onlypov'),ns={};
 document.querySelectorAll('#povblk a[data-p],#povblk a[href^="#t"]').forEach(function(a){if(a.closest('.see'))return;var n=a.getAttribute('data-p')||a.getAttribute('href').slice(2);ns[n]=1});
 document.querySelectorAll('article.q').forEach(function(a){if(!ns[a.id.slice(1)])a.classList.add('nopov')});
 function set(on){document.body.classList.toggle('onlypov',on);b.classList.toggle('on',on);b.setAttribute('aria-pressed',on?'true':'false');

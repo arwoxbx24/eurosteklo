@@ -22,7 +22,7 @@ if(!svg||svg.querySelector('.lanes-pin')||!svg.getScreenCTM)return;
 var NS='http://www.w3.org/2000/svg',LANE='#eef1f5',vb=svg.viewBox&&svg.viewBox.baseVal;
 var vbW=vb&&vb.width?vb.width:svg.getBBox().width;
 var S=svg.getScreenCTM();if(!S)return;var Si=S.inverse();
-function skip(el){return el.closest('.pt,defs,marker,.lanes-pin')}
+function skip(el){return el.closest('.pt,defs,marker,.lanes-pin,.mv-bg')}  /* .mv-bg — фон слоёв из mapview.html (e6) */
 function base(el){var m=Si.multiply(el.getScreenCTM());return{e:m.e,f:m.f}}
 function num(el,a){var v=el.getAttribute(a);return v==null?0:parseFloat(v)||0}
 function box(el){var b=el.getBBox(),m=base(el);return{x:b.x+m.e,y:b.y+m.f,w:b.width,h:b.height,m:m}}
