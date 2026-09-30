@@ -93,14 +93,17 @@ for layer, lvl in (("B", err), ("A", warn)):
     f = PPO / f"sdelki/_parts/karta-{layer}.svg.html"
     if not f.exists():
         continue
-    for g in re.findall(r"<g>(<title>.*?)</g>", rd(f), re.S):
+    src = rd(f)
+    for m in re.finditer(r'<g( data-1c="unk")?>(<title>.*?)</g>', src, re.S):
+        g = m.group(0)
         title = re.search(r"<title>(.*?)</title>", g, re.S).group(1)
         text = " ".join(re.findall(r"<text[^>]*>(.*?)</text>", g, re.S))
+        after = src[m.end():m.end() + 900].split("<g", 1)[0]  # подписи сразу за группой, до следующей <g>
         if re.search(r"Б24 «[^»]*» — из 1С", title):
-            text += " [подпись вне <g>: из 1С]"
+            text += " [подпись вне <g>: из 1С]" + (" неизвестно" if "неизвестно, уточнить" in after else "")
         if "1С" in text and "неизвестно" not in text and 'data-1c="unk"' not in g:
-            if re.match(r"Статусная модель, ячейка [^:]*: 1С «", title):
-                continue  # строка 1С статусной модели: пометка у подписи строки
+            if re.match(r"Статусная модель, ячейка [^:]*: 1С «", title) or re.match(r"Статусная модель, ячейка I\d+:", title):
+                continue  # строка 1С статусной модели / направление обмена — дословная цитата ячейки
             lvl("K5", f"слой {layer}: «{html.unescape(text)[:70]}»")
 
 # K6 ПДн: сначала вырезать белый список id Miro (19 цифр, префиксы 3074457/3458764, включая маски «…хх»),
