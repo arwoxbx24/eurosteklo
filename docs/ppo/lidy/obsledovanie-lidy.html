@@ -2,7 +2,7 @@
 <html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Евростекло · Лиды: вопросы к встрече</title><style>@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap');
 :root{--ink:#1d2530;--muted:#5b6573;--paper:#fffdf8;--line:#d9d3c7;--accent:#b8480f;
---board:#1f6b3a;--board-bg:#e5f3e9;--said:#8a5a00;--said-bg:#fbf1d9;--unk:#8c1d1d;--unk-bg:#f8e3e3;--conf:#5b2a86;--conf-bg:#efe6f8;--pt:#d0341c}
+--board:#1f6b3a;--board-bg:#e5f3e9;--said:#8a5a00;--said-bg:#fbf1d9;--unk:#8c1d1d;--unk-bg:#f8e3e3;--conf:#5b2a86;--conf-bg:#efe6f8;--doc:#1f4f7a;--doc-bg:#e3eef8;--own:#3d4a5c;--own-bg:#eceff3;--pt:#d0341c}
 *{box-sizing:border-box}
 body{margin:0;background:#f1ede4;color:var(--ink);font:17px/1.55 "PT Sans","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
 .page{max-width:1240px;margin:0 auto;padding:28px 20px 60px}
@@ -17,9 +17,12 @@ h3{margin:0;font-size:20px}
 .st-said{color:var(--said);background:var(--said-bg)}.st-said::before{content:"“ "}
 .st-unk{color:var(--unk);background:var(--unk-bg);border-style:dashed}.st-unk::before{content:"? "}
 .st-conf{color:var(--conf);background:var(--conf-bg);border-style:dotted}.st-conf::before{content:"⚡ "}
+.st-doc{color:var(--doc);background:var(--doc-bg)}.st-doc::before{content:"▤ "}
+.st-own{color:var(--own);background:var(--own-bg);border-style:double;border-width:3px}.st-own::before{content:"◆ "}
 .tp{display:inline-block;font-size:14px;font-weight:700;padding:1px 10px;border-radius:6px;background:#eef1f5;color:#2d4a66;border:1px solid #b9c6d4}
 .pt{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;border-radius:50%;background:var(--pt);color:#fff;font-weight:800;font-size:15px;padding:0 4px;vertical-align:middle}
 .src{color:var(--muted);font-size:13px}
+small.see{color:var(--muted);font-size:13px}small.see a{color:var(--accent);font-weight:600}
 .tbl{width:100%;border-collapse:collapse;margin:10px 0 18px;font-size:16px}
 .tbl th{background:#3d4a5c;color:#fff;text-align:left;padding:8px 10px}
 .tbl td{border-bottom:1px solid var(--line);padding:8px 10px;vertical-align:top}
@@ -50,24 +53,44 @@ details ul{margin:6px 0;padding-left:22px}
 .ans{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;background:#f7f4ed;border-radius:8px;padding:8px 10px;margin-top:6px}
 .ans .lbl{font-weight:700}.ans textarea{flex:1 1 100%;font:16px system-ui,sans-serif;border:1px solid var(--line);border-radius:6px;padding:6px}
 .more{margin:6px 0 0;font-size:14px;color:var(--muted)}.more a{color:var(--accent)}
-.bar{display:flex;gap:10px;flex-wrap:wrap}.bar button{font:600 15px system-ui,sans-serif;padding:8px 14px;border-radius:8px;border:1px solid var(--line);background:#fff;cursor:pointer}</style></head>
+.bar{display:flex;gap:10px;flex-wrap:wrap}.bar button,#povblk button{font:600 15px system-ui,sans-serif;padding:8px 14px;border-radius:8px;border:1px solid var(--line);background:#fff;cursor:pointer}
+.ifl p.see{margin:2px 0 0;color:var(--muted);font-size:15px}.ifl p.see a{color:var(--accent);font-weight:600}
+#povblk ol{margin:6px 0 10px;padding-left:24px}#povblk li{margin:4px 0}#povblk a{color:var(--accent)}#povblk a.pt{color:#fff;text-decoration:none;min-width:26px;height:26px;font-size:13px}
+#povblk li.cut{list-style:none;margin:10px 0 10px -24px;border-top:2px dashed var(--muted);padding-top:4px;color:var(--muted);font-size:14px}
+#povblk button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+body.onlypov article.q.nopov{display:none}</style></head>
 <body><div class="page" data-zoom><header><h1>Евростекло · Лиды: вопросы к встрече</h1><p class="lead">16 ключевых вопросов по красным точкам карты. Спрашиваете — клиент подтверждает или поправляет — вы отмечаете.</p><nav class="docnav"><a href="../index.html">☰ Оглавление</a> · Лиды: <a href="karta-lidy.html" target="evro-karta">Карта процесса</a> · <b>Вопросы к встрече</b> · <a href="obsledovanie-lidy-podrobno.html" target="evro-obsl">Подробная версия</a></nav></header>
-<section><label class="meet">Дата встречи: <input type="date" id="meet"></label></section><section><h2>Как вести встречу</h2><ol>
+<section><label class="meet">Дата встречи: <input type="date" id="meet"></label></section><section id="povblk">
+<h2>Повестка встречи по лидам</h2>
+<p>Порядок — наш вариант, по ходу лида: от обращения до перевода в сделку. Номер точки называем вслух, просим показать на последнем реальном лиде; если ответа нет — спрашиваем, кто знает. Вариант за клиента не выбираем. Всё, что ниже линии отреза, при нехватке времени переносим на следующую встречу. Точка 14 (1С в лидах) в повестку не входит — её обсуждаем на встрече по 1С.</p>
+<ol>
+<li><a href="#t1">Точки 1</a> и <a href="#t2">2</a> — вход и источник: как последний лид из салона попал в Битрикс24, кто его внёс и что записано в поле «Источник». В прежнем плане (ТЗ) лид создавался сам из звонка и почты, а вручную — из «спящей базы»: это нужно сейчас?</li>
+<li><a href="#t3">Точки 3</a>, <a href="#t13">13</a> и <a href="#t16">16</a> — кто первым взял последний лид и через сколько ответил клиенту; кто такой «Распорядитель». В прежнем плане: 30 минут без ответа — лид передаётся Распорядителю. Это нужно? Вечер, выходные, отпуск — одно правило для лидов и сделок?</li>
+<li><a href="#t4">Точки 4</a> и <a href="#t8">8</a> — организация и частное лицо: что в работе шло по-разному и какие данные клиента были в момент перевода в сделку.</li>
+<li><a href="#t15">Точка 15</a> — граница лида: в какой момент обращение называют заявкой и что в этот момент появляется в системе. «Заявка» дальше — это один шаг или весь заказ?</li>
+<li><a href="#t9">Точка 9</a> — граница лида и сделки: на какой стадии появилась сделка из последнего лида и что в ней сделали первым. По какому признаку вы понимаете, что клиент готов стать сделкой? Чертежи, размеры, нужен ли замер — выясняете до перевода в сделку или уже в сделке?</li>
+<li><a href="#t7">Точка 7</a> — повторный клиент: как узнали, что клиент уже обращался, и что сделали — новая сделка или прежняя.</li>
+<li><a href="#t11">Точки 11</a> и <a href="#t12">12</a> — отказ: где и кем отмечен отказ лида и с какой причиной; «Закупка отложена» — это отказ или перенос.</li>
+<li class="cut">Линия отреза: ниже — если осталось время, иначе на следующую встречу</li>
+<li value="8"><a href="#t6">Точка 6</a> — недозвон: сколько попыток и чем всё заканчивается.</li>
+<li><a href="#t5">Точки 5</a> и <a href="#t10">10</a> — какие состояния нужны лиду; по какому образцу заполняют карточку и кто этот образец утверждает.</li>
+</ol>
+<p>В конце встречи: кто у вас знает 1С? Кто утверждает изменения процесса? Где документ «структура карточек» (от Л.А., М.А.)?</p>
+<div class="bar"><button type="button" id="onlypov" aria-pressed="false">Только повестка</button></div></section><section><h2>Как вести встречу</h2><ol>
 <li>Второе окно — <a href="karta-lidy.html" target="evro-karta">карта процесса</a>. Красный номер на карте = карточка здесь (номер кликабелен в обе стороны). Вверху поставьте дату встречи.</li>
 <li>Читаете крупный вопрос. Клиент показывает на экране последний реальный лид, а не рассказывает «как обычно».</li>
 <li>Статус точки: подтвердил / иначе / не знает / знает другой человек (впишите, кто). «Как на самом деле» — коротко.</li>
 <li>«А если…» и «Ещё:» — галочка у того, что обсудили; уточнение — в поле «комментарий».</li>
 <li>В конце — «Сохранить ответы»: скачается .md с датой, статусами, отмеченными и не обсуждёнными пунктами. Ответы хранятся только в этом браузере; это черновик, источник — транскрипт видео.</li></ol>
-<p class="src">Порядок: первые 5 — рекомендуемое начало, дальше остальные. Все вопросы подробной версии здесь есть; источники и разбор — в «подробно».</p></section><section><details><summary><b>Паспорт: кто есть кто</b> (раскрыть)</summary><section id="pasport">
+<p class="src">Порядок: сначала точки повестки (блок вверху), дальше остальные; «Только повестка» скрывает остальные карточки. Все вопросы подробной версии здесь есть; источники и разбор — в «подробно».</p></section><section><details><summary><b>Паспорт: кто есть кто</b> (раскрыть)</summary><section id="pasport">
 <h2>Паспорт процесса «Лиды»: кто есть кто</h2>
 
 <h3>О проекте</h3>
 <table class="tbl">
 <tr><th>Что</th><th>Статус</th></tr>
-<tr><td>Компания «Евростекло». Задача — заново выстроить процесс продаж, начиная с лидов: последние ~1,5 года портал был заброшен, за это время уволено 30+ сотрудников <small class="src">решение владельца 28.09</small></td><td><span class="st st-said">со слов</span></td></tr>
-<tr><td>Доска Романа — его предположение о процессе, а не истина и не целевой процесс. На доске много противоречий и ошибок; расхождения выносим клиенту вопросом «какой вариант верный сейчас» <small class="src">решение владельца 28.09</small></td><td><span class="st st-board">на доске</span></td></tr>
-<tr><td>Базовая линия прежнего состояния — ТЗ 2024–2025 (метка UNVERIFIED, пока клиент не подтвердит) <small class="src">решение владельца 28.09; sanitized-tz.md</small></td><td><span class="st st-said">со слов</span></td></tr>
-<tr><td>Портал отдельно проверит интегратор (архитектурный аудит). Всё, что здесь сказано о портале, — только справочно <small class="src">решение владельца 28.09</small></td><td><span class="st st-unk">не знаем</span></td></tr>
+<tr><td>Компания «Евростекло». Задача — заново выстроить процесс продаж, начиная с лидов <small class="src">решение владельца 28.09</small></td><td><span class="st st-own">решение владельца</span></td></tr>
+<tr><td>Доска Романа — его представление о процессе, а не утверждённый целевой процесс. Расхождения доски и ТЗ выносим клиенту вопросом «какой вариант верный сейчас» <small class="src">решение владельца 28.09</small></td><td><span class="st st-own">решение владельца</span></td></tr>
+<tr><td>Базовая линия прежнего состояния — ТЗ 2024–2025 (метка UNVERIFIED, пока клиент не подтвердит) <small class="src">решение владельца 28.09; sanitized-tz.md</small></td><td><span class="st st-doc">документ клиента</span></td></tr>
 </table>
 
 <h3>Участники процесса лидов</h3>
@@ -77,7 +100,7 @@ details ul{margin:6px 0;padding-left:22px}
 <tr><td>Каналы</td><td>На доске 8 каналов: салоны Артиллерийская, Нарвская, Ленинский, Челнокова, а также Сарафан, vk.ru, Telegram, Авито; связи с «ЛИД» только у Челнокова и Авито <span class="pt">1</span>. В ТЗ каналов 3: АТС (звонок), корпоративная почта, «Восстановление» (ручной ввод из «спящей базы»)</td><td><small class="src">k1 П-03; k3 К-28; ТЗ ФТ-1 (sanitized-tz.md)</small></td><td><span class="st st-conf">противоречие</span></td></tr>
 <tr><td>Битрикс24</td><td>Система, в которой создаётся и ведётся лид</td><td><small class="src">доска, рамка 3074457358429708946; ТЗ ФТ-1</small></td><td><span class="st st-board">на доске</span></td></tr>
 <tr><td>1С</td><td>По ТЗ: поиск карточки клиента в 1С по телефону или почте, исполнитель — «ID менеджера (1с)». Владелец: 1С работает только в сделках (воронка «Активные»), в лидах не участвует <span class="pt">14</span></td><td><small class="src">ТЗ ФТ-1, предусловие и альт. сценарий 1; решение владельца 28.09</small></td><td><span class="st st-conf">противоречие</span></td></tr>
-<tr><td>Роман</td><td>Руководитель (не собственник), должен знать все процессы; автор доски</td><td><small class="src">решение владельца 28.09</small></td><td><span class="st st-said">со слов</span></td></tr>
+<tr><td>Роман</td><td>Руководитель; автор доски</td><td><small class="src">решение владельца 28.09</small></td><td><span class="st st-own">решение владельца</span></td></tr>
 </table>
 
 <h3>Роли</h3>
@@ -85,13 +108,13 @@ details ul{margin:6px 0;padding-left:22px}
 <tr><th>Роль</th><th>Где названа</th><th>Что делает с лидом по источнику</th><th>Статус</th></tr>
 <tr><td>? кто разбирает лид</td><td>доска — роль не названа</td><td>Кто разбирает лид и за какой срок, не сказано <span class="pt">3</span> <small class="src">k1 П-02; k2 Р-07</small></td><td><span class="st st-unk">не знаем</span></td></tr>
 <tr><td>Распорядитель</td><td>ТЗ; в ТЗ не расшифрован, на доске его нет</td><td>Исполнитель нового лида; к нему переходит задача, если её не взяли за 30 минут <span class="pt">13</span> <span class="pt">16</span> <small class="src">ТЗ ФТ-1; владельцу роль неизвестна (решение 28.09)</small></td><td><span class="st st-unk">не знаем</span></td></tr>
-<tr><td>Менеджер</td><td>ТЗ</td><td>Исполнитель лида, если клиент найден в 1С («ID менеджера (1с)»); заводит лид «Восстановление»; получает задачу «Созвониться с клиентом» → «Создать заявку» или «Отменено» <small class="src">ТЗ ФТ-1, альт. сценарии 1–2</small></td><td><span class="st st-said">со слов</span></td></tr>
-<tr><td>Менеджер ОП, Ассистент ОП</td><td>доска — только в сделках</td><td>С лидом на доске не связаны. Должности «Ассистент ОП» нет ни в списке сотрудников, ни в портале <small class="src">k3 К-08, К-09; разбор оргструктуры</small></td><td><span class="st st-unk">не знаем</span></td></tr>
-<tr><td>Продавец-консультант</td><td>портал; список сотрудников (салон Нарвская)</td><td>В записи портала — «Ответственный» в карточке лида <small class="src">as-is стр. 82</small></td><td><span class="st st-said">со слов</span></td></tr>
+<tr><td>Менеджер</td><td>ТЗ</td><td>Исполнитель лида, если клиент найден в 1С («ID менеджера (1с)»); заводит лид «Восстановление»; получает задачу «Созвониться с клиентом» → «Создать заявку» или «Отменено» <small class="src">ТЗ ФТ-1, альт. сценарии 1–2</small></td><td><span class="st st-doc">документ клиента</span></td></tr>
+<tr><td>Менеджер ОП, Ассистент ОП</td><td>доска — только в сделках</td><td>С лидом на доске не связаны. Должности «Ассистент ОП» нет в списке сотрудников <small class="src">k3 К-08, К-09; разбор оргструктуры</small></td><td><span class="st st-unk">не знаем</span></td></tr>
+<tr><td>Продавец-консультант</td><td>список сотрудников 2024–2025 (салон Нарвская)</td><td>Роль в лидах не описана <small class="src">sanitized-sotrudniki.md; разбор оргструктуры</small></td><td><span class="st st-unk">не знаем</span></td></tr>
 <tr><td>Руководитель отдела продаж, руководитель направления</td><td>список сотрудников 2024–2025: руководитель ОП — 1 (последний лист), руководители направлений — от 3 (11.02) до 1</td><td>Роль в лидах не описана <small class="src">sanitized-sotrudniki.md; разбор оргструктуры</small></td><td><span class="st st-unk">не знаем</span></td></tr>
 <tr><td>Менеджеры по продажам</td><td>список сотрудников 2024–2025: 3 (11.02), 2 (13.05); на последнем листе — менеджер офисных продаж (3), менеджер отдела продаж (2), ведущий менеджер (1). Салоны в должностях: Советский, Нарвская</td><td>Роль в лидах не описана <small class="src">sanitized-sotrudniki.md; разбор оргструктуры</small></td><td><span class="st st-unk">не знаем</span></td></tr>
 </table>
-<p><small>Состав сотрудников устарел: за ~1,5 года уволено 30+, впереди найм (решение владельца). Поэтому роли описаны как должности, а не как люди.</small></p>
+<p><small>Список сотрудников — 2024–2025 гг., нынешний состав клиентом не подтверждён. Поэтому роли описаны как должности, а не как люди.</small></p>
 
 <h3>Салоны</h3>
 <table class="tbl">
@@ -99,10 +122,36 @@ details ul{margin:6px 0;padding-left:22px}
 <tr><td>Артиллерийская, Нарвская, Ленинский, Челнокова <small class="src">k1 П-03</small></td><td>Нарвская — на всех листах; Советский — до 13.05, к 23.08 пропал; Судостроительная — только 11.02; Артиллерийская, 46а — только как пост охраны; Ленинского и Челнокова нет <small class="src">sanitized-sotrudniki.md; разбор оргструктуры</small></td><td><span class="st st-conf">противоречие</span></td><td>Какие салоны действуют сейчас? Артиллерийская — это салон или офис/склад?</td></tr>
 </table>
 </section>
-</details></section><section><h2>Вопросы</h2><article class="q" id="t3">
-<div class="qh"><a class="pt" href="karta-lidy.html#p3" target="evro-karta" title="Точка 3 на карте">3</a><h3>Кто разбирает лид и за какой срок</h3><span class="tp">роль</span><span class="first">начать с этого</span></div>
+</details></section><section><h2>Вопросы</h2><article class="q" id="t1">
+<div class="qh"><a class="pt" href="karta-lidy.html#p1" target="evro-karta" title="Точка 1 на карте">1</a><h3>Каналов восемь, в лид ведут связи только от двух</h3><span class="tp">предусловие (вход)</span><span class="first">повестка · 1</span></div>
+<p class="ask">«Покажите на последнем лиде из салона: как он оказался в Битрикс24 и кто его туда внёс?»</p><p class="xq"><label><input type="checkbox" data-ex="1"> спросили</label> <span>Ещё: «Покажите: список последних лидов с полем «источник» по каждому каналу»</span></p>
+<details class="ifs" open><summary>А если… (3)</summary><div class="ifl"><label><input type="checkbox" data-if="e1"> А если клиент пришёл в салон лично, без звонка и письма?</label><label><input type="checkbox" data-if="e2"> А если клиент написал во «ВКонтакте» или в Telegram?</label><label><input type="checkbox" data-if="e3"> А если клиент пришёл по рекомендации знакомых (сарафан)?</label><p class="see">↪ А если один и тот же клиент написал сразу в два канала? — этот вопрос задаём <a href="#t7">в точке 7</a></p><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
+<div class="ans" data-n="1"><span class="lbl">Статус точки:</span>
+<label><input type="radio" name="a1" value="Подтвердил"> подтвердил</label>
+<label><input type="radio" name="a1" value="Иначе"> иначе</label>
+<label><input type="radio" name="a1" value="Не знает"> не знает</label>
+<label><input type="radio" name="a1" value="Знает другой"> знает другой человек</label>
+<input type="text" class="who" placeholder="кто знает (роль или имя)" hidden>
+<textarea rows="2" placeholder="Как на самом деле — запишите коротко"></textarea></div>
+<p class="more">Ответ закроет: Перечень каналов входа и способ, которым лид из каждого канала попадает в систему, — раздел «Вход» в регламенте лида. · <a href="obsledovanie-lidy-podrobno.html#t1" target="evro-obsl">подробно</a></p>
+</article>
+<article class="q" id="t2">
+<div class="qh"><a class="pt" href="karta-lidy.html#p2" target="evro-karta" title="Точка 2 на карте">2</a><h3>Источники лида: на доске — каналы, в ТЗ — «АТС», «Почта», «Восстановление»</h3><span class="tp">разный уровень (доска ↔ ТЗ)</span><span class="first">повестка · 1</span></div>
+<p class="ask">«Покажите на последнем лиде: что записано в поле „Источник“ и кто это поле заполнил? И то же — на нескольких лидах до него.»</p>
+<details class="ifs" open><summary>А если… (3)</summary><div class="ifl"><label><input type="checkbox" data-if="e1"> А если клиент увидел объявление на Авито, а потом позвонил — какой источник у лида?</label><label><input type="checkbox" data-if="e5"> А если клиент позвонил в салон — источник «АТС» (как в ТЗ) или салон (как на доске)?</label><label><input type="checkbox" data-if="e4"> А если поле «Источник» осталось пустым?</label><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
+<div class="ans" data-n="2"><span class="lbl">Статус точки:</span>
+<label><input type="radio" name="a2" value="Подтвердил"> подтвердил</label>
+<label><input type="radio" name="a2" value="Иначе"> иначе</label>
+<label><input type="radio" name="a2" value="Не знает"> не знает</label>
+<label><input type="radio" name="a2" value="Знает другой"> знает другой человек</label>
+<input type="text" class="who" placeholder="кто знает (роль или имя)" hidden>
+<textarea rows="2" placeholder="Как на самом деле — запишите коротко"></textarea></div>
+<p class="more">Ответ закроет: Справочник источников: каналы доски + «АТС», «Почта», «Восстановление» из ТЗ, и правило заполнения поля «Источник». · <a href="obsledovanie-lidy-podrobno.html#t2" target="evro-obsl">подробно</a></p>
+</article>
+<article class="q" id="t3">
+<div class="qh"><a class="pt" href="karta-lidy.html#p3" target="evro-karta" title="Точка 3 на карте">3</a><h3>Кто разбирает лид и за какой срок</h3><span class="tp">роль</span><span class="first">повестка · 2</span></div>
 <p class="ask">«Покажите на последнем лиде: кто первым взял его в работу и сколько времени прошло от обращения до первого ответа клиенту?»</p><p class="xq"><label><input type="checkbox" data-ex="1"> спросили</label> <span>Ещё: «Покажите: одну заполненную карточку юрлица и одну карточку физлица после конвертации»</span></p>
-<details class="ifs" open><summary>А если… (4)</summary><div class="ifl"><label><input type="checkbox" data-if="1"> А если лид пришёл вечером или в выходной?</label><label><input type="checkbox" data-if="2"> А если заявка пришла в салон — кто её разбирает?</label><label><input type="checkbox" data-if="3"> А если обратилась организация, а не частное лицо — разбирает тот же человек?</label><label><input type="checkbox" data-if="4"> А если ответственный не взял лид — кто это замечает?</label><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
+<details class="ifs" open><summary>А если… (2)</summary><div class="ifl"><label><input type="checkbox" data-if="e2"> А если заявка пришла в салон — кто её разбирает?</label><label><input type="checkbox" data-if="e3"> А если обратилась организация, а не частное лицо — разбирает тот же человек?</label><p class="see">↪ А если лид пришёл вечером или в выходной? — этот вопрос задаём <a href="../sdelki/obsledovanie-sdelki.html#t23" target="evro-see">в «Сделках» — С23</a></p><p class="see">↪ А если ответственный не взял лид — кто это замечает? — этот вопрос задаём <a href="#t16">в точке 16</a></p><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
 <div class="ans" data-n="3"><span class="lbl">Статус точки:</span>
 <label><input type="radio" name="a3" value="Подтвердил"> подтвердил</label>
 <label><input type="radio" name="a3" value="Иначе"> иначе</label>
@@ -113,9 +162,9 @@ details ul{margin:6px 0;padding-left:22px}
 <p class="more">Ответ закроет: Роль исполнителя и срок первого ответа в регламенте лида; один ответственный в строке «приём заявки». · <a href="obsledovanie-lidy-podrobno.html#t3" target="evro-obsl">подробно</a></p>
 </article>
 <article class="q" id="t13">
-<div class="qh"><a class="pt" href="karta-lidy.html#p13" target="evro-karta" title="Точка 13 на карте">13</a><h3>«Распорядитель» — кто это</h3><span class="tp">роль</span><span class="first">начать с этого</span></div>
+<div class="qh"><a class="pt" href="karta-lidy.html#p13" target="evro-karta" title="Точка 13 на карте">13</a><h3>«Распорядитель» — кто это</h3><span class="tp">роль</span><span class="first">повестка · 2</span></div>
 <p class="ask">«Как у вас сейчас: кто получает обращение от нового клиента, которого ещё нет в базе, и кто подхватывает обращение, если за него никто не взялся?»</p><p class="xq"><label><input type="checkbox" data-ex="1"> спросили</label> <span>Ещё: «Покажите: кому сейчас приходит уведомление о новом обращении и что этот человек делает с ним первым делом»</span></p>
-<details class="ifs" open><summary>А если… (4)</summary><div class="ifl"><label><input type="checkbox" data-if="1"> А если этот человек в отпуске или на больничном — кто его заменяет?</label><label><input type="checkbox" data-if="2"> А если обращений много одновременно — их распределяет один человек или группа?</label><label><input type="checkbox" data-if="3"> А если обращение пришло вечером или в выходной?</label><label><input type="checkbox" data-if="4"> А если и тот, кому передали просроченное обращение, за него не взялся?</label><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
+<details class="ifs" open><summary>А если… (1)</summary><div class="ifl"><label><input type="checkbox" data-if="e2"> А если обращений много одновременно — их распределяет один человек или группа?</label><p class="see">↪ А если этот человек в отпуске или на больничном — кто его заменяет? — этот вопрос задаём <a href="../sdelki/obsledovanie-sdelki.html#t23" target="evro-see">в «Сделках» — С23</a></p><p class="see">↪ А если обращение пришло вечером или в выходной? — этот вопрос задаём <a href="../sdelki/obsledovanie-sdelki.html#t23" target="evro-see">в «Сделках» — С23</a></p><p class="see">↪ А если и тот, кому передали просроченное обращение, за него не взялся? — этот вопрос задаём <a href="#t16">в точке 16</a></p><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
 <div class="ans" data-n="13"><span class="lbl">Статус точки:</span>
 <label><input type="radio" name="a13" value="Подтвердил"> подтвердил</label>
 <label><input type="radio" name="a13" value="Иначе"> иначе</label>
@@ -125,62 +174,23 @@ details ul{margin:6px 0;padding-left:22px}
 <textarea rows="2" placeholder="Как на самом деле — запишите коротко"></textarea></div>
 <p class="more">Ответ закроет: Должность, которая стоит за ролью «Распорядитель» (или решение, что такой роли нет), её замещение и кому уходят просроченные лиды. · <a href="obsledovanie-lidy-podrobno.html#t13" target="evro-obsl">подробно</a></p>
 </article>
-<article class="q" id="t1">
-<div class="qh"><a class="pt" href="karta-lidy.html#p1" target="evro-karta" title="Точка 1 на карте">1</a><h3>Каналов восемь, в лид ведут связи только от двух</h3><span class="tp">предусловие (вход)</span><span class="first">начать с этого</span></div>
-<p class="ask">«Покажите на последнем лиде из салона: как он оказался в Битрикс24 и кто его туда внёс?»</p><p class="xq"><label><input type="checkbox" data-ex="1"> спросили</label> <span>Ещё: «Покажите: список последних лидов с полем «источник» по каждому каналу»</span></p>
-<details class="ifs" open><summary>А если… (4)</summary><div class="ifl"><label><input type="checkbox" data-if="1"> А если клиент пришёл в салон лично, без звонка и письма?</label><label><input type="checkbox" data-if="2"> А если клиент написал во «ВКонтакте» или в Telegram?</label><label><input type="checkbox" data-if="3"> А если клиент пришёл по рекомендации знакомых (сарафан)?</label><label><input type="checkbox" data-if="4"> А если один и тот же клиент написал сразу в два канала?</label><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
-<div class="ans" data-n="1"><span class="lbl">Статус точки:</span>
-<label><input type="radio" name="a1" value="Подтвердил"> подтвердил</label>
-<label><input type="radio" name="a1" value="Иначе"> иначе</label>
-<label><input type="radio" name="a1" value="Не знает"> не знает</label>
-<label><input type="radio" name="a1" value="Знает другой"> знает другой человек</label>
+<article class="q" id="t16">
+<div class="qh"><a class="pt" href="karta-lidy.html#p16" target="evro-karta" title="Точка 16 на карте">16</a><h3>30 минут без ответа и «Отменено»: что дальше с лидом</h3><span class="tp">развилка</span><span class="first">повестка · 2</span></div>
+<p class="ask">«Как у вас сейчас: что происходит с новым обращением, если за него долго никто не берётся, и кто это замечает?»</p>
+<details class="ifs" open><summary>А если… (3)</summary><div class="ifl"><label><input type="checkbox" data-if="e1"> А если обращение пришло за несколько минут до конца рабочего дня?</label><label><input type="checkbox" data-if="e2"> А если за обращение не взялся и тот, кому его передали?</label><label><input type="checkbox" data-if="e3"> А если работу по обращению закрыли без заявки — что происходит с самим лидом?</label><p class="see">↪ А если клиент перезвонил после того, как работу по нему закрыли? — этот вопрос задаём <a href="#t7">в точке 7</a></p><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
+<div class="ans" data-n="16"><span class="lbl">Статус точки:</span>
+<label><input type="radio" name="a16" value="Подтвердил"> подтвердил</label>
+<label><input type="radio" name="a16" value="Иначе"> иначе</label>
+<label><input type="radio" name="a16" value="Не знает"> не знает</label>
+<label><input type="radio" name="a16" value="Знает другой"> знает другой человек</label>
 <input type="text" class="who" placeholder="кто знает (роль или имя)" hidden>
 <textarea rows="2" placeholder="Как на самом деле — запишите коротко"></textarea></div>
-<p class="more">Ответ закроет: Перечень каналов входа и способ, которым лид из каждого канала попадает в систему, — раздел «Вход» в регламенте лида. · <a href="obsledovanie-lidy-podrobno.html#t1" target="evro-obsl">подробно</a></p>
-</article>
-<article class="q" id="t15">
-<div class="qh"><a class="pt" href="karta-lidy.html#p15" target="evro-karta" title="Точка 15 на карте">15</a><h3>Лид или заявка: где кончается лид</h3><span class="tp">постусловие / состояние</span><span class="first">начать с этого</span></div>
-<p class="ask">«Покажите на последнем обращении: в какой момент вы начинаете называть его заявкой и что в этот момент появляется в системе?»</p>
-<details class="ifs" open><summary>А если… (4)</summary><div class="ifl"><label><input type="checkbox" data-if="1"> А если клиент позвонил только узнать цену?</label><label><input type="checkbox" data-if="2"> А если по обращению решили «Создать заявку» — что именно создаётся в системе?</label><label><input type="checkbox" data-if="3"> А если заявка создана, а клиент перестал отвечать — где она остаётся?</label><label><input type="checkbox" data-if="4"> А если у клиента уже есть открытая заявка?</label><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
-<div class="ans" data-n="15"><span class="lbl">Статус точки:</span>
-<label><input type="radio" name="a15" value="Подтвердил"> подтвердил</label>
-<label><input type="radio" name="a15" value="Иначе"> иначе</label>
-<label><input type="radio" name="a15" value="Не знает"> не знает</label>
-<label><input type="radio" name="a15" value="Знает другой"> знает другой человек</label>
-<input type="text" class="who" placeholder="кто знает (роль или имя)" hidden>
-<textarea rows="2" placeholder="Как на самом деле — запишите коротко"></textarea></div>
-<p class="more">Ответ закроет: Граница лида: событие, которым лид заканчивается, и объект, который после него появляется; соответствие «Заявки» ТЗ и рамки «ЗАЯВКА» на доске (закрывает часть точек 5 и 9). · <a href="obsledovanie-lidy-podrobno.html#t15" target="evro-obsl">подробно</a></p>
-</article>
-<article class="q" id="t14">
-<div class="qh"><a class="pt" href="karta-lidy.html#p14" target="evro-karta" title="Точка 14 на карте">14</a><h3>1С в лидах: по ТЗ участвует, по словам владельца — нет</h3><span class="tp">противоречие (ТЗ ↔ владелец)</span><span class="first">начать с этого</span></div>
-<p class="ask">«Как у вас сейчас: когда обращается клиент, как вы узнаёте, покупал ли он у вас раньше, и где смотрите его данные?»</p><p class="xq"><label><input type="checkbox" data-ex="1"> спросили</label> <span>Ещё: «Покажите на клиенте, который уже покупал: кто получил его новое обращение и откуда взялись данные в его карточке»</span></p>
-<details class="ifs" open><summary>А если… (4)</summary><div class="ifl"><label><input type="checkbox" data-if="1"> А если клиент обратился с другого номера телефона или с другой почты?</label><label><input type="checkbox" data-if="2"> А если у клиента в базе записан ответственный, который уже уволился?</label><label><input type="checkbox" data-if="3"> А если клиент новый — где его данные появляются впервые?</label><label><input type="checkbox" data-if="4"> А если данные клиента в двух системах расходятся?</label><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
-<div class="ans" data-n="14"><span class="lbl">Статус точки:</span>
-<label><input type="radio" name="a14" value="Подтвердил"> подтвердил</label>
-<label><input type="radio" name="a14" value="Иначе"> иначе</label>
-<label><input type="radio" name="a14" value="Не знает"> не знает</label>
-<label><input type="radio" name="a14" value="Знает другой"> знает другой человек</label>
-<input type="text" class="who" placeholder="кто знает (роль или имя)" hidden>
-<textarea rows="2" placeholder="Как на самом деле — запишите коротко"></textarea></div>
-<p class="more">Ответ закроет: Решение, участвует ли 1С на этапе лида. Если да — правило поиска клиента и назначения ответственного; если нет — этот пункт ТЗ снимается, а поиск повторов (точка 7) решается внутри Битрикс24. · <a href="obsledovanie-lidy-podrobno.html#t14" target="evro-obsl">подробно</a></p>
-</article>
-<article class="q" id="t2">
-<div class="qh"><a class="pt" href="karta-lidy.html#p2" target="evro-karta" title="Точка 2 на карте">2</a><h3>Источники на доске и в портале не совпадают</h3><span class="tp">противоречие (доска ↔ портал)</span></div>
-<p class="ask">«Покажите на последнем лиде: что записано в поле „Источник“ и кто это поле заполнил? И то же — на нескольких лидах до него.»</p>
-<details class="ifs" open><summary>А если… (4)</summary><div class="ifl"><label><input type="checkbox" data-if="1"> А если клиент увидел объявление на Авито, а потом позвонил — какой источник у лида?</label><label><input type="checkbox" data-if="2"> А если клиент позвонил в салон — это «Звонок» или салон?</label><label><input type="checkbox" data-if="3"> А если лид пришёл из «Приложения» — что это за приложение?</label><label><input type="checkbox" data-if="4"> А если поле «Источник» осталось пустым?</label><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
-<div class="ans" data-n="2"><span class="lbl">Статус точки:</span>
-<label><input type="radio" name="a2" value="Подтвердил"> подтвердил</label>
-<label><input type="radio" name="a2" value="Иначе"> иначе</label>
-<label><input type="radio" name="a2" value="Не знает"> не знает</label>
-<label><input type="radio" name="a2" value="Знает другой"> знает другой человек</label>
-<input type="text" class="who" placeholder="кто знает (роль или имя)" hidden>
-<textarea rows="2" placeholder="Как на самом деле — запишите коротко"></textarea></div>
-<p class="more">Ответ закроет: Справочник источников с отметкой «есть на доске / есть в портале / есть в обоих» и правило заполнения поля «Источник». · <a href="obsledovanie-lidy-podrobno.html#t2" target="evro-obsl">подробно</a></p>
+<p class="more">Ответ закроет: Срок реакции, цепочка передачи просроченного лида и конечное состояние лида при «Отменено» (связь с точками 6 и 11). · <a href="obsledovanie-lidy-podrobno.html#t16" target="evro-obsl">подробно</a></p>
 </article>
 <article class="q" id="t4">
-<div class="qh"><a class="pt" href="karta-lidy.html#p4" target="evro-karta" title="Точка 4 на карте">4</a><h3>В названии «B2B, B2C», а путь один</h3><span class="tp">развилка</span></div>
+<div class="qh"><a class="pt" href="karta-lidy.html#p4" target="evro-karta" title="Точка 4 на карте">4</a><h3>В названии «B2B, B2C», а путь один</h3><span class="tp">развилка</span><span class="first">повестка · 3</span></div>
 <p class="ask">«Покажите на последнем лиде от организации и на последнем лиде от частного лица: что в работе с ними шло по-разному?»</p>
-<details class="ifs" open><summary>А если… (4)</summary><div class="ifl"><label><input type="checkbox" data-if="1"> А если частное лицо потом просит оформить заказ на фирму?</label><label><input type="checkbox" data-if="2"> А если организация — подрядчик, который закупает для своего заказчика?</label><label><input type="checkbox" data-if="3"> А если организация приносит договор по своей форме?</label><label><input type="checkbox" data-if="4"> А если у частного лица нет реквизитов для карточки компании?</label><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
+<details class="ifs" open><summary>А если… (2)</summary><div class="ifl"><label><input type="checkbox" data-if="e1"> А если частное лицо потом просит оформить заказ на фирму?</label><label><input type="checkbox" data-if="e2"> А если организация — подрядчик, который закупает для своего заказчика?</label><p class="see">↪ А если организация приносит договор по своей форме? — этот вопрос задаём <a href="../sdelki/obsledovanie-sdelki.html#t7" target="evro-see">в «Сделках» — С7</a></p><p class="see">↪ А если у частного лица нет реквизитов для карточки компании? — этот вопрос задаём <a href="#t8">в точке 8</a></p><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
 <div class="ans" data-n="4"><span class="lbl">Статус точки:</span>
 <label><input type="radio" name="a4" value="Подтвердил"> подтвердил</label>
 <label><input type="radio" name="a4" value="Иначе"> иначе</label>
@@ -190,49 +200,10 @@ details ul{margin:6px 0;padding-left:22px}
 <textarea rows="2" placeholder="Как на самом деле — запишите коротко"></textarea></div>
 <p class="more">Ответ закроет: Развилка по типу клиента на входе: какие поля карточки нужны каждому и отличается ли дальше путь договора и оплаты. · <a href="obsledovanie-lidy-podrobno.html#t4" target="evro-obsl">подробно</a></p>
 </article>
-<article class="q" id="t5">
-<div class="qh"><a class="pt" href="karta-lidy.html#p5" target="evro-karta" title="Точка 5 на карте">5</a><h3>Состояния лида: на доске их нет, в портале пять</h3><span class="tp">состояние</span></div>
-<p class="ask">«Покажите на последнем лиде: через какие стадии он прошёл и кто переводил его с одной на другую?»</p>
-<details class="ifs" open><summary>А если… (4)</summary><div class="ifl"><label><input type="checkbox" data-if="1"> А если лид уже неделю стоит в «Не обработан» — что с ним происходит?</label><label><input type="checkbox" data-if="2"> А если с клиентом поговорили, а он ещё думает — в какой он стадии?</label><label><input type="checkbox" data-if="3"> А чем «Обработан» отличается от «Качественный лид»?</label><label><input type="checkbox" data-if="4"> А если клиент сказал «вернёмся позже» — куда ставят лид?</label><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
-<div class="ans" data-n="5"><span class="lbl">Статус точки:</span>
-<label><input type="radio" name="a5" value="Подтвердил"> подтвердил</label>
-<label><input type="radio" name="a5" value="Иначе"> иначе</label>
-<label><input type="radio" name="a5" value="Не знает"> не знает</label>
-<label><input type="radio" name="a5" value="Знает другой"> знает другой человек</label>
-<input type="text" class="who" placeholder="кто знает (роль или имя)" hidden>
-<textarea rows="2" placeholder="Как на самом деле — запишите коротко"></textarea></div>
-<p class="more">Ответ закроет: Список состояний лида с условием входа и выхода для каждого — основа регламента лида; правило для давно необработанных лидов. · <a href="obsledovanie-lidy-podrobno.html#t5" target="evro-obsl">подробно</a></p>
-</article>
-<article class="q" id="t6">
-<div class="qh"><a class="pt" href="karta-lidy.html#p6" target="evro-karta" title="Точка 6 на карте">6</a><h3>Недозвон: что делать, если клиент не отвечает</h3><span class="tp">развилка / сценарий</span></div>
-<p class="ask">«Покажите на последнем лиде, до которого не дозвонились с первого раза: что ответственный сделал дальше и чем это закончилось?»</p>
-<details class="ifs" open><summary>А если… (4)</summary><div class="ifl"><label><input type="checkbox" data-if="1"> А если клиент не ответил и на следующий день — сколько ещё попыток?</label><label><input type="checkbox" data-if="2"> А если клиент сам перезвонил, но в другой салон или на другой номер?</label><label><input type="checkbox" data-if="3"> А если клиент не берёт трубку, но отвечает в мессенджере?</label><label><input type="checkbox" data-if="4"> А если после всех попыток клиент так и не ответил — в какой стадии остаётся лид?</label><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
-<div class="ans" data-n="6"><span class="lbl">Статус точки:</span>
-<label><input type="radio" name="a6" value="Подтвердил"> подтвердил</label>
-<label><input type="radio" name="a6" value="Иначе"> иначе</label>
-<label><input type="radio" name="a6" value="Не знает"> не знает</label>
-<label><input type="radio" name="a6" value="Знает другой"> знает другой человек</label>
-<input type="text" class="who" placeholder="кто знает (роль или имя)" hidden>
-<textarea rows="2" placeholder="Как на самом деле — запишите коротко"></textarea></div>
-<p class="more">Ответ закроет: Правило повторных попыток (сколько, через какой промежуток, кто звонит) и конечное состояние лида при недозвоне. · <a href="obsledovanie-lidy-podrobno.html#t6" target="evro-obsl">подробно</a></p>
-</article>
-<article class="q" id="t7">
-<div class="qh"><a class="pt" href="karta-lidy.html#p7" target="evro-karta" title="Точка 7 на карте">7</a><h3>Повторная заявка от клиента, который уже есть в базе</h3><span class="tp">сценарий</span></div>
-<p class="ask">«Покажите на последнем лиде от клиента, который уже обращался раньше: как вы узнали, что он уже был, и что сделали с новой заявкой?»</p>
-<details class="ifs" open><summary>А если… (4)</summary><div class="ifl"><label><input type="checkbox" data-if="1"> А если у клиента уже есть незакрытая сделка?</label><label><input type="checkbox" data-if="2"> А если клиент раньше отказался и теперь вернулся?</label><label><input type="checkbox" data-if="3"> А если от одной организации пишут разные сотрудники?</label><label><input type="checkbox" data-if="4"> А если частное лицо заказывает второй раз через год?</label><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
-<div class="ans" data-n="7"><span class="lbl">Статус точки:</span>
-<label><input type="radio" name="a7" value="Подтвердил"> подтвердил</label>
-<label><input type="radio" name="a7" value="Иначе"> иначе</label>
-<label><input type="radio" name="a7" value="Не знает"> не знает</label>
-<label><input type="radio" name="a7" value="Знает другой"> знает другой человек</label>
-<input type="text" class="who" placeholder="кто знает (роль или имя)" hidden>
-<textarea rows="2" placeholder="Как на самом деле — запишите коротко"></textarea></div>
-<p class="more">Ответ закроет: Правило поиска повторов до перевода лида в сделку и выбор: новая сделка или продолжение прежней. · <a href="obsledovanie-lidy-podrobno.html#t7" target="evro-obsl">подробно</a></p>
-</article>
 <article class="q" id="t8">
-<div class="qh"><a class="pt" href="karta-lidy.html#p8" target="evro-karta" title="Точка 8 на карте">8</a><h3>«…занесением всех реквизитов в карточку компании» — каких именно</h3><span class="tp">предусловие (готовность к конвертации)</span></div>
+<div class="qh"><a class="pt" href="karta-lidy.html#p8" target="evro-karta" title="Точка 8 на карте">8</a><h3>«…занесением всех реквизитов в карточку компании» — каких именно</h3><span class="tp">предусловие (готовность к конвертации)</span><span class="first">повестка · 3</span></div>
 <p class="ask">«Покажите на последнем лиде, который стал сделкой: какие данные клиента были заполнены в момент перевода, а какие добавили позже?»</p>
-<details class="ifs" open><summary>А если… (4)</summary><div class="ifl"><label><input type="checkbox" data-if="1"> А если клиент пока не даёт реквизиты?</label><label><input type="checkbox" data-if="2"> А если клиент — частное лицо?</label><label><input type="checkbox" data-if="3"> А если компания уже заведена в базе (см. точку 7)?</label><label><input type="checkbox" data-if="4"> А если реквизиты потом поменялись — например, договор на другое юрлицо?</label><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
+<details class="ifs" open><summary>А если… (2)</summary><div class="ifl"><label><input type="checkbox" data-if="e1"> А если клиент пока не даёт реквизиты?</label><label><input type="checkbox" data-if="e2"> А если клиент — частное лицо?</label><p class="see">↪ А если компания уже заведена в базе? — этот вопрос задаём <a href="#t7">в точке 7</a></p><p class="see">↪ А если реквизиты потом поменялись — например, договор на другое юрлицо? — этот вопрос задаём <a href="../sdelki/obsledovanie-sdelki.html#t9" target="evro-see">в «Сделках» — С9</a></p><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
 <div class="ans" data-n="8"><span class="lbl">Статус точки:</span>
 <label><input type="radio" name="a8" value="Подтвердил"> подтвердил</label>
 <label><input type="radio" name="a8" value="Иначе"> иначе</label>
@@ -242,10 +213,23 @@ details ul{margin:6px 0;padding-left:22px}
 <textarea rows="2" placeholder="Как на самом деле — запишите коротко"></textarea></div>
 <p class="more">Ответ закроет: Список обязательных данных для перевода лида в сделку — отдельно для организации и для частного лица. · <a href="obsledovanie-lidy-podrobno.html#t8" target="evro-obsl">подробно</a></p>
 </article>
+<article class="q" id="t15">
+<div class="qh"><a class="pt" href="karta-lidy.html#p15" target="evro-karta" title="Точка 15 на карте">15</a><h3>Лид или заявка: где кончается лид</h3><span class="tp">постусловие / состояние</span><span class="first">повестка · 4</span></div>
+<p class="ask">«Покажите на последнем обращении: в какой момент вы начинаете называть его заявкой и что в этот момент появляется в системе?»</p>
+<details class="ifs" open><summary>А если… (2)</summary><div class="ifl"><label><input type="checkbox" data-if="e1"> А если клиент позвонил только узнать цену?</label><label><input type="checkbox" data-if="e2"> А если по обращению решили «Создать заявку» — что именно создаётся в системе?</label><p class="see">↪ А если заявка создана, а клиент перестал отвечать — где она остаётся? — этот вопрос задаём <a href="../sdelki/obsledovanie-sdelki.html#t1" target="evro-see">в «Сделках» — С1</a></p><p class="see">↪ А если у клиента уже есть открытая заявка? — этот вопрос задаём <a href="#t7">в точке 7</a></p><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
+<div class="ans" data-n="15"><span class="lbl">Статус точки:</span>
+<label><input type="radio" name="a15" value="Подтвердил"> подтвердил</label>
+<label><input type="radio" name="a15" value="Иначе"> иначе</label>
+<label><input type="radio" name="a15" value="Не знает"> не знает</label>
+<label><input type="radio" name="a15" value="Знает другой"> знает другой человек</label>
+<input type="text" class="who" placeholder="кто знает (роль или имя)" hidden>
+<textarea rows="2" placeholder="Как на самом деле — запишите коротко"></textarea></div>
+<p class="more">Ответ закроет: Граница лида: событие, которым лид заканчивается, и объект, который после него появляется; соответствие «Заявки» ТЗ и рамки «ЗАЯВКА» на доске (закрывает часть точек 5 и 9). · <a href="obsledovanie-lidy-podrobno.html#t15" target="evro-obsl">подробно</a></p>
+</article>
 <article class="q" id="t9">
-<div class="qh"><a class="pt" href="karta-lidy.html#p9" target="evro-karta" title="Точка 9 на карте">9</a><h3>Что есть после конвертации и на какой стадии сделка</h3><span class="tp">постусловие</span></div>
+<div class="qh"><a class="pt" href="karta-lidy.html#p9" target="evro-karta" title="Точка 9 на карте">9</a><h3>Что есть после конвертации и на какой стадии сделка</h3><span class="tp">постусловие</span><span class="first">повестка · 5</span></div>
 <p class="ask">«Покажите на последнем лиде, который стал сделкой: на какой стадии появилась сделка и что ответственный сделал в ней первым?»</p>
-<details class="ifs" open><summary>А если… (4)</summary><div class="ifl"><label><input type="checkbox" data-if="1"> А если клиенту нужен сначала замер — сделка начинается с той же стадии?</label><label><input type="checkbox" data-if="2"> А если расчёт отправили, а клиент думает?</label><label><input type="checkbox" data-if="3"> А если клиент отказался сразу после расчёта — куда уходит сделка?</label><label><input type="checkbox" data-if="4"> А если сделка по этому клиенту уже была (см. точку 7)?</label><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
+<details class="ifs" open><summary>А если… — задаём в других точках (4)</summary><div class="ifl"><p class="see">↪ А если клиенту нужен сначала замер — сделка начинается с той же стадии? — этот вопрос задаём <a href="../sdelki/obsledovanie-sdelki.html#t2" target="evro-see">в «Сделках» — С2</a></p><p class="see">↪ А если расчёт отправили, а клиент думает? — этот вопрос задаём <a href="../sdelki/obsledovanie-sdelki.html#t1" target="evro-see">в «Сделках» — С1</a></p><p class="see">↪ А если клиент отказался сразу после расчёта — куда уходит сделка? — этот вопрос задаём <a href="../sdelki/obsledovanie-sdelki.html#t21" target="evro-see">в «Сделках» — С21</a></p><p class="see">↪ А если сделка по этому клиенту уже была? — этот вопрос задаём <a href="#t7">в точке 7</a></p></div></details>
 <div class="ans" data-n="9"><span class="lbl">Статус точки:</span>
 <label><input type="radio" name="a9" value="Подтвердил"> подтвердил</label>
 <label><input type="radio" name="a9" value="Иначе"> иначе</label>
@@ -255,23 +239,23 @@ details ul{margin:6px 0;padding-left:22px}
 <textarea rows="2" placeholder="Как на самом деле — запишите коротко"></textarea></div>
 <p class="more">Ответ закроет: Постусловие лида: стадия, в которой рождается сделка, и что в ней должно быть заполнено на старте. · <a href="obsledovanie-lidy-podrobno.html#t9" target="evro-obsl">подробно</a></p>
 </article>
-<article class="q" id="t10">
-<div class="qh"><a class="pt" href="karta-lidy.html#p10" target="evro-karta" title="Точка 10 на карте">10</a><h3>«Единый формат» и «структура карточек» — самих документов нет</h3><span class="tp">документ / user story</span></div>
-<p class="ask">«Покажите на последнем лиде: как заполнена его карточка и по какому образцу её заполняли?»</p><p class="xq"><label><input type="checkbox" data-ex="1"> спросили</label> <span>Ещё: «Покажите: структуру карточек лида, компании и сделки от Л.А. и М.А. и чек-лист, о котором речь»</span></p>
-<details class="ifs" open><summary>А если… (3)</summary><div class="ifl"><label><input type="checkbox" data-if="1"> А если структура карточек ещё обсуждается — кто утверждает окончательный вариант?</label><label><input type="checkbox" data-if="2"> А если для организации и частного лица образец разный?</label><label><input type="checkbox" data-if="3"> А если данные клиента уже есть в 1С — откуда их берут в карточку?</label><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
-<div class="ans" data-n="10"><span class="lbl">Статус точки:</span>
-<label><input type="radio" name="a10" value="Подтвердил"> подтвердил</label>
-<label><input type="radio" name="a10" value="Иначе"> иначе</label>
-<label><input type="radio" name="a10" value="Не знает"> не знает</label>
-<label><input type="radio" name="a10" value="Знает другой"> знает другой человек</label>
+<article class="q" id="t7">
+<div class="qh"><a class="pt" href="karta-lidy.html#p7" target="evro-karta" title="Точка 7 на карте">7</a><h3>Повторная заявка от клиента, который уже есть в базе</h3><span class="tp">сценарий</span><span class="first">повестка · 6</span></div>
+<p class="ask">«Покажите на последнем лиде от клиента, который уже обращался раньше: как вы узнали, что он уже был, и что сделали с новой заявкой?»</p>
+<details class="ifs" open><summary>А если… (4)</summary><div class="ifl"><label><input type="checkbox" data-if="e1"> А если у клиента уже есть незакрытая сделка?</label><label><input type="checkbox" data-if="e2"> А если клиент раньше отказался и теперь вернулся?</label><label><input type="checkbox" data-if="e3"> А если от одной организации пишут разные сотрудники?</label><label><input type="checkbox" data-if="e4"> А если частное лицо заказывает второй раз через год?</label><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
+<div class="ans" data-n="7"><span class="lbl">Статус точки:</span>
+<label><input type="radio" name="a7" value="Подтвердил"> подтвердил</label>
+<label><input type="radio" name="a7" value="Иначе"> иначе</label>
+<label><input type="radio" name="a7" value="Не знает"> не знает</label>
+<label><input type="radio" name="a7" value="Знает другой"> знает другой человек</label>
 <input type="text" class="who" placeholder="кто знает (роль или имя)" hidden>
 <textarea rows="2" placeholder="Как на самом деле — запишите коротко"></textarea></div>
-<p class="more">Ответ закроет: Состав полей карточек лида, компании и сделки и имя того, кто их утверждает, — основа пользовательской истории «заполнение карточки». · <a href="obsledovanie-lidy-podrobno.html#t10" target="evro-obsl">подробно</a></p>
+<p class="more">Ответ закроет: Правило поиска повторов до перевода лида в сделку и выбор: новая сделка или продолжение прежней. · <a href="obsledovanie-lidy-podrobno.html#t7" target="evro-obsl">подробно</a></p>
 </article>
 <article class="q" id="t11">
-<div class="qh"><a class="pt" href="karta-lidy.html#p11" target="evro-karta" title="Точка 11 на карте">11</a><h3>Отказ: «воронка отказников» на доске и две разные отметки в портале</h3><span class="tp">развилка</span></div>
+<div class="qh"><a class="pt" href="karta-lidy.html#p11" target="evro-karta" title="Точка 11 на карте">11</a><h3>Отказ: «воронка отказников» с причинами на доске и «Отменено» в ТЗ</h3><span class="tp">развилка</span><span class="first">повестка · 7</span></div>
 <p class="ask">«Покажите на последнем лиде, который не стал сделкой: где и кем отмечено, что работа с ним закончена, и почему?»</p><p class="xq"><label><input type="checkbox" data-ex="1"> спросили</label> <span>Ещё: «Покажите: последние 5 отказных сделок и как в них указана причина»</span></p>
-<details class="ifs" open><summary>А если… (4)</summary><div class="ifl"><label><input type="checkbox" data-if="1"> А если клиент отказался уже после расчёта, когда сделка создана?</label><label><input type="checkbox" data-if="2"> А если причина не из четырёх — например, цена или сроки?</label><label><input type="checkbox" data-if="3"> А если отказ случился ещё на этапе лида — причину записывают?</label><label><input type="checkbox" data-if="4"> А если клиент из отказников вернулся?</label><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
+<details class="ifs" open><summary>А если… (2)</summary><div class="ifl"><label><input type="checkbox" data-if="e2"> А если причина не из четырёх — например, цена или сроки?</label><label><input type="checkbox" data-if="e3"> А если отказ случился ещё на этапе лида — причину записывают?</label><p class="see">↪ А если клиент отказался уже после расчёта, когда сделка создана? — этот вопрос задаём <a href="../sdelki/obsledovanie-sdelki.html#t21" target="evro-see">в «Сделках» — С21</a></p><p class="see">↪ А если клиент из отказников вернулся? — этот вопрос задаём <a href="#t7">в точке 7</a></p><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
 <div class="ans" data-n="11"><span class="lbl">Статус точки:</span>
 <label><input type="radio" name="a11" value="Подтвердил"> подтвердил</label>
 <label><input type="radio" name="a11" value="Иначе"> иначе</label>
@@ -282,9 +266,9 @@ details ul{margin:6px 0;padding-left:22px}
 <p class="more">Ответ закроет: Где фиксируется отказ (у лида или у сделки), кто его ставит и обязательна ли причина — развилка «отказ» в регламенте лида. · <a href="obsledovanie-lidy-podrobno.html#t11" target="evro-obsl">подробно</a></p>
 </article>
 <article class="q" id="t12">
-<div class="qh"><a class="pt" href="karta-lidy.html#p12" target="evro-karta" title="Точка 12 на карте">12</a><h3>«Закупка отложена» — отказ или перенос</h3><span class="tp">состояние</span></div>
+<div class="qh"><a class="pt" href="karta-lidy.html#p12" target="evro-karta" title="Точка 12 на карте">12</a><h3>«Закупка отложена» — отказ или перенос</h3><span class="tp">состояние</span><span class="first">повестка · 7</span></div>
 <p class="ask">«Покажите на последнем лиде, где клиент сказал „позже“: что с ним сделали и как вы узнаёте, что пора к нему вернуться?»</p><p class="xq"><label><input type="checkbox" data-ex="1"> спросили</label> <span>Ещё: «Покажите: как сейчас узнаёте, что пора перезвонить клиенту, отложившему закупку»</span></p>
-<details class="ifs" open><summary>А если… (4)</summary><div class="ifl"><label><input type="checkbox" data-if="1"> А если клиент назвал срок — кто и как напомнит?</label><label><input type="checkbox" data-if="2"> А если срока не назвал?</label><label><input type="checkbox" data-if="3"> А если клиент не вернулся и через полгода?</label><label><input type="checkbox" data-if="4"> А если вернулся — это новая сделка или прежняя?</label><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
+<details class="ifs" open><summary>А если… (2)</summary><div class="ifl"><label><input type="checkbox" data-if="e1"> А если клиент назвал срок — кто и как напомнит?</label><label><input type="checkbox" data-if="e3"> А если клиент не вернулся и через полгода?</label><p class="see">↪ А если вернулся — это новая сделка или прежняя? — этот вопрос задаём <a href="#t7">в точке 7</a></p><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
 <div class="ans" data-n="12"><span class="lbl">Статус точки:</span>
 <label><input type="radio" name="a12" value="Подтвердил"> подтвердил</label>
 <label><input type="radio" name="a12" value="Иначе"> иначе</label>
@@ -294,27 +278,73 @@ details ul{margin:6px 0;padding-left:22px}
 <textarea rows="2" placeholder="Как на самом деле — запишите коротко"></textarea></div>
 <p class="more">Ответ закроет: Либо отдельное состояние «отложено» с датой возврата и ответственным, либо подтверждение, что это отказ. · <a href="obsledovanie-lidy-podrobno.html#t12" target="evro-obsl">подробно</a></p>
 </article>
-<article class="q" id="t16">
-<div class="qh"><a class="pt" href="karta-lidy.html#p16" target="evro-karta" title="Точка 16 на карте">16</a><h3>30 минут без ответа и «Отменено»: что дальше с лидом</h3><span class="tp">развилка</span></div>
-<p class="ask">«Как у вас сейчас: что происходит с новым обращением, если за него долго никто не берётся, и кто это замечает?»</p>
-<details class="ifs" open><summary>А если… (4)</summary><div class="ifl"><label><input type="checkbox" data-if="1"> А если обращение пришло за несколько минут до конца рабочего дня?</label><label><input type="checkbox" data-if="2"> А если за обращение не взялся и тот, кому его передали?</label><label><input type="checkbox" data-if="3"> А если работу по обращению закрыли без заявки — что происходит с самим лидом?</label><label><input type="checkbox" data-if="4"> А если клиент перезвонил после того, как работу по нему закрыли?</label><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
-<div class="ans" data-n="16"><span class="lbl">Статус точки:</span>
-<label><input type="radio" name="a16" value="Подтвердил"> подтвердил</label>
-<label><input type="radio" name="a16" value="Иначе"> иначе</label>
-<label><input type="radio" name="a16" value="Не знает"> не знает</label>
-<label><input type="radio" name="a16" value="Знает другой"> знает другой человек</label>
+<article class="q" id="t6">
+<div class="qh"><a class="pt" href="karta-lidy.html#p6" target="evro-karta" title="Точка 6 на карте">6</a><h3>Недозвон: что делать, если клиент не отвечает</h3><span class="tp">развилка / сценарий</span><span class="first">повестка · 8</span></div>
+<p class="ask">«Покажите на последнем лиде, до которого не дозвонились с первого раза: что ответственный сделал дальше и чем это закончилось?»</p>
+<details class="ifs" open><summary>А если… (4)</summary><div class="ifl"><label><input type="checkbox" data-if="e1"> А если клиент не ответил и на следующий день — сколько ещё попыток?</label><label><input type="checkbox" data-if="e2"> А если клиент сам перезвонил, но в другой салон или на другой номер?</label><label><input type="checkbox" data-if="e3"> А если клиент не берёт трубку, но отвечает в мессенджере?</label><label><input type="checkbox" data-if="e4"> А если после всех попыток клиент так и не ответил — в какой стадии остаётся лид?</label><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
+<div class="ans" data-n="6"><span class="lbl">Статус точки:</span>
+<label><input type="radio" name="a6" value="Подтвердил"> подтвердил</label>
+<label><input type="radio" name="a6" value="Иначе"> иначе</label>
+<label><input type="radio" name="a6" value="Не знает"> не знает</label>
+<label><input type="radio" name="a6" value="Знает другой"> знает другой человек</label>
 <input type="text" class="who" placeholder="кто знает (роль или имя)" hidden>
 <textarea rows="2" placeholder="Как на самом деле — запишите коротко"></textarea></div>
-<p class="more">Ответ закроет: Срок реакции, цепочка передачи просроченного лида и конечное состояние лида при «Отменено» (связь с точками 6 и 11). · <a href="obsledovanie-lidy-podrobno.html#t16" target="evro-obsl">подробно</a></p>
+<p class="more">Ответ закроет: Правило повторных попыток (сколько, через какой промежуток, кто звонит) и конечное состояние лида при недозвоне. · <a href="obsledovanie-lidy-podrobno.html#t6" target="evro-obsl">подробно</a></p>
+</article>
+<article class="q" id="t5">
+<div class="qh"><a class="pt" href="karta-lidy.html#p5" target="evro-karta" title="Точка 5 на карте">5</a><h3>Состояния лида: на доске их нет, в ТЗ — один статус «Новый»</h3><span class="tp">состояние</span><span class="first">повестка · 9</span></div>
+<p class="ask">«Покажите на последнем лиде: через какие стадии он прошёл и кто переводил его с одной на другую?»</p>
+<details class="ifs" open><summary>А если… (1)</summary><div class="ifl"><label><input type="checkbox" data-if="e2"> А если с клиентом поговорили, а он ещё думает — в какой он стадии?</label><p class="see">↪ А если с лидом неделю никто не работает — что с ним происходит? — этот вопрос задаём <a href="#t16">в точке 16</a></p><p class="see">↪ А если клиент сказал «вернёмся позже» — куда ставят лид? — этот вопрос задаём <a href="#t12">в точке 12</a></p><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
+<div class="ans" data-n="5"><span class="lbl">Статус точки:</span>
+<label><input type="radio" name="a5" value="Подтвердил"> подтвердил</label>
+<label><input type="radio" name="a5" value="Иначе"> иначе</label>
+<label><input type="radio" name="a5" value="Не знает"> не знает</label>
+<label><input type="radio" name="a5" value="Знает другой"> знает другой человек</label>
+<input type="text" class="who" placeholder="кто знает (роль или имя)" hidden>
+<textarea rows="2" placeholder="Как на самом деле — запишите коротко"></textarea></div>
+<p class="more">Ответ закроет: Список состояний лида с условием входа и выхода для каждого — основа регламента лида; правило для давно необработанных лидов. · <a href="obsledovanie-lidy-podrobno.html#t5" target="evro-obsl">подробно</a></p>
+</article>
+<article class="q" id="t10">
+<div class="qh"><a class="pt" href="karta-lidy.html#p10" target="evro-karta" title="Точка 10 на карте">10</a><h3>«Единый формат» и «структура карточек» — самих документов нет</h3><span class="tp">документ / user story</span><span class="first">повестка · 9</span></div>
+<p class="ask">«Покажите на последнем лиде: как заполнена его карточка и по какому образцу её заполняли?»</p><p class="xq"><label><input type="checkbox" data-ex="1"> спросили</label> <span>Ещё: «Покажите: структуру карточек лида, компании и сделки от Л.А. и М.А. и чек-лист, о котором речь»</span></p>
+<details class="ifs" open><summary>А если… (1)</summary><div class="ifl"><label><input type="checkbox" data-if="e1"> А если структура карточек ещё обсуждается — кто утверждает окончательный вариант?</label><p class="see">↪ А если для организации и частного лица образец разный? — этот вопрос задаём <a href="#t8">в точке 8</a></p><p class="see">↪ А если данные клиента уже есть в 1С — откуда их берут в карточку? — этот вопрос задаём <a href="#t14">в точке 14</a></p><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
+<div class="ans" data-n="10"><span class="lbl">Статус точки:</span>
+<label><input type="radio" name="a10" value="Подтвердил"> подтвердил</label>
+<label><input type="radio" name="a10" value="Иначе"> иначе</label>
+<label><input type="radio" name="a10" value="Не знает"> не знает</label>
+<label><input type="radio" name="a10" value="Знает другой"> знает другой человек</label>
+<input type="text" class="who" placeholder="кто знает (роль или имя)" hidden>
+<textarea rows="2" placeholder="Как на самом деле — запишите коротко"></textarea></div>
+<p class="more">Ответ закроет: Состав полей карточек лида, компании и сделки и имя того, кто их утверждает, — основа пользовательской истории «заполнение карточки». · <a href="obsledovanie-lidy-podrobno.html#t10" target="evro-obsl">подробно</a></p>
+</article>
+<article class="q" id="t14">
+<div class="qh"><a class="pt" href="karta-lidy.html#p14" target="evro-karta" title="Точка 14 на карте">14</a><h3>1С в лидах: по ТЗ участвует, по словам владельца — нет</h3><span class="tp">противоречие (ТЗ ↔ владелец)</span></div>
+<p class="ask">«Как у вас сейчас: когда обращается клиент, как вы узнаёте, покупал ли он у вас раньше, и где смотрите его данные?»</p><p class="xq"><label><input type="checkbox" data-ex="1"> спросили</label> <span>Ещё: «Покажите на клиенте, который уже покупал: кто получил его новое обращение и откуда взялись данные в его карточке»</span></p>
+<details class="ifs" open><summary>А если… (4)</summary><div class="ifl"><label><input type="checkbox" data-if="e1"> А если клиент обратился с другого номера телефона или с другой почты?</label><label><input type="checkbox" data-if="e2"> А если у клиента в базе записан ответственный, который уже уволился?</label><label><input type="checkbox" data-if="e3"> А если клиент новый — где его данные появляются впервые?</label><label><input type="checkbox" data-if="e4"> А если данные клиента в двух системах расходятся?</label><input type="text" class="ifc" placeholder="комментарий к отмеченному"></div></details>
+<div class="ans" data-n="14"><span class="lbl">Статус точки:</span>
+<label><input type="radio" name="a14" value="Подтвердил"> подтвердил</label>
+<label><input type="radio" name="a14" value="Иначе"> иначе</label>
+<label><input type="radio" name="a14" value="Не знает"> не знает</label>
+<label><input type="radio" name="a14" value="Знает другой"> знает другой человек</label>
+<input type="text" class="who" placeholder="кто знает (роль или имя)" hidden>
+<textarea rows="2" placeholder="Как на самом деле — запишите коротко"></textarea></div>
+<p class="more">Ответ закроет: Решение, участвует ли 1С на этапе лида. Если да — правило поиска клиента и назначения ответственного; если нет — этот пункт ТЗ снимается, а поиск повторов (точка 7) решается внутри Битрикс24. · <a href="obsledovanie-lidy-podrobno.html#t14" target="evro-obsl">подробно</a></p>
 </article></section><section><h2>Итог встречи</h2><div class="bar"><button type="button" id="save">Сохранить ответы (.md)</button><button type="button" id="clear">Очистить ответы</button></div></section>
-<script>(function(){var K='evro-lidy-answers.v2',K1='evro-lidy-answers';
+<script>(function(){var K='evro-lidy-answers.v3',K2='evro-lidy-answers.v2',K1='evro-lidy-answers';
 function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function jp(k){try{return JSON.parse(get(k)||'null')}catch(e){return null}}
 function put(){try{localStorage.setItem(K,JSON.stringify(d))}catch(e){}}
-function blank(){return {v:2,meeting:'',items:{}}}
-var d=null;try{d=JSON.parse(get(K)||'null')}catch(e){d=null}
-if(!d||typeof d!=='object'||d.v!==2){d=blank();var o=null;try{o=JSON.parse(get(K1)||'null')}catch(e){o=null}
- /* перенос старого формата {N:{v,t}}: старый ключ только читается и не стирается */
- if(o&&typeof o==='object'){var any=false;Object.keys(o).forEach(function(n){var r=o[n];if(r&&(r.v||r.t)){d.items[n]={s:r.v||'',t:r.t||''};any=true}});if(any)put()}}
+function blank(){return {v:3,meeting:'',items:{}}}
+var d=jp(K);
+if(!d||typeof d!=='object'||d.v!==3){d=blank();var o2=jp(K2),o=jp(K1);
+ /* v2 и старый ключ только читаются и не стираются; v2: ifs["N"] (позиция) → ifs["eN"] (data-id) */
+ if(o2&&typeof o2==='object'&&o2.items&&typeof o2.items==='object'){d.meeting=o2.meeting||'';
+  Object.keys(o2.items).forEach(function(n){var r=o2.items[n];if(!r||typeof r!=='object')return;var x={};
+   Object.keys(r).forEach(function(k){x[k]=r[k]});
+   if(r.ifs&&typeof r.ifs==='object'){x.ifs={};Object.keys(r.ifs).forEach(function(k){if(r.ifs[k])x.ifs[/^\d+$/.test(k)?'e'+k:k]=true})}
+   d.items[n]=x});put()}
+ /* перенос старого формата {N:{v,t}} */
+ else if(o&&typeof o==='object'){var any=false;Object.keys(o).forEach(function(n){var r=o[n];if(r&&(r.v||r.t)){d.items[n]={s:r.v||'',t:r.t||''};any=true}});if(any)put()}}
 if(!d.items||typeof d.items!=='object')d.items={};
 function it(n){return d.items[n]||(d.items[n]={})}
 function rd(n){return d.items[n]||{}}
@@ -333,9 +363,12 @@ document.getElementById('save').onclick=function(){var o=['# Лиды — отв
  o.push('## '+n+'. '+a.querySelector('h3').textContent,'Вопрос: '+a.querySelector('.ask').textContent,'Статус: '+(s.s||'—'));
  if(s.s==='Знает другой'||s.who)o.push('Кто знает: '+(s.who||'—'));
  o.push('Как на самом деле: '+(s.t||'—'));
- a.querySelectorAll('input[data-if]').forEach(function(c){(s.ifs&&s.ifs[c.getAttribute('data-if')]?yes:no).push('- '+lt(c))});
- if(yes.length||no.length){o.push('','А если… — обсудили:');o.push.apply(o,yes.length?yes:['- —']);if(s.ifc)o.push('Комментарий: '+s.ifc);
-  if(no.length){o.push('','Не обсуждали:');o.push.apply(o,no)}}
+ var here={};a.querySelectorAll('input[data-if]').forEach(function(c){var k=c.getAttribute('data-if');here[k]=1;(s.ifs&&s.ifs[k]?yes:no).push('- '+lt(c))});
+ var gone=Object.keys(s.ifs||{}).filter(function(k){return s.ifs[k]&&!here[k]});
+ if(yes.length||no.length||gone.length){o.push('','А если… — обсудили:');o.push.apply(o,yes.length?yes:['- —']);if(s.ifc)o.push('Комментарий: '+s.ifc);
+  if(no.length){o.push('','Не обсуждали:');o.push.apply(o,no)}
+  gone.forEach(function(k){o.push('- Отмечено раньше, пункт снят: '+k)})}
+ var sees=a.querySelectorAll('.ifl p.see');if(sees.length){o.push('','Задаём в другой точке:');sees.forEach(function(x){o.push('- '+x.textContent.replace(/^↪\s*/,''))})}
  var ex=a.querySelectorAll('input[data-ex]');if(ex.length){o.push('','Ещё:');ex.forEach(function(c){var q=c.closest('.xq').querySelector('span').textContent.replace(/^Ещё:\s*/,'');
   o.push('- '+(s.ex&&s.ex[c.getAttribute('data-ex')]?'[спросили] ':'[не спросили] ')+q)})}
  o.push('')});
@@ -343,7 +376,13 @@ document.getElementById('save').onclick=function(){var o=['# Лиды — отв
   o.push('## '+n+' (карточки на странице нет)','Статус: '+(s.s||'—'),'Кто знает: '+(s.who||'—'),'Как на самом деле: '+(s.t||'—'),'')});
  o.push('Ответы — рабочий черновик; источник для разблокировки точки — транскрипт видео');
  var u=URL.createObjectURL(new Blob([o.join('\n')],{type:'text/markdown'}));var l=document.createElement('a');l.href=u;l.download='evrosteklo-lidy-otvety.md';l.click();};
-document.getElementById('clear').onclick=function(){if(confirm('Очистить все ответы?')){d=blank();put();location.reload()}};})();</script>
+document.getElementById('clear').onclick=function(){if(confirm('Очистить все ответы?')){d=blank();put();location.reload()}};})();</script><script>(function(){var K='evro-lidy-onlypov',b=document.getElementById('onlypov'),ns={};
+document.querySelectorAll('#povblk a[data-p],#povblk a[href^="#t"]').forEach(function(a){if(a.closest('.see'))return;var n=a.getAttribute('data-p')||a.getAttribute('href').slice(2);ns[n]=1});
+document.querySelectorAll('article.q').forEach(function(a){if(!ns[a.id.slice(1)])a.classList.add('nopov')});
+function set(on){document.body.classList.toggle('onlypov',on);b.classList.toggle('on',on);b.setAttribute('aria-pressed',on?'true':'false');
+ b.textContent=on?'Показать все вопросы':'Только повестка';try{on?localStorage.setItem(K,'1'):localStorage.removeItem(K)}catch(e){}}
+var on=false;try{on=localStorage.getItem(K)==='1'}catch(e){}set(on);
+b.addEventListener('click',function(){set(!document.body.classList.contains('onlypov'))});})();</script>
 </div><div class="zoombar" role="toolbar" aria-label="Масштаб">
 <button type="button" data-z="-" title="Уменьшить (−)">−</button><span class="zv">100%</span><button type="button" data-z="+" title="Увеличить (+)">+</button><button type="button" data-z="0" title="Сбросить (0)">100%</button>
 </div>
