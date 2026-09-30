@@ -2,6 +2,8 @@
 
 Читать первым в новой сессии, вместе с `AGENTS.md`, `CLAUDE.md` и `docs/ppo/00-resheniya-vladeltsa.md`.
 
+> **Разовое сообщение агентам: прочитай `docs/SOOBSHCHENIE-AGENTAM.md`, выполни свою часть, затем удали файл и эту строку.**
+
 ## Ветки
 - Ствол — `main` (ветка по умолчанию с 30.09.2026). `codex/8b44-eurosteklo` — архив, в неё не писать.
 - Регламент: `docs/specifications/2026-09-30-git-collaboration.md` (П1–П11), кратко — раздел «Git» в `AGENTS.md`.
