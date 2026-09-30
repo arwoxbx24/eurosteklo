@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
-"""Проверки ППО K1–K9 (только чтение рабочего дерева; сборка — во временной копии).
+"""Проверки ППО K1–K10 (только чтение рабочего дерева; сборка — во временной копии).
 
 Запуск: python3 docs/ppo/check_ppo.py [--base=SHA] [--lidy]
-  --base=SHA  база для K2 (номера точек) и K9 (шлюз лидов); по умолчанию 575a157 (лиды 28.09, сделки 29.09)
+  --base=SHA  база для K2 (номера точек) и K9 (шлюз лидов); по умолчанию — последний полный SHA
+              в таблице docs/CHECKPOINTS.md (нет файла/строки — 575a157 с предупреждением)
   --lidy      разрешить изменение собранных страниц лидов (только с «да» владельца на лиды)
-Код выхода: 0 — ошибок нет, 1 — есть. Предупреждения (K3, слой А в K5, недоступная база) код не меняют.
+K3 и K10 разбирают пункты «А если…» той же функцией, что и сборка (build_proc.ifs_of): <li> с атрибутами не теряются.
+Код выхода: 0 — ошибок нет, 1 — есть. Предупреждения (слой А в K5, похожие пункты в K10, недоступная база) код не меняют.
 Основа — прототип SRE (specs/006-ispravlenie-kart/kritika/c2-6-sre.md), регэксп ПДн — свой (c2-5, п.36).
 """
+import difflib
 import hashlib
 import html
 import re
@@ -18,12 +21,25 @@ from pathlib import Path
 
 PPO = Path(__file__).resolve().parent
 ROOT = PPO.parent.parent
+sys.path.insert(0, str(PPO / "_common"))
+from build_proc import SRC_OK, cards_of, dd_of, ifs_of, parse_see, pov_lines, povestka_of, txt  # noqa: E402
+
 ARGS = sys.argv[1:]
-BASE = next((a.split("=", 1)[1] for a in ARGS if a.startswith("--base=")), "575a157909476c9e55724ac1a28b78a4fb356321")
 PROCS = ("lidy", "sdelki")
-KS = [f"K{i}" for i in range(1, 10)]
+KS = [f"K{i}" for i in range(1, 11)]
 ERR, WARN = {k: [] for k in KS}, {k: [] for k in KS}
 INFO = {}
+FALLBACK = "575a157909476c9e55724ac1a28b78a4fb356321"
+
+
+def default_base():
+    """Последний полный SHA из таблицы docs/CHECKPOINTS.md; нет — FALLBACK."""
+    f = ROOT / "docs" / "CHECKPOINTS.md"
+    shas = re.findall(r"\|\s*`([0-9a-f]{40})`", f.read_text(encoding="utf8")) if f.exists() else []
+    return (shas[-1], None) if shas else (FALLBACK, "в docs/CHECKPOINTS.md нет полного SHA — база 575a157")
+
+
+BASE, BASE_NOTE = next(((a.split("=", 1)[1], None) for a in ARGS if a.startswith("--base=")), None) or default_base()
 
 
 def err(k, m): ERR[k].append(m)
@@ -70,15 +86,100 @@ for slug in PROCS:
         if not oldset <= sets["карточки"]:
             err("K2", f"{slug}: пропали номера {sorted(oldset - sets['карточки'])}")
 
-    bad = tot = 0
-    for n, body in re.findall(CARD + r"(.*?)</article>", rd(parts / "tochki.html"), re.S):
-        m = re.search(r"<dt>Уточнить по состояниям</dt>\s*<dd>(.*?)</dd>", body, re.S)
-        for li in re.findall(r"<li>(.*?)</li>", m.group(1) if m else "", re.S):
+    # K3 (ошибка): у каждого своего пункта (без data-see) data-src из SRC_OK; кроме «наш» — есть <small class="src">
+    tot, probs = 0, {}
+    for n, body in sorted(cards_of(rd(parts / "tochki.html")).items()):
+        for x in ifs_of(dd_of(body, "Уточнить по состояниям")):
             tot += 1
-            if 'class="src"' not in li and "наш вариант" not in li:
-                bad += 1
-    if bad:
-        warn("K3", f"{slug}: {bad} из {tot} вариантов «А если…» без источника/пометки «наш вариант (гипотеза)»")
+            if x["see"]:
+                continue
+            if x["src"] is None:
+                why = "нет data-src"
+            elif x["src"] == "портал":
+                why = "data-src=\"портал\" запрещён (в аудит интегратора)"
+            elif x["src"] not in SRC_OK:
+                why = f"data-src=\"{x['src']}\" не из {{{', '.join(SRC_OK)}}}"
+            elif x["src"] != "наш" and 'class="src"' not in x["html"]:
+                why = f"data-src=\"{x['src']}\" без <small class=\"src\">"
+            else:
+                continue
+            probs.setdefault(why, []).append(f"т{n}:{x['id']}")
+    for why, where in probs.items():
+        err("K3", f"{slug}: {why} — {len(where)} из {tot}: " + ", ".join(where[:12]) + (" …" if len(where) > 12 else ""))
+    if not probs:
+        INFO.setdefault("K3", []).append(f"{slug} {tot} пунктов")
+
+# K10 владение вопроса: (а) цель data-see существует, сама не ссылка и не своя карточка; (б) data-id вида eN,
+# уникален в карточке; (в) нет точных дублей текста среди своих пунктов обоих процессов; (г) точки повестки существуют;
+# (д) похожие свои пункты (difflib ≥ 0,80) без ссылки — предупреждение
+ITEMS, CARDS = {}, {}
+for slug in PROCS:
+    f = PPO / slug / "_parts" / "tochki.html"
+    if not f.exists():
+        continue
+    CARDS[slug] = cards_of(rd(f))
+    for n, body in CARDS[slug].items():
+        ITEMS[(slug, n)] = ifs_of(dd_of(body, "Уточнить по состояниям"))
+for (slug, n), items in sorted(ITEMS.items()):
+    ids = [x["id"] for x in items]
+    for i in sorted({i for i in ids if ids.count(i) > 1}):
+        err("K10", f"{slug} т{n}: data-id «{i}» повторяется в карточке")
+    for x in items:
+        if not re.fullmatch(r"e\d+", x["id"]):
+            err("K10", f"{slug} т{n}: data-id «{x['id']}» не вида eN")
+        if not x["see"]:
+            continue
+        t = parse_see(x["see"])
+        if not t or not t[2]:
+            err("K10", f"{slug} т{n} {x['id']}: data-see «{x['see']}» не вида slug:N:eK")
+            continue
+        if (t[0], t[1]) == (slug, n):
+            err("K10", f"{slug} т{n} {x['id']}: data-see ведёт в свою же карточку")
+            continue
+        tgt = next((y for y in ITEMS.get((t[0], t[1]), []) if y["id"] == t[2]), None)
+        if tgt is None:
+            err("K10", f"{slug} т{n} {x['id']}: цель data-see «{x['see']}» не найдена")
+        elif tgt["see"]:
+            err("K10", f"{slug} т{n} {x['id']}: цель «{x['see']}» сама ссылка (цепочки запрещены)")
+        if x["src"]:
+            warn("K10", f"{slug} т{n} {x['id']}: у пункта-ссылки лишний data-src")
+
+
+def norm(s):
+    s = re.sub(r"[^\w\s]", " ", s.lower().replace("ё", "е"))
+    return re.sub(r"\s+", " ", re.sub(r"^\s*а если\s+", "", s)).strip()
+
+
+own = [(slug, n, x["id"], norm(x["text"])) for (slug, n), items in sorted(ITEMS.items()) for x in items if not x["see"]]
+seen = {}
+for slug, n, i, t in own:
+    if t in seen:
+        err("K10", f"точный дубль без ссылки: {seen[t]} = {slug} т{n} {i} «{t[:60]}»")
+    else:
+        seen[t] = f"{slug} т{n} {i}"
+sim = 0
+for a in range(len(own)):
+    for b in range(a + 1, len(own)):
+        if own[a][3] != own[b][3] and difflib.SequenceMatcher(None, own[a][3], own[b][3]).ratio() >= 0.80:
+            sim += 1
+            if sim <= 15:
+                warn("K10", f"похожи (≥0,80), проверить ссылку: {own[a][0]} т{own[a][1]} {own[a][2]} ↔ {own[b][0]} т{own[b][1]} {own[b][2]}")
+if sim > 15:
+    warn("K10", f"… и ещё {sim - 15} похожих пар")
+for slug in CARDS:
+    pov = povestka_of(rd(PPO / slug / "_parts" / "tochki.html"))
+    for a, body, ns in pov_lines(pov):
+        for n in ns:
+            if n not in CARDS[slug]:
+                err("K10", f"{slug} повестка: точки {n} нет среди карточек")
+        t = parse_see(a.get("data-see"))
+        if a.get("data-see") and not (t and t[1] in CARDS.get(t[0], {})):
+            err("K10", f"{slug} повестка: data-see «{a['data-see']}» — нет такой точки")
+        if not ns and "cut" not in a.get("class", "").split():
+            warn("K10", f"{slug} повестка: строка без номера точки «{txt(body)[:50]}»")
+    if pov:
+        INFO.setdefault("K10", []).append(f"{slug}: повестка {sum(1 for _, _, ns in pov_lines(pov) if ns)} строк")
+INFO.setdefault("K10", []).append(f"своих пунктов {len(own)}, ссылок {sum(1 for v in ITEMS.values() for x in v if x['see'])}")
 
 # K4 нет ссылок на портальные вопросы клиенту: «(вопрос N)», «ASIS §» везде; на картах — любое «вопрос N»
 KARTY = sorted(PPO.glob("*/_parts/karta*.svg.html")) + sorted(PPO.glob("*/karta-*.html"))
@@ -124,6 +225,9 @@ for f in sorted(PPO.rglob("*.html")):
 INFO["K6"] = [f"без белого списка телефонов {naive}, после — {len(ERR['K6'])}"]
 
 # K9 шлюз лидов: собранные lidy/*.html байт в байт как на базе (иначе нужен --lidy с «да» владельца)
+INFO["K9"] = [f"база {BASE[:7]}" + (" (--lidy)" if "--lidy" in ARGS else "")]
+if BASE_NOTE:
+    warn("K9", BASE_NOTE)
 if "--lidy" not in ARGS:
     for f in sorted((PPO / "lidy").glob("*.html")):
         old = git_show(f"docs/ppo/lidy/{f.name}")
@@ -167,9 +271,10 @@ try:
 finally:
     shutil.rmtree(tmp, ignore_errors=True)
 
-NAMES = {"K1": "связность точек", "K2": "номера не пропали", "K3": "источник у вариантов",
+NAMES = {"K1": "связность точек", "K2": "номера не пропали", "K3": "источник у вариантов (data-src)",
          "K4": "нет «(вопрос N)» на картах", "K5": "пометка 1С", "K6": "ПДн", "K7": "stitch вызван",
-         "K8": "идемпотентность сборки", "K9": "шлюз лидов"}
+         "K8": "идемпотентность сборки", "K9": "шлюз лидов",
+         "K10": "владение вопроса (data-see, data-id, дубли, повестка)"}
 for k in KS:
     e, w = ERR[k], WARN[k]
     st = f"ОШИБОК {len(e)}" if e else ("ПРЕДУПР " + str(len(w)) if w else "ок")
