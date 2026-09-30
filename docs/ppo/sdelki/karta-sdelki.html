@@ -692,7 +692,82 @@ document.querySelectorAll('.ptg button').forEach(function(b){b.classList.toggle(
 var t=g.querySelector('title');document.getElementById('ptsel').innerHTML='<b>Точка С'+n+'.</b> '+(t?t.textContent.replace(/^Точка \d+:\s*/,''):'')+' · <a href="obsledovanie-sdelki.html#t'+n+'" target="evro-obsl">вопрос к встрече →</a>';}
 document.getElementById('ptnav').addEventListener('click',function(e){var b=e.target.closest('button[data-p]');if(b)go(b.dataset.p)});
 function fromHash(){var m=location.hash.match(/^#p(\d+)$/);if(m)setTimeout(function(){go(m[1])},150)}
-addEventListener('hashchange',fromHash);fromHash();})();</script>
+addEventListener('hashchange',fromHash);fromHash();})();</script><style>
+/* Роли слева: подписи дорожек закреплены у левого края карты (.mapwrap svg) при прокрутке и масштабе. */
+.lanes-pin .lp-sh{opacity:0;transition:opacity .15s}
+.lanes-pin.on .lp-sh{opacity:1}
+.lanes-pin{pointer-events:none}
+@media print{.lanes-pin g{transform:none!important}.lanes-pin .lp-sh{display:none}}
+</style>
+<script>
+/* Роли слева (spec 006, ADR-А). Подписи дорожек остаются в SVG: скрипт собирает полосу подписей
+   (rect x ≤ 20, ширина ≤ 200, заливка полосы; text x < 40 внутри полосы; заголовки слоёв) в g.lanes-pin
+   в конце SVG (перед точками, если они идут последними) и сдвигает её на видимый левый край.
+   Сдвиг пересчитывается при прокрутке .mapwrap и при изменении размера SVG (ResizeObserver) — zoom.html не меняется.
+   Красные точки (g.pt) и связи не трогаются. Без JS и при печати подписи на месте. */
+(function(){
+function run(){
+var wrap=document.querySelector('.mapwrap'),svg=wrap&&wrap.querySelector('svg');
+if(!svg||svg.querySelector('.lanes-pin')||!svg.getScreenCTM)return;
+var NS='http://www.w3.org/2000/svg',LANE='#eef1f5',vb=svg.viewBox&&svg.viewBox.baseVal;
+var vbW=vb&&vb.width?vb.width:svg.getBBox().width;
+var S=svg.getScreenCTM();if(!S)return;var Si=S.inverse();
+function skip(el){return el.closest('.pt,defs,marker,.lanes-pin')}
+function base(el){var m=Si.multiply(el.getScreenCTM());return{e:m.e,f:m.f}}
+function num(el,a){var v=el.getAttribute(a);return v==null?0:parseFloat(v)||0}
+function box(el){var b=el.getBBox(),m=base(el);return{x:b.x+m.e,y:b.y+m.f,w:b.width,h:b.height,m:m}}
+var rects=[].slice.call(svg.querySelectorAll('rect')).filter(function(r){return !skip(r)}),
+    lanes=[],wide=[],bands=[];
+rects.forEach(function(r){var x=num(r,'x'),w=num(r,'width'),h=num(r,'height'),f=(r.getAttribute('fill')||'').toLowerCase();
+ if(x<=20&&w>0&&w<=200&&h>=30&&f===LANE)lanes.push({el:r,b:box(r),items:[]});
+ else if(x<=20&&w>=1000){var o={el:r,b:box(r)};wide.push(o);if(h<=60&&f&&f!=='none')bands.push(o)}});
+if(!lanes.length)return;
+function inside(a,b){return a.x>=b.x-1&&a.y>=b.y-1&&a.x+a.w<=b.x+b.w+1&&a.y+a.h<=b.y+b.h+1}
+function limitOf(b){var lim=vbW-(b.x+b.w),best=null;
+ wide.forEach(function(o){if(o.b.h>60&&inside(b,o.b)&&(!best||o.b.w*o.b.h<best.w*best.h))best=o.b});
+ if(best)lim=Math.min(lim,best.x+best.w-(b.x+b.w));return Math.max(0,lim)}
+var heads=[];
+[].slice.call(svg.querySelectorAll('text')).forEach(function(t){
+ if(skip(t)||t.getAttribute('x')==null||num(t,'x')>=40)return;var b=box(t),cy=b.y+b.h/2,cx=b.x+2;
+ for(var i=0;i<lanes.length;i++){var L=lanes[i].b;if(cx>=L.x&&cx<=L.x+L.w&&cy>=L.y&&cy<=L.y+L.h){lanes[i].items.push(t);return}}
+ for(var j=0;j<bands.length;j++){var B=bands[j].b;if(cy>=B.y&&cy<=B.y+B.h){heads.push({t:t,b:b,band:bands[j]});return}}});
+/* тень справа */
+var defs=svg.querySelector('defs')||svg.insertBefore(document.createElementNS(NS,'defs'),svg.firstChild),
+    gr=document.createElementNS(NS,'linearGradient');gr.id='lanes-pin-sh';
+[['0','.22'],['1','0']].forEach(function(s){var st=document.createElementNS(NS,'stop');st.setAttribute('offset',s[0]);
+ st.setAttribute('stop-color','#0f172a');st.setAttribute('stop-opacity',s[1]);gr.appendChild(st)});defs.appendChild(gr);
+function mk(tag,at){var e=document.createElementNS(NS,tag);for(var k in at)e.setAttribute(k,at[k]);return e}
+var pin=mk('g',{'class':'lanes-pin'}),units=[];
+function unit(m,x0,lim,nodes,sh){var outer=mk('g',{transform:'translate('+m.e+','+m.f+')'}),inner=mk('g',{});
+ if(sh)inner.appendChild(mk('rect',{'class':'lp-sh',x:sh.x,y:sh.y,width:10,height:sh.h,fill:'url(#lanes-pin-sh)'}));
+ nodes.forEach(function(n){inner.appendChild(n)});outer.appendChild(inner);pin.appendChild(outer);
+ units.push({g:inner,x0:x0,lim:lim})}
+lanes.forEach(function(L){var r=L.el,b=L.b,m=b.m;
+ /* подложка непрозрачная: заливка полосы как есть (#eef1f5), без прозрачности */
+ r.removeAttribute('fill-opacity');r.removeAttribute('opacity');
+ unit(m,b.x,limitOf(b),[r].concat(L.items),{x:num(r,'x')+num(r,'width'),y:num(r,'y'),h:num(r,'height')})});
+heads.forEach(function(H){var bb=H.band.b,br=H.band.el,m=H.b.m,sw=parseFloat(br.getAttribute('stroke-width'))||0,
+ lx=bb.x-m.e+sw/2,ly=bb.y-m.f+sw/2,w=H.b.x+H.b.w-bb.x+16,h=bb.h-sw,
+ bg=mk('rect',{x:lx,y:ly,width:w,height:h,fill:br.getAttribute('fill')});
+ unit(m,bb.x,Math.max(0,bb.x+bb.w-(bb.x+w)),[bg,H.t],{x:lx+w,y:ly,h:h})});
+/* в конец SVG, но под точками, если они идут последними (сделки: точки поверх слоёв) */
+var kids=[].slice.call(svg.children),at=null;
+for(var i=kids.length-1;i>=0;i--){var c=kids[i];if(c.matches('.pt')||(c.children.length===1&&c.firstElementChild.matches('.pt')))at=c;else break}
+svg.insertBefore(pin,at);
+var raf=0;
+function upd(){raf=0;var R=svg.getBoundingClientRect();if(!R.width)return;
+ var wr=wrap.getBoundingClientRect(),s=(wr.left+wrap.clientLeft-R.left)*vbW/R.width,on=false;
+ units.forEach(function(u){var t=Math.max(0,Math.min(s-u.x0,u.lim));if(t>.5)on=true;
+  var v='translate('+t.toFixed(2)+',0)';if(u.v!==v){u.v=v;u.g.setAttribute('transform',v)}});
+ pin.classList.toggle('on',on)}
+function req(){if(!raf)raf=requestAnimationFrame(upd)}
+wrap.addEventListener('scroll',req,{passive:true});addEventListener('resize',req);
+if(window.ResizeObserver)new ResizeObserver(req).observe(svg);
+upd()}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
+})();
+</script>
+
 </div><div class="zoombar" role="toolbar" aria-label="Масштаб">
 <button type="button" data-z="-" title="Уменьшить (−)">−</button><span class="zv">100%</span><button type="button" data-z="+" title="Увеличить (+)">+</button><button type="button" data-z="0" title="Сбросить (0)">100%</button>
 </div>
