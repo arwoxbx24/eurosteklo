@@ -1,0 +1,180 @@
+<style>
+/* Вид карты (e6): цвет слоёв, переключатель слоёв «Доска · ТЗ · Обе», режим «Показ клиенту / Рабочий вид».
+   Панель создаётся скриптом над .mapwrap (под навигатором точек). */
+.mapview{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:center;margin:0 0 10px;font-size:15px}
+.mapview .mv-h{font-weight:700}
+.mapview .mv-seg{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#fff}
+.mapview .mv-seg button{border:0;border-left:1px solid var(--line);background:#fff;color:var(--ink);font:600 15px/1 inherit;font-family:inherit;padding:8px 13px;cursor:pointer;min-height:36px}
+.mapview .mv-seg button:first-child{border-left:0}
+.mapview .mv-seg button[aria-pressed="true"]{background:#1d2530;color:#fff}
+.mapview .mv-seg button:focus-visible{outline:3px solid #b8480f;outline-offset:-3px}
+.mapview .mv-seg button .mv-sw{display:inline-block;width:12px;height:12px;border-radius:3px;border:1px solid rgba(0,0,0,.25);margin-right:6px;vertical-align:-1px}
+.mapview .mv-note{flex:1 1 100%;margin:0;font-size:13px;color:var(--muted)}
+.mapview .mv-note[hidden]{display:none}
+/* Показ клиенту: служебные пометки не рисуются, но сохраняют место и размеры (getBBox для lanes.html) */
+.mapwrap svg.mv-client .mv-svc{visibility:hidden}
+@media print{.mapview{display:none}}
+</style>
+<script>
+/* Вид карты (e6, шаги 2–4 плана specs/006-ispravlenie-kart/PLAN-e6.md). Карта (.mapwrap svg) не пересобирается:
+   скрипт только добавляет фон слоёв, меняет viewBox и ставит класс mv-svc служебным подписям.
+
+   СЛОИ. Границы по Y: из комментария <!-- layers: A<yA B<yB --> рядом с SVG (сделки); если его нет (лиды) —
+   по заголовкам слоёв «А. …», «Б. …», «В. …» в SVG: граница слоя = верх самой маленькой широкой (≥1000) рамки,
+   в которой стоит заголовок, минус 10. Слой А = [0, yA), Б = [yA, yB), В = [yB, низ карты).
+   ФОН. Под всем содержимым (первым после исходного фона SVG — прямоугольника на весь viewBox) три прямоугольника:
+   А #fff7e0 (тёплый), Б #eef5ff (голубой), В #f3f4f6 (серый). Белые рамки слоёв (rect с белой заливкой,
+   x ≤ 20, ширина ≥ 75% карты, высота ≥ 300) делаются прозрачными (fill-opacity 0), иначе фон под ними не виден;
+   узлы, полосы заголовков и дорожек не меняются. Подписи слоёв укрупняются до 22px, если справа есть место.
+   ПЕРЕКЛЮЧАТЕЛЬ. «Доска · ТЗ» — viewBox обрезается по Y до своего слоя (ширина прежняя); «Обе» — исходный viewBox.
+   Подписи кнопок — с карты (заголовок слоя без «А. », «По », пояснения в скобках и после «+»/«—»).
+   Навигатор точек: номер точки из другого слоя (или адрес #pN) сначала переключает на «Обе».
+
+   ПОКАЗ КЛИЕНТУ — правило скрытия (по разбору обеих карт 30.09.2026). Служебная подпись (класс mv-svc) — это <text>:
+   (1) цвета нашей разметки (серый #6b7280 / #5f6670 или оранжевый #9a5b00) с текстом-меткой разметки
+       /наша разметка|^разм\.|id Miro|только чтение|наведите|sanitized|client-materials/ — в любом начертании;
+   (2) курсив серого #6b7280 или оранжевого #9a5b00 — наши пояснения («выведено…», «на доске роль не указана»,
+       «блок между рамками», «место на доске — уточнить», «источник: …», «к.7341 — на рамке», легенда пометок),
+       КРОМЕ текста клиента:
+       (а) строка из цитаты «…» длиной от трёх слов (цитата может идти на несколько строк одного абзаца —
+           подписи одного родителя с тем же x, шаг по Y ≤ 26);
+       (б) строка комментария доски: в ближайшей группе с <title> «комментарий Miro …» ≥ 60% слов строки
+           (по первым 5 буквам) есть в цитате «…» этого title (если цитаты нет — во всём title);
+       исключения (а)/(б) не действуют, если в курсиве есть /UNVERIFIED|источник:|выведено|место на доске|
+       роль подчёркнута|блок между рамками|прикреплён|привязк|наша разметка/.
+   Скобка-комментарий «[» (path из 4 точек: короткий зубец вправо, вертикаль, зубец вправо; fill none) скрывается,
+   только если все подписи того же родителя справа от неё в её высоте — служебные.
+   Никогда не скрываются: узлы и рамки (rect/path/ellipse), стрелки и линии, подписи ролей (жирные), заголовки слоёв,
+   красные точки (g.pt), текст обычного тёмного цвета, красный (#f24726, #b3261e, #d93025), тёмно-серый курсив
+   направлений обмена (#374151). Сомнение — подпись остаётся видимой. Скрытие — visibility:hidden (место сохраняется).
+   Состояние (слой, режим) — localStorage «mapview:<файл>», при недоступности хранилища — по умолчанию «Обе» + рабочий вид. */
+(function(){
+function run(){
+var wrap=document.querySelector('.mapwrap'),svg=wrap&&wrap.querySelector('svg');
+if(!svg||svg.getAttribute('data-mv')||!svg.getScreenCTM)return;svg.setAttribute('data-mv','1');
+var NS='http://www.w3.org/2000/svg',KEY='mapview:'+location.pathname.split('/').pop(),
+    VB0=svg.getAttribute('viewBox'),vb=svg.viewBox&&svg.viewBox.baseVal;
+if(!VB0||!vb||!vb.width)return;
+var X0=vb.x,Y0=vb.y,W=vb.width,H=vb.height,S=svg.getScreenCTM();if(!S)return;var Si=S.inverse();
+function num(el,a){var v=el.getAttribute(a);return v==null?0:parseFloat(v)||0}
+function box(el){var b=el.getBBox(),m=Si.multiply(el.getScreenCTM());
+ return{x:b.x*m.a+m.e,y:b.y*m.d+m.f,w:b.width*m.a,h:b.height*m.d}}
+function clean(s){return (s||'').replace(/\s+/g,' ').trim()}
+var texts=[].slice.call(svg.querySelectorAll('text')).filter(function(t){return !t.closest('.pt,defs,marker')});
+
+/* ---------- слои: границы и подписи ---------- */
+var heads={};
+texts.forEach(function(t){var s=clean(t.textContent),m=/^([АБВ])\.\s+\S/.exec(s);if(m&&!heads[m[1]])heads[m[1]]={t:t,s:s,b:box(t)}});
+var wide=[].slice.call(svg.querySelectorAll('rect')).filter(function(r){return !r.closest('.pt,defs,marker')})
+ .map(function(r){return{el:r,b:box(r)}}).filter(function(o){return o.b.w>=1000});
+function topOf(h){var cy=h.b.y+h.b.h/2,best=null;
+ wide.forEach(function(o){var b=o.b;if(cy>=b.y&&cy<=b.y+b.h&&h.b.x>=b.x-1&&(!best||b.w*b.h<best.w*best.h))best=b});
+ return best?best.y:h.b.y-30}
+var yA=null,yB=null,src='';
+(function(){var it=document.createTreeWalker(wrap,NodeFilter.SHOW_COMMENT),c;
+ while((c=it.nextNode())){var m=/layers:\s*A<(\d+(?:\.\d+)?)\s+B<(\d+(?:\.\d+)?)/.exec(c.nodeValue);if(m){yA=+m[1];yB=+m[2];src='comment';return}}})();
+if(yA==null&&heads['Б']){yA=Math.round(topOf(heads['Б'])-10);yB=heads['В']?Math.round(topOf(heads['В'])-10):Y0+H;src='heads'}
+var LAY=yA==null?null:{A:[Y0,yA],B:[yA,yB],V:[yB,Y0+H]};
+function lab(L,def){var h=heads[L];if(!h)return def;
+ var s=h.s.replace(/^[АБВ]\.\s*/,'').split(/\s+[(+—–]\s*|\s*\(/)[0].replace(/^По\s+/,'').trim();return s||def}
+var NAMES={A:lab('А','Доска Романа'),B:lab('Б','ТЗ 2024–2025')};
+function layerOf(y){if(!LAY)return 'all';return y<LAY.A[1]?'A':(y<LAY.B[1]?'B':'V')}
+
+/* ---------- фон слоёв (шаг 2) ---------- */
+if(LAY){
+ var first=null,kids=[].slice.call(svg.children);
+ for(var i=0;i<kids.length;i++){var k=kids[i],tn=k.tagName.toLowerCase();
+  if(/^(style|defs|title|desc|metadata)$/.test(tn))continue;
+  if(tn==='rect'&&num(k,'x')<=X0&&num(k,'y')<=Y0&&num(k,'width')>=W&&num(k,'height')>=H)first=k;break}
+ var g=document.createElementNS(NS,'g');g.setAttribute('class','mv-bg');g.setAttribute('aria-hidden','true');
+ [['A','#fff7e0'],['B','#eef5ff'],['V','#f3f4f6']].forEach(function(c){var r=LAY[c[0]];if(!(r[1]>r[0]))return;
+  var e=document.createElementNS(NS,'rect');e.setAttribute('x',X0);e.setAttribute('y',r[0]);e.setAttribute('width',W);
+  e.setAttribute('height',r[1]-r[0]);e.setAttribute('fill',c[1]);g.appendChild(e)});
+ if(first)svg.insertBefore(g,first.nextSibling);
+ else{var fg=null;for(var j=0;j<kids.length;j++)if(!/^(style|defs|title|desc|metadata)$/i.test(kids[j].tagName)){fg=kids[j];break}svg.insertBefore(g,fg)}
+ /* белые рамки слоёв — прозрачные, чтобы был виден цвет слоя */
+ wide.forEach(function(o){var f=(o.el.getAttribute('fill')||'').toLowerCase().replace(/\s/g,'');
+  if(/^(#fff|#ffffff|white|rgb\(255,255,255\))$/.test(f)&&num(o.el,'x')<=20&&o.b.w>=.75*W&&o.b.h>=300)o.el.setAttribute('fill-opacity','0')});
+ /* подписи слоёв крупнее — до 22px, если правее в той же строке есть место */
+ Object.keys(heads).forEach(function(L){var h=heads[L],t=h.t,fs=parseFloat(getComputedStyle(t).fontSize)||16,room=Infinity;
+  texts.forEach(function(o){if(o===t)return;var b=box(o);
+   if(b.x>h.b.x+h.b.w-1&&b.y<h.b.y+h.b.h&&b.y+b.h>h.b.y)room=Math.min(room,b.x-12-h.b.x)});
+  var k=Math.min(22/fs,room/h.b.w);if(k>1.02)t.style.fontSize=(fs*k).toFixed(1)+'px'})}
+
+/* ---------- служебные пометки (шаг 4) ---------- */
+var GRAY=['rgb(107, 114, 128)','rgb(95, 102, 112)','rgb(154, 91, 0)'],ITAL=['rgb(107, 114, 128)','rgb(154, 91, 0)'],
+    P_ANY=/наша разметка|^разм\.|id Miro|только чтение|наведите|sanitized|client-materials/i,
+    P_IT=/UNVERIFIED|источник:|выведено|место на доске|роль подчёркнута|блок между рамками|прикреплён|привязк|наша разметка/i;
+function words(s){return (s.toLowerCase().match(/[\p{L}\p{N}]+/gu)||[]).map(function(w){return w.length>5?w.slice(0,5):w})}
+function quotes(s){var r=[],re=/«([^»]*)»/g,m;while((m=re.exec(s)))r.push(m[1]);return r}
+function ctitle(t){for(var e=t.parentNode;e&&e!==svg;e=e.parentNode){var f=e.firstElementChild;
+ if(e.tagName.toLowerCase()==='g'&&f&&f.tagName.toLowerCase()==='title'){var s=clean(f.textContent);return /^комментарий Miro/i.test(s)?s:null}}return null}
+/* абзацы: подписи одного родителя с тем же x и выравниванием, подряд по Y (шаг ≤ 26) */
+var inQuote=new Set(),paras={};
+texts.forEach(function(t){var k=(t.parentNode.__mvid||(t.parentNode.__mvid=Math.random().toString(36).slice(2)))+'|'+t.getAttribute('x')+'|'+(t.getAttribute('text-anchor')||'');
+ (paras[k]=paras[k]||[]).push(t)});
+Object.keys(paras).forEach(function(k){var L=paras[k].sort(function(a,b){return num(a,'y')-num(b,'y')}),run_=[];
+ function flush(){if(!run_.length)return;var s='',off=[];run_.forEach(function(t){off.push(s.length);s+=clean(t.textContent)+' '});
+  var re=/«([^»]*)(»|$)/g,m;while((m=re.exec(s))){if(words(m[1]).length<3)continue;
+   var a=m.index,b=m.index+m[0].length;run_.forEach(function(t,i){var e=off[i]+clean(t.textContent).length;if(off[i]<b&&e>a)inQuote.add(t)})}
+  run_=[]}
+ L.forEach(function(t,i){if(i&&num(t,'y')-num(L[i-1],'y')>26)flush();run_.push(t)});flush()});
+var svc=[];
+texts.forEach(function(t){var s=clean(t.textContent);if(!s)return;var c=getComputedStyle(t),f=c.fill;
+ if(GRAY.indexOf(f)<0)return;
+ if(P_ANY.test(s)){svc.push(t);return}
+ if(c.fontStyle!=='italic'||ITAL.indexOf(f)<0)return;
+ if(!P_IT.test(s)){
+  if(inQuote.has(t))return;
+  var ti=ctitle(t);if(ti){var q=quotes(ti),ref=words(q.length?q.join(' '):ti.replace(/^комментарий Miro[^)]*\)\s*/i,'')),w=words(s),hit=0;
+   w.forEach(function(x){if(ref.indexOf(x)>=0)hit++});if(w.length&&hit/w.length>=.6)return}}
+ svc.push(t)});
+svc.forEach(function(t){t.classList.add('mv-svc')});
+/* скобки «[»: M x+d,y1 L x,y1 L x,y2 L x+d,y2 (d 4…16) */
+[].slice.call(svg.querySelectorAll('path')).forEach(function(p){if(p.closest('.pt'))return;
+ var f=(p.getAttribute('fill')||'').toLowerCase();if(f&&f!=='none')return;
+ var n=(p.getAttribute('d')||'').match(/-?\d+(?:\.\d+)?/g);if(!n||n.length!==8||!/^\s*M[^A-Za-z]*L[^A-Za-z]*L[^A-Za-z]*L[^A-Za-z]*$/i.test(p.getAttribute('d')))return;n=n.map(Number);
+ var d=n[0]-n[2];if(!(n[1]===n[3]&&n[2]===n[4]&&n[5]===n[7]&&n[0]===n[6]&&d>=4&&d<=16&&n[5]>n[3]))return;
+ var mine=[].slice.call(p.parentNode.children).filter(function(t){if(t.tagName.toLowerCase()!=='text')return false;
+  var x=num(t,'x'),y=num(t,'y');return x>=n[2]&&x<=n[2]+700&&y>=n[3]-4&&y<=n[5]+18});
+ if(mine.length&&mine.every(function(t){return t.classList.contains('mv-svc')}))p.classList.add('mv-svc')});
+
+/* ---------- панель над картой (шаги 3–4) ---------- */
+function load(){try{return JSON.parse(localStorage.getItem(KEY)||'null')||{}}catch(e){return{}}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify({layer:st.layer,client:st.client}))}catch(e){}}
+var st=load();if(!LAY||['A','B','all'].indexOf(st.layer)<0)st.layer='all';st.client=!!st.client;
+var bar=document.createElement('div');bar.className='mapview';bar.setAttribute('role','toolbar');bar.setAttribute('aria-label','Вид карты');
+function seg(label,items,on){var h=document.createElement('span');h.className='mv-h';h.textContent=label;bar.appendChild(h);
+ var s=document.createElement('span');s.className='mv-seg';s.setAttribute('role','group');s.setAttribute('aria-label',label.replace(/:$/,''));
+ items.forEach(function(it){var b=document.createElement('button');b.type='button';b.setAttribute('data-v',it[0]);
+  if(it[2]){var sw=document.createElement('span');sw.className='mv-sw';sw.style.background=it[2];b.appendChild(sw)}
+  b.appendChild(document.createTextNode(it[1]));if(it[3])b.title=it[3];
+  b.addEventListener('click',function(){on(it[0])});s.appendChild(b)});bar.appendChild(s);return s}
+var segL=LAY?seg('Слои:',[['A',NAMES.A,'#fff7e0','Только слой А — '+NAMES.A],['B',NAMES.B,'#eef5ff','Только слой Б — '+NAMES.B],
+  ['all','Обе',null,'Вся карта: оба слоя и справочный слой портала']],function(v){setLayer(v,true)}):null;
+var segC=seg('Вид:',[['work','Рабочий вид',null,'Все пометки нашей разметки видны'],
+  ['client','Показ клиенту',null,'Скрыть служебные пометки: наша разметка, источники, id, «уточнить»; узлы, стрелки, роли и красные точки остаются']],
+  function(v){setClient(v==='client',true)});
+var note=document.createElement('p');note.className='mv-note';note.hidden=true;bar.appendChild(note);
+wrap.parentNode.insertBefore(bar,wrap);
+function mark(s,v){[].forEach.call(s.querySelectorAll('button'),function(b){b.setAttribute('aria-pressed',String(b.getAttribute('data-v')===v))})}
+function setLayer(v,user){if(!LAY)v='all';st.layer=v;
+ if(v==='all')svg.setAttribute('viewBox',VB0);
+ else{var r=LAY[v];svg.setAttribute('viewBox',[X0,r[0],W,r[1]-r[0]].join(' '))}
+ if(segL)mark(segL,v);
+ note.hidden=v==='all';note.textContent=v==='all'?'':'Показан только слой «'+NAMES[v]+'». Точка из другого слоя в «Найти точку» — карта переключится на «Обе».';
+ if(user){save();var top=wrap.getBoundingClientRect().top;if(top<0)scrollBy(0,top-80);wrap.scrollTop=0}}
+function setClient(on,user){st.client=on;svg.classList.toggle('mv-client',on);mark(segC,on?'client':'work');if(user)save()}
+/* точки: слой по центру круга (в исходных координатах) */
+var ptLayer={};
+[].forEach.call(svg.querySelectorAll('g.pt'),function(g){var c=g.querySelector('circle'),m=/^p(\d+)$/.exec(g.id||'');
+ if(c&&m){var b=box(c);ptLayer[m[1]]=layerOf(b.y+b.h/2)}});
+function need(n){if(st.layer!=='all'&&ptLayer[n]&&ptLayer[n]!==st.layer)setLayer('all',true)}
+/* навигатор: до его обработчика (фаза перехвата на document) */
+document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('#ptnav button[data-p]');if(b)need(b.getAttribute('data-p'))},true);
+function fromHash(){var m=/^#p(\d+)$/.exec(location.hash);if(m)need(m[1])}
+addEventListener('hashchange',fromHash);
+setLayer(st.layer,false);setClient(st.client,false);fromHash()}
+if(document.querySelector('.mapwrap svg'))run();else document.addEventListener('DOMContentLoaded',run);
+})();
+</script>

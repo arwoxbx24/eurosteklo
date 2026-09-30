@@ -25,6 +25,7 @@ COMMON = Path(__file__).parent
 CSS = (COMMON / "base.css").read_text(encoding="utf8")
 ZOOM = (COMMON / "zoom.html").read_text(encoding="utf8")
 LANES = (COMMON / "lanes.html").read_text(encoding="utf8") if (COMMON / "lanes.html").exists() else ""  # роли слева закреплены (Т5)
+MAPVIEW = (COMMON / "mapview.html").read_text(encoding="utf8") if (COMMON / "mapview.html").exists() else ""  # слои, «Показ клиенту» (e6)
 # Панель справа на карте (e4): «кто за что отвечает» по клику на роль, карточка вопроса по клику на точку.
 PANEL = (COMMON / "mappanel.html").read_text(encoding="utf8") if (COMMON / "mappanel.html").exists() else ""
 # Имена окон: ссылки открывают документ во втором окне и переиспользуют его.
@@ -32,7 +33,8 @@ WIN_KARTA, WIN_OBSL = "evro-karta", "evro-obsl"
 WIN_SEE = "evro-see"  # ссылка «этот вопрос задаём в …» на другой процесс — третье окно, встреча не теряется
 SRC_OK = ("доска", "ТЗ", "СМ", "журнал", "наш")  # допустимые data-src; «портал» запрещён (аудит интегратора)
 # Хранилище ответов встречи — одно на короткую версию и карту (e4): ключ, перенос v2/старого ключа, структура
-# {v:3, meeting, items:{N:{s, who, t, ifs:{eN:true}, ifc, ex:{j:true}}}}. Текст вставляется в оба скрипта.
+# {v:3, meeting, items:{N:{s, who, t, ifs:{eN:true}, ifc, ex:{j:true}}}, saved:{at, h}}. Текст вставляется в оба скрипта.
+# saved (e6) — время и отпечаток последней выгрузки .md: «не сохранено» = ответы изменились после неё.
 ANS_CORE = """var K='evro-{SLUG}-answers.v3',K2='evro-{SLUG}-answers.v2',K1='evro-{SLUG}-answers';
 function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
 function jp(k){try{return JSON.parse(get(k)||'null')}catch(e){return null}}
@@ -274,8 +276,8 @@ addEventListener('hashchange',fromHash);fromHash();})();</script>"""
     (p.out / KARTA).write_text(page(
         f"Евростекло · {p.name}: карта процесса", p.map_lead,
         (f'<section><details><summary><b>Паспорт процесса: кто есть кто</b> — участники, роли (раскрыть)</summary>{pasport}</details></section>' if pasport else '')
-        + legend + f'<section><h2>Карта «{p.name}»</h2><p class="src">Карту можно тянуть мышью; масштаб схемы — кнопки справа внизу, клавиши + и − или Ctrl + колесо над схемой (меняется только схема). Подпись роли слева — нажмите: кто за что отвечает. Красный номер — вопрос откроется справа, отметки те же, что на странице вопросов (Ctrl/⌘ + клик — открыть страницу вопросов).</p>'
-        + navbar + f'<div class="mapwrap">{svg}</div></section>' + pan + LANES + mapjs + PANEL,
+        + legend + f'<section><h2>Карта «{p.name}»</h2><p class="src">Карту можно тянуть мышью; масштаб схемы — кнопки справа внизу, клавиши + и − или Ctrl + колесо над схемой (меняется только схема). Подпись роли слева — нажмите: кто за что отвечает. Красный номер — откроется страница вопросов в отдельном окне (клиент вопросов на карте не видит). Над картой: «Слои» — доска Романа, ТЗ 2024–2025 или обе; «Показ клиенту» — прячет наши служебные пометки.</p>'
+        + navbar + f'<div class="mapwrap">{svg}</div></section>' + pan + LANES + MAPVIEW + mapjs + PANEL,
         map_css, docnav(KARTA)), encoding="utf8")
 
     # ---------- Подробная версия ----------
@@ -362,11 +364,12 @@ addEventListener('hashchange',fromHash);fromHash();})();</script>"""
             tag = f'<span class="first">повестка · {povn[n]}</span>' if n in povn else ""
         else:
             tag = '<span class="first">начать с этого</span>' if first else ""
+        povat = f' data-pov="{povn[n]}"' if pov and n in povn else ""
         return f"""<article class="q" id="t{n}">
 <div class="qh"><a class="pt" href="{KARTA}#p{n}" target="{WIN_KARTA}" title="Точка {lab(n)} на карте">{lab(n)}</a><h3>{html.escape(c['title'])}</h3><span class="tp">{html.escape(c['type'])}</span>{tag}</div>
 <p class="ask">{html.escape(c['q'])}</p>{extra}
 {ifblock}
-<div class="ans" data-n="{n}"><span class="lbl">Статус точки:</span>
+<div class="ans" data-n="{n}"{povat}><span class="lbl">Статус точки:</span>
 <label><input type="radio" name="a{n}" value="Подтвердил"> подтвердил</label>
 <label><input type="radio" name="a{n}" value="Иначе"> иначе</label>
 <label><input type="radio" name="a{n}" value="Не знает"> не знает</label>
@@ -400,7 +403,16 @@ details ul{margin:6px 0;padding-left:22px}
 #povblk ol{margin:6px 0 10px;padding-left:24px}#povblk li{margin:4px 0}#povblk a{color:var(--accent)}#povblk a.pt{color:#fff;text-decoration:none;min-width:26px;height:26px;font-size:13px}
 #povblk li.cut{list-style:none;margin:10px 0 10px -24px;border-top:2px dashed var(--muted);padding-top:4px;color:var(--muted);font-size:14px}
 #povblk button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
-body.onlypov article.q.nopov{display:none}"""
+body.onlypov article.q.nopov{display:none}
+.meetrow{display:flex;gap:10px 16px;align-items:center;flex-wrap:wrap}
+.meetrow button,.bar button.pri{font:600 15px system-ui,sans-serif;padding:8px 14px;border-radius:8px;border:1px solid var(--accent);background:var(--accent);color:#fff;cursor:pointer}
+.amodal{position:fixed;inset:0;z-index:80;background:rgba(20,25,32,.45);display:flex;align-items:center;justify-content:center;padding:16px}
+.amodal[hidden]{display:none}
+.abox{background:#fff;border-radius:12px;max-width:560px;width:100%;padding:18px 22px;box-shadow:0 10px 40px rgba(0,0,0,.3);font-size:17px}
+.abox h3{margin:0 0 10px;font-size:21px}.abox p{margin:6px 0}.abox .bar{margin-top:16px;justify-content:flex-end}
+.anscnt{position:fixed;right:14px;bottom:70px;z-index:50;font:600 14px system-ui,sans-serif;background:#fff;border:1px solid #cfc8bb;border-radius:10px;padding:6px 10px;box-shadow:0 3px 12px rgba(0,0,0,.15);color:#1d2530;cursor:pointer}
+.anscnt.dirty{border-color:#b3261e;color:#8c1d1d}
+@media print{.anscnt,.amodal{display:none}}"""
     order_note = ("Порядок: сначала точки повестки (блок вверху), дальше остальные; «Только повестка» скрывает остальные карточки."
                   if pov else "Порядок: первые 5 — рекомендуемое начало, дальше остальные.")
     how = f"""<section><h2>Как вести встречу</h2><ol>
@@ -408,9 +420,11 @@ body.onlypov article.q.nopov{display:none}"""
 <li>Читаете крупный вопрос. Клиент показывает на экране {p.item_last}, а не рассказывает «как обычно».</li>
 <li>Статус точки: подтвердил / иначе / не знает / знает другой человек (впишите, кто). «Как на самом деле» — коротко.</li>
 <li>«А если…» и «Ещё:» — галочка у того, что обсудили; уточнение — в поле «комментарий».</li>
-<li>В конце — «Сохранить ответы»: скачается .md с датой, статусами, отмеченными и не обсуждёнными пунктами. Ответы хранятся только в этом браузере; это черновик, источник — транскрипт видео.</li></ol>
+<li>В конце — «Завершить встречу»: сводка (сколько точек со статусом, какие без статуса, сколько «А если…» отмечено) → вернуться и спросить или сохранить. «Сохранить ответы» скачивает .md с датой, статусами, отмеченными и не обсуждёнными пунктами. Ответы хранятся только в этом браузере; это черновик, источник — транскрипт видео.</li>
+<li>Счётчик справа внизу: «не сохранено» — есть изменения после последнего .md (при закрытии вкладки браузер переспросит). Продолжить в другом браузере — «Загрузить ответы (.md)» тем же файлом: отметки восстановятся целиком.</li></ol>
 <p class="src">{order_note} Все вопросы подробной версии здесь есть; источники и разбор — в «подробно».</p></section>"""
-    meet = '<section><label class="meet">Дата встречи: <input type="date" id="meet"></label></section>'
+    meet = ('<section><div class="meetrow"><label class="meet">Дата встречи: <input type="date" id="meet"></label>'
+            '<button type="button" class="finish">Завершить встречу</button></div></section>')
     povblk = povjs = ""
     if pov:
         inner = re.sub(r'^<section id="povestka">|</section>$', "", pov_render(pov, "short").strip())
@@ -422,31 +436,57 @@ function set(on){document.body.classList.toggle('onlypov',on);b.classList.toggle
  b.textContent=on?'Показать все вопросы':'Только повестка';try{on?localStorage.setItem(K,'1'):localStorage.removeItem(K)}catch(e){}}
 var on=false;try{on=localStorage.getItem(K)==='1'}catch(e){}set(on);
 b.addEventListener('click',function(){set(!document.body.classList.contains('onlypov'))});})();</script>""".replace("{SLUG}", p.slug))
-    tail = """<section><h2>Итог встречи</h2><div class="bar"><button type="button" id="save">Сохранить ответы (.md)</button><button type="button" id="clear">Очистить ответы</button></div></section>
-<script>(function(){""" + ANS_CORE + """
-var d=load();
-function put(){store(d)}
+    # Итог встречи (e6): выгрузка .md с машинным блоком, загрузка .md, «Завершить встречу», «не сохранено» + beforeunload.
+    tail = r"""<section><h2>Итог встречи</h2><div class="bar"><button type="button" id="save">Сохранить ответы (.md)</button><button type="button" id="load">Загрузить ответы (.md)</button><input type="file" id="loadf" accept=".md,.txt" hidden><button type="button" class="finish pri">Завершить встречу</button><button type="button" id="clear">Очистить ответы</button></div></section>
+<div class="amodal" id="amodal" hidden><div class="abox" role="dialog" aria-modal="true" aria-labelledby="amh"><h3 id="amh"></h3><div id="amb"></div><div class="bar" id="ambar"></div></div></div>
+<button type="button" class="anscnt" id="anscnt" title="Завершить встречу — сводка"></button>
+<script>(function(){""" + ANS_CORE + r"""
+var SLUG='{SLUG}',NAMES={NAMES},d=load();
 function it(n){return d.items[n]||(d.items[n]={})}
 function rd(n){return d.items[n]||{}}
-var mt=document.getElementById('meet');mt.value=d.meeting||'';mt.addEventListener('change',function(){d.meeting=mt.value;put()});
-document.querySelectorAll('article.q').forEach(function(a){var n=a.id.slice(1),s=rd(n),b=a.querySelector('.ans'),w=b.querySelector('.who');
- function sw(){w.hidden=(rd(n).s!=='Знает другой')}
- b.querySelectorAll('input[type=radio]').forEach(function(i){if(i.value===s.s)i.checked=true;i.addEventListener('change',function(){it(n).s=i.value;sw();put()})});
- w.value=s.who||'';sw();w.addEventListener('input',function(){it(n).who=w.value;put()});
- var t=b.querySelector('textarea');t.value=s.t||'';t.addEventListener('input',function(){it(n).t=t.value;put()});
- [['if','ifs'],['ex','ex']].forEach(function(p){a.querySelectorAll('input[data-'+p[0]+']').forEach(function(c){var k=c.getAttribute('data-'+p[0]);
-  c.checked=!!(s[p[1]]&&s[p[1]][k]);c.addEventListener('change',function(){var x=it(n),m=x[p[1]]||(x[p[1]]={});if(c.checked)m[k]=true;else delete m[k];put()})})});
- var f=a.querySelector('.ifc');if(f){f.value=s.ifc||'';f.addEventListener('input',function(){it(n).ifc=f.value;put()})}});
-/* карта (e4) пишет в тот же ключ из другого окна — отметки подхватываются без перезагрузки */
-addEventListener('storage',function(e){if(e.key!==K)return;d=load();mt.value=d.meeting||'';
- document.querySelectorAll('article.q').forEach(function(a){var n=a.id.slice(1),s=rd(n),b=a.querySelector('.ans'),w=b.querySelector('.who');
+/* отпечаток ответов для «не сохранено»: ключи по порядку, пустые значения и служебное saved не считаются */
+function canon(v){if(v&&typeof v==='object'){var o=[];Object.keys(v).sort().forEach(function(k){if(k==='saved')return;var c=canon(v[k]);if(c!=='')o.push(JSON.stringify(k)+':'+c)});return o.length?'{'+o.join(',')+'}':''}
+ return(v===''||v===false||v==null)?'':JSON.stringify(v)}
+function sig(){return canon({m:d.meeting,i:d.items})}
+function hs(s){var h=5381;for(var i=0;i<s.length;i++)h=(h*33+s.charCodeAt(i))|0;return(h>>>0).toString(36)+'.'+s.length}
+function dirty(){var s=sig();return d.saved&&d.saved.h?hs(s)!==d.saved.h:s!==''}
+function hm(ms){var t=new Date(ms);return('0'+t.getHours()).slice(-2)+':'+('0'+t.getMinutes()).slice(-2)}
+var mt=document.getElementById('meet'),M=document.getElementById('amodal'),cnt=document.getElementById('anscnt'),
+ ALL=[].slice.call(document.querySelectorAll('article.q')),POV=ALL.filter(function(a){return !!a.querySelector('.ans[data-pov]')});
+document.body.appendChild(M);document.body.appendChild(cnt); /* вне масштабируемой .page */
+function scope(){return POV.length?POV:ALL}
+function hasS(a){return !!rd(a.id.slice(1)).s}
+function upd(){var L=scope(),k=L.filter(hasS).length,dt=dirty();
+ cnt.textContent=(POV.length?'повестка ':'точки ')+k+'/'+L.length+(dt?' · не сохранено':d.saved&&d.saved.at?' · сохранено '+hm(d.saved.at):'');cnt.classList.toggle('dirty',dt)}
+function put(){store(d);upd()}
+function render(){mt.value=d.meeting||'';
+ ALL.forEach(function(a){var n=a.id.slice(1),s=rd(n),b=a.querySelector('.ans'),w=b.querySelector('.who');
  b.querySelectorAll('input[type=radio]').forEach(function(i){i.checked=(i.value===s.s)});
  w.value=s.who||'';w.hidden=(s.s!=='Знает другой');b.querySelector('textarea').value=s.t||'';
  [['if','ifs'],['ex','ex']].forEach(function(p){a.querySelectorAll('input[data-'+p[0]+']').forEach(function(c){c.checked=!!(s[p[1]]&&s[p[1]][c.getAttribute('data-'+p[0])])})});
- var f=a.querySelector('.ifc');if(f)f.value=s.ifc||''})});
+ var f=a.querySelector('.ifc');if(f)f.value=s.ifc||''});upd()}
+mt.addEventListener('change',function(){d.meeting=mt.value;put()});
+ALL.forEach(function(a){var n=a.id.slice(1),b=a.querySelector('.ans'),w=b.querySelector('.who'),t=b.querySelector('textarea');
+ b.querySelectorAll('input[type=radio]').forEach(function(i){i.addEventListener('change',function(){it(n).s=i.value;w.hidden=(i.value!=='Знает другой');put()})});
+ w.addEventListener('input',function(){it(n).who=w.value;put()});
+ t.addEventListener('input',function(){it(n).t=t.value;put()});
+ [['if','ifs'],['ex','ex']].forEach(function(p){a.querySelectorAll('input[data-'+p[0]+']').forEach(function(c){var k=c.getAttribute('data-'+p[0]);
+  c.addEventListener('change',function(){var x=it(n),m=x[p[1]]||(x[p[1]]={});if(c.checked)m[k]=true;else delete m[k];put()})})});
+ var f=a.querySelector('.ifc');if(f)f.addEventListener('input',function(){it(n).ifc=f.value;put()})});
+render();
+/* карта (e4) пишет в тот же ключ из другого окна — отметки подхватываются без перезагрузки */
+addEventListener('storage',function(e){if(e.key!==K)return;d=load();render()});
+/* своё окно вместо alert/confirm: заголовок, абзацы (текстом), кнопки [подпись, действие, главная] */
+function modal(h,ps,btns){document.getElementById('amh').textContent=h;var B=document.getElementById('amb'),bar=document.getElementById('ambar');B.innerHTML='';bar.innerHTML='';
+ ps.forEach(function(t){var p=document.createElement('p');p.textContent=t;B.appendChild(p)});
+ btns.forEach(function(x){var e=document.createElement('button');e.type='button';e.textContent=x[0];if(x[2])e.className='pri';e.onclick=function(){M.hidden=true;if(x[1])x[1]()};bar.appendChild(e)});
+ M.hidden=false;bar.lastChild.focus()}
+M.addEventListener('click',function(e){if(e.target===M)M.hidden=true});
+addEventListener('keydown',function(e){if(e.key==='Escape'&&!M.hidden)M.hidden=true});
+function msg(h,t){modal(h,[t],[['Понятно']])}
 function lt(c){return c.closest('label').textContent.trim()}
-document.getElementById('save').onclick=function(){var o=['# {NAME} — ответы клиента','','Дата встречи: '+(d.meeting||'—'),'Выгружено: '+new Date().toLocaleString('ru-RU'),''],seen={};
- document.querySelectorAll('article.q').forEach(function(a){var n=a.id.slice(1),s=rd(n),yes=[],no=[];seen[n]=1;
+function md(){var o=['# {NAME} — ответы клиента','','Дата встречи: '+(d.meeting||'—'),'Выгружено: '+new Date().toLocaleString('ru-RU'),''],seen={};
+ ALL.forEach(function(a){var n=a.id.slice(1),s=rd(n),yes=[],no=[];seen[n]=1;
  o.push('## {PFX}'+n+'. '+a.querySelector('h3').textContent,'Вопрос: '+a.querySelector('.ask').textContent,'Статус: '+(s.s||'—'));
  if(s.s==='Знает другой'||s.who)o.push('Кто знает: '+(s.who||'—'));
  o.push('Как на самом деле: '+(s.t||'—'));
@@ -455,16 +495,51 @@ document.getElementById('save').onclick=function(){var o=['# {NAME} — отве
  if(yes.length||no.length||gone.length){o.push('','А если… — обсудили:');o.push.apply(o,yes.length?yes:['- —']);if(s.ifc)o.push('Комментарий: '+s.ifc);
   if(no.length){o.push('','Не обсуждали:');o.push.apply(o,no)}
   gone.forEach(function(k){o.push('- Отмечено раньше, пункт снят: '+k)})}
- var sees=a.querySelectorAll('.ifl p.see');if(sees.length){o.push('','Задаём в другой точке:');sees.forEach(function(x){o.push('- '+x.textContent.replace(/^↪\\s*/,''))})}
- var ex=a.querySelectorAll('input[data-ex]');if(ex.length){o.push('','Ещё:');ex.forEach(function(c){var q=c.closest('.xq').querySelector('span').textContent.replace(/^Ещё:\\s*/,'');
+ var sees=a.querySelectorAll('.ifl p.see');if(sees.length){o.push('','Задаём в другой точке:');sees.forEach(function(x){o.push('- '+x.textContent.replace(/^↪\s*/,''))})}
+ var ex=a.querySelectorAll('input[data-ex]');if(ex.length){o.push('','Ещё:');ex.forEach(function(c){var q=c.closest('.xq').querySelector('span').textContent.replace(/^Ещё:\s*/,'');
   o.push('- '+(s.ex&&s.ex[c.getAttribute('data-ex')]?'[спросили] ':'[не спросили] ')+q)})}
  o.push('')});
  Object.keys(d.items).forEach(function(n){if(seen[n])return;var s=d.items[n]||{};if(!(s.s||s.t||s.who))return;
   o.push('## {PFX}'+n+' (карточки на странице нет)','Статус: '+(s.s||'—'),'Кто знает: '+(s.who||'—'),'Как на самом деле: '+(s.t||'—'),'')});
- o.push('Ответы — рабочий черновик; источник для разблокировки точки — транскрипт видео');
- var u=URL.createObjectURL(new Blob([o.join('\\n')],{type:'text/markdown'}));var l=document.createElement('a');l.href=u;l.download='evrosteklo-{SLUG}-otvety.md';l.click();};
-document.getElementById('clear').onclick=function(){if(confirm('Очистить все ответы?')){d=blank();put();location.reload()}};})();</script>"""
-    tail = tail.replace("{SLUG}", p.slug).replace("{NAME}", p.name).replace("{PFX}", p.pfx)
+ o.push('Ответы — рабочий черновик; источник для разблокировки точки — транскрипт видео','',
+  'Строка ниже — машинный блок для кнопки «Загрузить ответы (.md)»; не редактировать.','');
+ return o.join('\n')}
+/* выгрузка: текст + машинный блок со всем хранилищем v3 («--» экранируется, чтобы не закрыть комментарий) */
+function save(){d.saved={at:Date.now(),h:hs(sig())};store(d);
+ var blk='<!-'+'- evro-answers '+JSON.stringify({slug:SLUG,v:3,data:d}).replace(/--/g,'-\\u002d').replace(/</g,'\\u003c')+' -->';
+ var u=URL.createObjectURL(new Blob([md()+blk+'\n'],{type:'text/markdown'}));var l=document.createElement('a');l.href=u;l.download='evrosteklo-{SLUG}-otvety.md';
+ document.body.appendChild(l);l.click();l.remove();setTimeout(function(){URL.revokeObjectURL(u)},4000);upd()}
+document.getElementById('save').onclick=save;
+/* загрузка .md: машинный блок → проверка процесса → хранилище v3 целиком → перерисовка */
+var lf=document.getElementById('loadf');
+document.getElementById('load').onclick=function(){lf.value='';lf.click()};
+function apply(s,name){var i=s.lastIndexOf('<!-'+'- evro-answers ');
+ if(i<0){msg('Загрузка отменена','Файл «'+name+'» без машинного блока (старый формат) — ответы из него не загрузить. Отметки на странице не изменены.');return}
+ var j=s.indexOf('-->',i),o=null;try{o=JSON.parse(s.slice(i+18,j<0?s.length:j))}catch(e){}
+ if(!o||typeof o!=='object'||!o.data||typeof o.data!=='object'||o.data.v!==3){msg('Загрузка отменена','Машинный блок в файле «'+name+'» повреждён. Отметки на странице не изменены.');return}
+ if(o.slug!==SLUG){msg('Загрузка отменена','Это ответы другого процесса — «'+(NAMES[o.slug]||o.slug)+'», а страница — «{NAME}». Откройте страницу вопросов своего процесса. Отметки на странице не изменены.');return}
+ function go(){var x=o.data;if(!x.items||typeof x.items!=='object')x.items={};if(typeof x.meeting!=='string')x.meeting='';
+  d=x;store(d);render();msg('Ответы загружены','Из файла «'+name+'» восстановлены все отметки: статусы, «кто знает», записи, галочки, комментарии и дата встречи.')}
+ if(dirty())modal('Заменить ответы?',['На странице есть ответы, не сохранённые в .md. Загрузка заменит их содержимым файла «'+name+'».'],[['Отмена'],['Заменить',go,true]]);else go()}
+lf.addEventListener('change',function(){var f=lf.files&&lf.files[0];if(!f)return;var r=new FileReader();
+ r.onload=function(){apply(String(r.result||''),f.name)};r.onerror=function(){msg('Загрузка отменена','Не удалось прочитать файл «'+f.name+'».')};r.readAsText(f,'utf-8')});
+/* «Завершить встречу»: сводка, ничего не обязательно */
+function first(L){for(var i=0;i<L.length;i++)if(!hasS(L[i]))return L[i];return null}
+function finish(){var L=scope(),no=L.filter(function(a){return !hasS(a)}),k=0,dt=dirty();
+ ALL.forEach(function(a){var s=rd(a.id.slice(1));a.querySelectorAll('input[data-if]').forEach(function(c){if(s.ifs&&s.ifs[c.getAttribute('data-if')])k++})});
+ modal('Завершить встречу',[(POV.length?'Повестка: ':'Точки: ')+(L.length-no.length)+' из '+L.length+' с отметкой статуса',
+  'Без статуса: '+(no.length?no.map(function(a){return a.querySelector('a.pt').textContent.trim()}).join(', '):'нет'),
+  'Отмечено «А если…»: '+k,
+  'Не сохранено в .md: '+(dt?'да':'нет'+(d.saved&&d.saved.at?' (сохранено '+hm(d.saved.at)+')':''))],
+  [['Вернуться и спросить',function(){var a=first(L)||first(ALL);if(!a)return;a.scrollIntoView({behavior:'smooth',block:'start'});
+    var r=a.querySelector('input[type=radio]');if(r)try{r.focus({preventScroll:true})}catch(e){}}],
+   ['Сохранить ответы (.md) и завершить',save,true]])}
+document.querySelectorAll('.finish').forEach(function(b){b.onclick=finish});cnt.onclick=finish;
+/* закрытие/обновление вкладки с несохранёнными ответами — стандартное окно браузера */
+addEventListener('beforeunload',function(e){if(!dirty())return;e.preventDefault();e.returnValue='';return ''});
+document.getElementById('clear').onclick=function(){if(confirm('Очистить все ответы?')){d=blank();put();render()}};})();</script>"""
+    names = json.dumps({q.slug: q.name for q in allp.values()}, ensure_ascii=False)
+    tail = tail.replace("{SLUG}", p.slug).replace("{NAME}", p.name).replace("{PFX}", p.pfx).replace("{NAMES}", names)
     (p.out / SHORT).write_text(page(
         f"Евростекло · {p.name}: вопросы к встрече",
         f"{len(cards)} {p.short_lead}",

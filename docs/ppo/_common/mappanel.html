@@ -1,6 +1,7 @@
 <aside class="mpanel" id="mpanel" hidden role="dialog" aria-labelledby="mp-t"><div class="mp-h"><h2 id="mp-t"></h2><button type="button" class="mp-x" aria-label="Закрыть (Esc)" title="Закрыть (Esc)">×</button></div><div class="mp-b" id="mp-b"></div></aside>
 <style>
-/* Панель справа на карте (e4): «кто за что отвечает» (клик по роли, lanes.html) и карточка вопроса (клик по красной точке). */
+/* Панель справа на карте: «Кто за что отвечает» (клик по роли, lanes.html). e6: карточки вопроса по красной точке нет —
+   точка снова открывает страницу вопросов obsledovanie-<slug>.html#tN в окне evro-obsl (ссылка в разметке карты). */
 .mpanel{position:fixed;top:0;right:0;bottom:0;width:min(460px,100vw);z-index:60;background:var(--paper);border-left:1px solid var(--line);box-shadow:-6px 0 24px rgba(0,0,0,.18);display:flex;flex-direction:column;font-size:16px;line-height:1.45}
 .mpanel[hidden]{display:none}
 .mp-h{display:flex;gap:10px;align-items:flex-start;padding:12px 16px 10px;border-top:6px solid var(--accent);border-bottom:1px solid var(--line)}
@@ -12,77 +13,21 @@
 .mp-list{margin:0;padding-left:20px}.mp-list li{margin:3px 0}
 .mp-pts{list-style:none;margin:0;padding:0}.mp-pts li{display:flex;gap:8px;align-items:flex-start;margin:6px 0}
 .mpanel a.pt{flex:0 0 auto;text-decoration:none;color:#fff}
-.mp-ask{margin:6px 0;font-size:18px;font-weight:700;color:var(--accent)}
-.mp-ifl label,.mp-ans label{display:flex;gap:8px;align-items:flex-start;margin:3px 0;cursor:pointer}
-.mp-ifl input,.mp-ans input[type=radio]{width:18px;height:18px;flex:0 0 auto;margin-top:3px}
-.mp-see{margin:3px 0;color:var(--muted);font-size:15px}.mp-see a{color:var(--accent);font-weight:600}
-.mp-ans{margin-top:10px;padding:8px 10px;border-radius:8px;background:#f7f4ed}.mp-ans b{display:block;margin-bottom:2px}
-.mp-ans .who,.mp-ans textarea{display:block;width:100%;margin-top:6px;padding:5px 7px;border:1px solid var(--line);border-radius:6px;font:15px system-ui,sans-serif}
-.mp-ans .who[hidden]{display:none}
-.mp-open{margin:12px 0 0;font-weight:700}.mp-open a{color:var(--accent)}
 .mp-note{margin:10px 0 0;font-size:13px;color:var(--muted)}
 @media print{.mpanel{display:none!important}}
 </style>
 <script>
-/* Панель справа (e4). window.evroPanel.open(заголовок, [узлы], откуда) — общий вызов (роли в lanes.html);
-   клик по красной точке — карточка вопроса из #mapdata; Ctrl/⌘/Shift-клик — прежняя ссылка на страницу вопросов.
-   Ответы — window.evroAns (тот же ключ и формат, что у короткой версии); перед записью читаем свежую копию. */
+/* Панель справа. window.evroPanel.open(заголовок, [узлы], откуда) — общий вызов (роли в lanes.html); close() — закрыть.
+   Клики по красным точкам на карте и по номерам точек в панели не перехватываются: это обычные ссылки
+   на страницу вопросов (target evro-obsl) — e6, шаг 1. */
 (function(){
 var P=document.getElementById('mpanel');if(!P)return;
-var T=document.getElementById('mp-t'),B=document.getElementById('mp-b'),X=P.querySelector('.mp-x'),A=window.evroAns,
-    D={cards:{}},back=null,cur=null;
-try{D=JSON.parse(document.getElementById('mapdata').textContent)||D}catch(e){}
-if(!D.cards)D.cards={};
-function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+var T=document.getElementById('mp-t'),B=document.getElementById('mp-b'),X=P.querySelector('.mp-x'),back=null;
 function open(title,nodes,from){T.textContent=title;B.textContent='';nodes.forEach(function(n){B.appendChild(n)});
  P.hidden=false;B.scrollTop=0;if(from)back=from;try{X.focus({preventScroll:true})}catch(e){}}
-function close(){if(P.hidden)return;P.hidden=true;cur=null;var b=back;back=null;if(b&&b.focus)try{b.focus({preventScroll:true})}catch(e){}}
+function close(){if(P.hidden)return;P.hidden=true;var b=back;back=null;if(b&&b.focus)try{b.focus({preventScroll:true})}catch(e){}}
 X.addEventListener('click',close);
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!P.hidden)close()});
-function data(){var d=null;try{d=A&&A.load()}catch(e){}return d||{v:3,meeting:'',items:{}}}
-function upd(fn){if(!A||cur==null)return;var d=A.load(),x=d.items[cur]||(d.items[cur]={});fn(x);A.store(d)}
-function fill(){if(cur==null)return;var s=data().items[cur]||{};
- B.querySelectorAll('input[name=mp-a]').forEach(function(i){i.checked=(i.value===s.s)});
- var w=B.querySelector('.who');if(w){w.value=s.who||'';w.hidden=(s.s!=='Знает другой')}
- var t=B.querySelector('.mp-ans textarea');if(t)t.value=s.t||'';
- B.querySelectorAll('input[data-if]').forEach(function(c){c.checked=!!(s.ifs&&s.ifs[c.getAttribute('data-if')])})}
-function card(n,from){var c=D.cards[n];if(!c)return false;var lab=(D.pfx||'')+n,nodes=[];cur=null;
- var h=el('p','mp-sub');h.appendChild(el('span','pt',lab));h.appendChild(document.createTextNode(' '+(c.type||'')));nodes.push(h);
- nodes.push(el('p','mp-ask',c.q));
- if(c.ifs.length||c.sees.length){
-  nodes.push(el('h3',null,c.ifs.length?'А если… ('+c.ifs.length+')':'А если… — задаём в других точках ('+c.sees.length+')'));
-  var box=el('div','mp-ifl');
-  c.ifs.forEach(function(x){var l=el('label'),i=el('input');i.type='checkbox';i.setAttribute('data-if',x.id);
-   i.addEventListener('change',function(){upd(function(r){var m=r.ifs||(r.ifs={});if(i.checked)m[x.id]=true;else delete m[x.id]})});
-   l.appendChild(i);l.appendChild(document.createTextNode(' '+x.text));box.appendChild(l)});
-  c.sees.forEach(function(x){var p=el('p','mp-see','↪ '+x.text+' — ');
-   if(x.href){p.appendChild(document.createTextNode('этот вопрос задаём '));var a=el('a',null,x.where);a.href=x.href;a.target=x.win;
-    if(x.n)a.setAttribute('data-n',x.n);p.appendChild(a)}
-   else p.appendChild(el('span',null,'ссылка «'+x.bad+'» не найдена'));
-   box.appendChild(p)});
-  nodes.push(box)}
- var ans=el('div','mp-ans');ans.appendChild(el('b',null,'Статус точки:'));
- [['Подтвердил','подтвердил'],['Иначе','иначе'],['Не знает','не знает'],['Знает другой','знает другой человек']].forEach(function(v){
-  var l=el('label'),i=el('input');i.type='radio';i.name='mp-a';i.value=v[0];
-  i.addEventListener('change',function(){upd(function(r){r.s=v[0]});fill()});
-  l.appendChild(i);l.appendChild(document.createTextNode(' '+v[1]));ans.appendChild(l)});
- var w=el('input','who');w.type='text';w.placeholder='кто знает (роль или имя)';w.hidden=true;
- w.addEventListener('input',function(){upd(function(r){r.who=w.value})});ans.appendChild(w);
- var t=el('textarea');t.rows=3;t.placeholder='Как на самом деле — запишите коротко';
- t.addEventListener('input',function(){upd(function(r){r.t=t.value})});ans.appendChild(t);nodes.push(ans);
- var o=el('p','mp-open'),a=el('a',null,'открыть на странице вопросов →');a.href=(D.short||'')+'#t'+n;a.target=D.win||'_blank';o.appendChild(a);nodes.push(o);
- nodes.push(el('p','mp-note','Отметки хранятся в этом браузере — те же, что на странице вопросов (видны там и здесь).'));
- open(lab+'. '+c.title,nodes,from);cur=String(n);fill();return true}
-/* красная точка: обычный клик — карточка в панели; с Ctrl/⌘/Shift/Alt или не левой кнопкой — ссылка как раньше */
-var svg=document.querySelector('.mapwrap svg');
-if(svg)svg.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a'),g=a&&a.querySelector('g.ptlink');
- if(!g||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey||e.button)return;var n=g.id.slice(1);
- if(D.cards[n]){e.preventDefault();card(n,a)}});
-/* ссылки внутри панели на точку этого же процесса (data-n) — переключают панель */
-B.addEventListener('click',function(e){var a=e.target.closest('a[data-n]');
- if(!a||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey||e.button)return;if(card(a.getAttribute('data-n'),back))e.preventDefault()});
-/* страница вопросов в другом окне пишет в тот же ключ — обновляем открытую карточку */
-addEventListener('storage',function(e){if(A&&e.key===A.K&&!P.hidden)fill()});
-window.evroPanel={open:function(t,n,f){cur=null;open(t,n,f)},card:card,close:close};
+window.evroPanel={open:open,close:close};
 })();
 </script>
