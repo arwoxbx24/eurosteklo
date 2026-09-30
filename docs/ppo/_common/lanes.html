@@ -3,6 +3,10 @@
 .lanes-pin .lp-sh{opacity:0;transition:opacity .15s}
 .lanes-pin.on .lp-sh{opacity:1}
 .lanes-pin{pointer-events:none}
+/* e4: подпись роли кликабельна — панель «Кто за что отвечает» (mappanel.html) */
+.lanes-pin .lp-role{pointer-events:auto;cursor:pointer}
+.lanes-pin .lp-role:hover text,.lanes-pin .lp-role:focus text{text-decoration:underline}
+.lanes-pin .lp-role:focus{outline:none}.lanes-pin .lp-role:focus rect:not(.lp-sh){stroke:#b8480f;stroke-width:3}
 @media print{.lanes-pin g{transform:none!important}.lanes-pin .lp-sh{display:none}}
 </style>
 <script>
@@ -47,11 +51,11 @@ var pin=mk('g',{'class':'lanes-pin'}),units=[];
 function unit(m,x0,lim,nodes,sh){var outer=mk('g',{transform:'translate('+m.e+','+m.f+')'}),inner=mk('g',{});
  if(sh)inner.appendChild(mk('rect',{'class':'lp-sh',x:sh.x,y:sh.y,width:10,height:sh.h,fill:'url(#lanes-pin-sh)'}));
  nodes.forEach(function(n){inner.appendChild(n)});outer.appendChild(inner);pin.appendChild(outer);
- units.push({g:inner,x0:x0,lim:lim})}
+ units.push({g:inner,x0:x0,lim:lim});return outer}
 lanes.forEach(function(L){var r=L.el,b=L.b,m=b.m;
  /* подложка непрозрачная: заливка полосы как есть (#eef1f5), без прозрачности */
  r.removeAttribute('fill-opacity');r.removeAttribute('opacity');
- unit(m,b.x,limitOf(b),[r].concat(L.items),{x:num(r,'x')+num(r,'width'),y:num(r,'y'),h:num(r,'height')})});
+ L.lim=limitOf(b);L.g=unit(m,b.x,L.lim,[r].concat(L.items),{x:num(r,'x')+num(r,'width'),y:num(r,'y'),h:num(r,'height')})});
 heads.forEach(function(H){var bb=H.band.b,br=H.band.el,m=H.b.m,sw=parseFloat(br.getAttribute('stroke-width'))||0,
  lx=bb.x-m.e+sw/2,ly=bb.y-m.f+sw/2,w=H.b.x+H.b.w-bb.x+16,h=bb.h-sw,
  bg=mk('rect',{x:lx,y:ly,width:w,height:h,fill:br.getAttribute('fill')});
@@ -60,6 +64,7 @@ heads.forEach(function(H){var bb=H.band.b,br=H.band.el,m=H.b.m,sw=parseFloat(br.
 var kids=[].slice.call(svg.children),at=null;
 for(var i=kids.length-1;i>=0;i--){var c=kids[i];if(c.matches('.pt')||(c.children.length===1&&c.firstElementChild.matches('.pt')))at=c;else break}
 svg.insertBefore(pin,at);
+roles();
 var raf=0;
 function upd(){raf=0;var R=svg.getBoundingClientRect();if(!R.width)return;
  var wr=wrap.getBoundingClientRect(),s=(wr.left+wrap.clientLeft-R.left)*vbW/R.width,on=false;
@@ -67,6 +72,54 @@ function upd(){raf=0;var R=svg.getBoundingClientRect();if(!R.width)return;
   var v='translate('+t.toFixed(2)+',0)';if(u.v!==v){u.v=v;u.g.setAttribute('transform',v)}});
  pin.classList.toggle('on',on)}
 function req(){if(!raf)raf=requestAnimationFrame(upd)}
+/* e4 «Кто за что отвечает»: клик по подписи роли → панель справа. Данные только с карты: узлы — g с <title>,
+   центр рамки внутри полосы роли по Y и правее полосы (в пределах слоя) по X; текст — видимые <text> узла
+   без служебного «id Miro …»; красные точки (g.pt) в той же полосе — номер, заголовок из <title>, ссылка точки. */
+function roles(){
+ function tl(e){var f=e.firstElementChild;return !!f&&f.tagName.toLowerCase()==='title'}
+ function owner(t){for(var e=t.parentNode;e&&e!==svg;e=e.parentNode)if(e.tagName&&e.tagName.toLowerCase()==='g'&&tl(e))return e;return null}
+ function clean(s){return (s||'').replace(/\s+/g,' ').trim()}
+ function inLane(L,cx,cy){var b=L.b;return cy>=b.y&&cy<=b.y+b.h&&cx>b.x+b.w&&cx<=b.x+b.w+L.lim+1}
+ var nodes=[];
+ [].slice.call(svg.querySelectorAll('g')).forEach(function(g){if(!tl(g)||skip(g))return;
+  var tx=[].slice.call(g.querySelectorAll('text')).filter(function(t){return owner(t)===g})
+   .map(function(t){return clean(t.textContent)}).filter(function(s){return s&&!/^id Miro/i.test(s)});
+  if(!tx.length)return;var b=box(g);nodes.push({x:b.x+b.w/2,y:b.y+b.h/2,text:tx.join(' ')})});
+ var pts=[];
+ [].slice.call(svg.querySelectorAll('g.pt')).forEach(function(g){var c=g.querySelector('circle');if(!c)return;
+  var b=box(c),ti=g.querySelector('title'),lb=g.querySelector('text'),a=g.closest('a'),m=/^p(\d+)$/.exec(g.id||'');
+  pts.push({x:b.x+b.w/2,y:b.y+b.h/2,n:m?m[1]:'',lab:clean(lb&&lb.textContent),
+   title:clean(ti&&ti.textContent).replace(/^Точка \d+:\s*/,''),href:a&&(a.getAttribute('href')||a.getAttribute('xlink:href')),tgt:a&&a.getAttribute('target')})});
+ lanes.forEach(function(L){
+  var bold=[],rest=[];
+  L.items.slice().sort(function(a,b){return box(a).y-box(b).y}).forEach(function(t){var s=clean(t.textContent);if(!s)return;
+   var w=parseInt(getComputedStyle(t).fontWeight,10)||400;(w>=600?bold:rest).push(s)});
+  var name=bold.join(' ')||rest.shift()||'роль',
+      mine=nodes.filter(function(n){return inLane(L,n.x,n.y)}).sort(function(a,b){return a.x-b.x||a.y-b.y}),
+      mp=pts.filter(function(p){return inLane(L,p.x,p.y)}).sort(function(a,b){return a.x-b.x||a.y-b.y}),
+      head=null;
+  heads.forEach(function(H){if(H.b.y<L.b.y&&(!head||H.b.y>head.b.y))head=H});
+  var g=L.g,tt=document.createElementNS(NS,'title');tt.textContent=name+' — нажмите: кто за что отвечает';g.insertBefore(tt,g.firstChild);
+  g.setAttribute('class','lp-role');g.setAttribute('tabindex','0');g.setAttribute('role','button');
+  g.setAttribute('aria-label','Кто за что отвечает — '+name);
+  function show(){var P=window.evroPanel;if(!P)return;var out=[];
+   function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+   if(head)out.push(el('p','mp-sub','Раздел карты: '+clean(head.t.textContent)));
+   if(rest.length)out.push(el('p','mp-sub','Подпись на карте: '+rest.join(' · ')));
+   out.push(el('h3',null,'Действия и документы в дорожке ('+mine.length+')'));
+   if(mine.length){var ul=el('ul','mp-list');mine.forEach(function(n){ul.appendChild(el('li',null,n.text))});out.push(ul)}
+   else out.push(el('p','mp-sub','В этой дорожке на карте нет узлов с подписью.'));
+   out.push(el('h3',null,'Красные точки — вопросы в дорожке ('+mp.length+')'));
+   if(mp.length){var ul2=el('ul','mp-pts');mp.forEach(function(p){var li=el('li'),a=el('a','pt',p.lab||p.n);
+     if(p.href)a.href=p.href;if(p.tgt)a.target=p.tgt;if(p.n)a.setAttribute('data-n',p.n);a.title='Вопрос к встрече';
+     li.appendChild(a);li.appendChild(el('span',null,p.title));ul2.appendChild(li)});out.push(ul2)}
+   else out.push(el('p','mp-sub','Красных точек в этой дорожке нет.'));
+   out.push(el('p','mp-note','Собрано с карты: всё, что нарисовано в полосе роли. Разбивка по дорожкам — разметка карты, а не утверждённый регламент.'));
+   P.open('Кто за что отвечает — '+name,out,g)}
+  var dx=0,dy=0;
+  g.addEventListener('mousedown',function(e){dx=e.clientX;dy=e.clientY});
+  g.addEventListener('click',function(e){if(Math.abs(e.clientX-dx)>5||Math.abs(e.clientY-dy)>5)return;show()});
+  g.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();show()}})})}
 wrap.addEventListener('scroll',req,{passive:true});addEventListener('resize',req);
 if(window.ResizeObserver)new ResizeObserver(req).observe(svg);
 upd()}

@@ -333,19 +333,21 @@ body.onlypov article.q.nopov{display:none}</style></head>
 <script>(function(){var K='evro-lidy-answers.v3',K2='evro-lidy-answers.v2',K1='evro-lidy-answers';
 function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
 function jp(k){try{return JSON.parse(get(k)||'null')}catch(e){return null}}
-function put(){try{localStorage.setItem(K,JSON.stringify(d))}catch(e){}}
 function blank(){return {v:3,meeting:'',items:{}}}
-var d=jp(K);
+function load(){var d=jp(K);
 if(!d||typeof d!=='object'||d.v!==3){d=blank();var o2=jp(K2),o=jp(K1);
  /* v2 и старый ключ только читаются и не стираются; v2: ifs["N"] (позиция) → ifs["eN"] (data-id) */
  if(o2&&typeof o2==='object'&&o2.items&&typeof o2.items==='object'){d.meeting=o2.meeting||'';
   Object.keys(o2.items).forEach(function(n){var r=o2.items[n];if(!r||typeof r!=='object')return;var x={};
    Object.keys(r).forEach(function(k){x[k]=r[k]});
    if(r.ifs&&typeof r.ifs==='object'){x.ifs={};Object.keys(r.ifs).forEach(function(k){if(r.ifs[k])x.ifs[/^\d+$/.test(k)?'e'+k:k]=true})}
-   d.items[n]=x});put()}
+   d.items[n]=x});store(d)}
  /* перенос старого формата {N:{v,t}} */
- else if(o&&typeof o==='object'){var any=false;Object.keys(o).forEach(function(n){var r=o[n];if(r&&(r.v||r.t)){d.items[n]={s:r.v||'',t:r.t||''};any=true}});if(any)put()}}
-if(!d.items||typeof d.items!=='object')d.items={};
+ else if(o&&typeof o==='object'){var any=false;Object.keys(o).forEach(function(n){var r=o[n];if(r&&(r.v||r.t)){d.items[n]={s:r.v||'',t:r.t||''};any=true}});if(any)store(d)}}
+if(!d.items||typeof d.items!=='object')d.items={};return d}
+function store(x){try{localStorage.setItem(K,JSON.stringify(x))}catch(e){}}
+var d=load();
+function put(){store(d)}
 function it(n){return d.items[n]||(d.items[n]={})}
 function rd(n){return d.items[n]||{}}
 var mt=document.getElementById('meet');mt.value=d.meeting||'';mt.addEventListener('change',function(){d.meeting=mt.value;put()});
@@ -357,6 +359,13 @@ document.querySelectorAll('article.q').forEach(function(a){var n=a.id.slice(1),s
  [['if','ifs'],['ex','ex']].forEach(function(p){a.querySelectorAll('input[data-'+p[0]+']').forEach(function(c){var k=c.getAttribute('data-'+p[0]);
   c.checked=!!(s[p[1]]&&s[p[1]][k]);c.addEventListener('change',function(){var x=it(n),m=x[p[1]]||(x[p[1]]={});if(c.checked)m[k]=true;else delete m[k];put()})})});
  var f=a.querySelector('.ifc');if(f){f.value=s.ifc||'';f.addEventListener('input',function(){it(n).ifc=f.value;put()})}});
+/* карта (e4) пишет в тот же ключ из другого окна — отметки подхватываются без перезагрузки */
+addEventListener('storage',function(e){if(e.key!==K)return;d=load();mt.value=d.meeting||'';
+ document.querySelectorAll('article.q').forEach(function(a){var n=a.id.slice(1),s=rd(n),b=a.querySelector('.ans'),w=b.querySelector('.who');
+ b.querySelectorAll('input[type=radio]').forEach(function(i){i.checked=(i.value===s.s)});
+ w.value=s.who||'';w.hidden=(s.s!=='Знает другой');b.querySelector('textarea').value=s.t||'';
+ [['if','ifs'],['ex','ex']].forEach(function(p){a.querySelectorAll('input[data-'+p[0]+']').forEach(function(c){c.checked=!!(s[p[1]]&&s[p[1]][c.getAttribute('data-'+p[0])])})});
+ var f=a.querySelector('.ifc');if(f)f.value=s.ifc||''})});
 function lt(c){return c.closest('label').textContent.trim()}
 document.getElementById('save').onclick=function(){var o=['# Лиды — ответы клиента','','Дата встречи: '+(d.meeting||'—'),'Выгружено: '+new Date().toLocaleString('ru-RU'),''],seen={};
  document.querySelectorAll('article.q').forEach(function(a){var n=a.id.slice(1),s=rd(n),yes=[],no=[];seen[n]=1;

@@ -16,6 +16,7 @@
 Повестка: <section id="povestka"> в tochki.html заменяет section#top5 (строки <li data-p="1 2">, <li class="cut">).
 """
 import html
+import json
 import re
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -24,10 +25,30 @@ COMMON = Path(__file__).parent
 CSS = (COMMON / "base.css").read_text(encoding="utf8")
 ZOOM = (COMMON / "zoom.html").read_text(encoding="utf8")
 LANES = (COMMON / "lanes.html").read_text(encoding="utf8") if (COMMON / "lanes.html").exists() else ""  # роли слева закреплены (Т5)
+# Панель справа на карте (e4): «кто за что отвечает» по клику на роль, карточка вопроса по клику на точку.
+PANEL = (COMMON / "mappanel.html").read_text(encoding="utf8") if (COMMON / "mappanel.html").exists() else ""
 # Имена окон: ссылки открывают документ во втором окне и переиспользуют его.
 WIN_KARTA, WIN_OBSL = "evro-karta", "evro-obsl"
 WIN_SEE = "evro-see"  # ссылка «этот вопрос задаём в …» на другой процесс — третье окно, встреча не теряется
 SRC_OK = ("доска", "ТЗ", "СМ", "журнал", "наш")  # допустимые data-src; «портал» запрещён (аудит интегратора)
+# Хранилище ответов встречи — одно на короткую версию и карту (e4): ключ, перенос v2/старого ключа, структура
+# {v:3, meeting, items:{N:{s, who, t, ifs:{eN:true}, ifc, ex:{j:true}}}}. Текст вставляется в оба скрипта.
+ANS_CORE = """var K='evro-{SLUG}-answers.v3',K2='evro-{SLUG}-answers.v2',K1='evro-{SLUG}-answers';
+function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function jp(k){try{return JSON.parse(get(k)||'null')}catch(e){return null}}
+function blank(){return {v:3,meeting:'',items:{}}}
+function load(){var d=jp(K);
+if(!d||typeof d!=='object'||d.v!==3){d=blank();var o2=jp(K2),o=jp(K1);
+ /* v2 и старый ключ только читаются и не стираются; v2: ifs["N"] (позиция) → ifs["eN"] (data-id) */
+ if(o2&&typeof o2==='object'&&o2.items&&typeof o2.items==='object'){d.meeting=o2.meeting||'';
+  Object.keys(o2.items).forEach(function(n){var r=o2.items[n];if(!r||typeof r!=='object')return;var x={};
+   Object.keys(r).forEach(function(k){x[k]=r[k]});
+   if(r.ifs&&typeof r.ifs==='object'){x.ifs={};Object.keys(r.ifs).forEach(function(k){if(r.ifs[k])x.ifs[/^\\d+$/.test(k)?'e'+k:k]=true})}
+   d.items[n]=x});store(d)}
+ /* перенос старого формата {N:{v,t}} */
+ else if(o&&typeof o==='object'){var any=false;Object.keys(o).forEach(function(n){var r=o[n];if(r&&(r.v||r.t)){d.items[n]={s:r.v||'',t:r.t||''};any=true}});if(any)store(d)}}
+if(!d.items||typeof d.items!=='object')d.items={};return d}
+function store(x){try{localStorage.setItem(K,JSON.stringify(x))}catch(e){}}"""
 COMMON_CSS = """.docnav{margin-top:10px;font-size:15px}.docnav a{color:var(--accent);font-weight:600}"""
 
 
@@ -163,6 +184,31 @@ def build(p: Proc, allp=None):
 <span><span class="pt">{p.pfx}N</span> конфликтная точка — вопрос в документе «Обследование»</span></div>
 <p class="src">{p.legend_src}</p></section>"""
 
+    # ---------- Разбор карточек (нужен карте — панель вопроса, и короткой версии) ----------
+    tochki = (p.parts / "tochki.html").read_text(encoding="utf8")
+    sost = (p.parts / "sostoyaniya.html").read_text(encoding="utf8")
+    cards = {}
+    for n, body in cards_of(tochki).items():
+        dd = dict((txt(k), v) for k, v in re.findall(r"<dt>(.*?)</dt>\s*<dd[^>]*>(.*?)</dd>", body, re.S))
+        cards[n] = {
+            "title": txt(re.search(r"<h3>(.*?)</h3>", body, re.S).group(1)),
+            "type": txt(re.search(r'<span class="tp">(.*?)</span>', body, re.S).group(1)),
+            "q": txt(dd.get("Главный вопрос", "")),
+            "ifs": ifs_of(dd.get("Уточнить по состояниям", "")),
+            "gives": txt(dd.get("Что даст ответ", "")),
+            "extra": [],
+        }
+    # Вопросы из пользовательских историй — к первой точке истории, если такого вопроса ещё нет.
+    for st in re.findall(r"<h3>История.*?</table>", sost, re.S):
+        q = re.search(r"<th>Вопрос клиенту</th><td>(.*?)</td>", st, re.S)
+        ptsc = re.search(r"<th>Точки</th><td>(.*?)</td>", st, re.S)
+        if not (q and ptsc):
+            continue
+        qt = txt(q.group(1))
+        nums = [int(x) for x in re.findall(r">" + re.escape(p.pfx) + r"?(\d+)<", ptsc.group(1)) if int(x) in cards]
+        if nums and all(qt != c["q"] for c in cards.values()):
+            cards[nums[0]]["extra"].append(qt)
+
     # ---------- Карта ----------
     svg = (p.parts / "karta.svg.html").read_text(encoding="utf8")
     pf = p.parts / "pasport.html"
@@ -208,16 +254,31 @@ document.getElementById('ptnav').addEventListener('click',function(e){var b=e.ta
 function fromHash(){var m=location.hash.match(/^#p(\\d+)$/);if(m)setTimeout(function(){go(m[1])},150)}
 addEventListener('hashchange',fromHash);fromHash();})();</script>"""
     pan = pan.replace("{SHORT}", SHORT).replace("{WIN_OBSL}", WIN_OBSL).replace("{PFX}", p.pfx)
+    # Данные карточек для панели вопроса на карте (e4) — тот же разбор, что у короткой версии: «А если…» с флажком
+    # только у своих пунктов (ключ data-id), пункт data-see — строка-ссылка «задаём в …»; ответы — общий ключ ANS_CORE.
+    def map_see(x):
+        s_ = see_of(x["see"], p, allp)
+        if not s_:
+            return {"text": x["text"], "bad": x["see"]}
+        if s_["other"]:
+            return {"text": x["text"], "where": s_["where"], "href": s_["short"], "win": WIN_SEE}
+        return {"text": x["text"], "where": s_["where"], "href": SHORT + s_["short"], "win": WIN_OBSL, "n": parse_see(x["see"])[1]}
+    mapdata = {"pfx": p.pfx, "short": SHORT, "win": WIN_OBSL, "cards": {
+        str(n): {"title": c["title"], "type": c["type"], "q": c["q"],
+                 "ifs": [{"id": x["id"], "text": x["text"]} for x in c["ifs"] if not x["see"]],
+                 "sees": [map_see(x) for x in c["ifs"] if x["see"]]} for n, c in sorted(cards.items())}}
+    mapjs = ('<script type="application/json" id="mapdata">'
+             + json.dumps(mapdata, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/").replace("<!--", "\\u003c!--")
+             + '</script>\n<script>(function(){' + ANS_CORE.replace("{SLUG}", p.slug)
+             + '\nwindow.evroAns={K:K,load:load,store:store};})();</script>')
     (p.out / KARTA).write_text(page(
         f"Евростекло · {p.name}: карта процесса", p.map_lead,
         (f'<section><details><summary><b>Паспорт процесса: кто есть кто</b> — участники, роли (раскрыть)</summary>{pasport}</details></section>' if pasport else '')
-        + legend + f'<section><h2>Карта «{p.name}»</h2><p class="src">Карту можно тянуть мышью; масштаб схемы — кнопки справа внизу, клавиши + и − или Ctrl + колесо над схемой (меняется только схема).</p>'
-        + navbar + f'<div class="mapwrap">{svg}</div></section>' + pan + LANES,
+        + legend + f'<section><h2>Карта «{p.name}»</h2><p class="src">Карту можно тянуть мышью; масштаб схемы — кнопки справа внизу, клавиши + и − или Ctrl + колесо над схемой (меняется только схема). Подпись роли слева — нажмите: кто за что отвечает. Красный номер — вопрос откроется справа, отметки те же, что на странице вопросов (Ctrl/⌘ + клик — открыть страницу вопросов).</p>'
+        + navbar + f'<div class="mapwrap">{svg}</div></section>' + pan + LANES + mapjs + PANEL,
         map_css, docnav(KARTA)), encoding="utf8")
 
     # ---------- Подробная версия ----------
-    tochki = (p.parts / "tochki.html").read_text(encoding="utf8")
-    sost = (p.parts / "sostoyaniya.html").read_text(encoding="utf8")
     m = re.search(r'<section id="top5">.*?</section>', tochki, re.S)
     top5 = m.group(0) if m else ""
     pov = povestka_of(tochki)  # повестка встречи заменяет top5 (порядок карточек и блок вверху короткой версии)
@@ -268,27 +329,6 @@ addEventListener('hashchange',fromHash);fromHash();})();</script>"""
         intro + pasport + legend + (pov_render(pov, "full") if pov else top5) + full_tochki + sost, card_css, docnav(FULL)), encoding="utf8")
 
     # ---------- Короткая версия: сценарий встречи ----------
-    cards = {}
-    for n, body in cards_of(tochki).items():
-        dd = dict((txt(k), v) for k, v in re.findall(r"<dt>(.*?)</dt>\s*<dd[^>]*>(.*?)</dd>", body, re.S))
-        cards[n] = {
-            "title": txt(re.search(r"<h3>(.*?)</h3>", body, re.S).group(1)),
-            "type": txt(re.search(r'<span class="tp">(.*?)</span>', body, re.S).group(1)),
-            "q": txt(dd.get("Главный вопрос", "")),
-            "ifs": ifs_of(dd.get("Уточнить по состояниям", "")),
-            "gives": txt(dd.get("Что даст ответ", "")),
-            "extra": [],
-        }
-    # Вопросы из пользовательских историй — к первой точке истории, если такого вопроса ещё нет.
-    for st in re.findall(r"<h3>История.*?</table>", sost, re.S):
-        q = re.search(r"<th>Вопрос клиенту</th><td>(.*?)</td>", st, re.S)
-        ptsc = re.search(r"<th>Точки</th><td>(.*?)</td>", st, re.S)
-        if not (q and ptsc):
-            continue
-        qt = txt(q.group(1))
-        nums = [int(x) for x in re.findall(r">" + re.escape(p.pfx) + r"?(\d+)<", ptsc.group(1)) if int(x) in cards]
-        if nums and all(qt != c["q"] for c in cards.values()):
-            cards[nums[0]]["extra"].append(qt)
     # Порядок: повестка (строки по порядку, без повторов), иначе top5; дальше остальные по номеру.
     povn = {}  # N → номер строки повестки
     if pov:
@@ -383,22 +423,9 @@ function set(on){document.body.classList.toggle('onlypov',on);b.classList.toggle
 var on=false;try{on=localStorage.getItem(K)==='1'}catch(e){}set(on);
 b.addEventListener('click',function(){set(!document.body.classList.contains('onlypov'))});})();</script>""".replace("{SLUG}", p.slug))
     tail = """<section><h2>Итог встречи</h2><div class="bar"><button type="button" id="save">Сохранить ответы (.md)</button><button type="button" id="clear">Очистить ответы</button></div></section>
-<script>(function(){var K='evro-{SLUG}-answers.v3',K2='evro-{SLUG}-answers.v2',K1='evro-{SLUG}-answers';
-function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
-function jp(k){try{return JSON.parse(get(k)||'null')}catch(e){return null}}
-function put(){try{localStorage.setItem(K,JSON.stringify(d))}catch(e){}}
-function blank(){return {v:3,meeting:'',items:{}}}
-var d=jp(K);
-if(!d||typeof d!=='object'||d.v!==3){d=blank();var o2=jp(K2),o=jp(K1);
- /* v2 и старый ключ только читаются и не стираются; v2: ifs["N"] (позиция) → ifs["eN"] (data-id) */
- if(o2&&typeof o2==='object'&&o2.items&&typeof o2.items==='object'){d.meeting=o2.meeting||'';
-  Object.keys(o2.items).forEach(function(n){var r=o2.items[n];if(!r||typeof r!=='object')return;var x={};
-   Object.keys(r).forEach(function(k){x[k]=r[k]});
-   if(r.ifs&&typeof r.ifs==='object'){x.ifs={};Object.keys(r.ifs).forEach(function(k){if(r.ifs[k])x.ifs[/^\\d+$/.test(k)?'e'+k:k]=true})}
-   d.items[n]=x});put()}
- /* перенос старого формата {N:{v,t}} */
- else if(o&&typeof o==='object'){var any=false;Object.keys(o).forEach(function(n){var r=o[n];if(r&&(r.v||r.t)){d.items[n]={s:r.v||'',t:r.t||''};any=true}});if(any)put()}}
-if(!d.items||typeof d.items!=='object')d.items={};
+<script>(function(){""" + ANS_CORE + """
+var d=load();
+function put(){store(d)}
 function it(n){return d.items[n]||(d.items[n]={})}
 function rd(n){return d.items[n]||{}}
 var mt=document.getElementById('meet');mt.value=d.meeting||'';mt.addEventListener('change',function(){d.meeting=mt.value;put()});
@@ -410,6 +437,13 @@ document.querySelectorAll('article.q').forEach(function(a){var n=a.id.slice(1),s
  [['if','ifs'],['ex','ex']].forEach(function(p){a.querySelectorAll('input[data-'+p[0]+']').forEach(function(c){var k=c.getAttribute('data-'+p[0]);
   c.checked=!!(s[p[1]]&&s[p[1]][k]);c.addEventListener('change',function(){var x=it(n),m=x[p[1]]||(x[p[1]]={});if(c.checked)m[k]=true;else delete m[k];put()})})});
  var f=a.querySelector('.ifc');if(f){f.value=s.ifc||'';f.addEventListener('input',function(){it(n).ifc=f.value;put()})}});
+/* карта (e4) пишет в тот же ключ из другого окна — отметки подхватываются без перезагрузки */
+addEventListener('storage',function(e){if(e.key!==K)return;d=load();mt.value=d.meeting||'';
+ document.querySelectorAll('article.q').forEach(function(a){var n=a.id.slice(1),s=rd(n),b=a.querySelector('.ans'),w=b.querySelector('.who');
+ b.querySelectorAll('input[type=radio]').forEach(function(i){i.checked=(i.value===s.s)});
+ w.value=s.who||'';w.hidden=(s.s!=='Знает другой');b.querySelector('textarea').value=s.t||'';
+ [['if','ifs'],['ex','ex']].forEach(function(p){a.querySelectorAll('input[data-'+p[0]+']').forEach(function(c){c.checked=!!(s[p[1]]&&s[p[1]][c.getAttribute('data-'+p[0])])})});
+ var f=a.querySelector('.ifc');if(f)f.value=s.ifc||''})});
 function lt(c){return c.closest('label').textContent.trim()}
 document.getElementById('save').onclick=function(){var o=['# {NAME} — ответы клиента','','Дата встречи: '+(d.meeting||'—'),'Выгружено: '+new Date().toLocaleString('ru-RU'),''],seen={};
  document.querySelectorAll('article.q').forEach(function(a){var n=a.id.slice(1),s=rd(n),yes=[],no=[];seen[n]=1;
