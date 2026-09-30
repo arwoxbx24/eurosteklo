@@ -35,7 +35,7 @@
 Полный регламент — `docs/specifications/2026-09-30-git-collaboration.md` (П1–П11); точки отката — `docs/CHECKPOINTS.md`; идеи агентов — `docs/idei/<агент>/`.
 
 1. Ствол — `main` (ветка по умолчанию). `codex/8b44-eurosteklo` — архив до 30.09, в неё не писать.
-2. Каждая сессия — своя ветка от свежей `origin/main`: Codex CLI — `codex/<ГГГГ-ММ-ДД>-<суть>`, Claude CLI — `claude-cli/<ГГГГ-ММ-ДД>-<суть>`, Claude Web — ветка от платформы. В чужую ветку не писать. Автор коммитов — своё имя: `git config user.name "Codex CLI"` / `"Claude CLI"` / `"Claude Web"`.
+2. Каждый этап работы — своя ветка от свежей `origin/main` с понятным именем `<агент>/<ГГГГ-ММ-ДД>-<этап>-<суть>` (агент: `codex`, `claude-cli`, `claude-web`; пример `claude-web/2026-09-30-e1-sdelki-oshibki-karty`); ветку, выданную платформой, использовать только для служебного. В чужую ветку не писать. Автор коммитов — своё имя: `git config user.name "Codex CLI"` / `"Claude CLI"` / `"Claude Web"`. Правило владельца 30.09: все процессы — в ветках GitHub, чтобы любой этап можно было откатить.
 3. Начало сессии: `git status` (чисто) → `git fetch origin` → `git switch -c <ветка> origin/main`. Прочитать этот файл, `docs/ppo/HANDOFF.md`, журнал решений, `docs/CHECKPOINTS.md`, свежие `docs/idei/*/`.
 4. Конец сессии: `git diff --check`, поиск ПДн = 0, сборка `python3 docs/ppo/build_all.py` (если трогали `docs/ppo`) → push своей ветки → PR в `main` → слияние merge-коммитом (не squash, не rebase) самим агентом. Клиентские документы (`docs/ppo/**` кроме `HANDOFF.md`, ТЗ, карты) сливаются только после «да» владельца.
 5. Мозговой штурм: каждый агент пишет только в свою `docs/idei/<агент>/`, читают все; в клиентские документы — только после «да» владельца.

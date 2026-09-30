@@ -2,7 +2,7 @@
 <html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Евростекло · Лиды: карта процесса</title><style>@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap');
 :root{--ink:#1d2530;--muted:#5b6573;--paper:#fffdf8;--line:#d9d3c7;--accent:#b8480f;
---board:#1f6b3a;--board-bg:#e5f3e9;--said:#8a5a00;--said-bg:#fbf1d9;--unk:#8c1d1d;--unk-bg:#f8e3e3;--conf:#5b2a86;--conf-bg:#efe6f8;--pt:#d0341c}
+--board:#1f6b3a;--board-bg:#e5f3e9;--said:#8a5a00;--said-bg:#fbf1d9;--unk:#8c1d1d;--unk-bg:#f8e3e3;--conf:#5b2a86;--conf-bg:#efe6f8;--doc:#1f4f7a;--doc-bg:#e3eef8;--own:#3d4a5c;--own-bg:#eceff3;--pt:#d0341c}
 *{box-sizing:border-box}
 body{margin:0;background:#f1ede4;color:var(--ink);font:17px/1.55 "PT Sans","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
 .page{max-width:1240px;margin:0 auto;padding:28px 20px 60px}
@@ -17,9 +17,12 @@ h3{margin:0;font-size:20px}
 .st-said{color:var(--said);background:var(--said-bg)}.st-said::before{content:"“ "}
 .st-unk{color:var(--unk);background:var(--unk-bg);border-style:dashed}.st-unk::before{content:"? "}
 .st-conf{color:var(--conf);background:var(--conf-bg);border-style:dotted}.st-conf::before{content:"⚡ "}
+.st-doc{color:var(--doc);background:var(--doc-bg)}.st-doc::before{content:"▤ "}
+.st-own{color:var(--own);background:var(--own-bg);border-style:double;border-width:3px}.st-own::before{content:"◆ "}
 .tp{display:inline-block;font-size:14px;font-weight:700;padding:1px 10px;border-radius:6px;background:#eef1f5;color:#2d4a66;border:1px solid #b9c6d4}
 .pt{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;border-radius:50%;background:var(--pt);color:#fff;font-weight:800;font-size:15px;padding:0 4px;vertical-align:middle}
 .src{color:var(--muted);font-size:13px}
+small.see{color:var(--muted);font-size:13px}small.see a{color:var(--accent);font-weight:600}
 .tbl{width:100%;border-collapse:collapse;margin:10px 0 18px;font-size:16px}
 .tbl th{background:#3d4a5c;color:#fff;text-align:left;padding:8px 10px}
 .tbl td{border-bottom:1px solid var(--line);padding:8px 10px;vertical-align:top}
@@ -50,10 +53,9 @@ button,input,textarea{font-family:inherit}
 <h3>О проекте</h3>
 <table class="tbl">
 <tr><th>Что</th><th>Статус</th></tr>
-<tr><td>Компания «Евростекло». Задача — заново выстроить процесс продаж, начиная с лидов: последние ~1,5 года портал был заброшен, за это время уволено 30+ сотрудников <small class="src">решение владельца 28.09</small></td><td><span class="st st-said">со слов</span></td></tr>
-<tr><td>Доска Романа — его предположение о процессе, а не истина и не целевой процесс. На доске много противоречий и ошибок; расхождения выносим клиенту вопросом «какой вариант верный сейчас» <small class="src">решение владельца 28.09</small></td><td><span class="st st-board">на доске</span></td></tr>
-<tr><td>Базовая линия прежнего состояния — ТЗ 2024–2025 (метка UNVERIFIED, пока клиент не подтвердит) <small class="src">решение владельца 28.09; sanitized-tz.md</small></td><td><span class="st st-said">со слов</span></td></tr>
-<tr><td>Портал отдельно проверит интегратор (архитектурный аудит). Всё, что здесь сказано о портале, — только справочно <small class="src">решение владельца 28.09</small></td><td><span class="st st-unk">не знаем</span></td></tr>
+<tr><td>Компания «Евростекло». Задача — заново выстроить процесс продаж, начиная с лидов <small class="src">решение владельца 28.09</small></td><td><span class="st st-own">решение владельца</span></td></tr>
+<tr><td>Доска Романа — его представление о процессе, а не утверждённый целевой процесс. Расхождения доски и ТЗ выносим клиенту вопросом «какой вариант верный сейчас» <small class="src">решение владельца 28.09</small></td><td><span class="st st-own">решение владельца</span></td></tr>
+<tr><td>Базовая линия прежнего состояния — ТЗ 2024–2025 (метка UNVERIFIED, пока клиент не подтвердит) <small class="src">решение владельца 28.09; sanitized-tz.md</small></td><td><span class="st st-doc">документ клиента</span></td></tr>
 </table>
 
 <h3>Участники процесса лидов</h3>
@@ -63,7 +65,7 @@ button,input,textarea{font-family:inherit}
 <tr><td>Каналы</td><td>На доске 8 каналов: салоны Артиллерийская, Нарвская, Ленинский, Челнокова, а также Сарафан, vk.ru, Telegram, Авито; связи с «ЛИД» только у Челнокова и Авито <span class="pt">1</span>. В ТЗ каналов 3: АТС (звонок), корпоративная почта, «Восстановление» (ручной ввод из «спящей базы»)</td><td><small class="src">k1 П-03; k3 К-28; ТЗ ФТ-1 (sanitized-tz.md)</small></td><td><span class="st st-conf">противоречие</span></td></tr>
 <tr><td>Битрикс24</td><td>Система, в которой создаётся и ведётся лид</td><td><small class="src">доска, рамка 3074457358429708946; ТЗ ФТ-1</small></td><td><span class="st st-board">на доске</span></td></tr>
 <tr><td>1С</td><td>По ТЗ: поиск карточки клиента в 1С по телефону или почте, исполнитель — «ID менеджера (1с)». Владелец: 1С работает только в сделках (воронка «Активные»), в лидах не участвует <span class="pt">14</span></td><td><small class="src">ТЗ ФТ-1, предусловие и альт. сценарий 1; решение владельца 28.09</small></td><td><span class="st st-conf">противоречие</span></td></tr>
-<tr><td>Роман</td><td>Руководитель (не собственник), должен знать все процессы; автор доски</td><td><small class="src">решение владельца 28.09</small></td><td><span class="st st-said">со слов</span></td></tr>
+<tr><td>Роман</td><td>Руководитель; автор доски</td><td><small class="src">решение владельца 28.09</small></td><td><span class="st st-own">решение владельца</span></td></tr>
 </table>
 
 <h3>Роли</h3>
@@ -71,13 +73,13 @@ button,input,textarea{font-family:inherit}
 <tr><th>Роль</th><th>Где названа</th><th>Что делает с лидом по источнику</th><th>Статус</th></tr>
 <tr><td>? кто разбирает лид</td><td>доска — роль не названа</td><td>Кто разбирает лид и за какой срок, не сказано <span class="pt">3</span> <small class="src">k1 П-02; k2 Р-07</small></td><td><span class="st st-unk">не знаем</span></td></tr>
 <tr><td>Распорядитель</td><td>ТЗ; в ТЗ не расшифрован, на доске его нет</td><td>Исполнитель нового лида; к нему переходит задача, если её не взяли за 30 минут <span class="pt">13</span> <span class="pt">16</span> <small class="src">ТЗ ФТ-1; владельцу роль неизвестна (решение 28.09)</small></td><td><span class="st st-unk">не знаем</span></td></tr>
-<tr><td>Менеджер</td><td>ТЗ</td><td>Исполнитель лида, если клиент найден в 1С («ID менеджера (1с)»); заводит лид «Восстановление»; получает задачу «Созвониться с клиентом» → «Создать заявку» или «Отменено» <small class="src">ТЗ ФТ-1, альт. сценарии 1–2</small></td><td><span class="st st-said">со слов</span></td></tr>
-<tr><td>Менеджер ОП, Ассистент ОП</td><td>доска — только в сделках</td><td>С лидом на доске не связаны. Должности «Ассистент ОП» нет ни в списке сотрудников, ни в портале <small class="src">k3 К-08, К-09; разбор оргструктуры</small></td><td><span class="st st-unk">не знаем</span></td></tr>
-<tr><td>Продавец-консультант</td><td>портал; список сотрудников (салон Нарвская)</td><td>В записи портала — «Ответственный» в карточке лида <small class="src">as-is стр. 82</small></td><td><span class="st st-said">со слов</span></td></tr>
+<tr><td>Менеджер</td><td>ТЗ</td><td>Исполнитель лида, если клиент найден в 1С («ID менеджера (1с)»); заводит лид «Восстановление»; получает задачу «Созвониться с клиентом» → «Создать заявку» или «Отменено» <small class="src">ТЗ ФТ-1, альт. сценарии 1–2</small></td><td><span class="st st-doc">документ клиента</span></td></tr>
+<tr><td>Менеджер ОП, Ассистент ОП</td><td>доска — только в сделках</td><td>С лидом на доске не связаны. Должности «Ассистент ОП» нет в списке сотрудников <small class="src">k3 К-08, К-09; разбор оргструктуры</small></td><td><span class="st st-unk">не знаем</span></td></tr>
+<tr><td>Продавец-консультант</td><td>список сотрудников 2024–2025 (салон Нарвская)</td><td>Роль в лидах не описана <small class="src">sanitized-sotrudniki.md; разбор оргструктуры</small></td><td><span class="st st-unk">не знаем</span></td></tr>
 <tr><td>Руководитель отдела продаж, руководитель направления</td><td>список сотрудников 2024–2025: руководитель ОП — 1 (последний лист), руководители направлений — от 3 (11.02) до 1</td><td>Роль в лидах не описана <small class="src">sanitized-sotrudniki.md; разбор оргструктуры</small></td><td><span class="st st-unk">не знаем</span></td></tr>
 <tr><td>Менеджеры по продажам</td><td>список сотрудников 2024–2025: 3 (11.02), 2 (13.05); на последнем листе — менеджер офисных продаж (3), менеджер отдела продаж (2), ведущий менеджер (1). Салоны в должностях: Советский, Нарвская</td><td>Роль в лидах не описана <small class="src">sanitized-sotrudniki.md; разбор оргструктуры</small></td><td><span class="st st-unk">не знаем</span></td></tr>
 </table>
-<p><small>Состав сотрудников устарел: за ~1,5 года уволено 30+, впереди найм (решение владельца). Поэтому роли описаны как должности, а не как люди.</small></p>
+<p><small>Список сотрудников — 2024–2025 гг., нынешний состав клиентом не подтверждён. Поэтому роли описаны как должности, а не как люди.</small></p>
 
 <h3>Салоны</h3>
 <table class="tbl">
@@ -87,11 +89,13 @@ button,input,textarea{font-family:inherit}
 </section>
 </details></section><section><h2>Как читать</h2><div class="legend">
 <span><span class="st st-board">на доске</span> есть на доске Miro</span>
+<span><span class="st st-doc">документ клиента</span> ТЗ и статусная модель 2024–2025 (UNVERIFIED)</span>
+<span><span class="st st-own">решение владельца</span> журнал решений владельца</span>
 <span><span class="st st-said">со слов</span> запись экрана и речь интегратора</span>
 <span><span class="st st-unk">не знаем</span> источника нет — спросить</span>
 <span><span class="st st-conf">противоречие</span> источники расходятся</span>
 <span><span class="pt">N</span> конфликтная точка — вопрос в документе «Обследование»</span></div>
-<p class="src">Источник: доска клиента «Copy of Евростекло» (Miro, только чтение, 28.09.2026) и запись портала. Доска не изменялась. Это взгляд на схему клиента, а не утверждённый процесс.</p></section><section><h2>Карта «Лиды»</h2><p class="src">Карту можно тянуть мышью; масштаб схемы — кнопки справа внизу, клавиши + и − или Ctrl + колесо над схемой (меняется только схема).</p><div class="ptnav" id="ptnav"><span class="ptnav-h">Найти точку:</span><span class="ptg"><b>А. Доска Романа</b><button type="button" data-p="1" title="8 каналов, линия-связь с «ЛИД» только у 2 (Челнокова, Авито) — как попадают остальные">1</button><button type="button" data-p="3" title="кто разбирает лид и за какой срок — роль не названа">3</button><button type="button" data-p="4" title="в названии рамки «B2B, B2C», а путь один">4</button><button type="button" data-p="6" title="недозвон — на доске нет: сколько попыток, куда уходит лид">6</button><button type="button" data-p="7" title="повторная заявка / клиент уже есть в базе — не описано">7</button><button type="button" data-p="8" title="«с обязательным занесением всех реквизитов в карточку компании» — состава нет; применимость к B2C-физлицу (у него компании нет) — наш вывод, К-26">8</button><button type="button" data-p="9" title="что есть после конвертации: сделка на какой стадии; «Предв. расчёт» левее «Заявки», стрелок между стадиями нет">9</button><button type="button" data-p="10" title="«единый формат занесения информации о контрагенте» (к.7365) и «структура карточек (от Л.А., М.А.)» (к.7350) — самих документов нет; «от» ≠ «одобрено»">10</button><button type="button" data-p="11" title="отказ: «Воронка отказников» и 4 причины без связей, откуда уходят в отказ — не знаем; «Некачественный лид» и «Сделка провалена» в портале — одно или разное">11</button><button type="button" data-p="12" title="«Закупка отложена» лежит среди причин отказа; по смыслу может быть переносом (наш вывод, клиент не подтверждал)">12</button></span><span class="ptg"><b>Б. По ТЗ</b><button type="button" data-p="13" title="«Распорядитель» — кто это: по ТЗ исполнитель нового лида, в ТЗ не расшифрован, на доске нет">13</button><button type="button" data-p="14" title="1С в лидах: по ТЗ поиск клиента в 1С по телефону/почте и исполнитель из 1С; владелец: 1С только в сделках (воронка «Активные»)">14</button><button type="button" data-p="15" title="лид или заявка: по ТЗ статус «Новый», задача «Созвониться с клиентом» → «Создать заявку» / «Отменено»; модель заявки начинается с «Создание лида → Новый» — где кончается лид">15</button><button type="button" data-p="16" title="задача не взята 30 минут → передаётся Распорядителю; что с лидом при «Отменено» — не сказано">16</button></span><span class="ptg"><b>В. Портал</b><button type="button" data-p="2" title="портал: у лида видны «Звонок» и «Открытая линия (Авито)»; «Приложение» и «Почта» — у сделок и компаний; сарафан, vk.ru, Telegram, салоны в записи не показаны">2</button><button type="button" data-p="5" title="на доске у лида нет промежуточных состояний и нет связи с конвертацией; в портале 5 стадий, 982 «Не обработан», «за ними не следят»">5</button></span><div class="ptsel" id="ptsel">Нажмите номер — карта прокрутится к точке и подсветит её.</div></div><div class="mapwrap"><svg class="map" viewBox="0 0 2300 1880" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Карта процесса «Лиды» Евростекла в упрощённом BPMN, три слоя: доска Романа (предположение), ТЗ ФТ-1 (как задумано), портал (справочно); конфликтные точки 1–16">
+<p class="src">Источник: доска клиента «Copy of Евростекло» (Miro, только чтение, 28.09.2026) и запись портала. Доска не изменялась. Это взгляд на схему клиента, а не утверждённый процесс.</p></section><section><h2>Карта «Лиды»</h2><p class="src">Карту можно тянуть мышью; масштаб схемы — кнопки справа внизу, клавиши + и − или Ctrl + колесо над схемой (меняется только схема).</p><div class="ptnav" id="ptnav"><span class="ptnav-h">Найти точку:</span><span class="ptg"><b>А. Доска Романа</b><button type="button" data-p="1" title="8 каналов, линия-связь с «ЛИД» только у 2 (Челнокова, Авито) — как попадают остальные">1</button><button type="button" data-p="3" title="кто разбирает лид и за какой срок — роль не названа">3</button><button type="button" data-p="4" title="в названии рамки «B2B, B2C», а путь один">4</button><button type="button" data-p="6" title="недозвон — на доске нет: сколько попыток, куда уходит лид">6</button><button type="button" data-p="7" title="повторная заявка / клиент уже есть в базе — не описано">7</button><button type="button" data-p="8" title="«с обязательным занесением всех реквизитов в карточку компании» — состава нет; применимость к B2C-физлицу (у него компании нет) — наш вывод, К-26">8</button><button type="button" data-p="9" title="что есть после конвертации: сделка на какой стадии; «Предв. расчёт» левее «Заявки», стрелок между стадиями нет">9</button><button type="button" data-p="10" title="«единый формат занесения информации о контрагенте» (к.7365) и «структура карточек (от Л.А., М.А.)» (к.7350) — самих документов нет; «от» ≠ «одобрено»">10</button><button type="button" data-p="11" title="отказ: «воронка отказников» с 4 причинами без связей на доске и «Отменено» в ТЗ — откуда уходят в отказ, обязательна ли причина">11</button><button type="button" data-p="12" title="«Закупка отложена» лежит среди причин отказа; по смыслу может быть переносом (наш вывод, клиент не подтверждал)">12</button></span><span class="ptg"><b>Б. По ТЗ</b><button type="button" data-p="13" title="«Распорядитель» — кто это: по ТЗ исполнитель нового лида, в ТЗ не расшифрован, на доске нет">13</button><button type="button" data-p="14" title="1С в лидах: по ТЗ участвует (поиск клиента в 1С, исполнитель из 1С), по словам владельца — нет; 1С — неизвестно, уточнить">14</button><button type="button" data-p="15" title="лид или заявка: по ТЗ статус «Новый», задача «Созвониться с клиентом» → «Создать заявку» / «Отменено»; модель заявки начинается с «Создание лида → Новый» — где кончается лид">15</button><button type="button" data-p="16" title="задача не взята 30 минут → передаётся Распорядителю; что с лидом при «Отменено» — не сказано">16</button></span><span class="ptg"><b>В. Портал</b><button type="button" data-p="2" title="источники лида: на доске — каналы (салоны, сарафан, vk.ru, Telegram, Авито), в ТЗ — «АТС», «Почта», «Восстановление»">2</button><button type="button" data-p="5" title="состояния лида: на доске их нет (и нет связи с конвертацией), в ТЗ — один статус «Новый», движется задача">5</button></span><div class="ptsel" id="ptsel">Нажмите номер — карта прокрутится к точке и подсветит её.</div></div><div class="mapwrap"><svg class="map" viewBox="0 0 2300 1880" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Карта процесса «Лиды» Евростекла в упрощённом BPMN, три слоя: доска Романа (предположение), ТЗ ФТ-1 (как задумано), портал (справочно); конфликтные точки 1–16">
 <style>
 .map text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;fill:#1f2937}
 .map .ttl{font-size:20px;font-weight:700}
@@ -331,8 +335,10 @@ button,input,textarea{font-family:inherit}
 <rect x="20" y="944" width="2260" height="666" fill="#fff" stroke="#4b5563" stroke-width="1.6"/>
 <rect x="20" y="944" width="170" height="306" fill="#eef1f5" stroke="#4b5563" stroke-width="1.2"/>
 <text x="32" y="970" class="lane-h" text-anchor="start">Система</text>
-<text x="32" y="990" class="lane-h" text-anchor="start">(Б24 + 1С)</text>
+<text x="32" y="990" class="lane-h" text-anchor="start">(Б24)</text>
 <text x="32" y="1010" class="gray" text-anchor="start">источник: ТЗ ФТ-1</text>
+<text x="32" y="1034" class="warn" text-anchor="start">1С — неизвестно,</text>
+<text x="32" y="1052" class="warn" text-anchor="start">уточнить</text>
 <line x1="20" y1="1250" x2="2280" y2="1250" stroke="#9aa0a6" stroke-width="1.2"/>
 <rect x="20" y="1250" width="170" height="150" fill="#eef1f5" stroke="#4b5563" stroke-width="1.2"/>
 <text x="32" y="1276" class="lane-h" text-anchor="start">Распорядитель</text>
@@ -343,10 +349,11 @@ button,input,textarea{font-family:inherit}
 <rect x="20" y="1400" width="170" height="210" fill="#eef1f5" stroke="#4b5563" stroke-width="1.2"/>
 <text x="32" y="1426" class="lane-h" text-anchor="start">Менеджер</text>
 <text x="32" y="1446" class="gray" text-anchor="start">источник: ТЗ ФТ-1</text>
-<g><title>ТЗ ФТ-1 Л1: «Битрикс24 далее (Система) синхронизирована с 1с.»</title>
+<g><title>ТЗ ФТ-1 Л1: «Битрикс24 далее (Система) синхронизирована с 1с.» — 1С — неизвестно, уточнить</title>
 <path d="M210,960 L200,960 L200,1000 L210,1000" fill="none" stroke="#4b5563" stroke-width="1.6"/>
 <text x="216" y="976" class="lbl" text-anchor="start">Предусловие (Л1): «Битрикс24 далее (Система)</text>
 <text x="216" y="995" class="lbl" text-anchor="start">синхронизирована с 1с.»</text>
+<text x="216" y="1016" class="warn" text-anchor="start">1С — неизвестно, уточнить</text>
 </g>
 <g><title>ТЗ ФТ-1 Л3: «Поступила заявка на заказ посредством звонка ( виртуальная АТС) или корпоративной почты. Система автоматически создает лид»</title>
 <circle cx="240" cy="1100" r="17" fill="#fff" stroke="#1f2937" stroke-width="1.6"/>
@@ -358,13 +365,14 @@ button,input,textarea{font-family:inherit}
 <rect x="320" y="1060" width="240" height="80" rx="12" class="node"/>
 <text x="440" y="1090" class="lbl" text-anchor="middle">Поиск клиента в 1С</text>
 <text x="440" y="1110" class="lbl" text-anchor="middle">по телефону / почте (Л2)</text>
-<text x="440" y="1166" class="warn" text-anchor="middle">1С в лидах — противоречие</text>
-<text x="440" y="1186" class="warn" text-anchor="middle">(владелец: 1С только в сделках),</text>
-<text x="440" y="1206" class="warn" text-anchor="middle">уточнить</text>
+<text x="440" y="1166" class="warn" text-anchor="middle">1С — неизвестно, уточнить</text>
+<text x="440" y="1186" class="warn" text-anchor="middle">(по ТЗ 1С в лидах; владелец:</text>
+<text x="440" y="1206" class="warn" text-anchor="middle">1С только в сделках)</text>
 </g>
 <polyline points="560,1100 628,1100" class="ln-solid" marker-end="url(#ah-solid)"/>
-<g><title>ТЗ ФТ-1 Л9: «Альтернативный сценарий №1: Определена существующая карточка клиента в 1с.» — шлюз «клиент найден в 1С?»</title>
+<g><title>ТЗ ФТ-1 Л9: «Альтернативный сценарий №1: Определена существующая карточка клиента в 1с.» — шлюз «клиент найден в 1С?»; 1С — неизвестно, уточнить</title>
 <polygon points="660,1068 692,1100 660,1132 628,1100" fill="#fff" stroke="#1f2937" stroke-width="1.6"/>
+<text x="660" y="1236" class="warn" text-anchor="middle">1С — неизвестно, уточнить</text>
 </g>
 <text x="705" y="1100" class="b" text-anchor="start">клиент найден</text>
 <text x="705" y="1118" class="b" text-anchor="start">в 1С?</text>
@@ -372,8 +380,9 @@ button,input,textarea{font-family:inherit}
 <text x="670" y="1022" class="b" text-anchor="start">да</text>
 <polyline points="660,1132 660,1170 778,1170" class="ln-solid" marker-end="url(#ah-solid)"/>
 <text x="670" y="1192" class="b" text-anchor="start">нет</text>
-<g><title>ТЗ ФТ-1 Л7, Л9: «Статус: "Новый"– Исполнитель = ID менеджера (1с) – Заполняются базовые поля = значения из полей 1С– Уведомление на Исполнитель»</title>
+<g><title>ТЗ ФТ-1 Л7, Л9: «Статус: "Новый"– Исполнитель = ID менеджера (1с) – Заполняются базовые поля = значения из полей 1С– Уведомление на Исполнитель» — 1С — неизвестно, уточнить</title>
 <rect x="780" y="990" width="310" height="80" rx="12" class="node"/>
+<text x="935" y="980" class="warn" text-anchor="middle">1С — неизвестно, уточнить</text>
 <text x="935" y="1013" class="lbl" text-anchor="middle">Лид: статус «Новый»,</text>
 <text x="935" y="1033" class="lbl" text-anchor="middle">исполнитель = менеджер из 1С,</text>
 <text x="935" y="1053" class="lbl" text-anchor="middle">поля из 1С, уведомление (Л7, Л9)</text>
@@ -404,8 +413,9 @@ button,input,textarea{font-family:inherit}
 <text x="205" y="1420" class="b" text-anchor="start">Восстановление из спящей базы (вручную, Л6)</text>
 </g>
 <polyline points="257,1480 318,1480" class="ln-solid" marker-end="url(#ah-solid)"/>
-<g><title>ТЗ ФТ-1 Л5, Л10: «Источник (указывается вручную: "Восстановление")» · «Исполнитель = ID менеджера (указывается вручную) – Заполняются базовые поля = значения из полей 1С»</title>
+<g><title>ТЗ ФТ-1 Л5, Л10: «Источник (указывается вручную: "Восстановление")» · «Исполнитель = ID менеджера (указывается вручную) – Заполняются базовые поля = значения из полей 1С» — 1С — неизвестно, уточнить</title>
 <rect x="320" y="1430" width="290" height="100" rx="12" class="node"/>
+<text x="465" y="1550" class="warn" text-anchor="middle">1С — неизвестно, уточнить</text>
 <text x="465" y="1455" class="lbl" text-anchor="middle">Завести лид вручную:</text>
 <text x="465" y="1475" class="lbl" text-anchor="middle">источник «Восстановление»,</text>
 <text x="465" y="1495" class="lbl" text-anchor="middle">статус «Новый», исполнитель —</text>
@@ -487,19 +497,19 @@ button,input,textarea{font-family:inherit}
 </g>
 <text x="620" y="1784" class="pg" text-anchor="start">«за ними не следят» (о лидах; речь 00:00:07, в таблице речи 00:00:03 — сверить) — 982 лида в «Не обработан»</text>
 <a href="obsledovanie-lidy.html#t1" target="evro-obsl"><g class="pt ptlink" id="p1"><title>Точка 1: 8 каналов, линия-связь с «ЛИД» только у 2 (Челнокова, Авито) — как попадают остальные</title><circle cx="1540" cy="240" r="14"/><text x="1540" y="245" text-anchor="middle">1</text></g></a>
-<a href="obsledovanie-lidy.html#t2" target="evro-obsl"><g class="pt ptlink" id="p2"><title>Точка 2: портал: у лида видны «Звонок» и «Открытая линия (Авито)»; «Приложение» и «Почта» — у сделок и компаний; сарафан, vk.ru, Telegram, салоны в записи не показаны</title><circle cx="512" cy="1800" r="14"/><text x="512" y="1805" text-anchor="middle">2</text></g></a>
+<a href="obsledovanie-lidy.html#t2" target="evro-obsl"><g class="pt ptlink" id="p2"><title>Точка 2: источники лида: на доске — каналы (салоны, сарафан, vk.ru, Telegram, Авито), в ТЗ — «АТС», «Почта», «Восстановление»</title><circle cx="512" cy="1800" r="14"/><text x="512" y="1805" text-anchor="middle">2</text></g></a>
 <a href="obsledovanie-lidy.html#t3" target="evro-obsl"><g class="pt ptlink" id="p3"><title>Точка 3: кто разбирает лид и за какой срок — роль не названа</title><circle cx="212" cy="435" r="14"/><text x="212" y="440" text-anchor="middle">3</text></g></a>
 <a href="obsledovanie-lidy.html#t4" target="evro-obsl"><g class="pt ptlink" id="p4"><title>Точка 4: в названии рамки «B2B, B2C», а путь один</title><circle cx="700" cy="470" r="14"/><text x="700" y="475" text-anchor="middle">4</text></g></a>
-<a href="obsledovanie-lidy.html#t5" target="evro-obsl"><g class="pt ptlink" id="p5"><title>Точка 5: на доске у лида нет промежуточных состояний и нет связи с конвертацией; в портале 5 стадий, 982 «Не обработан», «за ними не следят»</title><circle cx="1620" cy="1780" r="14"/><text x="1620" y="1785" text-anchor="middle">5</text></g></a>
+<a href="obsledovanie-lidy.html#t5" target="evro-obsl"><g class="pt ptlink" id="p5"><title>Точка 5: состояния лида: на доске их нет (и нет связи с конвертацией), в ТЗ — один статус «Новый», движется задача</title><circle cx="1620" cy="1780" r="14"/><text x="1620" y="1785" text-anchor="middle">5</text></g></a>
 <a href="obsledovanie-lidy.html#t6" target="evro-obsl"><g class="pt ptlink" id="p6"><title>Точка 6: недозвон — на доске нет: сколько попыток, куда уходит лид</title><circle cx="1000" cy="470" r="14"/><text x="1000" y="475" text-anchor="middle">6</text></g></a>
 <a href="obsledovanie-lidy.html#t7" target="evro-obsl"><g class="pt ptlink" id="p7"><title>Точка 7: повторная заявка / клиент уже есть в базе — не описано</title><circle cx="1060" cy="412" r="14"/><text x="1060" y="417" text-anchor="middle">7</text></g></a>
 <a href="obsledovanie-lidy.html#t8" target="evro-obsl"><g class="pt ptlink" id="p8"><title>Точка 8: «с обязательным занесением всех реквизитов в карточку компании» — состава нет; применимость к B2C-физлицу (у него компании нет) — наш вывод, К-26</title><circle cx="1400" cy="375" r="14"/><text x="1400" y="380" text-anchor="middle">8</text></g></a>
 <a href="obsledovanie-lidy.html#t9" target="evro-obsl"><g class="pt ptlink" id="p9"><title>Точка 9: что есть после конвертации: сделка на какой стадии; «Предв. расчёт» левее «Заявки», стрелок между стадиями нет</title><circle cx="1228" cy="578" r="14"/><text x="1228" y="583" text-anchor="middle">9</text></g></a>
 <a href="obsledovanie-lidy.html#t10" target="evro-obsl"><g class="pt ptlink" id="p10"><title>Точка 10: «единый формат занесения информации о контрагенте» (к.7365) и «структура карточек (от Л.А., М.А.)» (к.7350) — самих документов нет; «от» ≠ «одобрено»</title><circle cx="400" cy="545" r="14"/><text x="400" y="550" text-anchor="middle">10</text></g></a>
-<a href="obsledovanie-lidy.html#t11" target="evro-obsl"><g class="pt ptlink" id="p11"><title>Точка 11: отказ: «Воронка отказников» и 4 причины без связей, откуда уходят в отказ — не знаем; «Некачественный лид» и «Сделка провалена» в портале — одно или разное</title><circle cx="400" cy="668" r="14"/><text x="400" y="673" text-anchor="middle">11</text></g></a>
+<a href="obsledovanie-lidy.html#t11" target="evro-obsl"><g class="pt ptlink" id="p11"><title>Точка 11: отказ: «воронка отказников» с 4 причинами без связей на доске и «Отменено» в ТЗ — откуда уходят в отказ, обязательна ли причина</title><circle cx="400" cy="668" r="14"/><text x="400" y="673" text-anchor="middle">11</text></g></a>
 <a href="obsledovanie-lidy.html#t12" target="evro-obsl"><g class="pt ptlink" id="p12"><title>Точка 12: «Закупка отложена» лежит среди причин отказа; по смыслу может быть переносом (наш вывод, клиент не подтверждал)</title><circle cx="780" cy="781" r="14"/><text x="780" y="786" text-anchor="middle">12</text></g></a>
 <a href="obsledovanie-lidy.html#t13" target="evro-obsl"><g class="pt ptlink" id="p13"><title>Точка 13: «Распорядитель» — кто это: по ТЗ исполнитель нового лида, в ТЗ не расшифрован, на доске нет</title><circle cx="1090" cy="1130" r="14"/><text x="1090" y="1135" text-anchor="middle">13</text></g></a>
-<a href="obsledovanie-lidy.html#t14" target="evro-obsl"><g class="pt ptlink" id="p14"><title>Точка 14: 1С в лидах: по ТЗ поиск клиента в 1С по телефону/почте и исполнитель из 1С; владелец: 1С только в сделках (воронка «Активные»)</title><circle cx="574" cy="1140" r="14"/><text x="574" y="1145" text-anchor="middle">14</text></g></a>
+<a href="obsledovanie-lidy.html#t14" target="evro-obsl"><g class="pt ptlink" id="p14"><title>Точка 14: 1С в лидах: по ТЗ участвует (поиск клиента в 1С, исполнитель из 1С), по словам владельца — нет; 1С — неизвестно, уточнить</title><circle cx="574" cy="1140" r="14"/><text x="574" y="1145" text-anchor="middle">14</text></g></a>
 <a href="obsledovanie-lidy.html#t15" target="evro-obsl"><g class="pt ptlink" id="p15"><title>Точка 15: лид или заявка: по ТЗ статус «Новый», задача «Созвониться с клиентом» → «Создать заявку» / «Отменено»; модель заявки начинается с «Создание лида → Новый» — где кончается лид</title><circle cx="1745" cy="1500" r="14"/><text x="1745" y="1505" text-anchor="middle">15</text></g></a>
 <a href="obsledovanie-lidy.html#t16" target="evro-obsl"><g class="pt ptlink" id="p16"><title>Точка 16: задача не взята 30 минут → передаётся Распорядителю; что с лидом при «Отменено» — не сказано</title><circle cx="1508" cy="1412" r="14"/><text x="1508" y="1417" text-anchor="middle">16</text></g></a>
 </svg>
