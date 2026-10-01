@@ -20,3 +20,5 @@
 Облачная сессия Claude Web метки на GitHub отправить не может (Git-прокси платформы их не пропускает; проверено 30.09.2026). Метку по строке реестра ставит Claude CLI или Codex CLI: `git tag -a <метка> -m "<что зафиксировано>" <полный SHA> && git push origin <метка>`. До этого точка отката — полный SHA в таблице.
 
 Метка `checkpoint/2026-09-30-lidy-sdelki` на origin есть (поставил CLI-агент 30.09; `git ls-remote --tags origin` → `575a157`).
+
+01.10.2026 Claude CLI поставил на origin 6 меток: `checkpoint/2026-09-30-e3-dvizhok`, `checkpoint/2026-09-30-e1-sdelki`, `checkpoint/2026-09-30-e2-lidy-sdelki`, `checkpoint/2026-09-30-e4-karta`, `checkpoint/2026-09-30-e5-roli`, `checkpoint/2026-09-30-e6-pokaz`. Проверка `git ls-remote --tags origin 'checkpoint/*'` → 7 меток, коммит каждой совпадает с полным SHA строки таблицы. Приписки «(метку ставит CLI-агент)» в таблице и абзац о недоступности меток выше утратили силу: все 7 точек отката доступны по меткам.
