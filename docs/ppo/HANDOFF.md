@@ -14,7 +14,7 @@
 |---|---|---|
 | Оглавление | готово | `docs/ppo/index.html` |
 | Лиды | **утверждено владельцем** | `docs/ppo/lidy/karta-lidy.html`, `obsledovanie-lidy.html` (вопросы к встрече), `obsledovanie-lidy-podrobno.html`; 16 точек |
-| Сделки | **утверждено владельцем 29.09** | `docs/ppo/sdelki/karta-sdelki.html`, `obsledovanie-sdelki.html`, `obsledovanie-sdelki-podrobno.html`; 24 точки С1…С24 |
+| Сделки | **утверждено владельцем 29.09** | `docs/ppo/sdelki/karta-sdelki.html`, `obsledovanie-sdelki.html`, `obsledovanie-sdelki-podrobno.html`; 29 точек: С1…С24 утверждены владельцем 29.09, С25–С29 добавлены этапом e1 (PR №6) |
 | Журнал решений владельца | ведётся | `docs/ppo/00-resheniya-vladeltsa.md` |
 | Обезличенные исходники | в git | `client-materials/sanitized-tz.md`, `sanitized-statusy.md`, `sanitized-sotrudniki.md` (только имя + должность) |
 | Оригиналы клиента | НЕ в git | `client-materials/private/2026-09-28-docs/` (xlsx/docx, разборы r-tz.md, r-status-org.md) — в новом контейнере может не быть, владелец пришлёт заново |
