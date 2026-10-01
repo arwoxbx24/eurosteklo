@@ -1,0 +1,553 @@
+# Блок B — процесс «Сделки»
+
+Срез: `9690df60bfecfdd5839946f0ca12d9392a2359f3` — фактический вывод `git rev-parse HEAD` приведён ниже.
+skills: csb — `csb-log.md` (родительский маршрут; инструкции загружены исполнителем B); superpowers:dispatching-parallel-agents — `csb-log.md` (запуск родителем); compound-engineering:ce-doc-review — фактическое выполнение отражается в `ce-doc-review-log.md` (этап родителя).
+skip-step: csb — журнал bd.
+
+## Независимый первичный проход
+Матрица и предварительные находки записаны до чтения FACTCHECK, audit и proverka-2026-09-30.
+
+## Прочитано
+
+| Файл | Строк (`wc -l`) | Прочитан | Объём чтения / причина |
+|---|---:|---|---|
+| `docs/ppo/sdelki/_parts/FACTCHECK-tochki.md` | 80 | да | Прочитан после записи первичной матрицы и предварительных находок |
+| `docs/ppo/sdelki/_parts/KARTA-CONTRACT.md` | 18 | да | Первичный текст / целевые диапазоны HTML, подписи и структурный разбор; крупные HTML целиком не выводились |
+| `docs/ppo/sdelki/_parts/TOCHKI.md` | 61 | да | Первичный текст / целевые диапазоны HTML, подписи и структурный разбор; крупные HTML целиком не выводились |
+| `docs/ppo/sdelki/_parts/audit-B.md` | 26 | да | Прочитан после записи первичной матрицы и предварительных находок |
+| `docs/ppo/sdelki/_parts/audit-C.md` | 17 | да | Прочитан после записи первичной матрицы и предварительных находок |
+| `docs/ppo/sdelki/_parts/karta-A.svg.html` | 182 | да | Первичный текст / целевые диапазоны HTML, подписи и структурный разбор; крупные HTML целиком не выводились |
+| `docs/ppo/sdelki/_parts/karta-B.svg.html` | 417 | да | Первичный текст / целевые диапазоны HTML, подписи и структурный разбор; крупные HTML целиком не выводились |
+| `docs/ppo/sdelki/_parts/karta-C.svg.html` | 45 | да | Первичный текст / целевые диапазоны HTML, подписи и структурный разбор; крупные HTML целиком не выводились |
+| `docs/ppo/sdelki/_parts/karta.svg.html` | 646 | да | Первичный текст / целевые диапазоны HTML, подписи и структурный разбор; крупные HTML целиком не выводились |
+| `docs/ppo/sdelki/_parts/pasport.html` | 45 | да | Первичный текст / целевые диапазоны HTML, подписи и структурный разбор; крупные HTML целиком не выводились |
+| `docs/ppo/sdelki/_parts/proverka-2026-09-30/A-oshibki-karty.md` | 103 | да | Прочитан после записи первичной матрицы и предварительных находок |
+| `docs/ppo/sdelki/_parts/proverka-2026-09-30/B-konflikty-karty.md` | 156 | да | Прочитан после записи первичной матрицы и предварительных находок |
+| `docs/ppo/sdelki/_parts/proverka-2026-09-30/C-tz-vs-doska.md` | 259 | да | Прочитан после записи первичной матрицы и предварительных находок |
+| `docs/ppo/sdelki/_parts/proverka-2026-09-30/D-fakty-zaprosov.md` | 244 | да | Прочитан после записи первичной матрицы и предварительных находок |
+| `docs/ppo/sdelki/_parts/proverka-2026-09-30/KONTRAKT-e1.md` | 27 | да | Прочитан после записи первичной матрицы и предварительных находок |
+| `docs/ppo/sdelki/_parts/r-reestry.md` | 76 | да | Первичный текст / целевые диапазоны HTML, подписи и структурный разбор; крупные HTML целиком не выводились |
+| `docs/ppo/sdelki/_parts/r-statusy.md` | 104 | да | Первичный текст / целевые диапазоны HTML, подписи и структурный разбор; крупные HTML целиком не выводились |
+| `docs/ppo/sdelki/_parts/r-tz.md` | 103 | да | Первичный текст / целевые диапазоны HTML, подписи и структурный разбор; крупные HTML целиком не выводились |
+| `docs/ppo/sdelki/_parts/sostoyaniya.html` | 394 | да | Первичный текст / целевые диапазоны HTML, подписи и структурный разбор; крупные HTML целиком не выводились |
+| `docs/ppo/sdelki/_parts/stitch.py` | 29 | да | Первичный текст / целевые диапазоны HTML, подписи и структурный разбор; крупные HTML целиком не выводились |
+| `docs/ppo/sdelki/_parts/tochki.html` | 737 | да | Первичный текст / целевые диапазоны HTML, подписи и структурный разбор; крупные HTML целиком не выводились |
+| `docs/ppo/sdelki/karta-sdelki.html` | 1148 | да | Первичный текст / целевые диапазоны HTML, подписи и структурный разбор; крупные HTML целиком не выводились |
+| `docs/ppo/sdelki/obsledovanie-sdelki-podrobno.html` | 1264 | да | Первичный текст / целевые диапазоны HTML, подписи и структурный разбор; крупные HTML целиком не выводились |
+| `docs/ppo/sdelki/obsledovanie-sdelki.html` | 648 | да | Первичный текст / целевые диапазоны HTML, подписи и структурный разбор; крупные HTML целиком не выводились |
+| `client-materials/sanitized-tz.md` | 45 | да | Разрешённый структурный источник |
+| `client-materials/sanitized-statusy.md` | 48 | да | Разрешённый структурный источник |
+
+## Матрица покрытия
+
+Точек 29, строк матрицы 29. Команда: `grep -cE '^\| С[0-9]+ \|' docs/ppo/sdelki/_parts/TOCHKI.md`; фактический вывод: `29` (полный протокол ниже).
+Класс оценивает представленность темы и согласованность производных документов; он не подтверждает работу бизнеса. Отсутствие отдельного номера в состояниях само по себе не считается ошибкой.
+
+| Точка (TOCHKI.md) | Карта: строка / идентификатор; слой | Состояния: строка / раздел | Класс |
+|---|---|---|---|
+| С1 (`10`) | `karta-sdelki.html:748`, `id="p1"`; `_parts/karta-A.svg.html:165`, `Точка 1:` | `_parts/sostoyaniya.html`: 14, 18, 172; `С1`, `#sostoyaniya` | ПОДТВЕРЖДЕНО |
+| С2 (`11`) | `karta-sdelki.html:748`, `id="p2"`; `_parts/karta-B.svg.html:408`, `Точка 2:` | `_parts/sostoyaniya.html`: 23, 27, 193; `С2`, `#sostoyaniya` | ПОДТВЕРЖДЕНО |
+| С3 (`12`) | `karta-sdelki.html:748`, `id="p3"`; `_parts/karta-A.svg.html:174`, `Точка 3:` | `_parts/sostoyaniya.html`: 23, 27, 200; `С3`, `#sostoyaniya` | ПОДТВЕРЖДЕНО |
+| С4 (`13`) | `karta-sdelki.html:748`, `id="p4"`; `_parts/karta-A.svg.html:168`, `Точка 4:` | `_parts/sostoyaniya.html`: 27, 207; `С4`, `#sostoyaniya` | ПОДТВЕРЖДЕНО |
+| С5 (`14`) | `karta-sdelki.html:748`, `id="p5"`; `_parts/karta-A.svg.html:177`, `Точка 5:` | `_parts/sostoyaniya.html`: 27; `С5`, `#sostoyaniya` | ПОДТВЕРЖДЕНО |
+| С6 (`15`) | `karta-sdelki.html:748`, `id="p6"`; `_parts/karta-B.svg.html:409`, `Точка 6:` | `_parts/sostoyaniya.html`: 32, 36, 207; `С6`, `#sostoyaniya` | ПОДТВЕРЖДЕНО |
+| С7 (`16`) | `karta-sdelki.html:748`, `id="p7"`; `_parts/karta-A.svg.html:170`, `Точка 7:` | `_parts/sostoyaniya.html`: 32, 36, 335; `С7`, `#sostoyaniya` | ПОДТВЕРЖДЕНО |
+| С8 (`17`) | `karta-sdelki.html:748`, `id="p8"`; `_parts/karta-A.svg.html:171`, `Точка 8:` | `_parts/sostoyaniya.html`: 41, 45, 214; `С8`, `#sostoyaniya` | ПОДТВЕРЖДЕНО |
+| С9 (`18`) | `karta-sdelki.html:748`, `id="p9"`; `_parts/karta-B.svg.html:414`, `Точка 9:` | `_parts/sostoyaniya.html`: 50, 54, 63; `С9`, `#sostoyaniya` | НЕСООТВЕТСТВИЕ |
+| С10 (`19`) | `karta-sdelki.html:748`, `id="p10"`; `_parts/karta-A.svg.html:175`, `Точка 10:` | `_parts/sostoyaniya.html`: 68, 72, 228; `С10`, `#sostoyaniya` | ПОДТВЕРЖДЕНО |
+| С11 (`20`) | `karta-sdelki.html:748`, `id="p11"`; `_parts/karta-A.svg.html:176`, `Точка 11:` | `_parts/sostoyaniya.html`: 68, 72, 228; `С11`, `#sostoyaniya` | ПОДТВЕРЖДЕНО |
+| С12 (`21`) | `karta-sdelki.html:748`, `id="p12"`; `_parts/karta-B.svg.html:415`, `Точка 12:` | `_parts/sostoyaniya.html`: 77, 81, 235; `С12`, `#sostoyaniya` | ПОДТВЕРЖДЕНО |
+| С13 (`22`) | `karta-sdelki.html:748`, `id="p13"`; `_parts/karta-A.svg.html:166`, `Точка 13:` | `_parts/sostoyaniya.html`: 86, 90, 242; `С13`, `#sostoyaniya` | ПОДТВЕРЖДЕНО |
+| С14 (`23`) | `karta-sdelki.html:748`, `id="p14"`; `_parts/karta-A.svg.html:167`, `Точка 14:` | `_parts/sostoyaniya.html`: 95, 99, 249; `С14`, `#sostoyaniya` | ПОДТВЕРЖДЕНО |
+| С15 (`24`) | `karta-sdelki.html:748`, `id="p15"`; `_parts/karta-A.svg.html:172`, `Точка 15:` | `_parts/sostoyaniya.html`: 54, 86, 90; `С15`, `#sostoyaniya` | ПОДТВЕРЖДЕНО |
+| С16 (`25`) | `karta-sdelki.html:748`, `id="p16"`; `_parts/karta-A.svg.html:178`, `Точка 16:` | `_parts/sostoyaniya.html`: 95, 99, 249; `С16`, `#sostoyaniya` | ПОДТВЕРЖДЕНО |
+| С17 (`26`) | `karta-sdelki.html:748`, `id="p17"`; `_parts/karta-B.svg.html:410`, `Точка 17:` | `_parts/sostoyaniya.html`: 104, 108, 256; `С17`, `#sostoyaniya` | ПОДТВЕРЖДЕНО |
+| С18 (`27`) | `karta-sdelki.html:748`, `id="p18"`; `_parts/karta-B.svg.html:411`, `Точка 18:` | `_parts/sostoyaniya.html`: 117, 122, 126; `С18`, `#sostoyaniya` | ПОДТВЕРЖДЕНО |
+| С19 (`28`) | `karta-sdelki.html:748`, `id="p19"`; `_parts/karta-A.svg.html:173`, `Точка 19:` | `_parts/sostoyaniya.html`: 122, 374, 375; `С19`, `#sostoyaniya` | ПОДТВЕРЖДЕНО |
+| С20 (`29`) | `karta-sdelki.html:748`, `id="p20"`; `_parts/karta-B.svg.html:412`, `Точка 20:` | `_parts/sostoyaniya.html`: 131, 135, 277; `С20`, `#sostoyaniya` | ПОДТВЕРЖДЕНО |
+| С21 (`30`) | `karta-sdelki.html:748`, `id="p21"`; `_parts/karta-A.svg.html:169`, `Точка 21:` | `_parts/sostoyaniya.html`: 140, 144, 153; `С21`, `#sostoyaniya` | ПОДТВЕРЖДЕНО |
+| С22 (`31`) | `karta-sdelki.html:748`, `id="p22"`; `_parts/karta-B.svg.html:413`, `Точка 22:` | `_parts/sostoyaniya.html`: 4, 18, 172; `С22`, `#sostoyaniya` | ПОДТВЕРЖДЕНО |
+| С23 (`32`) | `karta-sdelki.html:748`, `id="p23"`; `_parts/karta-A.svg.html:179`, `Точка 23:` | `_parts/sostoyaniya.html`: 45; `С23`, `#sostoyaniya` | ПОДТВЕРЖДЕНО |
+| С24 (`33`) | `karta-sdelki.html:748`, `id="p24"`; `_parts/karta-A.svg.html:164`, `Точка 24:` | `_parts/sostoyaniya.html`: 4, 160; `С24`, `#sostoyaniya` | НЕСООТВЕТСТВИЕ |
+| С25 (`34`) | `karta-sdelki.html:748`, `id="p25"`; `_parts/karta-A.svg.html:180`, `Точка 25:` | `_parts/sostoyaniya.html`: Нет номера С25 и DXF; 224–228: переход Оплата → В производстве; 160: ограничение ТЗ/СМ | НЕ ПРОВЕРЕНО (B-04) |
+| С26 (`35`) | `karta-sdelki.html:748`, `id="p26"`; `_parts/karta-B.svg.html:416`, `Точка 26:` | `_parts/sostoyaniya.html`: 41, 45, 50, 54, 219: таймеры подписания/предоплаты и 3/5 дней; отдельного С26 нет | ПОДТВЕРЖДЕНО |
+| С27 (`36`) | `karta-sdelki.html:748`, `id="p27"`; `_parts/karta-A.svg.html:181`, `Точка 27:` | `_parts/sostoyaniya.html`: 36: договор в 1С; 160: ограничение ТЗ/СМ; автоматическое формирование доски (С27) не сопоставлено | НЕ ПРОВЕРЕНО (B-04) |
+| С28 (`37`) | `karta-sdelki.html:748`, `id="p28"`; `_parts/karta-B.svg.html:417`, `Точка 28:` | `_parts/sostoyaniya.html`: 4, 27, 51, 69, 107: создание/номенклатура/оплата/производство/документы; отдельного С28 нет | ПОДТВЕРЖДЕНО |
+| С29 (`38`) | `karta-sdelki.html:748`, `id="p29"`; `_parts/karta-A.svg.html:182`, `Точка 29:` | `_parts/sostoyaniya.html`: 23–27, 190–193: стадия «Заявка», замер и объект «Заявка» ТЗ; отдельного С29 нет | ПОДТВЕРЖДЕНО |
+
+## Предварительные находки до прежних проверок
+
+Первоначально отмечены усиление условия оплаты в С9, исполнитель установки статусов в паспорте, число стадий в реестре, старое распределение С1…С24 в контракте и отсутствие отдельных тем С25/С27 в состояниях. Первые три сохранены как B-01…B-03. Кандидат по контракту снят после чтения явного расширения e1; неполнота состояний отнесена к B-04 с оговоркой об их границах. Это описывает последовательность анализа, а не заменяет доказательства ниже.
+
+## Находки и доказательства
+
+Ссылки Q обозначают точные команды и фактический вывод в приложении. Для длинных строк указан внутренний ориентир. ПОДТВЕРЖДЕНО означает согласованность конкретного проверенного свойства, а не принятие процесса клиентом. НЕ ПРОВЕРЕНО фиксирует предел проверки, а не установленную ошибку.
+
+| ID | Класс | S | Файл:строка | Дословная цитата | Противоречит (файл:строка + цитата) | Что сломается на встрече | Предложение |
+|---|---|---|---|---|---|---|---|
+| B-01 | НЕСООТВЕТСТВИЕ | S1 | `docs/ppo/sdelki/_parts/tochki.html:217 [С9 / Почему это противоречие]`<br>`docs/ppo/sdelki/obsledovanie-sdelki-podrobno.html:326 [id="t9" / Почему это противоречие]` | «Доска требует не меньше 35 % до следующего шага» (Q01)<br>«Доска требует не меньше 35 % до следующего шага» (Q29) | `docs/ppo/sdelki/_parts/tochki.html:613 [С25 / На доске]`: «Связи «оплата → заказ» нет.» (Q02) | С9 превращает порог на доске в условие следующего шага, тогда как С25 прямо отрицает связь оплаты с заказом. Это усиление пересказа доски внутри одного слоя, а не различие доски и ТЗ. | Убрать из С9 утверждение об условии следующего шага; сохранить порог как комментарий доски и отдельный вопрос С25 о связи с запуском. |
+| B-02 | НЕСООТВЕТСТВИЕ | S1 | `docs/ppo/sdelki/_parts/pasport.html:20 [<tr><td>Битрикс24</td>]`<br>`docs/ppo/sdelki/karta-sdelki.html:69 [<tr><td>Битрикс24</td>]`<br>`docs/ppo/sdelki/obsledovanie-sdelki.html:98 [<tr><td>Битрикс24</td>]`<br>`docs/ppo/sdelki/obsledovanie-sdelki-podrobno.html:66 [<tr><td>Битрикс24</td>]` | «<tr><td>Битрикс24</td><td>В статусной модели ведёт 10 новых статусов сделки. Сам ставит «Предварительную заявку», «Замеры и проектирование», «Согласование сделки», «Монтаж»» (Q03)<br>«<tr><td>Битрикс24</td><td>В статусной модели ведёт 10 новых статусов сделки. Сам ставит «Предварительную заявку», «Замеры и проектирование», «Согласование сделки», «Монтаж»» (Q30)<br>«<tr><td>Битрикс24</td><td>В статусной модели ведёт 10 новых статусов сделки. Сам ставит «Предварительную заявку», «Замеры и проектирование», «Согласование сделки», «Монтаж»» (Q31)<br>«<tr><td>Битрикс24</td><td>В статусной модели ведёт 10 новых статусов сделки. Сам ставит «Предварительную заявку», «Замеры и проектирование», «Согласование сделки», «Монтаж»» (Q32) | `client-materials/sanitized-statusy.md:31 [D8]`: «D8=В 1С статус не меняется. В Битриксе, статус Согласование сделки ставит рук. сервиса или конструктор» (Q04)<br>`client-materials/sanitized-statusy.md:39 [D17]`: «A17=8 \| B17=Монтаж \| C17=ответственный менеджер \| D17=Менеджер ставит статус в Битриксе» (Q05) | Паспорт приписывает установку статусов самому Битрикс24. В том же историческом слое СМ согласование ставит руководитель сервиса/конструктор, монтаж — менеджер. Читатель может принять ручные действия за автоматические; пометка AS-WAS эту неточность не устраняет. | Разделить систему, где управляют статусом, и исполнителя. Если «сам ставит» означало только сторону обмена, написать это прямо. Не выдавать вывод за проверку действующего портала. |
+| B-03 | НЕСООТВЕТСТВИЕ | S2 | `docs/ppo/sdelki/_parts/r-reestry.md:45 [С-25]` | «\| С-25 \| Модель стадий и владельцы: 11 стадий доски» (Q06) | `docs/ppo/sdelki/_parts/TOCHKI.md:33 [С24]`: «\| С24 \| Какая модель стадий верная сейчас: 10 стадий доски» (Q07) | Реестр-основание С24 сохраняет 11 стадий, тогда как текущий закреплённый список говорит о 10. Это устаревшее внутреннее основание; восстановление 11 стадий на карте не предлагается. | Пометить значение 11 в историческом реестре как исправленное; связать его с уточнённым подсчётом 10. |
+| B-04 | НЕ ПРОВЕРЕНО | S2 | `docs/ppo/sdelki/_parts/karta-A.svg.html:180 [<title>Точка 25:]`<br>`docs/ppo/sdelki/_parts/karta-A.svg.html:181 [<title>Точка 27:]` | «<g class="pt"><title>Точка 25: Производство запускается от файла DXF — где проверка оплаты?</title>» (Q08)<br>«<g class="pt"><title>Точка 27: Где формируются документы: «автоматическое формирование» на доске ↔ «в 1С» по ТЗ</title>» (Q09) | `docs/ppo/sdelki/_parts/sostoyaniya.html:160 [Переходы между состояниями]`: «Переходы ниже взяты из статусной модели и ТЗ (как было задумано, клиентом не подтверждено).» (Q10) | Отдельного отражения С25/DXF и С27/автоформирования в состояниях нет. Обязательность полного перечня действий не установлена: переходы прямо ограничены ТЗ и СМ. Ошибка модели и неверный переход этим не доказаны. | Зафиксировать границы раздела: перечень статусов либо полное сопоставление действий. Для полного сопоставления добавить ссылки на С25/С27; пока не объявлять отсутствие отдельного шага ошибкой. |
+| B-05 | ПОДТВЕРЖДЕНО | — | `docs/ppo/sdelki/_parts/TOCHKI.md:38 [С29]` | «\| С29 \| «Заявка» — это стадия или вся сделка?» (Q11) | `docs/ppo/sdelki/karta-sdelki.html:748 [id="p29"]`: «id="p29"><title>Точка 29: «Заявка» — это стадия или вся сделка?</title>» (Q12) | Пропусков нумерованных точек в карте и двух страницах обследования не обнаружено структурным подсчётом: 29 уникальных номеров, С1…С29. Цитаты показывают последнюю точку, полный подсчёт — ниже. | Исправление не требуется; подтверждение касается покрытия, не истинности внешних источников. |
+| B-06 | ПОДТВЕРЖДЕНО | — | `docs/ppo/sdelki/_parts/sostoyaniya.html:225 [Переходы между состояниями]` | «<td>Оплата → В производстве</td>» (Q13) | `docs/ppo/sdelki/obsledovanie-sdelki-podrobno.html:1061 [#sostoyaniya]`: «<td>Оплата → В производстве</td>» (Q14) | Несогласованности сборки в проверенных фрагментах нет: SVG совпал после удаления только ссылок точек, паспорт включён дословно в три страницы, состояния — в подробную, содержание всех 29 карточек согласуется. Это не снимает содержательные B-01/B-02. | Править подтверждённые содержательные ошибки в исходных частях; оснований обвинять сборку нет. |
+| B-07 | НЕ ПРОВЕРЕНО | S2 | `docs/ppo/sdelki/_parts/tochki.html:440 [id="t18"]` | «Две версии внутри ТЗ: на схеме «Оплачено → Исполнена: Автоматически после оплаты»» (Q15) | `client-materials/sanitized-tz.md:1 [заголовок]`: «7 схем не включены» (Q16) | Внешний источник: схемы DOCX, включая image7. Пересказ схемы используется в вопросе о закрытии, но разрешённый текст ТЗ прямо исключает семь схем. Их соответствие оригиналу в этом блоке не установлено. | Сохранить оговорку о непроверенной схеме; не помечать пересказ ни подтверждённым, ни фальсификацией. |
+| B-08 | НЕ ПРОВЕРЕНО | S2 | `docs/ppo/sdelki/_parts/tochki.html:3 [class="note"]` | «<p class="note">Источники: доска — клон «Copy of Евростекло»» (Q17) | `docs/ppo/sdelki/_parts/r-tz.md:11 [Сверка с Miro 29.09.2026]`: «**Сверка с Miro 29.09.2026** (только чтение, 11 узлов по id):» (Q18) | Внешний источник: доска Miro, её узлы и комментарии. Разбор 29.09 сообщает о своей сверке; это свидетельство предыдущей проверки, не независимый доступ к первоисточнику. Сейчас проверены связи производных документов. | Не считать совпадение производных текстов подтверждением Miro. Внешнюю проверку в пределах этого паспорта B выполнить нельзя. |
+
+Всего 8 находок: НЕСООТВЕТСТВИЕ — 3 (две S1, одна S2); НЕ ПРОВЕРЕНО — 3 (S2); ПОДТВЕРЖДЕНО — 2 (серьёзность —). Установленных РАЗРЫВ ДАННЫХ и ФАЛЬСИФИКАЦИЯ нет. В матрице 25 строк ПОДТВЕРЖДЕНО, 2 НЕСООТВЕТСТВИЕ, 2 НЕ ПРОВЕРЕНО.
+
+## Расхождения с прежней проверкой
+
+| Прежняя проверка | Первичная проверка B / текущий текст | Вывод |
+|---|---|---|
+| `docs/ppo/sdelki/_parts/proverka-2026-09-30/C-tz-vs-doska.md:81 [Д-16]`: «Без оплаты в производство не идём — согласие (сумма — Д-12)» (Q19) | `docs/ppo/sdelki/_parts/tochki.html:613 [С25 / На доске]`: «Связи «оплата → заказ» нет.» (Q02)<br>`docs/ppo/sdelki/_parts/proverka-2026-09-30/B-konflikty-karty.md:99 [§2, строка 1]`: «\| 1 \| 17 \| Предоплата — не ворота производства: на доске заказ оформляется от DXF» (Q22) | Д-16 прежнего C считает расположение рамок достаточным для вывода об оплате как условии запуска; прежний B и текущий С25 этого не поддерживают. Расхождение между старыми оценками сохраняется; B-01 — оставшееся усиление в С9. |
+| `docs/ppo/sdelki/_parts/proverka-2026-09-30/C-tz-vs-doska.md:100 [Д-25]`: «Сделка не «закрыта», пока документы не вернулись — согласие всех трёх» (Q20) | `docs/ppo/sdelki/_parts/tochki.html:438 [С18 / На доске]`: «Что считается завершением — не сказано.» (Q21) | Прежний C приписывает доске согласованное условие завершения после документов; текущий С18 оставляет условие завершения неизвестным. Считать старое «согласие всех трёх» подтверждением текущего процесса нельзя. |
+| `docs/ppo/sdelki/_parts/FACTCHECK-tochki.md:20 [С6]`: ««Ставит рук. сервиса или конструктор»: ИСТИНА дословно, План D8» (Q26) | `docs/ppo/sdelki/_parts/pasport.html:20 [<tr><td>Битрикс24</td>]`: «<tr><td>Битрикс24</td><td>В статусной модели ведёт 10 новых статусов сделки. Сам ставит «Предварительную заявку», «Замеры и проектирование», «Согласование сделки», «Монтаж»» (Q03)<br>`client-materials/sanitized-statusy.md:31 [D8]`: «D8=В 1С статус не меняется. В Битриксе, статус Согласование сделки ставит рук. сервиса или конструктор» (Q04) | FACTCHECK уже различает человеческого исполнителя в СМ. Это поддерживает B-02; проверка самой строки систем в паспорте там не показана. |
+| `docs/ppo/sdelki/_parts/KARTA-CONTRACT.md:16 [Распределение точек]`: «- Слой A (доска Романа): С1, С3, С4, С5, С7, С8, С10, С11, С13, С14, С15, С16, С19, С21, С23, С24» (Q23) | `docs/ppo/sdelki/_parts/proverka-2026-09-30/KONTRAKT-e1.md:8 [Общие правила / 2]`: «Номера существующих точек не менять, точки не удалять. Новые точки — только 25…29» (Q24) | Первоначальный контракт слоёв дополнен контрактом e1 с С25…С29. Первичный кандидат «пропали пять точек в контракте» снят: расширение записано отдельно, карта содержит все 29. |
+| `docs/ppo/sdelki/_parts/proverka-2026-09-30/D-fakty-zaprosov.md:3 [срез 9a76200]`: «Номера строк даны по состоянию рабочего дерева на 30.09 (HEAD `9a76200`).» (Q25) | `docs/ppo/sdelki/_parts/TOCHKI.md:53 [Правки e2 / А если]`: «у всех 111 пунктов» (Q28)<br>`docs/ppo/sdelki/_parts/TOCHKI.md:54 [Правки e2 / Ссылки]`: «Своих пунктов 102.» (Q27) | D относится к явно названному старому SHA. Его 24 точки/98 вариантов и отсутствие чекбоксов нельзя автоматически переносить на текущий срез после e1/e2. Нынешние 29/111/102/9 подтверждены только статическим разбором; браузерные заявления D не повторялись. |
+
+Прежние audit-B/audit-C — журналы переноса технических вопросов, а не независимое доказательство состояния портала. Исторические даты и SHA сохранены как контекст; отличающийся старый срез сам по себе не назван ошибкой.
+
+## Команды и фактический вывод
+
+Следующие команды повторены на том же HEAD при самопроверке; первоначальная проверка источников до работы также дала пустой вывод. `git diff` здесь относится к источникам, не к новым файлам отчёта.
+
+Команда:
+```bash
+git diff --stat d68c37f HEAD -- docs/ppo docs/CHECKPOINTS.md client-materials
+```
+Вывод:
+```text
+(пусто)
+```
+
+Команда:
+```bash
+git rev-parse HEAD
+```
+Вывод:
+```text
+9690df60bfecfdd5839946f0ca12d9392a2359f3
+```
+
+Команда:
+```bash
+git ls-files docs/ppo/sdelki
+```
+Вывод:
+```text
+docs/ppo/sdelki/_parts/FACTCHECK-tochki.md
+docs/ppo/sdelki/_parts/KARTA-CONTRACT.md
+docs/ppo/sdelki/_parts/TOCHKI.md
+docs/ppo/sdelki/_parts/audit-B.md
+docs/ppo/sdelki/_parts/audit-C.md
+docs/ppo/sdelki/_parts/karta-A.svg.html
+docs/ppo/sdelki/_parts/karta-B.svg.html
+docs/ppo/sdelki/_parts/karta-C.svg.html
+docs/ppo/sdelki/_parts/karta.svg.html
+docs/ppo/sdelki/_parts/pasport.html
+docs/ppo/sdelki/_parts/proverka-2026-09-30/A-oshibki-karty.md
+docs/ppo/sdelki/_parts/proverka-2026-09-30/B-konflikty-karty.md
+docs/ppo/sdelki/_parts/proverka-2026-09-30/C-tz-vs-doska.md
+docs/ppo/sdelki/_parts/proverka-2026-09-30/D-fakty-zaprosov.md
+docs/ppo/sdelki/_parts/proverka-2026-09-30/KONTRAKT-e1.md
+docs/ppo/sdelki/_parts/r-reestry.md
+docs/ppo/sdelki/_parts/r-statusy.md
+docs/ppo/sdelki/_parts/r-tz.md
+docs/ppo/sdelki/_parts/sostoyaniya.html
+docs/ppo/sdelki/_parts/stitch.py
+docs/ppo/sdelki/_parts/tochki.html
+docs/ppo/sdelki/karta-sdelki.html
+docs/ppo/sdelki/obsledovanie-sdelki-podrobno.html
+docs/ppo/sdelki/obsledovanie-sdelki.html
+```
+
+Команда:
+```bash
+wc -l $(git ls-files docs/ppo/sdelki) client-materials/sanitized-tz.md client-materials/sanitized-statusy.md
+```
+Вывод:
+```text
+     80 docs/ppo/sdelki/_parts/FACTCHECK-tochki.md
+     18 docs/ppo/sdelki/_parts/KARTA-CONTRACT.md
+     61 docs/ppo/sdelki/_parts/TOCHKI.md
+     26 docs/ppo/sdelki/_parts/audit-B.md
+     17 docs/ppo/sdelki/_parts/audit-C.md
+    182 docs/ppo/sdelki/_parts/karta-A.svg.html
+    417 docs/ppo/sdelki/_parts/karta-B.svg.html
+     45 docs/ppo/sdelki/_parts/karta-C.svg.html
+    646 docs/ppo/sdelki/_parts/karta.svg.html
+     45 docs/ppo/sdelki/_parts/pasport.html
+    103 docs/ppo/sdelki/_parts/proverka-2026-09-30/A-oshibki-karty.md
+    156 docs/ppo/sdelki/_parts/proverka-2026-09-30/B-konflikty-karty.md
+    259 docs/ppo/sdelki/_parts/proverka-2026-09-30/C-tz-vs-doska.md
+    244 docs/ppo/sdelki/_parts/proverka-2026-09-30/D-fakty-zaprosov.md
+     27 docs/ppo/sdelki/_parts/proverka-2026-09-30/KONTRAKT-e1.md
+     76 docs/ppo/sdelki/_parts/r-reestry.md
+    104 docs/ppo/sdelki/_parts/r-statusy.md
+    103 docs/ppo/sdelki/_parts/r-tz.md
+    394 docs/ppo/sdelki/_parts/sostoyaniya.html
+     29 docs/ppo/sdelki/_parts/stitch.py
+    737 docs/ppo/sdelki/_parts/tochki.html
+   1148 docs/ppo/sdelki/karta-sdelki.html
+   1264 docs/ppo/sdelki/obsledovanie-sdelki-podrobno.html
+    648 docs/ppo/sdelki/obsledovanie-sdelki.html
+     45 client-materials/sanitized-tz.md
+     48 client-materials/sanitized-statusy.md
+   6922 total
+```
+
+Команда:
+```bash
+grep -cE '^\| С[0-9]+ \|' docs/ppo/sdelki/_parts/TOCHKI.md
+```
+Вывод:
+```text
+29
+```
+
+## Сверка сборки без изменения файлов
+
+Выполнен независимый разбор строк в памяти стандартными средствами Python. Содержимое `stitch.py` прочитано как документ; файл скрипта и сборщики не запускались. Для карточек нормализованы только ссылки номера, подпись «наш вопрос (проверка полноты)» и видимые ссылки `data-see`. Заголовки, типы, главные вопросы и собственные варианты сопоставлены отдельно с JSON карты и краткой страницей. Формат карточек в краткой странице — `class="q"`, в подробной — `class="card"`.
+
+Команда:
+```bash
+python3 - <<'PY'
+from pathlib import Path
+import re,json,html
+p=Path('docs/ppo/sdelki'); a=p/'_parts'
+W,GAP=2600,40
+defs=('<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="#1f2937"/></marker><marker id="arrg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="#8a94a3"/></marker></defs>')
+pt=re.compile(r'<g class="pt">.*?</g>',re.S); y=0;body=[];pts=[];bounds=[]
+for L in 'ABC':
+ s=(a/f'karta-{L}.svg.html').read_text();h=int(re.search(r'<!--\s*height:\s*(\d+)\s*-->',s).group(1))
+ for g in pt.findall(s):pts.append(re.sub(r'(cy|y)="([\d.]+)"',lambda m:f'{m.group(1)}="{float(m.group(2))+y:g}"',g))
+ body.append(f'<g transform="translate(0,{y})">{pt.sub("",s)}</g>');y+=h+GAP;bounds.append(y-GAP//2)
+H=y-GAP
+expected=(f'<!-- layers: A<{bounds[0]} B<{bounds[1]} -->\n<svg class="map" viewBox="0 0 {W} {H}" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,sans-serif">{defs}<rect width="{W}" height="{H}" fill="#fff"/>{"".join(body)}{"".join(pts)}</svg>\n')
+assembled=(a/'karta.svg.html').read_text();mp=(p/'karta-sdelki.html').read_text();short=(p/'obsledovanie-sdelki.html').read_text();detail=(p/'obsledovanie-sdelki-podrobno.html').read_text()
+svg=mp[mp.index('<svg class="map"'):mp.index('</svg>',mp.index('<svg class="map"'))+6]
+svg=re.sub(r'<a href="obsledovanie-sdelki.html#t\d+" target="evro-obsl">|</a>','',svg);svg=re.sub(r'<g class="pt ptlink" id="p\d+">','<g class="pt">',svg)
+print('A+B+C -> karta.svg.html; in-memory stitch:',expected==assembled,'points:',len(pts),'bounds:',bounds,'height:',H)
+print('assembled SVG -> map; only point links normalized:',svg==assembled[assembled.index('<svg'):].strip())
+passport=(a/'pasport.html').read_text();states=(a/'sostoyaniya.html').read_text();source=(a/'tochki.html').read_text()
+print('passport exact inclusion: map/short/detail:',[passport in t for t in (mp,short,detail)])
+print('states exact inclusion in detail:',states in detail)
+cards=lambda s:dict(re.findall(r'<article class="card" id="t(\d+)">(.*?)</article>',s,re.S))
+src=cards(source);det=cards(detail)
+def norm_card(t):
+ t=re.sub(r'<a class="pt" href="karta-sdelki.html#p(\d+)" target="evro-karta" title="Показать на карте">С\1</a>',lambda m:'<span class="pt">С'+m.group(1)+'</span>',t)
+ t=t.replace(' <small class="src">наш вопрос (проверка полноты)</small>','')
+ return re.sub(r' <small class="see">.*?</small>','',t)
+print('source/detail cards after link/source-label normalization:',len(src),len(det),sum(v==norm_card(det[k]) for k,v in src.items()))
+data=json.loads(re.search(r'<script type="application/json" id="mapdata">(.*?)</script>',mp,re.S).group(1))['cards']
+def plain(t):
+ t=re.sub(r'<small\b.*?</small>','',t,flags=re.S)
+ return ' '.join(html.unescape(re.sub(r'<[^>]+>','',t)).split())
+check=[]
+for k,v in src.items():
+ d=data[k];q=plain(re.search(r'<dd class="q">(.*?)</dd>',v,re.S).group(1));title=plain(re.search(r'<h3>(.*?)</h3>',v,re.S).group(1));typ=plain(re.search(r'<span class="tp">(.*?)</span>',v,re.S).group(1))
+ items=re.findall(r'<li data-id="([^"]+)"([^>]*)>(.*?)</li>',v,re.S)
+ own=[{'id':i,'text':plain(t)} for i,attrs,t in items if 'data-see=' not in attrs]
+ sees=[plain(t) for i,attrs,t in items if 'data-see=' in attrs]
+ check.append(d['q']==q and d['title']==title and d['type']==typ and d['ifs']==own and [x['text'] for x in d['sees']]==sees)
+print('source/mapdata: title,type,q,own exceptions,see texts:',sum(check),'of',len(check))
+for name,t,pattern in [('map',mp,r'id="p(\d+)"'),('short',short,r'<article class="q" id="t(\d+)"'),('detail',detail,r'<article class="card" id="t(\d+)"')]:
+ ids=re.findall(pattern,t);print(name,'points total/unique:',len(ids),len(set(ids)),'missing:',sorted(set(map(str,range(1,30)))-set(ids),key=int))
+print('source exceptions total/own/see:',len(re.findall(r'<li data-id=',source)),len(re.findall(r'<li data-id="[^"]+" data-src=',source)),len(re.findall(r'<li data-id="[^"]+" data-see=',source)))
+print('mapdata exceptions own/see:',sum(len(d['ifs']) for d in data.values()),sum(len(d['sees']) for d in data.values()))
+sq=dict(re.findall(r'<article class="q" id="t(\d+)">(.*?)</article>',short,re.S))
+short_checks=[]
+for k,d in data.items():
+ v=sq[k];own=[{'id':i,'text':plain(t)} for i,t in re.findall(r'<label><input type="checkbox" data-if="([^"]+)">(.*?)</label>',v,re.S)]
+ short_checks.append(plain(re.search(r'<h3>(.*?)</h3>',v,re.S).group(1))==d['title'] and plain(re.search(r'<p class="ask">(.*?)</p>',v,re.S).group(1))==d['q'] and plain(re.search(r'<span class="tp">(.*?)</span>',v,re.S).group(1))==d['type'] and own==d['ifs'])
+print('short/mapdata: title,type,q,own exceptions:',sum(short_checks),'of',len(short_checks))
+print('states literal DXF/C25/C27:',[x for x in ['DXF','С25','С27'] if x in states])
+PY
+```
+Вывод:
+```text
+A+B+C -> karta.svg.html; in-memory stitch: True points: 29 bounds: [1810, 3350, 3790] height: 3770
+assembled SVG -> map; only point links normalized: True
+passport exact inclusion: map/short/detail: [True, True, True]
+states exact inclusion in detail: True
+source/detail cards after link/source-label normalization: 29 29 29
+source/mapdata: title,type,q,own exceptions,see texts: 29 of 29
+map points total/unique: 29 29 missing: []
+short points total/unique: 29 29 missing: []
+detail points total/unique: 29 29 missing: []
+source exceptions total/own/see: 111 102 9
+mapdata exceptions own/see: 102 9
+short/mapdata: title,type,q,own exceptions: 29 of 29
+states literal DXF/C25/C27: []
+```
+
+Результат: проверенные фрагменты сборки согласованы. Это статическая проверка файлов; исполнение интерфейса, localStorage, экспорт и текущий портал не проверялись. Отсутствие литералов С25/С27/DXF в состояниях подтверждает матричное ограничение B-04, а не неверность перехода ТЗ/СМ.
+
+## Самопроверка цитат
+
+Каждая Q проверена отдельной командой `grep -n -F -e` ниже. В блоках вывода сохранён фактический stdout без сокращения длинных строк. Полный тот же протокол находится в `B-grep.log`. Команды для цитат не обращаются к внешним источникам.
+
+Q01 — `docs/ppo/sdelki/_parts/tochki.html:217 [С9 / Почему это противоречие]`:
+```bash
+grep -n -F -e 'Доска требует не меньше 35 % до следующего шага' docs/ppo/sdelki/_parts/tochki.html
+```
+```text
+217:<dd>Доска требует не меньше 35 % до следующего шага, ТЗ знает одну оплату, статусы ставят «Предоплату» по разнесённой оплате без порога. <span class="st st-conf">противоречие</span> <small class="src">ТЗС-07, ТЗС-08, КТ-05, КТ-06; С-11</small></dd>
+```
+
+Q02 — `docs/ppo/sdelki/_parts/tochki.html:613 [С25 / На доске]`:
+```bash
+grep -n -F -e 'Связи «оплата → заказ» нет.' docs/ppo/sdelki/_parts/tochki.html
+```
+```text
+613:<dd>Связь идёт от «Документ: файл DXF» (из проектирования, от Руководителя ПО) прямо к Менеджеру ОП «оформляет заказ для запуска в производство». Связи «оплата → заказ» нет. Рамки ДОГОВОР, ПОДПИСАНИЕ, ПРЕДОПЛАТА стоят раньше заказа только по расположению; комментарий «предоплата не менее 35%» на рамке ПРЕДОПЛАТА с заказом не связан. <span class="st st-board">на доске</span> <small class="src">связь m3458764684036473953: 3458764684036310221 → 3074457358434682943; рамка 3074457358434085846; комм. 3458764685196477342; k1 «В ПРОИЗВОДСТВЕ»; k3 К-06</small></dd>
+```
+
+Q03 — `docs/ppo/sdelki/_parts/pasport.html:20 [<tr><td>Битрикс24</td>]`:
+```bash
+grep -n -F -e '<tr><td>Битрикс24</td><td>В статусной модели ведёт 10 новых статусов сделки. Сам ставит «Предварительную заявку», «Замеры и проектирование», «Согласование сделки», «Монтаж»' docs/ppo/sdelki/_parts/pasport.html
+```
+```text
+20:<tr><td>Битрикс24</td><td>В статусной модели ведёт 10 новых статусов сделки. Сам ставит «Предварительную заявку», «Замеры и проектирование», «Согласование сделки», «Монтаж», «Рекламация», «Сделка провалена»; статусы оплаты, производства и «Закрытия сделки» получает из 1С</td><td><small class="src">sanitized-statusy.md, лист «новые утверждения» E6–E29; «Согласованный план» I6, I9, I12, I17, I19, I23; r-statusy.md §1</small></td><td><span class="st st-doc">документ клиента</span> <small class="src">2024–2025, UNVERIFIED</small></td></tr>
+```
+
+Q04 — `client-materials/sanitized-statusy.md:31 [D8]`:
+```bash
+grep -n -F -e 'D8=В 1С статус не меняется. В Битриксе, статус Согласование сделки ставит рук. сервиса или конструктор' client-materials/sanitized-statusy.md
+```
+```text
+31:D8=В 1С статус не меняется. В Битриксе, статус Согласование сделки ставит рук. сервиса или конструктор, после этого менеджер производит финальное согласование с клиентом, выставляет счет на оплату. | F8=3 | G8=Согласование сделки
+```
+
+Q05 — `client-materials/sanitized-statusy.md:39 [D17]`:
+```bash
+grep -n -F -e 'A17=8 | B17=Монтаж | C17=ответственный менеджер | D17=Менеджер ставит статус в Битриксе' client-materials/sanitized-statusy.md
+```
+```text
+39:A17=8 | B17=Монтаж | C17=ответственный менеджер | D17=Менеджер ставит статус в Битриксе, на этапе готовнгости и согласовании монтажа у клиента, статус видит рук. сервиса, рук. доставки. После подтверждения в битриксе выполненого монтажа переходит автоматом в статус Документы | F17=6 | G17=Монтаж | H17=новый статус в Битрикс и 1С | I17=Статус меняется только с Битрикс, в 1С подгружается | J17=Управляются в Битрикс
+```
+
+Q06 — `docs/ppo/sdelki/_parts/r-reestry.md:45 [С-25]`:
+```bash
+grep -n -F -e '| С-25 | Модель стадий и владельцы: 11 стадий доски' docs/ppo/sdelki/_parts/r-reestry.md
+```
+```text
+45:| С-25 | Модель стадий и владельцы: 11 стадий доски ↔ две воронки портала (1:1 только «Производство», «Монтаж»); порядок и критерии переходов не заданы; A не определён у c2, gw1, t10, e1, e2; роли доски не сопоставлены с пользователями | сущность / роль | Все фазы | П-44 (часть — точка 9), П-45, К-01, К-09, К-10; 05 §1, §3 п.3–7; рамки …430445405 … …436631135, …3458764683861311336 | противоречие | «Покажите на последней сделке, дошедшей до конца: по каким этапам она шла, кто вёл каждый этап и что было условием перехода; что означают ПО, ПТО, ОС, СС» | [аудит] Настройки обеих воронок («Общая», «Активные продажи»), история стадий, какая воронка рабочая; список пользователей и групп ↔ роли (ASIS:28,31,83) |
+```
+
+Q07 — `docs/ppo/sdelki/_parts/TOCHKI.md:33 [С24]`:
+```bash
+grep -n -F -e '| С24 | Какая модель стадий верная сейчас: 10 стадий доски' docs/ppo/sdelki/_parts/TOCHKI.md
+```
+```text
+33:| С24 | Какая модель стадий верная сейчас: 10 стадий доски или статусы 2024–2025; порядок стадий на доске задан только расположением | состояние | Сквозная | Д, СМ, П | С-25 (К-01, П-44) |
+```
+
+Q08 — `docs/ppo/sdelki/_parts/karta-A.svg.html:180 [<title>Точка 25:]`:
+```bash
+grep -n -F -e '<g class="pt"><title>Точка 25: Производство запускается от файла DXF — где проверка оплаты?</title>' docs/ppo/sdelki/_parts/karta-A.svg.html
+```
+```text
+180:<g class="pt"><title>Точка 25: Производство запускается от файла DXF — где проверка оплаты?</title><circle cx="1540" cy="227" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="1540" y="232" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">С25</text></g>
+```
+
+Q09 — `docs/ppo/sdelki/_parts/karta-A.svg.html:181 [<title>Точка 27:]`:
+```bash
+grep -n -F -e '<g class="pt"><title>Точка 27: Где формируются документы: «автоматическое формирование» на доске ↔ «в 1С» по ТЗ</title>' docs/ppo/sdelki/_parts/karta-A.svg.html
+```
+```text
+181:<g class="pt"><title>Точка 27: Где формируются документы: «автоматическое формирование» на доске ↔ «в 1С» по ТЗ</title><circle cx="656" cy="297" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="656" y="302" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">С27</text></g>
+```
+
+Q10 — `docs/ppo/sdelki/_parts/sostoyaniya.html:160 [Переходы между состояниями]`:
+```bash
+grep -n -F -e 'Переходы ниже взяты из статусной модели и ТЗ (как было задумано, клиентом не подтверждено).' docs/ppo/sdelki/_parts/sostoyaniya.html
+```
+```text
+160:<p>На доске ни одна линия не соединяет стадии, условий переходов нет <span class="pt">С24</span> <small class="src">FACTCHECK-tochki.md С24</small>. Переходы ниже взяты из статусной модели и ТЗ (как было задумано, клиентом не подтверждено). Где источника нет — «не знаем».</p>
+```
+
+Q11 — `docs/ppo/sdelki/_parts/TOCHKI.md:38 [С29]`:
+```bash
+grep -n -F -e '| С29 | «Заявка» — это стадия или вся сделка?' docs/ppo/sdelki/_parts/TOCHKI.md
+```
+```text
+38:| С29 | «Заявка» — это стадия или вся сделка? На доске — стадия (3074457358432030000); в ТЗ — объект со статусами от «Требуется замер» до «Исполнена»; в СМ — «Предварительная заявка» (нов. 30.09) | правило (термин) | Сквозная | Д, ТЗ, СМ | Б №2 |
+```
+
+Q12 — `docs/ppo/sdelki/karta-sdelki.html:748 [id="p29"]`:
+```bash
+grep -n -F -e 'id="p29"><title>Точка 29: «Заявка» — это стадия или вся сделка?</title>' docs/ppo/sdelki/karta-sdelki.html
+```
+```text
+748:</g><a href="obsledovanie-sdelki.html#t24" target="evro-obsl"><g class="pt ptlink" id="p24"><title>Точка 24: какая модель стадий верная сейчас: 10 стадий доски или статусы 2024–2025; порядок стадий на доске задан только расположением</title><circle cx="340" cy="122" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="340" y="127" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">С24</text></g></a><a href="obsledovanie-sdelki.html#t1" target="evro-obsl"><g class="pt ptlink" id="p1"><title>Точка 1: начало сделки: на доске «Предв. расчёт» и «Заявка» (действий и ролей на «Предв. расчёте» нет); в статусах — «Предварительная заявка / Пред. расчёт» и «Замеры и проектирование»</title><circle cx="404" cy="122" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="404" y="127" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">С1</text></g></a><a href="obsledovanie-sdelki.html#t13" target="evro-obsl"><g class="pt ptlink" id="p13"><title>Точка 13: отгрузка: стадия на доске (доверенность, дата, Служба доставки), статуса нет ни в Б24, ни в 1С; доставка или самовывоз, как фиксируется получение</title><circle cx="2300" cy="54" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="2300" y="59" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">С13</text></g></a><a href="obsledovanie-sdelki.html#t14" target="evro-obsl"><g class="pt ptlink" id="p14"><title>Точка 14: отгрузка или монтаж: на доске без условия выбора; в ТЗ после «Произведено» всегда монтаж</title><circle cx="2330" cy="110" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="2330" y="115" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">С14</text></g></a><a href="obsledovanie-sdelki.html#t4" target="evro-obsl"><g class="pt ptlink" id="p4"><title>Точка 4: КП и расчёт: до замера или после, кто делает; какой комплект проекта финальный и утверждает ли его клиент</title><circle cx="436" cy="175" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="436" y="180" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">С4</text></g></a><a href="obsledovanie-sdelki.html#t21" target="evro-obsl"><g class="pt ptlink" id="p21"><title>Точка 21: отказ: «Отказ» и «Аннулирован» в статусах; что с деньгами, изделием и фурнитурой при отказе после предоплаты или запуска</title><circle cx="412" cy="460" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="412" y="465" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">С21</text></g></a><a href="obsledovanie-sdelki.html#t7" target="evro-obsl"><g class="pt ptlink" id="p7"><title>Точка 7: договор: в ТЗ — «Менеджер создает договор в 1с», на доске — типовая форма («форму согласовать с юристом бухгалтером») или форма Заказчика; кто решает</title><circle cx="912" cy="410" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="912" y="415" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">С7</text></g></a><a href="obsledovanie-sdelki.html#t8" target="evro-obsl"><g class="pt ptlink" id="p8"><title>Точка 8: подписание: признак «подписан», срок; таймеры доски «через 2, 3 дня» и «смена стадии через 3 рабочих дня (стадия ДОГОВОР)» — куда и от какого события</title><circle cx="1140" cy="400" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="1140" y="405" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">С8</text></g></a><a href="obsledovanie-sdelki.html#t15" target="evro-obsl"><g class="pt ptlink" id="p15"><title>Точка 15: оплата остатка 100 %: где «ворота» (Изготовлено или Отгрузка), два блока Менеджера ОП дублируют друг друга; действует ли при монтаже</title><circle cx="2136" cy="200" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="2136" y="205" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">С15</text></g></a><a href="obsledovanie-sdelki.html#t19" target="evro-obsl"><g class="pt ptlink" id="p19"><title>Точка 19: после сделки: звонки 14/90/270 — на доске Ассистент ОП; в ТЗ — только «Позвони клиенту» в разделе развития (п.12), без сроков; от какой даты считать, что делать с результатом звонка</title><circle cx="2580" cy="732" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="2580" y="737" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">С19</text></g></a><a href="obsledovanie-sdelki.html#t3" target="evro-obsl"><g class="pt ptlink" id="p3"><title>Точка 3: кто договаривается о замере и кто замеряет; что считается результатом замера</title><circle cx="670" cy="836" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="670" y="841" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">С3</text></g></a><a href="obsledovanie-sdelki.html#t10" target="evro-obsl"><g class="pt ptlink" id="p10"><title>Точка 10: кто запускает производство: статусы — «нач. производства, плановик» в 1С; доска — Менеджер ОП → Рук. ПТО; ТЗ — одна задача сотруднику производства; Рук. ПТО и Руководитель производства — одна роль или две</title><circle cx="1670" cy="1126" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="1670" y="1131" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">С10</text></g></a><a href="obsledovanie-sdelki.html#t11" target="evro-obsl"><g class="pt ptlink" id="p11"><title>Точка 11: фурнитура: со склада или закупка; «заявка на внутреннее потребление» — что это и чья</title><circle cx="1540" cy="1366" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="1540" y="1371" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">С11</text></g></a><a href="obsledovanie-sdelki.html#t5" target="evro-obsl"><g class="pt ptlink" id="p5"><title>Точка 5: номенклатура и «понижающие коэффициенты»: уведомление Рук. ОС; при понижающих коэффициентах — виза Рук. СС; порог, срок, исходы не заданы</title><circle cx="412" cy="1546" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="412" y="1551" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">С5</text></g></a><a href="obsledovanie-sdelki.html#t16" target="evro-obsl"><g class="pt ptlink" id="p16"><title>Точка 16: монтаж: условия выезда, кто монтирует, приёмка клиентом, фото, переделка и перенос</title><circle cx="2330" cy="1546" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="2330" y="1551" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">С16</text></g></a><a href="obsledovanie-sdelki.html#t23" target="evro-obsl"><g class="pt ptlink" id="p23"><title>Точка 23: уведомления (15 уникальных комментариев на доске): у всех нет срока реакции и «что если не отреагировал»</title><circle cx="1232" cy="1737" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="1232" y="1742" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">С23</text></g></a><a href="obsledovanie-sdelki.html#t25" target="evro-obsl"><g class="pt ptlink" id="p25"><title>Точка 25: Производство запускается от файла DXF — где проверка оплаты?</title><circle cx="1540" cy="227" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="1540" y="232" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">С25</text></g></a><a href="obsledovanie-sdelki.html#t27" target="evro-obsl"><g class="pt ptlink" id="p27"><title>Точка 27: Где формируются документы: «автоматическое формирование» на доске ↔ «в 1С» по ТЗ</title><circle cx="656" cy="297" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="656" y="302" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">С27</text></g></a><a href="obsledovanie-sdelki.html#t29" target="evro-obsl"><g class="pt ptlink" id="p29"><title>Точка 29: «Заявка» — это стадия или вся сделка?</title><circle cx="668" cy="50" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="668" y="55" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">С29</text></g></a><a href="obsledovanie-sdelki.html#t2" target="evro-obsl"><g class="pt ptlink" id="p2"><title>Точка 2: Замер: в ТЗ развилка «Требуется замер / Замер не требуется», об оплате замера не сказано; на доске — счёт на оплату замера → задание на замер, оплата условием задания не названа</title><circle cx="440" cy="2180" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="440" y="2185" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="800" fill="#fff">С2</text></g></a><a href="obsledovanie-sdelki.html#t6" target="evro-obsl"><g class="pt ptlink" id="p6"><title>Точка 6: «Согласование сделки»: в ТЗ ставит Система после «КП согласовано», в статусах — «рук. сервиса или конструктор»; на доске три стадии (Заявка, Договор, Подписание), договор ведёт Менеджер ОП; что три стадии доски соответствуют одной — наше сопоставление</title><circle cx="1612" cy="1940" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="1612" y="1945" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="800" fill="#fff">С6</text></g></a><a href="obsledovanie-sdelki.html#t17" target="evro-obsl"><g class="pt ptlink" id="p17"><title>Точка 17: Закрывающие документы: в ТЗ акты в 1С загружает сотрудник монтажа; на доске — УПД, фото, возврат документов Ассистентом ОП; статус «Документы» в файле статусов описан двумя способами</title><circle cx="2512" cy="2448" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="2512" y="2453" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="800" fill="#fff">С17</text></g></a><a href="obsledovanie-sdelki.html#t18" target="evro-obsl"><g class="pt ptlink" id="p18"><title>Точка 18: Когда сделка «Исполнена»: схема ТЗ — сразу после оплаты; текст ТЗ — после «Сделка завершена успешно»; статусы — «Документы» → «Завершен» (частично — только для многоуровневого заказа), ставит «ответственный сотрудник за проведение первички», должность не названа</title><circle cx="2235" cy="1990" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="2235" y="1995" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="800" fill="#fff">С18</text></g></a><a href="obsledovanie-sdelki.html#t20" target="evro-obsl"><g class="pt ptlink" id="p20"><title>Точка 20: Рекламация: на доске стадии и ветки нет, в ТЗ и статусах есть; в ТЗ/СМ регистрирует ответственный менеджер, устраняет руководитель менеджеров, уведомление Директору — так ли сейчас; как выходит из рекламации, что с претензией после закрытия сделки</title><circle cx="2230" cy="2620" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="2230" y="2625" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="800" fill="#fff">С20</text></g></a><a href="obsledovanie-sdelki.html#t22" target="evro-obsl"><g class="pt ptlink" id="p22"><title>Точка 22: Сделка ↔ заказ в 1С создают друг друга автоматически (План D6): где рождается сделка, кто ответственный, как избежать дублей (1С — неизвестно, уточнить)</title><circle cx="234.0" cy="2955" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="234.0" y="2960" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="800" fill="#fff">С22</text></g></a><a href="obsledovanie-sdelki.html#t9" target="evro-obsl"><g class="pt ptlink" id="p9"><title>Точка 9: Оплата: доска — предоплата ≥ 35 %; ТЗ — один счёт «на оплату»; статусы — «Предоплата» автоматически при разнесении оплаты бухгалтерией, порог не указан; «Переплата» — бухгалтер только в 1С; кто фиксирует оплату</title><circle cx="792.0" cy="2955" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="792.0" y="2960" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="800" fill="#fff">С9</text></g></a><a href="obsledovanie-sdelki.html#t12" target="evro-obsl"><g class="pt ptlink" id="p12"><title>Точка 12: «Изготовлено»: на доске стадия; в Б24 такой стадии нет — 4 статуса 1С видны одной стадией «В производстве»; кто и когда сообщает дату готовности</title><circle cx="1508.0" cy="2955" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="1508.0" y="2960" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="800" fill="#fff">С12</text></g></a><a href="obsledovanie-sdelki.html#t26" target="evro-obsl"><g class="pt ptlink" id="p26"><title>Точка 26: Сроки ожидания оплаты: «2, 3 дня / 3 рабочих» на доске ↔ «&gt; 3 / &gt; 5 дней» в ТЗ</title><circle cx="1908" cy="2600" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="1908" y="2605" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="800" fill="#fff">С26</text></g></a><a href="obsledovanie-sdelki.html#t28" target="evro-obsl"><g class="pt ptlink" id="p28"><title>Точка 28: Что передаётся между Б24 и 1С: на доске — только номенклатура</title><circle cx="214" cy="1940" r="16" fill="#d93025" stroke="#fff" stroke-width="2"/><text x="214" y="1945" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="800" fill="#fff">С28</text></g></a></svg>
+```
+
+Q13 — `docs/ppo/sdelki/_parts/sostoyaniya.html:225 [Переходы между состояниями]`:
+```bash
+grep -n -F -e '<td>Оплата → В производстве</td>' docs/ppo/sdelki/_parts/sostoyaniya.html
+```
+```text
+225:<td>Оплата → В производстве</td>
+```
+
+Q14 — `docs/ppo/sdelki/obsledovanie-sdelki-podrobno.html:1061 [#sostoyaniya]`:
+```bash
+grep -n -F -e '<td>Оплата → В производстве</td>' docs/ppo/sdelki/obsledovanie-sdelki-podrobno.html
+```
+```text
+1061:<td>Оплата → В производстве</td>
+```
+
+Q15 — `docs/ppo/sdelki/_parts/tochki.html:440 [id="t18"]`:
+```bash
+grep -n -F -e 'Две версии внутри ТЗ: на схеме «Оплачено → Исполнена: Автоматически после оплаты»' docs/ppo/sdelki/_parts/tochki.html
+```
+```text
+440:<dd>Две версии внутри ТЗ: на схеме «Оплачено → Исполнена: Автоматически после оплаты»; в тексте — после результата «Сделка завершена успешно» задачи менеджера «Контроль сделки». <span class="st st-conf">противоречие</span> <small class="src">image7; ТЗ ФТ-4 п.4–5</small></dd>
+```
+
+Q16 — `client-materials/sanitized-tz.md:1 [заголовок]`:
+```bash
+grep -n -F -e '7 схем не включены' client-materials/sanitized-tz.md
+```
+```text
+1:# Старое ТЗ (текст из docx клиента, 7 схем не включены)
+```
+
+Q17 — `docs/ppo/sdelki/_parts/tochki.html:3 [class="note"]`:
+```bash
+grep -n -F -e '<p class="note">Источники: доска — клон «Copy of Евростекло»' docs/ppo/sdelki/_parts/tochki.html
+```
+```text
+3:<p class="note">Источники: доска — клон «Copy of Евростекло» (номера объектов Miro; комментарии — полные номера 34587646851964773хх); ТЗ — старое ТЗ клиента 2024–2025 (<code>client-materials/sanitized-tz.md</code>; требования в ТЗ не пронумерованы, ФТ-1…ФТ-4 — наша нумерация по порядку: ФТ-2 «Квалификация заявки / Замер / КП», ФТ-3 «Заключение договора / Оплата», ФТ-4 «Монтаж / Закрытие сделки»; «Предл.» — «Предлагаемый функционал для развития»; image4–image7 — схемы ТЗ); статусная модель — <code>client-materials/sanitized-statusy.md</code> (ячейки как в файле: «Лист 1» — новые утверждения статусов, «План» — согласованный план). Разборы: <code>TOCHKI.md</code>, <code>FACTCHECK-tochki.md</code>, <code>r-statusy.md</code> (КТ-), <code>r-tz.md</code> (ТЗС-), <code>r-reestry.md</code> (С-). Контакты не приводятся.</p>
+```
+
+Q18 — `docs/ppo/sdelki/_parts/r-tz.md:11 [Сверка с Miro 29.09.2026]`:
+```bash
+grep -n -F -e '**Сверка с Miro 29.09.2026** (только чтение, 11 узлов по id):' docs/ppo/sdelki/_parts/r-tz.md
+```
+```text
+11:- **Сверка с Miro 29.09.2026** (только чтение, 11 узлов по id): дословно подтверждены тексты узлов 3458764683170651512 (счёт на замер), 3074457358434085848 (скан + счёт на предоплату), 3458764683860537410 (юрист, ПР, ПСР), 3074457358432405264 (Типовая форма КП), 3074457358436279922 (готовность, остаток, 100 %, доверенность, Служба доставки), 3458764683861954124 (остаток, задание на монтаж, отгрузочные), 3458764683861954134 (Руководитель Службы Сервиса), 3074457358436799981 (Ассистент ОП, закрывающие) и рамки ОТГРУЗКА / МОНТАЖ / СДЕЛКА ЗАВЕРШЕНА. Комментарии (К7341, К7342, К7357, К7358, К7366 и др.) повторно не читались — цитируются по k1–k3.
+```
+
+Q19 — `docs/ppo/sdelki/_parts/proverka-2026-09-30/C-tz-vs-doska.md:81 [Д-16]`:
+```bash
+grep -n -F -e 'Без оплаты в производство не идём — согласие (сумма — Д-12)' docs/ppo/sdelki/_parts/proverka-2026-09-30/C-tz-vs-doska.md
+```
+```text
+81:| Д-16 | Производство после оплаты | ТЗ ФТ-4: предусловие «оплата по счету пришла» → «Произвести изделие» | ПРЕДОПЛАТА левее В ПРОИЗВОДСТВЕ (3074457358435254167) | СОВПАДАЕТ (порядок) | Без оплаты в производство не идём — согласие (сумма — Д-12) | С10: подтвердить одним вопросом |
+```
+
+Q20 — `docs/ppo/sdelki/_parts/proverka-2026-09-30/C-tz-vs-doska.md:100 [Д-25]`:
+```bash
+grep -n -F -e 'Сделка не «закрыта», пока документы не вернулись — согласие всех трёх' docs/ppo/sdelki/_parts/proverka-2026-09-30/C-tz-vs-doska.md
+```
+```text
+100:| Д-25 | Сделка закрывается после документов | ТЗ: «Загрузить акты в 1с» → «Документы загружены» → «Контроль сделки» → «Исполнена». СМ: «Документы» → «Завершен — документы подписаны и находятся в архиве» (План D19, D21) | СДЕЛКА ЗАВЕРШЕНА (3074457358436631135): «контролирует возврат закрывающих документов» (3074457358436799981) | СОВПАДАЕТ (закрытие — после документов) | Сделка не «закрыта», пока документы не вернулись — согласие всех трёх | С17: подтвердить одним вопросом |
+```
+
+Q21 — `docs/ppo/sdelki/_parts/tochki.html:438 [С18 / На доске]`:
+```bash
+grep -n -F -e 'Что считается завершением — не сказано.' docs/ppo/sdelki/_parts/tochki.html
+```
+```text
+438:<dd>Стадия СДЕЛКА ЗАВЕРШЕНА; на ней Ассистент ОП контролирует возврат документов; комментарий — уведомление Менеджеру ОП. Что считается завершением — не сказано. <span class="st st-board">на доске</span> <span class="st st-unk">не знаем</span> <small class="src">рамка 3074457358436631135; 3074457358436799981; комм. 3458764685196477364</small></dd>
+```
+
+Q22 — `docs/ppo/sdelki/_parts/proverka-2026-09-30/B-konflikty-karty.md:99 [§2, строка 1]`:
+```bash
+grep -n -F -e '| 1 | 17 | Предоплата — не ворота производства: на доске заказ оформляется от DXF' docs/ppo/sdelki/_parts/proverka-2026-09-30/B-konflikty-karty.md
+```
+```text
+99:| 1 | 17 | Предоплата — не ворота производства: на доске заказ оформляется от DXF | Связь `m3458764684036473953` DXF `3458764684036310221` → «оформляет заказ для запуска в производство» `3074457358434682943`; связи «предоплата → заказ» нет | ТЗ ФТ-4 «Предусловия: оплата по счету пришла» → «Произвести изделие» | порядок | НЕТ | Определяет, можно ли запускать изделие без денег. Это правило отдельно от порога 35 % (С9) |
+```
+
+Q23 — `docs/ppo/sdelki/_parts/KARTA-CONTRACT.md:16 [Распределение точек]`:
+```bash
+grep -n -F -e '- Слой A (доска Романа): С1, С3, С4, С5, С7, С8, С10, С11, С13, С14, С15, С16, С19, С21, С23, С24' docs/ppo/sdelki/_parts/KARTA-CONTRACT.md
+```
+```text
+16:- Слой A (доска Романа): С1, С3, С4, С5, С7, С8, С10, С11, С13, С14, С15, С16, С19, С21, С23, С24
+```
+
+Q24 — `docs/ppo/sdelki/_parts/proverka-2026-09-30/KONTRAKT-e1.md:8 [Общие правила / 2]`:
+```bash
+grep -n -F -e 'Номера существующих точек не менять, точки не удалять. Новые точки — только 25…29' docs/ppo/sdelki/_parts/proverka-2026-09-30/KONTRAKT-e1.md
+```
+```text
+8:2. Номера существующих точек не менять, точки не удалять. Новые точки — только 25…29 (метки С25…С29).
+```
+
+Q25 — `docs/ppo/sdelki/_parts/proverka-2026-09-30/D-fakty-zaprosov.md:3 [срез 9a76200]`:
+```bash
+grep -n -F -e 'Номера строк даны по состоянию рабочего дерева на 30.09 (HEAD `9a76200`).' docs/ppo/sdelki/_parts/proverka-2026-09-30/D-fakty-zaprosov.md
+```
+```text
+3:Блок D проверки 30.09. Только чтение: файлы проекта не менялись, коммитов нет. Номера строк даны по состоянию рабочего дерева на 30.09 (HEAD `9a76200`).
+```
+
+Q26 — `docs/ppo/sdelki/_parts/FACTCHECK-tochki.md:20 [С6]`:
+```bash
+grep -n -F -e '«Ставит рук. сервиса или конструктор»: ИСТИНА дословно, План D8' docs/ppo/sdelki/_parts/FACTCHECK-tochki.md
+```
+```text
+20:| С6 | «Три стадии доски»: ИСТИНА (…012086 ДОГОВОР, …355599 ПОДПИСАНИЕ, …030000 ЗАЯВКА). Соответствие трёх стадий одной «Согласование сделки» — наш вывод по смыслу. «Одна “Согласование сделки”»: ИСТИНА, Лист 1 E9, План G8. «Ставит рук. сервиса или конструктор»: ИСТИНА дословно, План D8: «статус Согласование сделки ставит рук. сервиса или конструктор, после этого менеджер производит финальное согласование с клиентом, выставляет счёт на оплату». «На доске договор ведёт Менеджер ОП»: ИСТИНА (3074457358433461276, 3458764683860537410). **Упущено:** в ТЗ этот статус ставит **Система автоматически** после «КП согласовано» (ФТ-2 п.5, image6 шаг 12, image7). | ИСТИНА (неполно) | Добавить третью версию: «ТЗ — ставит Система после “КП согласовано”»; пометить соответствие стадий как толкование |
+```
+
+Q27 — `docs/ppo/sdelki/_parts/TOCHKI.md:54 [Правки e2 / Ссылки]`:
+```bash
+grep -n -F -e 'Своих пунктов 102.' docs/ppo/sdelki/_parts/TOCHKI.md
+```
+```text
+54:- Ссылки (9): С1 e4 → С22 e1; С6 e3 → С8 e4; С9 e5 → С28 e2; С14 e2 → С16 e4; С18 e4 → С20 e1; С24 e3 → С18 e2; С25 e2 → С9 e1; С19 e2 → лиды т.7 e4; С21 e5 → лиды т.7 e2. Своих пунктов 102.
+```
+
+Q28 — `docs/ppo/sdelki/_parts/TOCHKI.md:53 [Правки e2 / А если]`:
+```bash
+grep -n -F -e 'у всех 111 пунктов' docs/ppo/sdelki/_parts/TOCHKI.md
+```
+```text
+53:- «А если…» С1…С29: у всех 111 пунктов — `data-id` (eN = нынешняя позиция, номера не менялись, пункты не удалялись и не переставлялись) и источник `data-src` (доска / ТЗ / СМ / наш; адрес — в `<small class="src">`) или ссылка `data-see`. Источник ставился только при совпадении с первоисточником (`sanitized-tz.md`, `sanitized-statusy.md`, k1–k3); иначе «наш». С18 e1: вместо image7 (нет в `sanitized-tz.md`) — ТЗ ФТ-4 предусловие и п.5.
+```
+
+Q29 — `docs/ppo/sdelki/obsledovanie-sdelki-podrobno.html:326 [id="t9" / Почему это противоречие]`:
+```bash
+grep -n -F -e 'Доска требует не меньше 35 % до следующего шага' docs/ppo/sdelki/obsledovanie-sdelki-podrobno.html
+```
+```text
+326:<dd>Доска требует не меньше 35 % до следующего шага, ТЗ знает одну оплату, статусы ставят «Предоплату» по разнесённой оплате без порога. <span class="st st-conf">противоречие</span> <small class="src">ТЗС-07, ТЗС-08, КТ-05, КТ-06; С-11</small></dd>
+```
+
+Q30 — `docs/ppo/sdelki/karta-sdelki.html:69 [<tr><td>Битрикс24</td>]`:
+```bash
+grep -n -F -e '<tr><td>Битрикс24</td><td>В статусной модели ведёт 10 новых статусов сделки. Сам ставит «Предварительную заявку», «Замеры и проектирование», «Согласование сделки», «Монтаж»' docs/ppo/sdelki/karta-sdelki.html
+```
+```text
+69:<tr><td>Битрикс24</td><td>В статусной модели ведёт 10 новых статусов сделки. Сам ставит «Предварительную заявку», «Замеры и проектирование», «Согласование сделки», «Монтаж», «Рекламация», «Сделка провалена»; статусы оплаты, производства и «Закрытия сделки» получает из 1С</td><td><small class="src">sanitized-statusy.md, лист «новые утверждения» E6–E29; «Согласованный план» I6, I9, I12, I17, I19, I23; r-statusy.md §1</small></td><td><span class="st st-doc">документ клиента</span> <small class="src">2024–2025, UNVERIFIED</small></td></tr>
+```
+
+Q31 — `docs/ppo/sdelki/obsledovanie-sdelki.html:98 [<tr><td>Битрикс24</td>]`:
+```bash
+grep -n -F -e '<tr><td>Битрикс24</td><td>В статусной модели ведёт 10 новых статусов сделки. Сам ставит «Предварительную заявку», «Замеры и проектирование», «Согласование сделки», «Монтаж»' docs/ppo/sdelki/obsledovanie-sdelki.html
+```
+```text
+98:<tr><td>Битрикс24</td><td>В статусной модели ведёт 10 новых статусов сделки. Сам ставит «Предварительную заявку», «Замеры и проектирование», «Согласование сделки», «Монтаж», «Рекламация», «Сделка провалена»; статусы оплаты, производства и «Закрытия сделки» получает из 1С</td><td><small class="src">sanitized-statusy.md, лист «новые утверждения» E6–E29; «Согласованный план» I6, I9, I12, I17, I19, I23; r-statusy.md §1</small></td><td><span class="st st-doc">документ клиента</span> <small class="src">2024–2025, UNVERIFIED</small></td></tr>
+```
+
+Q32 — `docs/ppo/sdelki/obsledovanie-sdelki-podrobno.html:66 [<tr><td>Битрикс24</td>]`:
+```bash
+grep -n -F -e '<tr><td>Битрикс24</td><td>В статусной модели ведёт 10 новых статусов сделки. Сам ставит «Предварительную заявку», «Замеры и проектирование», «Согласование сделки», «Монтаж»' docs/ppo/sdelki/obsledovanie-sdelki-podrobno.html
+```
+```text
+66:<tr><td>Битрикс24</td><td>В статусной модели ведёт 10 новых статусов сделки. Сам ставит «Предварительную заявку», «Замеры и проектирование», «Согласование сделки», «Монтаж», «Рекламация», «Сделка провалена»; статусы оплаты, производства и «Закрытия сделки» получает из 1С</td><td><small class="src">sanitized-statusy.md, лист «новые утверждения» E6–E29; «Согласованный план» I6, I9, I12, I17, I19, I23; r-statusy.md §1</small></td><td><span class="st st-doc">документ клиента</span> <small class="src">2024–2025, UNVERIFIED</small></td></tr>
+```
+
+перепроверено 32 из 32 цитат (уникальные пары файл/подстрока; повторные ссылки используют ту же Q). Длины всех цитат ≤200 символов; каждый заявленный номер строки присутствует в фактическом выводе.
+
+## Ограничения и передача
+
+PROVEN: срез, количество точек, наличие маркеров/карточек, тождество проверенных фрагментов сборки и расположение цитат. Выводы о несовместимости формулировок ограничены указанными слоями документов. INFERRED: предложенные способы уточнения формулировок; они не применялись. UNVERIFIED: B-04, B-07, B-08, текущий бизнес-процесс и действующие системы клиента. CONTRADICTED в пределах производных документов: B-01…B-03.
+
+Закрытые материалы, список сотрудников, встречи, Miro и портал не открывались. ФИО сотрудников не цитируются. Проверка журнала Beads не выполнена исполнителем B по запрету паспорта; его недоступность фиксирует родитель. Успешное прохождение этого ограничения не заявляется. CE-рецензия и общая приёмка выполняются родителем после передачи B; этот файл не объявляет весь комплект готовым к встрече.
