@@ -1,0 +1,74 @@
+H1
+$ grep -n -F -e 'codex-cli 0.159.3' docs/review/2026-10-01-codex-vtoroe-mnenie/E-codex-help.txt
+2:codex-cli 0.159.3
+exit_code=0
+
+H2
+$ grep -n -F -e 'If no subcommand is specified, options will be forwarded to the interactive CLI.' docs/review/2026-10-01-codex-vtoroe-mnenie/E-codex-help.txt
+9:If no subcommand is specified, options will be forwarded to the interactive CLI.
+exit_code=0
+
+H3
+$ grep -n -F -e 'Manage Codex plugins' docs/review/2026-10-01-codex-vtoroe-mnenie/E-codex-help.txt
+21:  plugin            Manage Codex plugins
+exit_code=0
+
+H4
+$ grep -n -F -e 'Resume a previous interactive session' docs/review/2026-10-01-codex-vtoroe-mnenie/E-codex-help.txt
+31:  resume            Resume a previous interactive session (picker by default; use --last to continue
+exit_code=0
+
+H5
+$ grep -n -F -e 'Resume a previous session by id or pick the most recent with --last' docs/review/2026-10-01-codex-vtoroe-mnenie/E-codex-help.txt
+153:  resume  Resume a previous session by id or pick the most recent with --last
+exit_code=0
+
+H6
+$ grep -n -F -e '--profile <CONFIG_PROFILE_V2>' docs/review/2026-10-01-codex-vtoroe-mnenie/E-codex-help.txt
+90:  -p, --profile <CONFIG_PROFILE_V2>
+196:  -p, --profile <CONFIG_PROFILE_V2>
+exit_code=0
+
+H7
+$ grep -n -F -e '--sandbox <SANDBOX_MODE>' docs/review/2026-10-01-codex-vtoroe-mnenie/E-codex-help.txt
+93:  -s, --sandbox <SANDBOX_MODE>
+199:  -s, --sandbox <SANDBOX_MODE>
+exit_code=0
+
+H8
+$ grep -n -F -e '--ask-for-approval <APPROVAL_POLICY>' docs/review/2026-10-01-codex-vtoroe-mnenie/E-codex-help.txt
+118:  -a, --ask-for-approval <APPROVAL_POLICY>
+exit_code=0
+
+H9
+$ grep -n -F -e 'Never ask for user approval' docs/review/2026-10-01-codex-vtoroe-mnenie/E-codex-help.txt
+123:          - never:      Never ask for user approval Execution failures are immediately returned to
+exit_code=0
+
+H10
+$ grep -n -F -e 'Print events to stdout as JSONL' docs/review/2026-10-01-codex-vtoroe-mnenie/E-codex-help.txt
+249:          Print events to stdout as JSONL
+exit_code=0
+
+H11
+$ grep -n -F -e '--output-last-message <FILE>' docs/review/2026-10-01-codex-vtoroe-mnenie/E-codex-help.txt
+251:  -o, --output-last-message <FILE>
+exit_code=0
+
+H12
+$ grep -n -F -e 'Specifies file where the last message from the agent should be written' docs/review/2026-10-01-codex-vtoroe-mnenie/E-codex-help.txt
+252:          Specifies file where the last message from the agent should be written
+exit_code=0
+
+H13
+$ grep -n -F -e 'Run without persisting session files to disk' docs/review/2026-10-01-codex-vtoroe-mnenie/E-codex-help.txt
+231:          Run without persisting session files to disk
+exit_code=0
+
+H14
+$ grep -n -F -e 'WARNING: proceeding, even though we could not create PATH aliases: Read-only file system (os error 30)' docs/review/2026-10-01-codex-vtoroe-mnenie/E-codex-help.txt
+3:WARNING: proceeding, even though we could not create PATH aliases: Read-only file system (os error 30)
+143:WARNING: proceeding, even though we could not create PATH aliases: Read-only file system (os error 30)
+259:WARNING: proceeding, even though we could not create PATH aliases: Read-only file system (os error 30)
+exit_code=0
+
