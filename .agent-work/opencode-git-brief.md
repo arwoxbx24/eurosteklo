@@ -1,0 +1,11 @@
+# OpenCode task: Eurosteklo Git rollout
+
+Owner requires execution only through OpenCode. This is one bounded documentation task, not software implementation. Work only in this passed worktree and branch codex/eurosteklo-6v6-opencode-git. Claim/use Beads atom eurosteklo-6v6. Do not spawn other executors or orchestrators.
+
+Canonical intent: docs/specifications/2026-09-30-git-collaboration.md P1-P11; owner 30.09 direction: main as default, one branch/worktree per session, ideas isolated by agent, PR to main, checkpoint SHA+tag, no rewriting. Current origin/main b50211de777fadd974da957e9834d399cf3aee1a. Tag checkpoint/2026-09-30-lidy-sdelki is already published and peeled SHA is 575a157909476c9e55724ac1a28b78a4fb356321. Old branches codex/8b44-eurosteklo and claude/wonderful-pasteur-7tzxeu remain archival; never edit, move, or delete them. Private client data, CRM and Bitrix24 out of scope.
+
+Existing staged draft in /root/workspaces/projects/.worktrees/codex/eurosteklo-k73 is READ-ONLY reference; inspect it before writing and apply only correct changes in this own worktree. Also inspect origin/claude/charming-tesla-tmovg4, which independently changes AGENTS.md in an unmerged Claude branch. Avoid duplicate/conflicting claims and do not touch Claude's branch. Allowed project files: AGENTS.md, docs/ppo/HANDOFF.md, docs/specifications/2026-09-30-git-collaboration.md, docs/CHECKPOINTS.md. No new feature, hook, wrapper, client document, or SpecKit artifacts.
+
+Acceptance: update stale branch facts and rules in the four allowed files; confirm default main and tag using GitHub/Git; diff --check; build docs/ppo/build_all.py since HANDOFF changed; check added lines for PII and run gitleaks before push; make scoped commit with correct Codex CLI author, push own branch, open PR to main. Merge only if exact head, mergeability and required CI are positively checked and user authorization still applies. If any approval/policy denial, stop that operation; no alternate route. Record exact actions/results in eurosteklo-6v6, leave outer worktree untouched. SpecKit checklist/clarify/converge prerequisite script is absent, so do not fabricate a pass or create a parallel task system.
+
+Return concise evidence: changed files, checks, commit/PR/merge state, remote SHA, residual blockers. Do not claim full acceptance if any gate is unverified.

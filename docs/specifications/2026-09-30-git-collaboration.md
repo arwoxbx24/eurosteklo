@@ -1,6 +1,6 @@
 # Спецификация: ветки, синхронизация и точки отката (Git)
 
-**Создана**: 30.09.2026 Codex CLI (PR №1, коммит `eff23fb`) · **Доработана**: Claude Web 30.09.2026 по итогам проверки · **Основание**: запрос владельца о совместной работе трёх агентов (Codex CLI, Claude CLI, Claude Web): разные ветки, у всех актуальные данные, общий мозговой штурм, точки отката, сохранение истории; решение владельца 30.09: «выбрать лучшее архитектурное решение, не останавливаться».
+**Создана**: 30.09.2026 Codex CLI (PR №1, коммит `eff23fb`) · **Доработана**: Claude Web 30.09.2026 по итогам проверки · **Обновлена**: OpenCode 30.09.2026 (git rollout: default `main`, архивные ветки, первая метка опубликована) · **Основание**: запрос владельца о совместной работе трёх агентов (Codex CLI, Claude CLI, Claude Web): разные ветки, у всех актуальные данные, общий мозговой штурм, точки отката, сохранение истории; решение владельца 30.09: «выбрать лучшее архитектурное решение, не останавливаться».
 **Статус**: действует.
 
 ## Цель и границы
@@ -15,16 +15,15 @@
 
 | Метка | Факт | Источник |
 |---|---|---|
-| PROVEN | Репозиторий приватный; ветка по умолчанию — `codex/8b44-eurosteklo` | `git ls-remote --symref origin HEAD`; GitHub API `default_branch` |
-| PROVEN | `main` создана Codex CLI на `575a157909476c9e55724ac1a28b78a4fb356321` (лиды и сделки утверждены, передача сессии); содержимое совпадает с `codex/8b44-eurosteklo` | `git ls-remote origin`; `git diff --stat origin/main origin/codex/8b44-eurosteklo` пусто |
+| PROVEN | Репозиторий приватный; ветка по умолчанию — `main` (владелец переключил 30.09) | GitHub Settings → Default branch; `git ls-remote --symref origin HEAD` |
+| PROVEN | `main` создана Codex CLI на `575a157909476c9e55724ac1a28b78a4fb356321` (лиды и сделки утверждены, передача сессии); 30.09 вечер `main` = `b50211de777fadd974da957e9834d399cf3aee1a` (PR №2) | `git ls-remote origin`; `git log` |
 | PROVEN | Все ветки `protected=false` | GitHub API `list_branches` |
 | UNVERIFIED | Серверные правила защиты на тарифе недоступны (API ответил 403) | со слов Codex CLI; из облака не воспроизводится |
-| PROVEN | Меток на origin до этой работы не было | `git ls-remote --tags origin` пусто |
-| PROVEN | PR №1 (Codex CLI, `eff23fb`, 1 коммит поверх `575a157`) — спецификация Git; принят с доработками (этот файл) | GitHub API `pull_request_read`; `git log` |
+| PROVEN | `codex/8b44-eurosteklo` и `claude/wonderful-pasteur-7tzxeu` — архивные ветки на `575a157`; не редактировать, не двигать, не удалять | `git ls-remote origin`; `git log --decorate` |
+| PROVEN | PR №1 (Codex CLI, `eff23fb`, 1 коммит поверх `575a157`) — спецификация Git; принят с доработками (этот файл); PR №2 — итоговая схема Git (`b50211d`) | GitHub API `pull_request_read`; `git log` |
 | PROVEN | Коммит `eff23fb` подписан «Claude Code <dev@example.com>» — происхождение по метаданным не видно | `git show -s --format=fuller eff23fb` |
 | PROVEN | Коммиты до чистки 29.09 (`fd1bbeb9649a…`, его предок `7544309`) недоступны из веток, но отдаются GitHub по SHA; в них файл сотрудников с полными ФИО | GitHub API `get_commit` (содержимое не открывалось) |
-| PROVEN | `claude/wonderful-pasteur-7tzxeu` (прошлая веб-сессия) = `575a157`, своих коммитов нет — удалена как пустая | `git ls-remote origin` |
-| PROVEN | Первая точка отката: `575a157909476c9e55724ac1a28b78a4fb356321`, метка `checkpoint/2026-09-30-lidy-sdelki` — за CLI-агентом (облачная сессия метки отправить не может: `git push` метки не доходит до origin) | `docs/CHECKPOINTS.md`; `git ls-remote --tags origin` пусто |
+| PROVEN | Первая точка отката: `575a157909476c9e55724ac1a28b78a4fb356321`; метка `checkpoint/2026-09-30-lidy-sdelki` опубликована на origin, peeled SHA подтверждён | `docs/CHECKPOINTS.md`; `git log --decorate` (tag на `575a157`); `git ls-remote --tags origin` |
 
 ## Решение
 
@@ -38,18 +37,18 @@
                               v
   main ──●──────●──────────●──────────●──►  (история только дописывается)
          575a157            \
-         checkpoint/2026-09-30-lidy-sdelki  + строка в docs/CHECKPOINTS.md
+         checkpoint/2026-09-30-lidy-sdelki (опубликован 30.09)  + строка в docs/CHECKPOINTS.md
                               |
-  codex/8b44-eurosteklo ──── fast-forward до main (зеркало, пока default не переключён)
+  codex/8b44-eurosteklo, claude/wonderful-pasteur-7tzxeu ──── архив, не двигать (default = main)
 ```
 
-**П1. Ствол.** `main` — единственная общая ветка. Ветку по умолчанию на GitHub переключает на `main` владелец (Settings → General → Default branch). До переключения `codex/8b44-eurosteklo` — замороженное зеркало `main`: в неё никто не коммитит, её только перематывают fast-forward до `main` после каждого слияния.
+**П1. Ствол.** `main` — единственная общая ветка и ветка по умолчанию (владелец переключил 30.09: Settings → General → Default branch). Старые ветки `codex/8b44-eurosteklo` и `claude/wonderful-pasteur-7tzxeu` — архив: в них никто не коммитит, их не редактируют, не двигают и не удаляют. Новые ветки создаются только от свежей `origin/main`.
 
 **П2. Ветка на сессию.** Каждая сессия — своя ветка от свежей `origin/main`. Имена: Codex CLI — `codex/<ГГГГ-ММ-ДД>-<суть>`; Claude CLI — `claude-cli/<ГГГГ-ММ-ДД>-<суть>`; Claude Web — ветка, выданная платформой (`claude/<случайное-имя>`). В чужую ветку не пишет никто. Автор коммитов — своё имя в своём клоне: `git config user.name "Codex CLI"` / `"Claude CLI"` / `"Claude Web"`; подпись «Claude Code <dev@example.com>» больше не используется.
 
 **П3. Начало сессии.** `git status` (чисто) → `git fetch origin` → `git switch -c <имя> origin/main` (если своя ветка не закончена — `git merge origin/main` в неё). Прочитать `AGENTS.md`, `docs/ppo/HANDOFF.md`, журнал решений (`docs/ppo/00-resheniya-vladeltsa.md`), `docs/CHECKPOINTS.md`, свежие файлы `docs/idei/*/`.
 
-**П4. Конец сессии.** Проверки: `git diff --check`; поиск ПДн (телефоны, e-mail, фамилии) = 0; если трогали `docs/ppo` — `python3 docs/ppo/build_all.py`. Затем push своей ветки → PR в `main` → слияние merge-коммитом (не squash, не rebase); сливает сам агент в конце своей сессии → fast-forward `codex/8b44-eurosteklo` до `main` (пока default не переключён) → запись в `docs/CHECKPOINTS.md`, если закрыт этап. Исключение: изменения клиентских документов (`docs/ppo/**`, кроме `HANDOFF.md`; ТЗ; карты) сливаются только после «да» владельца, до этого PR остаётся открытым. Идеи и служебные файлы агент сливает сам.
+**П4. Конец сессии.** Проверки: `git diff --check`; поиск ПДн (телефоны, e-mail, фамилии) = 0; если трогали `docs/ppo` — `python3 docs/ppo/build_all.py`. Затем push своей ветки → PR в `main` → слияние merge-коммитом (не squash, не rebase); сливает сам агент в конце своей сессии → запись в `docs/CHECKPOINTS.md`, если закрыт этап. Исключение: изменения клиентских документов (`docs/ppo/**`, кроме `HANDOFF.md`; ТЗ; карты) сливаются только после «да» владельца, до этого PR остаётся открытым. Идеи и служебные файлы агент сливает сам.
 
 **П5. Мозговой штурм.** Папки `docs/idei/codex/`, `docs/idei/claude-cli/`, `docs/idei/claude-web/`: каждый агент пишет только в свою, читают все. Файл `ГГГГ-ММ-ДД-<тема>.md`; в шапке — статус ИДЕЯ | ГИПОТЕЗА | ПРИНЯТО ВЛАДЕЛЬЦЕМ | ОТКЛОНЕНО, источники, метки PROVEN/INFERRED/UNVERIFIED по закону блокировки. Отклик на чужую идею — файлом в своей папке со ссылкой на неё. Идеи попадают в `main` сразу (их видят все), в клиентские документы — только после «да» владельца.
 
@@ -78,7 +77,7 @@
 | Изменено | Гипотезы | только статусы, отдельные папки отвергнуты | папки `docs/idei/<агент>/` для мозгового штурма (П5): в свои файлы конфликтов нет по построению |
 | Изменено | Реестр SHA и владения | в Beads/PR | `docs/CHECKPOINTS.md` в репозитории — его видят все три агента (П8, П10) |
 | Изменено | Кто сливает PR | не определено | агент в конце своей сессии; клиентские документы — после «да» владельца (П4) |
-| Изменено | Переходный период | default не переключён, срок открыт | `codex/8b44-eurosteklo` — замороженное зеркало с fast-forward (П1) |
+| Изменено | Переходный период | default не переключён, срок открыт | 30.09 владелец переключил default на `main`; `codex/8b44-eurosteklo` и `claude/wonderful-pasteur-7tzxeu` — архив (П1) |
 | Изменено | Подписи авторов | не рассмотрены (`eff23fb` = «Claude Code») | своё `user.name` у каждого агента (П2) |
 | Изменено | Параллельные блоки | «два агента не редактируют одно дерево» | блоки одной сессии в одном дереве разрешены (П7) |
 
@@ -93,13 +92,12 @@ git switch -c claude-cli/2026-10-01-sut origin/main   # или: git merge origin
 git diff --check && python3 docs/ppo/build_all.py      # сборка — если трогали docs/ppo
 git push -u origin HEAD
 # PR в main → слияние merge-коммитом (клиентские документы — после «да» владельца)
-git fetch origin && git push origin origin/main:codex/8b44-eurosteklo   # зеркало, только fast-forward
 git tag -a checkpoint/2026-10-01-etap -m "что утверждено" origin/main && git push origin checkpoint/2026-10-01-etap  # если закрыт этап + строка в docs/CHECKPOINTS.md
 ```
 
 ## Открытые вопросы владельцу (действия только владельца)
 
-1. Переключить ветку по умолчанию на `main`: GitHub → Settings → General → Default branch. После этого зеркало `codex/8b44-eurosteklo` больше не перематывается.
+1. (Решено 30.09) Ветка по умолчанию переключена на `main` (GitHub → Settings → General → Default branch). Зеркало `codex/8b44-eurosteklo` больше не перематывается; `codex/8b44-eurosteklo` и `claude/wonderful-pasteur-7tzxeu` остаются архивом (П1).
 2. Запрос в поддержку GitHub об удалении недоступных из веток коммитов `fd1bbeb9649a…` и `7544309` (и кэшированных представлений) — в них файл сотрудников с полными ФИО. Пока запрос не выполнен, риск открыт.
 3. Серверная защита веток и меток на текущем тарифе недоступна (со слов Codex CLI, UNVERIFIED): риск прямого push в `main`, сдвига или удаления меток закрыт только правилами П1, П8. Принять риск или сменить тариф — решение владельца.
 
