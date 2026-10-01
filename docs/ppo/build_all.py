@@ -82,8 +82,7 @@ for p in PROCS:
 <li><a href="{p.slug}/{f}" target="{WIN_OBSL}">Подробная версия обследования</a></li></ul></div>"""
     else:
         blocks += f"""<div class="blockc"><h3>{title} <span class="badge wip">в работе</span></h3><p class="soon">{desc}</p><ul class="soon"><li>Карта процесса — готовится</li><li>Вопросы к встрече — готовится</li></ul></div>"""
-index_body = f"""<section><h2>Как пользоваться</h2><p>Скачайте архив <a href="ppo-evrosteklo.zip">ppo-evrosteklo.zip</a> — все страницы связаны ссылками; распакуйте и откройте <code>ppo/index.html</code>. На встрече два окна: <b>карта процесса</b> и <b>вопросы к встрече</b>. Красный номер на карте открывает вопрос; номер в вопросе открывает карту и подсвечивает точку. Масштаб — кнопки справа внизу, Ctrl + колесо.</p></section>
-<section><h2>Процессы</h2><div class="blocks">{blocks}</div></section>
+index_body = f"""<section><h2>Процессы</h2><div class="blocks">{blocks}</div></section>
 <section><h2>Лид и сделка — где граница</h2><ul>
 <li><b>Лид</b> — первичное обращение потенциального клиента из любого канала или рекламного источника.</li>
 <li><b>Сделка</b> — работа с квалифицированным клиентом после конвертации лида.</li>
