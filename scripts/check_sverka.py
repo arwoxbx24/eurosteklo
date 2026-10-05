@@ -57,6 +57,18 @@ def quote_ok(rec, tc, q, window=90):
     return all(norm(p) in win for p in parts)
 
 
+def file_quote_ok(f, ln, q):
+    """Цитата дословно в строке ln (±2) документа-источника."""
+    cands = [ROOT / f, ROOT / 'client-materials' / f, ROOT / 'docs/process/bpmn' / f]
+    p = next((c for c in cands if c.is_file()), None)
+    if p is None:
+        return False
+    lines = open(p, encoding='utf-8').read().splitlines()
+    win = norm(html.unescape(re.sub(r'<[^>]+>', ' ', ' '.join(lines[max(0, ln - 3):ln + 2]))))
+    parts = [x for x in re.split(r'\s*(?:\.\.\.|…)\s*', q) if len(norm(x)) >= 4]
+    return bool(parts) and all(norm(x) in win for x in parts)
+
+
 # Б1. Банк вопросов = 285, id совпадают со страницами обследования
 bank = set()
 for P, f in (('L', 'docs/ppo/lidy/obsledovanie-lidy-podrobno.html'),
@@ -176,12 +188,14 @@ for p in sorted((D / 'baza').glob('D*.tsv')):
             continue
         if ri is not None:
             refs = [(r[ri], r[ti].strip('[] '))]
+            frefs = []
         else:
             refs = re.findall(r'(GR8|Hkb) (\d\d:\d\d:\d\d)', r[si])
-            if not refs:
+            frefs = re.findall(r'([\w./-]+\.(?:md|html|tsv)):(\d+)', r[si])
+            if not refs and not frefs:
                 continue
         n += 1
-        if not any(quote_ok(rec, tc, r[ci]) for rec, tc in refs):
+        if not any(quote_ok(rec, tc, r[ci]) for rec, tc in refs) and not any(file_quote_ok(f, int(ln), r[ci]) for f, ln in frefs):
             bb.append(f'{p.name}:{r[0][:20]}')
     bad_w = [i for i, r in enumerate(rows[1:], 2) if len(r) != len(hdr)]
     print(f'      {p.name}: строк {len(rows) - 1}, цитат проверено {n}, строк с неверным числом полей {len(bad_w)}')
