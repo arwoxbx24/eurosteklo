@@ -206,9 +206,12 @@ report('Б11 база', not bb, f'ошибок {len(bb)} {bb[:5]}')
 P = rd(D / 'podtverzhdenie/podtverzhdenie.tsv')
 k2 = rd(D / 'baza/K2-uzly.tsv')
 k1 = [r for r in rd(D / 'baza/K1-protivorechiya.tsv')[1:] if r[6] == 'не разрешено']
+brief = ' '.join(r[2] for r in rd(D / 'podtverzhdenie/1c-brief.tsv')[1:])
 src = ' '.join(r[4] for r in P[1:])
-miss = [r[0] for r in k2[1:] if f'K2 n{r[0]};' not in src] + [r[0] for r in k1 if f'K1 n{r[0]};' not in src]
+miss = [r[0] for r in k2[1:] if f'K2 n{r[0]};' not in src and f'K2 n{r[0]};' not in brief] + [r[0] for r in k1 if f'K1 n{r[0]};' not in src and f'K1 n{r[0]};' not in brief]
 codes = [r[1] for r in P[1:] if re.search(r'\b[LS]-t\d|\bK\d\b|\bР-\d|\bС\d{1,2}\b|DNS', r[2] + r[3]) or names.search(r[2] + r[3])]
+# 1С: вопросы об интеграции — только в podtverzhdenie/1c-brief.tsv; в документе клиенту 1С допустим лишь как место создания документов в утверждениях разделов 1–2
+codes += [r[1] + ':1С' for r in P[1:] if re.search(r'1С|1C', r[3]) or (re.search(r'1С|1C', r[2]) and not r[0].startswith(('1.', '2.')))]
 nosrc = [r[1] for r in P[1:] if not re.match(r'(K[123] |svod )', r[4])]
 hp = html.unescape(open(D / 'podtverzhdenie/podtverzhdenie-klientu.html', encoding='utf-8').read())
 nohtml = [r[1] for r in P[1:] if r[2] not in hp]
