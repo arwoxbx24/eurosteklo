@@ -218,5 +218,25 @@ nohtml = [r[1] for r in P[1:] if r[2] not in hp]
 report('Б12 подтверждение', not miss and not codes and not nosrc and not nohtml,
        f'пунктов {len(P) - 1}, разделы {dict(Counter(r[0][:2] for r in P[1:]))}, не включено {miss}, коды/имена {codes}, без источника {nosrc}, нет в HTML {nohtml}')
 
+# Б13. Согласованность меток: факт, который клиент не подтвердил (UNVERIFIED в bloksxema/D2, «скорее всего», «наверное», «можно поставить»),
+# не может стоять утверждением в строке PROVEN баз D1–D4 и K2 (цитаты, источники и вопросы не проверяются — там упоминание допустимо)
+SKIP = {'цитата', 'источник', 'источники', 'как_у_нас', 'вопрос', 'вопрос_клиенту', 'открытый_вопрос', 'утверждение_для_клиента'}
+RULES = [
+    ('Max без оговорки «если подключат»', lambda t: any('если' not in t[m.start():m.start() + 40] for m in re.finditer(r'\bMax\b|\bМакс\b', t))),
+    ('уведомление о доставке', lambda t: bool(re.search(r'уведомлен\w*[^;.]{0,40}доставк', t))),
+    ('отказ после оплаты = рекламация', lambda t: 'после оплаты' in t and 'рекламац' in t and not re.search(r'наверное|UNVERIFIED|не подтвержд', t)),
+]
+un = []
+for p in sorted((D / 'baza').glob('D[1-4]*.tsv')) + [D / 'baza/K2-uzly.tsv']:
+    rows = rd(p)
+    hdr = rows[0]
+    mi = hdr.index('метка')
+    for i, r in enumerate(rows[1:], 2):
+        if not r[mi].startswith('PROVEN'):
+            continue
+        t = ' '.join(v for h, v in zip(hdr, r) if h not in SKIP)
+        un += [f'{p.name}:{i} {name}' for name, f in RULES if f(t)]
+report('Б13 метки', not un, f'неподтверждённых фактов в строках PROVEN {len(un)} {un[:5]}')
+
 print('ИТОГ:', 'PASS' if not FAIL else 'FAIL ' + ', '.join(FAIL))
 sys.exit(1 if FAIL else 0)
