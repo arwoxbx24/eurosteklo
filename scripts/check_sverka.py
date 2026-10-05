@@ -115,11 +115,15 @@ for r in contr:
             cbad.append((r[0], part))
 report('Б3 противоречия', not cbad, f'строк {len(contr)}, битых источников {len(cbad)} {cbad[:3]}')
 
-# Б4. Пробелы покрыты вопросником; в вопроснике нет 1С, DNS, кодов
+# Б4. Каждый пробел покрыт конкретным фрагментом вопроса (voprosnik-pokrytie.tsv); в вопроснике нет 1С, DNS, кодов
 vq = rd(D / 'voprosnik.tsv')
-cov = {p for r in vq[1:] for p in r[1].split()}
+# покрытие — по каждому пробелу отдельно: voprosnik-pokrytie.tsv называет вопрос и дословный фрагмент его текста, который задаёт этот подвопрос
+pk = {r[0]: r for r in rd(D / 'voprosnik-pokrytie.tsv')[1:]}
 gaps = [r[0] for r in sv[1:] if r[1] in ('НЕ-ЗАДАН', 'БЕЗ-ОТВЕТА', 'ПЛОХОЙ-ТЕКСТ')]
-unc = [g for g in gaps if '-'.join(g.split('-')[:2]) not in cov]
+unc = [g for g in gaps if g not in pk or not pk[g][1].isdigit() or not 1 <= int(pk[g][1]) < len(vq)
+       or len(pk[g][2]) < 15 or pk[g][2] not in vq[int(pk[g][1])][2]
+       or '-'.join(g.split('-')[:2]) not in vq[int(pk[g][1])][1].split()]
+unc += [g + ':лишний' for g in pk if g not in gaps]
 codes = [r[2] for r in vq[1:] if re.search(r'1С|1C|DNS|[LS]-t\d|\bТЗ\b|доск', r[2])]
 report('Б4 вопросник', not unc and not codes, f'пробелов {len(gaps)}, вопросов {len(vq) - 1}, не покрыто {unc}, кодов {len(codes)}')
 
@@ -221,13 +225,14 @@ report('Б12 подтверждение', not miss and not codes and not nosrc a
 # Б13. Согласованность меток: факт, который клиент не подтвердил (UNVERIFIED в bloksxema/D2, «скорее всего», «наверное», «можно поставить»),
 # не может стоять утверждением в строке PROVEN баз D1–D4 и K2 (цитаты, источники и вопросы не проверяются — там упоминание допустимо)
 SKIP = {'цитата', 'источник', 'источники', 'как_у_нас', 'вопрос', 'вопрос_клиенту', 'открытый_вопрос', 'утверждение_для_клиента'}
+BAD = (secs('01:29:30'), secs('01:43:30'))
 RULES = [
     ('Max без оговорки «если подключат»', lambda t: any('если' not in t[m.start():m.start() + 40] for m in re.finditer(r'\bMax\b|\bМакс\b', t))),
     ('уведомление о доставке', lambda t: bool(re.search(r'уведомлен\w*[^;.]{0,40}доставк', t))),
     ('отказ после оплаты = рекламация', lambda t: 'после оплаты' in t and 'рекламац' in t and not re.search(r'наверное|UNVERIFIED|не подтвержд', t)),
 ]
 un = []
-for p in sorted((D / 'baza').glob('D[1-4]*.tsv')) + [D / 'baza/K2-uzly.tsv']:
+for p in sorted((D / 'baza').glob('D[1-5]*.tsv')) + [D / 'baza/K2-uzly.tsv']:
     rows = rd(p)
     hdr = rows[0]
     mi = hdr.index('метка')
@@ -236,7 +241,43 @@ for p in sorted((D / 'baza').glob('D[1-4]*.tsv')) + [D / 'baza/K2-uzly.tsv']:
             continue
         t = ' '.join(v for h, v in zip(hdr, r) if h not in SKIP)
         un += [f'{p.name}:{i} {name}' for name, f in RULES if f(t)]
+        # неразборчивый участок Hkb 01:29:30–01:43:30: утверждение PROVEN не может опираться только на него
+        sc = ' '.join(v for h, v in zip(hdr, r) if h in ('источник', 'источники'))
+        tcs = [secs(x) for x in re.findall(r'Hkb (\d\d:\d\d:\d\d)', sc)]
+        if tcs and 'GR8' not in sc and not re.search(r'\.(md|html|tsv):', sc) and all(BAD[0] <= x <= BAD[1] for x in tcs):
+            un.append(f'{p.name}:{i} только неразборчивый участок')
+        un += [f'{p.name}:{i} неразборчивый участок без оговорки' for x in re.findall(r'Hkb (\d\d:\d\d:\d\d)', t)
+               if BAD[0] <= secs(x) <= BAD[1] and 'UNVERIFIED' not in t]
 report('Б13 метки', not un, f'неподтверждённых фактов в строках PROVEN {len(un)} {un[:5]}')
+
+# Б14. Неразрешённые противоречия K1: строка базы, на которую ссылается итог K1 «не разрешено», не может стоять PROVEN без явной оговорки в утверждении (UNVERIFIED / не решено / не определено / не ясно / не подтверждено / не названо)
+def k1_target(fname, key):
+    rows = rd(D / 'baza' / fname)
+    hdr = rows[0]
+    if key.isdigit():
+        i = int(key)
+        return (i, rows[i - 1], hdr) if 1 < i <= len(rows) else None
+    m = re.match(r'шаг (\d+)$', key)
+    for i, r in enumerate(rows[1:], 2):
+        if (m and r[0].startswith(m.group(1) + '.')) or (not m and (r[0] == key or r[0].startswith(key + ' '))):
+            return i, r, hdr
+    return None
+kv = []
+nref = 0
+for r in rd(D / 'baza/K1-protivorechiya.tsv')[1:]:
+    if r[6] != 'не разрешено':
+        continue
+    for fname, key in re.findall(r'(D[1-5]-[\w-]+\.tsv|K2-uzly\.tsv):(шаг \d+|[^\s;,)]+)', r[7]):
+        nref += 1
+        t = k1_target(fname, key)
+        if t is None:
+            kv.append(f'K1 n{r[0]}: {fname}:{key} не найдено')
+            continue
+        i, row, hdr = t
+        claim = ' '.join(v for h, v in zip(hdr, row) if h not in SKIP and h != 'метка')
+        if row[hdr.index('метка')].startswith('PROVEN') and not re.search(r'UNVERIFIED|не решен|не решён|не определено|не ясно|не подтвержд|не назван', claim):
+            kv.append(f'K1 n{r[0]}: {fname}:{i} PROVEN без оговорки')
+report('Б14 K1', not kv, f'ссылок из неразрешённых противоречий {nref}, нарушений {len(kv)} {kv[:6]}')
 
 print('ИТОГ:', 'PASS' if not FAIL else 'FAIL ' + ', '.join(FAIL))
 sys.exit(1 if FAIL else 0)
