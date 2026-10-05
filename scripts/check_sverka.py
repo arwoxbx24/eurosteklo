@@ -52,7 +52,9 @@ def quote_ok(rec, tc, q, window=90):
         return False
     win = norm(' '.join(x[1] for k, x in T[rec].items() if abs(secs(k) - secs(tc)) <= window))
     parts = [p for p in re.split(r'\s*(?:\.\.\.|…)\s*', q) if len(norm(p)) >= 8]
-    return bool(parts) and all(norm(p) in win for p in parts)
+    if not parts:  # короткое подтверждение («Да, да.») — ищем в самой реплике
+        return bool(norm(q)) and norm(q) in norm(T[rec][tc][1])
+    return all(norm(p) in win for p in parts)
 
 
 # Б1. Банк вопросов = 285, id совпадают со страницами обследования
@@ -173,14 +175,13 @@ for p in sorted((D / 'baza').glob('D*.tsv')):
         if ci is None or len(r) != len(hdr) or r[ci] in ('—', ''):
             continue
         if ri is not None:
-            rec, tc = r[ri], r[ti].strip('[] ')
+            refs = [(r[ri], r[ti].strip('[] '))]
         else:
-            m = re.search(r'(GR8|Hkb) (\d\d:\d\d:\d\d)', r[si])
-            if not m:
+            refs = re.findall(r'(GR8|Hkb) (\d\d:\d\d:\d\d)', r[si])
+            if not refs:
                 continue
-            rec, tc = m[1], m[2]
         n += 1
-        if not quote_ok(rec, tc, r[ci]):
+        if not any(quote_ok(rec, tc, r[ci]) for rec, tc in refs):
             bb.append(f'{p.name}:{r[0][:20]}')
     bad_w = [i for i, r in enumerate(rows[1:], 2) if len(r) != len(hdr)]
     print(f'      {p.name}: строк {len(rows) - 1}, цитат проверено {n}, строк с неверным числом полей {len(bad_w)}')
