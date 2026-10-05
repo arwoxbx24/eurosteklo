@@ -202,5 +202,18 @@ for p in sorted((D / 'baza').glob('D*.tsv')):
     bb += [f'{p.name}:строка {i} поля' for i in bad_w]
 report('Б11 база', not bb, f'ошибок {len(bb)} {bb[:5]}')
 
+# Б12. Документ подтверждения: каждая строка прослеживается к источнику; все узлы K2 и неразрешённые K1 включены; нет кодов и имён
+P = rd(D / 'podtverzhdenie/podtverzhdenie.tsv')
+k2 = rd(D / 'baza/K2-uzly.tsv')
+k1 = [r for r in rd(D / 'baza/K1-protivorechiya.tsv')[1:] if r[6] == 'не разрешено']
+src = ' '.join(r[4] for r in P[1:])
+miss = [r[0] for r in k2[1:] if f'K2 n{r[0]};' not in src] + [r[0] for r in k1 if f'K1 n{r[0]};' not in src]
+codes = [r[1] for r in P[1:] if re.search(r'\b[LS]-t\d|\bK\d\b|\bР-\d|\bС\d{1,2}\b|DNS', r[2] + r[3]) or names.search(r[2] + r[3])]
+nosrc = [r[1] for r in P[1:] if not re.match(r'(K[123] |svod )', r[4])]
+hp = html.unescape(open(D / 'podtverzhdenie/podtverzhdenie-klientu.html', encoding='utf-8').read())
+nohtml = [r[1] for r in P[1:] if r[2] not in hp]
+report('Б12 подтверждение', not miss and not codes and not nosrc and not nohtml,
+       f'пунктов {len(P) - 1}, разделы {dict(Counter(r[0][:2] for r in P[1:]))}, не включено {miss}, коды/имена {codes}, без источника {nosrc}, нет в HTML {nohtml}')
+
 print('ИТОГ:', 'PASS' if not FAIL else 'FAIL ' + ', '.join(FAIL))
 sys.exit(1 if FAIL else 0)
