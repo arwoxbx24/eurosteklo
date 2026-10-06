@@ -385,3 +385,31 @@ Completion: практическая клиентская форма по сущ
 будущие требования или акустическую100%; не закрывает получение ответов клиента.
 Rollback: корректирующий локальный commit, восстановление предыдущей версии
 производного документа; исходники/старые версии не удалять. GIT-LOCAL: no push/PR.
+
+
+### CRv10 — видимая доставка по R083–R088
+
+Owner requires automatic delivery and all project work inside canonical
+/root/workspaces/projects/clients/eurosteklo. Native git worktree move relocated
+only own existing tree to .worktrees/codex/eurosteklo-a58, preserving branch,
+commit, Word SHA and isolation. No foreign trees or live changes modified.
+Current approved output is unchanged client Word; no new semantic/model pass.
+
+Native mc publication is restricted to files/20261001-ppo-evrosteklo and its
+review/2026-10-05-consistency subtree; no private originals/audio/DB transfer.
+PPO links use the known existing site base so review links remain within the
+project prefix. One visible Word-download entry is added to detailed questions.
+Before replacement save existing sanitized objects in own ignored analysis.
+Acceptance: HTTP200, downloaded Word SHA equals accepted document; current
+HTML18 and anchors Q34/Q39, detailed-map links and download link visible; no
+private objects; native build/check/diffcheck/gitleaks; clean local commit.
+
+Existing courier ship-post is permitted by GIT-LOCAL and owner automatic
+shipping order, only SHIP_POST_REPOS=this canonical repository. Dry-run must
+identify exactly own ready atom and foreign skips. Normal atom-close enables
+courier; one pass, no direct ship/manual push/force. Revalidate courier result
+and actual remote/main state. On refusal retain exact native evidence; no
+bypass or new paid/reviewer run. Prior local-only mode is historical; do not
+claim public delivery until fresh HTTPS and courier evidence.
+Rollback: previous served bytes, corrective mc upload and local commit only;
+no deletion, original changes, rights/config or unrelated project actions.
