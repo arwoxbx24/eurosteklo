@@ -29,7 +29,7 @@
 | H12 | Рекурсия code-channel | Закрыто | `dcfg-bqocd` closed, PR tools#154; `eurosteklo-426` — не рекурсия, а перерасход Bitrix (C) | Ничего не делать |
 
 **Побочные находки аудита** (вне цели, только фиксация):
-- Ф1. `clients/okna-plus/` содержит файл `secrets` и ссылку `.env` в папке клиента (D) — закон `/root/CLAUDE.md` «Секреты только в `/root/workspaces/secrets/`». Содержимое не читалось.
+- Ф1. `clients/okna-plus/`: файл `secrets` пустой (`find -printf` → `f 0`), `.env` — ссылка на `/root/workspaces/secrets/projects/clients/okna-plus/.env`, скрипты читают ключи из `/root/workspaces/secrets/services/google/`; в git не попадали (`git log --all -- secrets .env` пусто). Значений секретов в папке клиента нет (проверка 09.10). Пустой файл не удалён: `safe-delete file` → «запрещённый сегмент» (заметка в `eurosteklo-71o`).
 - Ф2. `clients/sanatory-avto` — remote `arwoxbx24/agent-contour.git`, имя не совпадает с папкой (D).
 - Ф3. `clients/okna-plus/` целиком в ignore родителя (`projects/.gitignore:214`), 8 папок клиентов — untracked в родителе (D).
 - Ф4. `git-sync-loop` описан в `tools/ecosystem.config.js`, но не запущен (B; `pm2 ls` 09.10).
