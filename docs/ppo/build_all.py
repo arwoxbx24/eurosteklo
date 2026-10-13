@@ -65,10 +65,10 @@ INDEX_CSS = COMMON_CSS + """.blocks{display:grid;grid-template-columns:repeat(au
 .blockc h3{margin:0 0 8px}.blockc ul{margin:6px 0 0;padding-left:20px}.blockc li{margin:4px 0}.blockc a{color:var(--accent);font-weight:600}
 .soon{color:var(--muted)}.badge{font-size:13px;font-weight:700;border-radius:6px;padding:1px 8px;background:#e5f3e9;color:#1f6b3a;border:1px solid #1f6b3a}
 .badge.wip{background:#fbf1d9;color:#8a5a00;border-color:#8a5a00}"""
+BADGE = '<span class="badge wip">UNVERIFIED — source review pending</span>'
 BLOCKS = {
-    "lidy": ("1. Лиды", '<span class="badge">предварительно утверждено 28.09</span>', "От обращения клиента до сделки."),
-    "sdelki": ("2. Сделки", '<span class="badge">исправлено 30.09</span>',
-               "Расчёт и замер → договор и оплата → производство → отгрузка / монтаж → закрытие. Слои: доска Романа, ТЗ 2024–2025 и статусная модель Б24 ↔ 1С (1С — «неизвестно, уточнить»), портал справочно."),
+    "lidy": ("1. Лиды", BADGE, "Working lead map"),
+    "sdelki": ("2. Сделки", BADGE, "Working deal map"),
 }
 blocks = ""
 for p in PROCS:
@@ -83,20 +83,7 @@ for p in PROCS:
     else:
         blocks += f"""<div class="blockc"><h3>{title} <span class="badge wip">в работе</span></h3><p class="soon">{desc}</p><ul class="soon"><li>Карта процесса — готовится</li><li>Вопросы к встрече — готовится</li></ul></div>"""
 index_body = f"""<section><h2>Процессы</h2><div class="blocks">{blocks}</div></section>
-<section><h2>Лид и сделка — где граница</h2><ul>
-<li><b>Лид</b> — первичное обращение потенциального клиента из любого канала или рекламного источника.</li>
-<li><b>Сделка</b> — работа с квалифицированным клиентом после конвертации лида.</li>
-<li>Вопрос живёт в одном процессе; во втором — строка «↪ этот вопрос задаём в …» со ссылкой на карточку.</li>
-<li>Квалифицированный, но не конвертированный клиент — ещё лид.</li>
-<li>Повторный клиент — новый лид, привязанный к прежнему контакту.</li>
-<li>Сделка из 1С без лида — исключение, помечается.</li>
-<li>Общие правила для лида и сделки — точка С23.</li></ul>
-<p class="soon">Определения лида и сделки — владельца 30.09.2026. Правила границы лид/сделка — решение архитектора по поручению владельца 30.09 (В1–В3), противоречие с ТЗ ФТ-2 — вопрос клиенту.</p></section>
-<section><h2>Основания и правила</h2><ul>
-<li><b>Доска Романа</b> — его предположение о процессе, не истина; расхождения выносим клиенту.</li>
-<li><b>Базовая линия</b> — ТЗ 2024–2025 (UNVERIFIED до подтверждения клиентом).</li>
-<li><b>Портал</b> — справочно; проверит интегратор отдельным аудитом (по команде владельца).</li>
-<li>Журнал решений владельца <span class="badge">предварительно утверждено 28.09</span>: <code>docs/ppo/00-resheniya-vladeltsa.md</code>. Обезличенные исходники: <code>client-materials/sanitized-*.md</code>.</li></ul></section>"""
+<section><p class="soon">Map source review against the GR8/Hkb recordings and the 8 Oct client answers is incomplete; these maps are working material, not a verified client process.</p></section>"""
 (HERE / "index.html").write_text(page("Евростекло · предпроектное обследование",
     "Управляющий файл: процессы, карты, вопросы к встрече. Всё связано ссылками.", index_body, INDEX_CSS,
     '<nav class="docnav"><b>☰ Оглавление</b></nav>'), encoding="utf8")
