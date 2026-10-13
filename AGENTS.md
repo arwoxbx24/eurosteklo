@@ -2,6 +2,10 @@
 
 For file placement and archival, follow [PROJECT-STRUCTURE.md](PROJECT-STRUCTURE.md). It routes documents and source files; it does not authorize a new process claim, integration change, or publication. This file and the owner's current instruction take precedence if they differ.
 
+## Договор фасилитации (поручение владельца 14.10.2026)
+
+Все агенты проекта, включая Claude, Codex и субагентов, читают и применяют [договор фасилитации](docs/process/facilitation-contract.md) перед рабочим диалогом. Главный агент передаёт его правила исполнителям текущего блока. Действующее прямое поручение владельца определяет решение и приоритет; договор не требует повторного «да» для уже разрешённой работы. Противоречия разрешаются по § 7 договора и по приоритету действующих инструкций.
+
 ## Назначение
 
 Этот проект централизованно хранит клиентские материалы по ранее начатой интеграции с Битрикс24 после смены руководства компании.
