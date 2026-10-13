@@ -1,5 +1,7 @@
 # Инструкции проекта «Евро стекло»
 
+For file placement and archival, follow [PROJECT-STRUCTURE.md](PROJECT-STRUCTURE.md). It routes documents and source files; it does not authorize a new process claim, integration change, or publication. This file and the owner's current instruction take precedence if they differ.
+
 ## Назначение
 
 Этот проект централизованно хранит клиентские материалы по ранее начатой интеграции с Битрикс24 после смены руководства компании.

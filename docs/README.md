@@ -1,5 +1,7 @@
 # Documentation directory guide
 
+Placement rules: [Eurosteklo directory contract](../PROJECT-STRUCTURE.md). Current client-source locations and limits: [source locator](SOURCE-REGISTER.md). Archived members and restore route: [archive register](archive/README.md).
+
 Inventory date: 2026-10-13. Source: `git ls-files docs`, the immediate directory names, and the project `AGENTS.md`. This guide describes where files are stored; it does not certify their process claims as current.
 
 | Directory | Observed role | Currentness |
@@ -16,7 +18,7 @@ Inventory date: 2026-10-13. Source: `git ls-files docs`, the immediate directory
 | `review/` | PROVEN: fifty-eight tracked review records (`git ls-files docs/review`). | Currentness UNVERIFIED. |
 | `solutions/` | PROVEN: one tracked workflow issue record (`git ls-files docs/solutions`). | Process relevance UNVERIFIED. |
 | `specifications/` | PROVEN: three tracked specifications (`git ls-files docs/specifications`). | Client process truth UNVERIFIED. |
-| `tz/` | PROVEN: seventeen task specifications including the interim release passport. | Implementation acceptance UNVERIFIED. |
+| `tz/` | PROVEN: task specifications including the interim release and directory-contract passports. | Implementation acceptance UNVERIFIED. |
 
 The launch checkout also has an empty, untracked `business-processes/` directory. No tracked `packet/`, `is/`, or singular `meeting/` directory exists. The requested “packet” is most likely the observed `package/`; “is” most likely refers to `as-is/`, but those name interpretations are INFERRED from the directory list. No rename is justified by the supplied files.
 
