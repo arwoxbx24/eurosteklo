@@ -15,27 +15,35 @@ Review date: 2026-10-13. Scope: the local PPO index, standalone 28 September PPO
 | [Deal map](sdelki/karta-sdelki.html) | UNVERIFIED as a whole | The 9 October map includes Hkb and 8 October references, with the same semantic acceptance limit. |
 | [Standalone PPO page](ppo-eurosteklo.html) | Historical, UNVERIFIED for currentness | Its title identifies the 28 September 2026 edition; it is not a `build_all.py` output and still has an explicit unverified section. Preserve its existing link and do not treat it as the latest lead/deal map. |
 
-Structural check: the lead map has 7 table rows containing `PROVEN`, and the deal map has 12. All 19 rows also contain a source token (`GR8`, `Hkb`, `08.10`, `client-materials`, `Miro`, or `ТЗ`); this check did not establish that any citation supports its row's meaning. The client-source review required to certify those rows remains open.
+Structural review (2026-10-13): 114 visible HTML blocks were classified: 20 current-process passport rows, 43 historical source comparisons, and 51 navigation, headings, or source-status blocks. Five JPGs and the 85-row CSV depict the older mind map; 34 cited Miro IDs exist in the 8 October export. The two timed transcripts remain semantic locators only: their validation reports `semantic_acceptance=false`. No audio meaning or client approval is inferred from a timecode.
 
-### Map passport row ledger
+### Current passport decisions
 
-The page anchors below are the 20 source-passport rows in the two maps. The tokens were found in each HTML row on 2026-10-13. `UNVERIFIED` is the current audit state for the row's meaning, including rows whose earlier page label says `PROVEN`. This ledger does not cover every process point or sentence.
+Source IDs: `GR8` and `Hkb` refer to the two private 4 October recordings; `Q` refers to the private 8 October written answers; `Miro` refers to the private 8 October export. The public rows below contain IDs and locators, not source text. `PROVEN` means the cited written client answer supports that row as an answer, not that a portal behavior is implemented.
 
-| Lead row | Source tokens present | Current audit | Deal row | Source tokens present | Current audit |
-| --- | --- | --- | --- | --- | --- |
-| `pasport-L1` | GR8 | UNVERIFIED | `pasport-S1` | Hkb | UNVERIFIED |
-| `pasport-L2` | GR8 | UNVERIFIED | `pasport-S2` | Hkb | UNVERIFIED |
-| `pasport-L3` | GR8 | UNVERIFIED | `pasport-S3` | Hkb, Miro | UNVERIFIED |
-| `pasport-L4` | GR8 | UNVERIFIED | `pasport-S4` | Hkb, Miro | UNVERIFIED |
-| `pasport-L5` | GR8, 08.10 | UNVERIFIED | `pasport-S5` | Hkb, 08.10 | UNVERIFIED |
-| `pasport-L6` | GR8 | UNVERIFIED | `pasport-S6` | Hkb, Miro | UNVERIFIED |
-| `pasport-L7` | GR8, Hkb | UNVERIFIED | `pasport-S7` | Hkb | UNVERIFIED |
-| `pasport-L8` | GR8, ТЗ | UNVERIFIED | `pasport-S8` | Hkb, 08.10 | UNVERIFIED |
-| — | — | — | `pasport-S9` | Hkb, 08.10, Miro | UNVERIFIED |
-| — | — | — | `pasport-S10` | Hkb, Miro | UNVERIFIED |
-| — | — | — | `pasport-S11` | Hkb, 08.10, Miro | UNVERIFIED |
-| — | — | — | `pasport-S12` | Hkb | UNVERIFIED |
+| Page row | Decision | Source locators | Decision limit |
+| --- | --- | --- | --- |
+| `pasport-L1` | UNVERIFIED | GR8@00:38:07,00:40:50,00:43:43 | GR8 passages partially support salon ownership and distribution; one cited passage is unrelated; composite rule lacks confirmed audio meaning. |
+| `pasport-L2` | CONTRADICTED | GR8@00:04:08,00:04:14,00:50:26,00:51:01, CSV:82 | GR8 00:04:14 excludes Avito while the earlier Miro/JPG channel drawing includes Avito; channel configuration remains unresolved. |
+| `pasport-L3` | UNVERIFIED | GR8@00:10:12,00:10:54,00:44:11,00:45:48,00:52:13 | GR8 discusses notification and about 15 minutes during working hours; repeated task creation was rejected as an inference. |
+| `pasport-L4` | UNVERIFIED | GR8@00:26:54,01:00:45,01:01:23 | GR8 supports consultation and early conversion as discussion; exact mandatory data and target behavior are not fully settled. |
+| `pasport-L5` | PROVEN | GR8@00:31:13,00:33:48, Q28 | Client written answer Q28 directly gives lead/client card fields and the conversion point; this proves the answer content, not portal implementation. |
+| `pasport-L6` | UNVERIFIED | GR8@00:49:05,00:49:58,00:58:24,00:59:15,01:01:23 | GR8 supports fewer lead statuses as a preference; automatic refusal or exact technical states were not accepted. |
+| `pasport-L7` | UNVERIFIED | GR8@00:48:08,00:48:21,00:02:06, Hkb@00:48:08,00:48:21,00:02:06 | GR8 says a new order is created; required technical entity and repeat-contact rules remain unresolved. |
+| `pasport-L8` | UNVERIFIED | GR8@00:35:16,00:37:34, Q05 | GR8 explicitly avoids old dispatcher and automatic reassignment proposals; historical terms are not current requirements. |
+| `pasport-S1` | UNVERIFIED | Hkb@00:02:06,00:04:34,00:46:03,00:27:32,00:30:16,01:09:49,00:52:50,00:59:16 | Hkb rejects a separate application status and discusses stage sequence, but the composite end-to-end sequence lacks full current approval. |
+| `pasport-S2` | UNVERIFIED | Hkb@00:14:00,00:16:25,00:19:26,00:22:40,00:39:23,00:49:29 | Hkb and Miro discuss measurement, files and roles; exact exit criteria and full document set are not all confirmed. |
+| `pasport-S3` | UNVERIFIED | Hkb@00:24:01,00:54:51,00:55:56,00:57:45, Miro:3458764683860537410 | Hkb distinguishes standard and external contracts; the three-working-day period was tentative, not an accepted SLA. |
+| `pasport-S4` | UNVERIFIED | Hkb@00:59:16,01:00:49,01:06:30,01:07:02 | Hkb discusses prepayment and no return to prior stage; exact threshold and accounting trigger need independent source confirmation. |
+| `pasport-S5` | UNVERIFIED | Hkb@00:41:03,00:44:30,01:04:10,01:04:32, Q11 | Q11 directly confirms ten working days; Hkb discusses manager decision, while the whole composite rule is not fully approved. |
+| `pasport-S6` | UNVERIFIED | Hkb@00:31:48,00:35:41, Miro:3458764683781924768, Miro:3458764683859705646 | Miro nodes and Hkb discuss production and supply dates; not every combined transition and inventory condition is confirmed. |
+| `pasport-S7` | UNVERIFIED | Hkb@01:11:46,01:15:36,01:16:23,01:17:51,01:23:05,01:23:41 | Hkb discusses manufactured/shipping work; exact actor and automation boundaries remain open. |
+| `pasport-S8` | UNVERIFIED | Hkb@01:27:12,01:29:18, Q15, Q38 | Q15 and Q38 directly support document handoff and notification; the combined delivery process still contains unconfirmed elements. |
+| `pasport-S9` | UNVERIFIED | Hkb@01:19:23,01:22:05,01:32:14, Q30, Miro:3458764683861954134 | Q30 says no extra confirmation; Hkb and Miro discuss optional installation, but composite closure behavior is not settled. |
+| `pasport-S10` | UNVERIFIED | Hkb@00:58:40,01:00:49, Miro:3074457358436799981 | Miro and Hkb support return of closing documents; no source establishes a new waiting-for-scan stage. |
+| `pasport-S11` | UNVERIFIED | Hkb@01:45:03,01:46:50, Q17, Q18, Q37, Miro:3074457358436907252 | Q17, Q18 and Q37 answer start date, amount threshold and attempt count; Miro alone supplies 14/90/270-day cadence. |
+| `pasport-S12` | UNVERIFIED | Hkb@00:00:07,00:01:25,00:53:54,01:25:16,01:26:08,01:43:53,01:44:52 | Hkb excludes several topics from current scope; the row is a boundary summary, not a certified current workflow. |
 
 ## Decision
 
-The two maps cannot be certified as fully current from the evidence checked on 2026-10-13. No new process claim has been promoted to PROVEN here. To certify a particular statement, record its exact page location, client source, recording and timecode where applicable, compare the actual media with the 8 October answer, then mark contradictions or missing support explicitly. Until that happens, the map-wide status remains UNVERIFIED.
+The current passport review assigned a decision to every row. One written-answer row is `PROVEN`; one channel row is `CONTRADICTED`; the remaining 18 composite rows are `UNVERIFIED`. Historical diagram and source-comparison layers remain labeled as source context, not approved target behavior. The two maps as a whole remain `UNVERIFIED` for a fully agreed current process. Every unresolved item stays visible as a question or source limit; no integration requirement is certified from it.
