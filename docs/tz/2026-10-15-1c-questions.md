@@ -25,3 +25,9 @@ Acceptance: four `.docx` read back by `pandoc -t plain` with rc 0; every questio
 Defect of U2: the client files for Виталий and Роман carried internal "Статус ответа" lines (18 and 6), evidence labels PROVEN/INFERRED/UNVERIFIED (66 and 38) and one assessment of Roman's answer. Fix: drop those lines and labels from the two client files only, keep every question, purpose, where to look and what to send; ARWOX files (Дмитрий, Андрей) keep the labels and stay byte-identical.
 
 Acceptance: both client `.docx` read back by `pandoc -t plain` show status=0, labels=0, questions 18 and 6; ARWOX `.docx` unchanged against commit 619f064.
+
+## U4 — clean business text in all four Word files (atom eurosteklo-rdy)
+
+Defect of U2/U3 (owner 15.10): all four `.docx` still carried time codes (40–86 per file), question prefixes В<n>, row codes D<n>, "Источник:" lines, labels, speaker numbers, paths and ids, plus "Где смотреть" hints that may mislead a 1C developer. Fix: rewrite all four files under the same names (no new links): plain-digit numbering, per question "Вопрос", "Что описать или прислать" and an empty "Ответ:" field; the Andrey critique says per point "прав / не прав / прав частично" and what to correct. The project rule is added to `CLAUDE.md`. Method: four parallel blocks, one file each; `pandoc` 3.1.3 converts Markdown to `.docx`.
+
+Acceptance: `pandoc -t plain` of each `.docx` shows time codes=0, labels=0, "Источник"=0, "Спикер"=0, paths/ids=0, prefixes=0, "Где смотреть"=0; "Ответ:" fields 18/6/8/3 (Виталий/Роман/Дмитрий/Андрей); Andrey critique has ≥1 "прав".
