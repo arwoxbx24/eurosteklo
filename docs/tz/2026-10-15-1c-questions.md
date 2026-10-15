@@ -19,3 +19,9 @@ Goal (owner 15.10: "формат Word, для каждого специалис�
 Method: four parallel blocks write one Markdown file each, questions copied verbatim; `pandoc` 3.1.3 converts Markdown to `.docx`. Internal sections (critique, consistency) go only to the ARWOX files (Дмитрий, Андрей).
 
 Acceptance: four `.docx` read back by `pandoc -t plain` with rc 0; every question В1–В23 present in at least one file; each file has the headings Кому and Цель.
+
+## U3 — client files without internal assessment (atom eurosteklo-edm)
+
+Defect of U2: the client files for Виталий and Роман carried internal "Статус ответа" lines (18 and 6), evidence labels PROVEN/INFERRED/UNVERIFIED (66 and 38) and one assessment of Roman's answer. Fix: drop those lines and labels from the two client files only, keep every question, purpose, where to look and what to send; ARWOX files (Дмитрий, Андрей) keep the labels and stay byte-identical.
+
+Acceptance: both client `.docx` read back by `pandoc -t plain` show status=0, labels=0, questions 18 and 6; ARWOX `.docx` unchanged against commit 619f064.
