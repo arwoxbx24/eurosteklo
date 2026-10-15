@@ -11,3 +11,11 @@ Method: three independent blocks written in parallel (eurosteklo CLAUDE.md, law 
 Out of scope: full TZ (owner: not now), Bitrix portal access, edits of svod.tsv and closure.tsv, messages to the client.
 
 Acceptance: section, question and label counts by `grep -c` as listed in atom eurosteklo-xeb.
+
+## U2 — Word file per participant (atom eurosteklo-7ti)
+
+Goal (owner 15.10: "формат Word, для каждого специалиста свой файл"): four `.docx` files in `docs/meetings/2026-10-15-1c-call/` built from the U1 document: Виталий (technical 1C questions В1–В6, В9–В12, В14, В15, В17, В19–В23), Роман (В7, В8, В13, В16, В18, В23), Дмитрий (work sheet, his questions В1–В8 and internal notes), Андрей (overview, own tasks, В3, В11, В23, consistency and critique).
+
+Method: four parallel blocks write one Markdown file each, questions copied verbatim; `pandoc` 3.1.3 converts Markdown to `.docx`. Internal sections (critique, consistency) go only to the ARWOX files (Дмитрий, Андрей).
+
+Acceptance: four `.docx` read back by `pandoc -t plain` with rc 0; every question В1–В23 present in at least one file; each file has the headings Кому and Цель.
