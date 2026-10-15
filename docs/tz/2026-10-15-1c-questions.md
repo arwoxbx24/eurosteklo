@@ -37,3 +37,9 @@ Acceptance: `pandoc -t plain` of each `.docx` shows time codes=0, labels=0, "И�
 Defect of U2–U4 (owner 15.10): material was split by call participant, not by who must answer. The Dmitry file held 8 client questions (Dmitry is new on the project and knows nothing yet; on the call he asked questions, mostly to Роман); the Andrey file claimed Dmitry had understood everything. Fix: questions to the client only in two files — Виталий (how 1C is built, 16 questions) and Роман (how the process works, 7 questions: the former 5 plus payments and pricing moved from Виталий; the copy-of-base question stays only with Виталий). Every question is addressed by name. Dmitry gets a short briefing without questions (owner choice): Кто есть кто, Что показал Роман, Какие вопросы ушли. The Andrey summary drops the false claim and the question cards, gets "Кому какие вопросы" and a critique rebuilt from the call record. Same four file names.
 
 Acceptance: `pandoc -t plain` of each `.docx`: no time codes, labels, sources, speakers, paths, prefixes, "Где смотреть"; Dmitry questions=0 answers=0 sections=3; every Виталий/Роман question starts with the name, answers=questions; no title in both files; Andrey false claims=0, ≥1 "Вывод: прав", one "Что поправить" per point.
+
+## U6 — technical pricing and payment questions back to Виталий (atom eurosteklo-y3w)
+
+Defect of U5 (owner 15.10 accepted the note): payments and pricing went to Роман as business questions only, so nobody describes how prices and payment allocation are set up inside 1C, while prices failed to load on the call. Fix: two questions added to the Виталий file — 17 "Как в 1С настроен расчёт цены", 18 "Как в 1С разносятся оплаты по заказам"; the Роман file is unchanged; the Дмитрий list and the Андрей summary show 18 topics for Виталий.
+
+Acceptance: `pandoc -t plain`: Виталий addressed=18/18, answers=18; no title in both Виталий and Роман files; artifacts=0 in the three changed files.
