@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Как сейчас проходит заказ</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./ppo.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#0154C8}a:hover{color:#006DFF}
+.t{width:100%;border-collapse:collapse;font-size:13px;line-height:1.35}
+.t th{text-align:left;font-size:12px;font-weight:700;color:#565a74;text-transform:uppercase;letter-spacing:.04em;padding:0 10px 7px;border-bottom:2px solid #12112F}
+.t td{padding:6px 10px;border-bottom:1px solid #e2e9f7;vertical-align:top}
+.t td:first-child{font-weight:700;width:150px}
+.t td:nth-child(2){width:170px}
+.crit{background:#fdecec;color:#8e1b1b}
+.mid{background:#fff6e0;color:#6b4a00}
+.lg{display:inline-block;padding:2px 8px;border-radius:6px;margin-right:6px}
+</style>
+</helmet>
+<div class="slide">
+  <div class="top"><span><b>ARWOX</b> · Евростекло</span><span>3 / 3 · MVP</span></div>
+  <h2 style="margin-top: 14px">Как заказ проходит сейчас</h2>
+  <table class="t" style="margin-top: 14px">
+    <thead><tr><th>Этап</th><th>Кто</th><th>Как сейчас</th><th>Узкое место</th></tr></thead>
+    <tbody>
+      <tr><td>Обращение</td><td>Менеджер салона</td><td>Звонок, почта, визит, Telegram, ВКонтакте; источник не фиксируется, онлайн-заявки никому не назначены</td><td class="crit">Битрикс24 не используется — только чат; отчёта по обращениям нет</td></tr>
+      <tr><td>Квалификация</td><td>Менеджер</td><td>Данные клиента заносятся в 1С (контрагент, соглашение, ИНН); дубли ищут вручную</td><td class="mid">Лид в Битрикс24 висит «обработан» без конвертации; 99+ лишних задач</td></tr>
+      <tr><td>Расчёт и замер</td><td>Менеджер, руководитель проектного отдела</td><td>Заказ клиента в 1С: номенклатура, вид цены, коэффициент сложности; задание на замер — в календаре 1С</td><td class="mid">Цены в заказах после сбоя не подтягиваются; расчёт может «висеть» без срока</td></tr>
+      <tr><td>Договор и счёт</td><td>Менеджер, юрист</td><td>Договор и счёт печатаются из 1С, отправляются вручную; чужая форма — к юристу без срока</td><td class="mid">Отправка документов вручную, нет контроля 3 рабочих дней на подпись</td></tr>
+      <tr><td>Предоплата</td><td>Бухгалтерия, менеджер</td><td>Платёж разносится по номеру заказа в назначении; состояние заказа меняется вручную</td><td class="mid">Менеджер узнаёт об оплате только из 1С</td></tr>
+      <tr><td>Производство</td><td>Менеджер, руководитель ПТО</td><td>Галочка «запустить в производство», чертёж DXF/PDF, заказ на производство на принтер ПТО; «изготовлено» ставит ПТО вручную</td><td class="crit">Готовность и сроки видны только в журнале 1С; в Битрикс24 ничего не приходит</td></tr>
+      <tr><td>Отгрузка и монтаж</td><td>Менеджер, ПТО, служба сервиса</td><td>Счёт на остаток, УПД и доверенность из 1С; монтаж — задание в календаре 1С, фото и акт от бригады</td><td class="mid">Отгрузка без оплаты и перенос монтажа решаются устно</td></tr>
+      <tr><td>Закрытие</td><td>Ассистент отдела продаж</td><td>Оригиналы или ЭДО, реализация и УПД в 1С; обратная связь клиенту не собирается</td><td class="crit">Нет звонков 14/90/270 дней и учёта возвращённых документов</td></tr>
+    </tbody>
+  </table>
+  <p class="note" style="margin: 10px 0 0"><span class="lg crit">критическая точка</span>то, что вы назвали главными проблемами <span class="lg mid" style="margin-left: 14px">зона внимания</span>ограничивает работу, но не останавливает её</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":720}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>
