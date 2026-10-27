@@ -1,0 +1,7 @@
+docs: deliver the client form on the existing project site
+
+Use verified download links within the project site and retain shared evidence
+in the canonical eurosteklo directory. The accepted client Word is unchanged.
+
+ТЗ: /root/workspaces/projects/clients/eurosteklo/.worktrees/codex/eurosteklo-a58/docs/tz/TZ-DOCS-DELIVERY.md#U
+Atom: eurosteklo-a58

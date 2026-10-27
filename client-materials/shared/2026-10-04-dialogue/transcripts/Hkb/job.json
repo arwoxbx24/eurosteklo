@@ -1,0 +1,12 @@
+{
+  "id": "6dcb7c40-03c3-4158-83c1-c3fd4c85ea94",
+  "source": "Hkb",
+  "status": "completed",
+  "models": [
+    "universal-3-5-pro",
+    "universal-2"
+  ],
+  "language": "ru",
+  "speaker_labels": true,
+  "speech_model_used": "universal-2"
+}

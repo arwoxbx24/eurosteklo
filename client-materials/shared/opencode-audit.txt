@@ -1,0 +1,3 @@
+Read-only task. Do not edit files and do not read client-materials/private.
+
+Using only /root/workspaces/tools/transcribe documentation and CLI help, return the exact command that transcribes a local MP3 through AssemblyAI and saves the transcript under a caller-supplied output directory. Verify required flags and report only the command plus any prerequisite status that can be checked without reading secret values. Do not start another agent or orchestrator.

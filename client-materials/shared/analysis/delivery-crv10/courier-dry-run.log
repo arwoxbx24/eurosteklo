@@ -1,0 +1,4 @@
+skip /root/workspaces/projects/.worktrees/codex/eurosteklo-ds6 нет трейлера ТЗ
+skip /root/workspaces/projects/clients/eurosteklo/.worktrees/claude/ds6f ветка старше почтальона
+ready /root/workspaces/projects/clients/eurosteklo/.worktrees/codex/eurosteklo-a58 eurosteklo-a58
+ok=0 failed=0 skip=2
