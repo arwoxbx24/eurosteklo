@@ -13,12 +13,12 @@ COPIED | Это наш диалог/sharex-082kvl.txt | копия без изм
 EXCLUDED | Это наш диалог/.claude-marker | видео, аудио, архив, картинка или служебный файл — владелец 27.10: «никаких видео не нужно только транскрибация текст», «тяжёлые файлы там не нужны»
 COPIED | 2026-10-13-closure/closure.tsv | копия без изменений
 COPIED | 2026-10-13-closure/track-c.tsv | копия без изменений
-EXCLUDED | 2026-10-13-owner-links/reference-clean.docx | персональные данные не проверены или файл больше предела; оригинал в private
-EXCLUDED | 2026-10-13-owner-links/sharex-2J1imH.docx | персональные данные не проверены или файл больше предела; оригинал в private
-EXCLUDED | 2026-10-13-owner-links/sharex-gBfNyB.docx | персональные данные не проверены или файл больше предела; оригинал в private
+COPIED | 2026-10-13-owner-links/reference-clean.docx | копия без изменений; проверка личных данных: 0 совпадений
+COPIED | 2026-10-13-owner-links/sharex-2J1imH.docx | копия без изменений; проверка личных данных: 0 совпадений
+COPIED | 2026-10-13-owner-links/sharex-gBfNyB.docx | копия без изменений; проверка личных данных: 0 совпадений
 EXCLUDED | 2026-10-13-owner-links/.claude-marker | видео, аудио, архив, картинка или служебный файл — владелец 27.10: «никаких видео не нужно только транскрибация текст», «тяжёлые файлы там не нужны»
-EXCLUDED | 2026-10-13-owner-links/sharex-Eirzsk.docx | персональные данные не проверены или файл больше предела; оригинал в private
-EXCLUDED | 2026-10-13-owner-links/sharex-QmZYdE.docx | персональные данные не проверены или файл больше предела; оригинал в private
+COPIED | 2026-10-13-owner-links/sharex-Eirzsk.docx | копия без изменений; проверка личных данных: 0 совпадений
+COPIED | 2026-10-13-owner-links/sharex-QmZYdE.docx | копия без изменений; проверка личных данных: 0 совпадений
 EXCLUDED | mindmaps/Евростекло (3).jpg | видео, аудио, архив, картинка или служебный файл — владелец 27.10: «никаких видео не нужно только транскрибация текст», «тяжёлые файлы там не нужны»
 EXCLUDED | mindmaps/Евростекло.jpg | видео, аудио, архив, картинка или служебный файл — владелец 27.10: «никаких видео не нужно только транскрибация текст», «тяжёлые файлы там не нужны»
 EXCLUDED | mindmaps/Евростекло (1).jpg | видео, аудио, архив, картинка или служебный файл — владелец 27.10: «никаких видео не нужно только транскрибация текст», «тяжёлые файлы там не нужны»
@@ -51,7 +51,7 @@ COPIED | 2026-10-04-dialogue/delivery.html | копия без изменени�
 COPIED | analysis/codex-hooks-handoff-2026-10-06.md | копия без изменений
 EXCLUDED | analysis/evidence-crv8.sqlite3 | видео, аудио, архив, картинка или служебный файл — владелец 27.10: «никаких видео не нужно только транскрибация текст», «тяжёлые файлы там не нужны»
 COPIED | 2026-10-08-client-answers/otvety-klienta.md | копия без изменений
-EXCLUDED | 2026-10-08-client-answers/blank-form-2026-10-06.docx | персональные данные не проверены или файл больше предела; оригинал в private
+COPIED | 2026-10-08-client-answers/blank-form-2026-10-06.docx | копия без изменений; проверка личных данных: 0 совпадений
 COPIED | 2026-10-08-client-answers/otvety-klienta.v1-2026-10-08.md | копия без изменений
 COPIED | 2026-10-27-dns/assemblyai-cc5.json | копия без изменений
 EXCLUDED | 2026-10-27-dns/.claude-marker | видео, аудио, архив, картинка или служебный файл — владелец 27.10: «никаких видео не нужно только транскрибация текст», «тяжёлые файлы там не нужны»
@@ -137,7 +137,7 @@ MASKED | miro/nodes.csv | телефоны, почта, номера докум�
 MASKED | miro/board.svg | телефоны, почта, номера документов заменены на [скрыто]
 COPIED | 2026-10-04-dialogue/sverka/voprosnik.tsv | копия без изменений
 COPIED | 2026-10-04-dialogue/evidence/passport-source.md | копия без изменений
-EXCLUDED | 2026-10-04-dialogue/evidence/dialogue-evidence.jsonl | персональные данные не проверены или файл больше предела; оригинал в private
+COPIED | 2026-10-04-dialogue/evidence/dialogue-evidence.jsonl | копия без изменений; проверка личных данных: 0 совпадений
 COPIED | 2026-10-04-dialogue/evidence/audit-final.out | копия без изменений
 COPIED | 2026-10-04-dialogue/evidence/audit-final.log | копия без изменений
 COPIED | 2026-10-04-dialogue/evidence/comparison-result.json | копия без изменений
@@ -147,7 +147,7 @@ EXCLUDED | 2026-10-04-dialogue/GR8/sharex-7tKKjc.webm | видео, аудио, 
 COPIED | 2026-10-04-dialogue/GR8/download.log | копия без изменений
 EXCLUDED | 2026-10-04-dialogue/GR8/.claude-marker | видео, аудио, архив, картинка или служебный файл — владелец 27.10: «никаких видео не нужно только транскрибация текст», «тяжёлые файлы там не нужны»
 COPIED | 2026-10-04-dialogue/transcripts/validation.json | копия без изменений
-EXCLUDED | 2026-10-04-dialogue/evidence/audit-final-session.json | персональные данные не проверены или файл больше предела; оригинал в private
+MASKED | 2026-10-04-dialogue/evidence/audit-final-session.json | телефоны, почта, номера документов заменены на [скрыто]
 COPIED | 2026-10-04-dialogue/sverka/B5.tsv | копия без изменений
 COPIED | 2026-10-04-dialogue/sverka/B4.tsv | копия без изменений
 COPIED | 2026-10-04-dialogue/sverka/B3a.tsv | копия без изменений
@@ -182,7 +182,7 @@ COPIED | 2026-10-04-dialogue/evidence/gap-audio.log | копия без изме
 COPIED | 2026-10-04-dialogue/evidence/gap-audio-validation.json | копия без изменений
 COPIED | 2026-10-04-dialogue/evidence/gap-audio.out | копия без изменений
 COPIED | 2026-10-04-dialogue/evidence/audit-corrective.log | копия без изменений
-EXCLUDED | 2026-10-04-dialogue/evidence/dialogue-evidence.json | персональные данные не проверены или файл больше предела; оригинал в private
+COPIED | 2026-10-04-dialogue/evidence/dialogue-evidence.json | копия без изменений; проверка личных данных: 0 совпадений
 COPIED | 2026-10-04-dialogue/evidence/canonical-questions.txt | копия без изменений
 COPIED | 2026-10-04-dialogue/evidence/audit.out | копия без изменений
 COPIED | 2026-10-04-dialogue/evidence/audit-corrective.out | копия без изменений
@@ -203,8 +203,8 @@ EXCLUDED | video-portal/frames/frame_0007.png | видео, аудио, архи
 EXCLUDED | video-portal/frames/frame_0022.png | видео, аудио, архив, картинка или служебный файл — владелец 27.10: «никаких видео не нужно только транскрибация текст», «тяжёлые файлы там не нужны»
 EXCLUDED | video-portal/frames/frame_0023.png | видео, аудио, архив, картинка или служебный файл — владелец 27.10: «никаких видео не нужно только транскрибация текст», «тяжёлые файлы там не нужны»
 TOTAL=203
-COPIED=107
-MASKED=8
-EXCLUDED=88
+COPIED=115
+MASKED=9
+EXCLUDED=79
 UNLISTED=0
 PII_LEFT=0
