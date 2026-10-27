@@ -1,0 +1,33 @@
+Input #0, matroska,webm, from 'client-materials/private/2026-10-04-dialogue/Hkb/sharex-KqTiK6.webm':
+  Metadata:
+    encoder         : libwebm-0.3.3.0
+  Duration: 01:50:04.94, start: -0.007000, bitrate: 367 kb/s
+  Stream #0:0(eng): Video: vp8, yuv420p(progressive), 1366x768, SAR 1:1 DAR 683:384, 1k tbr, 1k tbn (default)
+  Stream #0:1(eng): Audio: opus, 48000 Hz, stereo, fltp (default)
+Stream mapping:
+  Stream #0:1 -> #0:0 (opus (native) -> pcm_s16le (native))
+[matroska,webm @ 0x643d6f453f80] File is broken, keyframes not correctly marked!
+Output #0, null, to 'pipe:':
+  Metadata:
+    encoder         : Lavf60.16.100
+  Stream #0:0(eng): Audio: pcm_s16le, 48000 Hz, stereo, s16, 1536 kb/s (default)
+    Metadata:
+      encoder         : Lavc60.31.102 pcm_s16le
+size=       0kB time=00:00:00.00 bitrate=N/A speed=   0x    [silencedetect @ 0x643d6f497300] silence_start: 4.52998
+[silencedetect @ 0x643d6f497300] silence_end: 5.92 | silence_duration: 1.39002
+[silencedetect @ 0x643d6f497300] silence_start: 8.65217
+[silencedetect @ 0x643d6f497300] silence_end: 9.70496 | silence_duration: 1.05279
+[silencedetect @ 0x643d6f497300] silence_start: 15.9606
+[silencedetect @ 0x643d6f497300] silence_end: 17.44 | silence_duration: 1.47937
+[silencedetect @ 0x643d6f497300] silence_start: 18.81
+[silencedetect @ 0x643d6f497300] silence_end: 20.2982 | silence_duration: 1.48825
+[silencedetect @ 0x643d6f497300] silence_start: 20.9299
+[silencedetect @ 0x643d6f497300] silence_end: 22.35 | silence_duration: 1.4201
+[silencedetect @ 0x643d6f497300] silence_start: 27.0702
+size=N/A time=00:01:07.36 bitrate=N/A speed= 116x    [silencedetect @ 0x643d6f497300] silence_end: 71.8488 | silence_duration: 44.7786
+[silencedetect @ 0x643d6f497300] silence_start: 71.8627
+size=N/A time=00:02:17.53 bitrate=N/A speed= 127x    size=N/A time=00:03:29.52 bitrate=N/A speed= 133x    [silencedetect @ 0x643d6f497300] silence_end: 256.17 | silence_duration: 184.307
+[silencedetect @ 0x643d6f497300] silence_start: 256.18
+size=N/A time=00:04:41.02 bitrate=N/A speed= 135x    size=N/A time=00:05:50.14 bitrate=N/A speed= 136x    [out#0/null @ 0x643d6f499c00] video:0kB audio:78479kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: unknown
+size=N/A time=00:06:58.55 bitrate=N/A speed= 136x    
+[silencedetect @ 0x643d6f497300] silence_end: 418.554 | silence_duration: 162.374
