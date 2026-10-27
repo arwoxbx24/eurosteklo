@@ -1,0 +1,163 @@
+id	class	ref	note
+L-t1-q	none	-	no matching answer
+L-t1-e2	none	-	no matching answer
+L-t1-e3	none	-	no matching answer
+L-t2-e5	none	-	no matching answer
+L-t4-q	none	-	show request; related answered rows only partial
+L-t5-q	none	-	no matching answer
+L-t6-q	none	-	Q37 concerns post-sale feedback calls, not leads
+L-t6-e3	none	-	no matching answer
+L-t7-e3	none	-	no matching answer
+L-t8-q	answer	Q28	lead card fields and conversion condition
+L-t10-e1	none	-	Q28 gives structure, not who approves
+L-t11-e2	none	-	no matching answer
+L-t12-q	none	-	no matching answer
+L-t12-e1	none	-	no matching answer
+L-t12-e3	none	-	no matching answer
+L-t13-q	duplicate	L-t13-e2	same fact: unassigned leads go to sales head
+L-t15-e1	none	-	L-t8-e1 close but does not cover lead status
+L-t15-e2	none	-	no matching answer
+L-t16-e2	none	-	no matching answer
+S-t1-q	none	-	no matching answer
+S-t1-e1	duplicate	S-t3-e1	ready drawings and dimensions case
+S-t1-e5	none	-	S-t29-q says Zayavka is not a stage; second half unanswered
+S-t2-q	none	-	no matching answer
+S-t2-e1	duplicate	S-t3-e1	client own drawings case
+S-t2-e2	none	-	Q20 does not say what happens if unpaid
+S-t2-e3	answer	Q20	measurement paid separately from order
+S-t2-e4	none	-	no matching answer
+S-t2-e5	none	-	Q20 does not state prerequisite for measurer departure
+S-t2-e6	answer	Q20	measurement cost not included in order
+S-t3-q	none	-	no matching answer
+S-t3-e5	none	-	no matching answer
+S-t3-e6	none	-	no matching answer
+S-t3-e7	none	-	no matching answer
+S-t3-e8	none	-	no matching answer
+S-t4-e3	none	-	no matching answer
+S-t4-e5	none	-	no matching answer
+S-t4-e6	none	-	S-t4-e1 and S-t4-e2 only partially related
+S-t4-e7	none	-	no matching answer
+S-t5-q	none	-	Q23 defines coefficient; approver and record location unanswered
+S-t5-e1	none	-	no matching answer
+S-t5-e2	none	-	no matching answer
+S-t5-e3	none	-	no matching answer
+S-t5-e4	none	-	no matching answer
+S-t5-e5	none	-	no matching answer
+S-t5-e6	none	-	Q23 defines coefficient; why service approves unanswered
+S-t5-e7	none	-	no matching answer
+S-t5-e8	none	-	no matching answer
+S-t5-e9	none	-	no matching answer
+S-t6-q	none	-	no matching answer
+S-t6-e1	none	-	no matching answer
+S-t6-e2	none	-	no matching answer
+S-t6-e4	none	-	no matching answer
+S-t6-e5	none	-	Q24/Q25 give meaning only; signing package not covered
+S-t6-e6	none	-	no matching answer
+S-t6-e7	none	-	Q35 is lawyer deadline, not rounds count
+S-t6-e8	none	-	no matching answer
+S-t6-e9	none	-	Q24/Q25 give meaning; package example not provided
+S-t7-e1	none	-	no matching answer
+S-t7-e2	answer	Q35	lawyer review deadline and overdue handling
+S-t7-e3	none	-	no matching answered row
+S-t7-e4	none	-	no matching answer
+S-t7-e5	none	-	S-t24-e2 generic; not clearly covering contract change
+S-t7-e6	none	-	no matching answer
+S-t7-e7	none	-	Q35 covers timing only, not routing
+S-t8-q	none	-	no matching answer
+S-t8-e1	none	-	no matching answer
+S-t8-e2	none	-	S-t4-q scan consent not clearly same
+S-t8-e3	none	-	no matching answer
+S-t8-e4	none	-	Q24 defines term only
+S-t8-e5	none	-	no matching answer
+S-t8-e6	none	-	S-t25-e4 thresholds differ; no exception-approver answer
+S-t8-e7	none	-	Q35 manager inaction concerns lawyer side only
+S-t8-e8	none	-	S-t26-q partly; show request and timing unanswered
+S-t9-q	none	-	no matching answer
+S-t9-e1	none	-	no matching answer
+S-t9-e2	none	-	no matching answer
+S-t9-e3	none	-	no matching answer
+S-t9-e4	none	-	no matching answer
+S-t10-q	none	-	show request; S-t10-e7 only partial
+S-t10-e1	none	-	no matching answer
+S-t10-e2	none	-	no matching answer
+S-t10-e3	none	-	S-t11 answers concern hardware, not materials
+S-t10-e4	none	-	no matching answer
+S-t10-e5	none	-	no matching answer
+S-t10-e6	none	-	S-t24-e2 generic; not clearly covering order change
+S-t10-e8	none	-	no matching answer
+S-t10-e9	none	-	no matching answer
+S-t10-e10	none	-	no matching answer
+S-t10-e11	none	-	no matching answer
+S-t10-e12	none	-	no matching answer
+S-t10-e13	none	-	no matching answer
+S-t11-e2	none	-	no matching answer
+S-t11-e3	none	-	no matching answer
+S-t11-e4	none	-	no matching answer
+S-t11-e5	none	-	no matching answer
+S-t11-e6	none	-	S-t11-q is the source of ambiguity, not resolution
+S-t11-e7	none	-	no matching answer
+S-t12-e1	none	-	no matching answer
+S-t12-e3	none	-	no matching answer
+S-t12-e4	none	-	no matching answer
+S-t12-e5	none	-	no matching answer
+S-t13-e2	none	-	no matching answer
+S-t13-e3	none	-	no matching answer
+S-t13-e4	none	-	Q32 concerns installation act, not receipt documents
+S-t13-e5	none	-	no matching answer
+S-t13-e6	answer	Q15	sales assistant attaches closing documents to deal
+S-t13-e7	none	-	Q31 not clearly same scenario; UPD part unanswered
+S-t13-e8	none	-	no matching answer
+S-t13-e9	none	-	no matching answer
+S-t13-e10	none	-	no matching answer
+S-t13-e11	none	-	no matching answer
+S-t13-e12	none	-	Q15 only implies own delivery exists
+S-t13-e13	none	-	no matching answer
+S-t14-e1	none	-	no matching answer
+S-t14-e3	none	-	no matching answer
+S-t14-e4	duplicate	S-t14-q	installation not always needed; simple shipment exists
+S-t14-e5	none	-	Q39 closing rule not clearly for self-pickup
+S-t15-e5	none	-	no matching answer
+S-t15-e8	none	-	who calls client unanswered; S-t15-e3 partial
+S-t15-e9	duplicate	S-t16-e8	installation without balance needs sales head approval
+S-t16-e1	answer	Q31	object not ready: service head decides
+S-t16-e2	answer	Q32	refusal to sign act handled by service head
+S-t16-e3	none	-	Q32 covers defects, approver of rework unclear
+S-t16-e4	none	-	Q34 gives who decides, not how recorded
+S-t16-e6	answer	Q32,Q30	signed work act completes acceptance; no extra confirmations
+S-t16-e7	answer	Q32	service head resolves; acceptance after defects fixed and act signed
+S-t16-e9	none	-	no matching answer
+S-t17-q	none	-	Q15 gives who; days unanswered
+S-t17-e1	none	-	no action defined for month-long delay
+S-t17-e2	none	-	no matching answer
+S-t17-e4	none	-	no matching answer
+S-t17-e5	none	-	Q15 does not list which documents are closing
+S-t17-e6	none	-	no matching answer
+S-t18-q	answer	Q39	deal completed after originals of closing documents received
+S-t18-e1	none	-	no matching answer
+S-t18-e2	none	-	no matching answer
+S-t18-e3	answer	Q39	deal stays open until originals received
+S-t18-e5	none	-	no matching answer
+S-t18-e6	answer	Q39	not completed until originals received
+S-t18-e7	none	-	no matching answer
+S-t19-e5	duplicate	S-t19-q,S-t19-e4	assistant calls; days counted from handover or completion date
+S-t19-e6	none	-	task appearance unanswered; date part covered by S-t19-e4
+S-t20-q	none	-	no matching answer
+S-t20-e1	none	-	no matching answer
+S-t20-e2	none	-	no matching answer
+S-t20-e3	none	-	no matching answer
+S-t20-e4	none	-	no matching answer
+S-t21-q	none	-	no matching answer
+S-t21-e1	none	-	no matching answer
+S-t21-e2	none	-	no matching answer
+S-t21-e3	none	-	no matching answer
+S-t21-e4	none	-	no matching answer
+S-t23-q	none	-	no matching answer
+S-t23-e1	none	-	Q11 working days applies to calculation wait only
+S-t23-e2	none	-	no matching answer
+S-t23-e3	none	-	no matching answer
+S-t23-e4	none	-	no matching answer
+S-t24-q	none	-	no matching answer
+S-t26-e1	duplicate	S-t26-q	without payment deal returns to contract stage
+S-t26-e2	none	-	no matching answer
+S-t26-e3	none	-	no matching answer
+S-t29-e2	duplicate	S-t29-q	Zayavka is not a stage

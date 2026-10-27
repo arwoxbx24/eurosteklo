@@ -1,0 +1,77 @@
+{
+  "received": "2026-10-04",
+  "confidential": true,
+  "records": [
+    {
+      "source": "GR8",
+      "file": "GR8/sharex-7tKKjc.webm",
+      "bytes": 114344595,
+      "sha256": "3fcde9c1535f295698c82b30f71993e33be1c492f92cbc1f86dba5c7ab531060",
+      "media": {
+        "programs": [],
+        "streams": [
+          {
+            "codec_name": "vp8",
+            "codec_type": "video"
+          },
+          {
+            "codec_name": "opus",
+            "codec_type": "audio"
+          }
+        ],
+        "format": {
+          "duration": "3881.337000"
+        }
+      },
+      "download_exit": 0,
+      "status": "completed",
+      "transcript_id": "cdfef608-a2fe-4656-b0b4-e6657f613194",
+      "transcript_path": "transcripts/GR8/full.json"
+    },
+    {
+      "source": "sct",
+      "file": "sct/sharex-PHr1YX.md",
+      "bytes": 48425,
+      "sha256": "7428a60af6a0c3e7135c89386bd17636d7774cbb445f7ceaf7a6ae63733867f1",
+      "media": {
+        "probe_exit": 1
+      },
+      "download_exit": 0,
+      "status": "downloaded"
+    },
+    {
+      "source": "Hkb",
+      "file": "Hkb/sharex-KqTiK6.webm",
+      "bytes": 303194845,
+      "sha256": "12ec85a66628d4b0386737aa4c9fc5b93893526f6b7e23218406ca20cc8e9097",
+      "media": {
+        "programs": [],
+        "streams": [
+          {
+            "codec_name": "vp8",
+            "codec_type": "video"
+          },
+          {
+            "codec_name": "opus",
+            "codec_type": "audio"
+          }
+        ],
+        "format": {
+          "duration": "6604.943000"
+        }
+      },
+      "download_exit": 0,
+      "status": "completed",
+      "transcript_id": "6dcb7c40-03c3-4158-83c1-c3fd4c85ea94",
+      "transcript_path": "transcripts/Hkb/full.json"
+    }
+  ],
+  "scope_excluded": [
+    "DNS",
+    "1С",
+    "Yandex"
+  ],
+  "transcription_started": true,
+  "credit_balance": "owner confirmed sufficient trial credit; autopay disabled, 2026-10-04",
+  "deleted_media": []
+}

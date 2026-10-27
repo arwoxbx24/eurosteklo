@@ -1,0 +1,62 @@
+id	class	ref	note
+S-t13-e2	residual	-	Third-party carrier case never mentioned.
+S-t13-e3	residual	-	Partial shipment formalization still undecided, accountants deciding.
+S-t13-e4	residual	-	Unsigned receipt case not discussed.
+S-t13-e5	recording	Hkb:4583922-4621416;Hkb:4649062-4650802;Hkb:4663859-4672279	Checklist: closing docs, client notice, power of attorney; manager fills it.
+S-t13-e6	residual	-	Only signed docs attached by manager; who records receipt not stated.
+S-t13-e7	residual	-	Delivered-but-mounting-failed stage not discussed.
+S-t13-e8	residual	-	Damage at acceptance never discussed.
+S-t13-e9	residual	-	Two-batch shipment closing not discussed.
+S-t13-e10	residual	-	Reclamation deferred; claim start date never stated.
+S-t13-e11	residual	-	Checklist blocks move; who may override not stated, only unpaid-shipment case.
+S-t13-e12	recording	Hkb:5232002-5296355;Hkb:5309785-5332527;Hkb:5358697-5375857	Own delivery planned by PTO head; carrier never mentioned.
+S-t13-e13	residual	-	Reclamation stage answered; partial shipments question remains undecided.
+S-t14-e1	residual	-	Refusal of mounting after production not discussed.
+S-t14-e3	residual	-	Client's own mounting crew never discussed.
+S-t14-e4	recording	Hkb:3170118-3199444;Hkb:4925110-4953659	Mounting not always; without it deliver and complete deal.
+S-t14-e5	residual	-	Self-pickup plus self-mounting closing only implied, not stated.
+S-t15-e5	residual	-	Documents named, but order of steps not stated.
+S-t15-e8	residual	-	Who calls client not stated; letter shipment called very rare.
+S-t15-e9	recording	Hkb:5035362-5077300	Unpaid-balance mounting needs sales head approval task.
+S-t16-e1	residual	-	Unready openings at site never discussed.
+S-t16-e2	residual	-	Client non-acceptance of mounting not discussed.
+S-t16-e3	residual	-	Rework after mounting not discussed.
+S-t16-e4	residual	-	Mounting date reschedule not discussed.
+S-t16-e6	recording	Hkb:5417261-6106791	Crew uploads signed documents and photos; garbled tail of statement.
+S-t16-e7	residual	-	Unsigned mounting acceptance not discussed.
+S-t16-e9	recording	Hkb:4763076-4810187;Hkb:4858397-4889433	Project head supplies mounting scheme; manager creates mounting task.
+S-t17-q	residual	-	Documents and collector answered; number of days not given.
+S-t17-e1	residual	-	No action stated beyond deal staying open.
+S-t17-e2	residual	-	Pickup-without-mounting closing documents not separately addressed.
+S-t17-e4	residual	-	Partial return handling and follow-up actions not stated.
+S-t17-e5	recording	Hkb:3520682-3549110;Hkb:3556290-3613060	Originals of contract, specs, UPD; deal stays open until returned.
+S-t17-e6	residual	-	Refusal after prepayment explicitly deferred to reclamation.
+S-t18-q	recording	Hkb:3520682-3549110;Hkb:3556290-3613060;Hkb:3649925-3653345	Complete only when sales assistant ticks all returned closing documents.
+S-t18-e1	residual	-	Paid-but-not-mounted completion not discussed.
+S-t18-e2	residual	-	Completion of multi-part orders not discussed.
+S-t18-e3	recording	Hkb:3556290-3613060	Deal not completed until assistant ticks all closing documents.
+S-t18-e5	residual	-	Claim after closing not discussed; reclamation deferred.
+S-t18-e6	recording	Hkb:3556290-3613060;Hkb:3649925-3653345	Scan enough to start production, not to complete deal.
+S-t18-e7	residual	-	What manager sees at completion not answered by client.
+S-t19-e5	recording	Hkb:6233165-6278603;Hkb:6338620-6372823;Hkb:6381223-6387003;Hkb:6393260-6395820	Sales assistant calls, records brief; days from mounting or deal completion.
+S-t19-e6	residual	-	Day count answered; appearance of the task not described.
+S-t20-q	residual	-	Reclamation process explicitly out of scope for now.
+S-t20-e1	residual	-	Reclamation deferred; no answer.
+S-t20-e2	residual	-	Reclamation deferred; no answer.
+S-t20-e3	residual	-	Supplier-fault case not discussed.
+S-t20-e4	residual	-	Refund demands not discussed.
+S-t21-q	residual	-	Refusal after prepayment explicitly deferred to reclamation.
+S-t21-e1	recording	Hkb:2463325-2473765;Hkb:2882747-2932170;GR8:1856075-1871742	Refusal before payment: sales head task moves deal to refusals.
+S-t21-e2	residual	-	Refusal after production start deferred to reclamation.
+S-t21-e3	residual	-	Refusal of made product deferred to reclamation.
+S-t21-e4	residual	-	Partial refund decision maker not discussed.
+S-t23-q	residual	-	No real last-deal notification example given.
+S-t23-e1	residual	-	Weekend notification day counting not discussed.
+S-t23-e2	recording	GR8:2170936-2177616;GR8:2254177-2260937	Absent manager: only head notified, manual; said about leads.
+S-t23-e3	residual	-	Unanswered-notification handling not discussed; overdue tasks only mentioned.
+S-t23-e4	residual	-	Notification overload handling not answered by client.
+S-t24-q	residual	-	No walk-through of a real completed deal given.
+S-t26-e1	residual	-	Prepayment return to contract stage stated; period left unspecified.
+S-t26-e2	residual	-	Who joins after five unpaid days not stated.
+S-t26-e3	residual	-	Counting start day not stated explicitly.
+S-t29-e2	recording	Hkb:274587-294567;Hkb:2279520-2285260;Hkb:2763751-2786251	No Zayavka stage exists; measurement request is internal task inside calculation.

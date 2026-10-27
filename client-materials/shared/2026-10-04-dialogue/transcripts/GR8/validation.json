@@ -1,0 +1,19 @@
+{
+  "source": "GR8",
+  "status": "completed",
+  "words": 6342,
+  "utterances": 196,
+  "audio_duration_seconds": 3882,
+  "last_word_end_ms": 3877658,
+  "low_confidence_words": 2658,
+  "speaker_count": 3,
+  "language_code": "ru",
+  "speech_model": null,
+  "speech_models": [
+    "universal-3-5-pro",
+    "universal-2"
+  ],
+  "sha256": "23957083a8cdfa0130572d50296603daf83bae3aeb8ce1b5e57e72ac8686ef1b",
+  "validation_errors": 0,
+  "semantic_acceptance": false
+}
