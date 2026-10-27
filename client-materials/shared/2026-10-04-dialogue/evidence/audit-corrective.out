@@ -1,0 +1,39 @@
+I'll examine the existing evidence and prior audit artifacts to understand the coverage defect and the expected output format.
+I've now read both transcripts, the sct source, both questionnaires, and the index. Let me record a plan and check the remaining chart sources before building the exhaustive inventory.
+I have all the source content needed. Now I'll build the exhaustive inventory and the deliverable files. Let me start with the primary data file containing all 265 atomic rows.
+The environment logs confirm these are prior-run artifacts; the gap-audio file is a controller check (signal-amplitude only, not ASR verification). I have everything needed. Now I'll write the primary data file with the full corrected inventory.
+I'll now write the deliverable: first the standalone human-readable report (all atomic rows), then the combined JSON. Starting with the report.
+that has been accomplished so far
+
+The maximum number of steps for this session has been reached, and I can no longer make tool calls. Below is the status.
+
+## What was read and confirmed
+
+I completed the read-only source study (FR-06…FR-09 scope, no code/program inspection):
+
+- inventory.json: 3 payload sources — GR8 (214MB WebM, leads), sct (48KB Markdown, deals answers export), Hkb (303MB WebM, deals). Exclusions: DNS, 1С, Yandex.
+- Both transcripts in full: `transcripts/GR8/dialogue.txt` (196 utterances, Speaker A owner / B•C client-side, leads) and `transcripts/Hkb/dialogue.txt` (388 utterances, deals). validation.json: semantics not accepted, thousands of low-confidence words.
+- `sct/sharex-PHr1YX.md` — deal questionnaire export "рабочий черновик" (обсудили / не обсуждали / status per point).
+- Questionnaires: `docs/ppo/lidy/obsledovanie-lidy.html` (16 points) and `docs/ppo/sdelki/obsledovanie-sdelki.html` (29 points) — I extracted every `.ask`, every `.xq` "Ещё:", and every `data-if` "А если…" conditional.
+- `docs/ppo/index.html` (navigation only).
+- Prior failed deliverable `evidence/comparison-result.json` (45 rows) and `comparison/comparison.html` — confirmed the coverage defect.
+
+## Config verification
+
+I independently verified the corrective audit's element counts: leads = 59 question elements, deals = 206, total 265 (.ask + .xq + data-if), exactly matching the audit's 59/206/265 figures. Compound deal points t25/t26/t27/t29 confirmed.
+
+## What is NOT complete (blocked by step limit)
+
+The deliverable was not produced: I did not write the exhaustive 265-row inventory, the `report_html`, the `questionnaire_html`, the `counts`, or the `validation_limits`, and did not write any private output file. No file was created or modified.
+
+Reason for the gap: the environment prevented running any scripting (`python3` and other command paths are denied by permission rules), so the 265-row report + questionnaire + combined JSON with embedded, JSON-escaped HTML must be authored directly. That authoring task is large and was cut off by the step limit before the write could be completed.
+
+## Recommended next steps
+
+1. Resume in this worktree and write the private deliverables under `client-materials/private/2026-10-04-dialogue/evidence/`:
+   - `comparison-result.json` (single object: `report_html`, `questionnaire_html`, `counts`, `validation_limits`) — regenerate from the corrected exhaustive inventory, replacing the failed 45-row draft.
+   - human-readable `comparison/comparison-report.html` and `comparison/comparison-questionnaire.html`.
+2. Classify each of the 265 atomic rows: `asked` (yes/no/unclear), `client_answer` (complete/partial/absent/unclear), `scope` (included/excluded), and evidence with `source_id`+`start_ms`+`end_ms`+`speaker_id`. Exclude only the individual 1С components: leads L14 and deals C22/C27/C28 (covers 12–18 atomic rows); keep mixed points' non-1С components.
+3. Keep the primary source = transcript (GR8 for leads, Hkb for deals) with sct as corroborating secondary (INFERRED); preserve the known discrepancy sct C9 «не обсуждали: меньше 35%» vs Hkb which discusses it (conflict_ref, not a closed answer). Keep all evidence UNVERIFIED since ASR is not verified and no audio listening is claimed.
+4. Emit `questionnaire_html` only for unresolved in-scope gaps (partial/absent/unclear), distinguishing leads vs deals, and linking back to matrix row ids; exclude integrator-only portal-configuration items.
+5. Final chat response: output the single JSON object (or point to its private path) with the counts — I could not perform the final verification of exact row tallies due to the stop, so recount them programmatically before accepting.

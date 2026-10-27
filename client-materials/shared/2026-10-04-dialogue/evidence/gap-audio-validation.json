@@ -1,0 +1,12 @@
+{
+  "source": "Hkb",
+  "start_ms": 5686717,
+  "end_ms": 6105271,
+  "analysed_seconds": 418.554,
+  "noise_threshold_dB": -40,
+  "silence_segments": 8,
+  "silence_seconds": 398.29013,
+  "first_silence_start": 4.52998,
+  "last_silence_end": 418.554,
+  "interpretation": "signal-amplitude measurement only; does not establish speech absence or transcription accuracy"
+}

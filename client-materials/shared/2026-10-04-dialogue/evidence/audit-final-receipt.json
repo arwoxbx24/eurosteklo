@@ -1,0 +1,20 @@
+{
+  "session": "ses_ef7a2a2a1ffeLPEb7vVEMPn3Zj",
+  "tool_calls": 14,
+  "completed_read_calls": 14,
+  "final": {
+    "finish": "length",
+    "tokens": {
+      "total": 164285,
+      "input": 10941,
+      "output": 670,
+      "reasoning": 31330,
+      "cache": {
+        "write": 0,
+        "read": 121344
+      }
+    },
+    "text_length": 2087
+  },
+  "accepted": false
+}

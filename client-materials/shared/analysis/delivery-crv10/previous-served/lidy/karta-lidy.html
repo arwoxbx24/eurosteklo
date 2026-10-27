@@ -1,0 +1,915 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Евростекло · Лиды: карта процесса</title><style>@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap');
+:root{--ink:#1d2530;--muted:#5b6573;--paper:#fffdf8;--line:#d9d3c7;--accent:#b8480f;
+--board:#1f6b3a;--board-bg:#e5f3e9;--said:#8a5a00;--said-bg:#fbf1d9;--unk:#8c1d1d;--unk-bg:#f8e3e3;--conf:#5b2a86;--conf-bg:#efe6f8;--doc:#1f4f7a;--doc-bg:#e3eef8;--own:#3d4a5c;--own-bg:#eceff3;--pt:#d0341c}
+*{box-sizing:border-box}
+body{margin:0;background:#f1ede4;color:var(--ink);font:17px/1.55 "PT Sans","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+.page{max-width:1240px;margin:0 auto;padding:28px 20px 60px}
+.page>header{border-top:8px solid var(--accent);background:var(--paper);padding:22px 28px;border-radius:0 0 10px 10px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+h1{margin:0 0 6px;font-size:32px;line-height:1.2}
+.lead{margin:0;color:var(--muted);font-size:18px}
+section{background:var(--paper);margin-top:22px;padding:22px 28px;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+h2{margin:0 0 12px;font-size:25px}
+h3{margin:0;font-size:20px}
+.st{display:inline-block;font-size:14px;font-weight:700;padding:0 9px;border-radius:999px;border:2px solid currentColor;white-space:nowrap;vertical-align:1px}
+.st-board{color:var(--board);background:var(--board-bg)}.st-board::before{content:"✓ "}
+.st-said{color:var(--said);background:var(--said-bg)}.st-said::before{content:"“ "}
+.st-unk{color:var(--unk);background:var(--unk-bg);border-style:dashed}.st-unk::before{content:"? "}
+.st-conf{color:var(--conf);background:var(--conf-bg);border-style:dotted}.st-conf::before{content:"⚡ "}
+.st-doc{color:var(--doc);background:var(--doc-bg)}.st-doc::before{content:"▤ "}
+.st-own{color:var(--own);background:var(--own-bg);border-style:double;border-width:3px}.st-own::before{content:"◆ "}
+.tp{display:inline-block;font-size:14px;font-weight:700;padding:1px 10px;border-radius:6px;background:#eef1f5;color:#2d4a66;border:1px solid #b9c6d4}
+.pt{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;border-radius:50%;background:var(--pt);color:#fff;font-weight:800;font-size:15px;padding:0 4px;vertical-align:middle}
+.src{color:var(--muted);font-size:13px}
+small.see{color:var(--muted);font-size:13px}small.see a{color:var(--accent);font-weight:600}
+.tbl{width:100%;border-collapse:collapse;margin:10px 0 18px;font-size:16px}
+.tbl th{background:#3d4a5c;color:#fff;text-align:left;padding:8px 10px}
+.tbl td{border-bottom:1px solid var(--line);padding:8px 10px;vertical-align:top}
+.tbl tr:nth-child(even) td{background:#f7f4ed}
+.legend{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;font-size:15px}
+nav.toc a{color:var(--accent);font-weight:600}
+@media (max-width:700px){body{font-size:16px}.page{padding:12px}section,.page>header{padding:16px}h1{font-size:24px}.tbl{display:block;overflow-x:auto}}
+@media print{body{background:#fff}section,.page>header{box-shadow:none}}
+
+/* Карты: тот же шрифт для чтения, что и в тексте */
+.map,.map text{font-family:"PT Sans","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif!important}
+button,input,textarea{font-family:inherit}
+.docnav{margin-top:10px;font-size:15px}.docnav a{color:var(--accent);font-weight:600}.mapwrap{overflow:auto;cursor:grab;border:1px solid var(--line);border-radius:8px;background:#fff}
+.mapwrap.drag{cursor:grabbing;user-select:none}
+.mapwrap svg{width:100%;min-width:1400px;height:auto;display:block}
+.ptnav{position:static;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:6px 10px;margin-bottom:10px;display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.08);font-size:15px}
+.ptnav-h{font-weight:700;font-size:15px}.ptg{display:inline-flex;gap:4px;align-items:center;flex-wrap:wrap}.ptg b{font-size:14px;font-weight:700;color:var(--muted);margin-right:2px}
+.ptg button{min-width:28px;height:26px;padding:0 7px;border-radius:13px;border:0;background:var(--pt);color:#fff;font-weight:700;font-size:13px;line-height:26px;font-family:inherit;cursor:pointer}
+.ptg button.on{outline:3px solid #1d2530}
+.ptsel{flex:1 1 100%;font-size:14px;color:var(--ink)}.ptsel a{color:var(--accent);font-weight:700}
+@keyframes ptflash{0%,100%{stroke-width:2;r:14}50%{stroke:#ffd400;stroke-width:8;r:26}}
+.pt.flash circle{animation:ptflash .7s ease-in-out 4;stroke:#ffd400}
+.ptlink{cursor:pointer}.ptlink:hover circle{fill:#8c1d1d}</style></head>
+<body><div class="page" data-zoom><header><h1>Евростекло · Лиды: карта процесса</h1><p class="lead">Схема клиента, перенесённая в BPMN: кто что делает, где связи есть и где их нет. Красный номер — нажмите, откроется вопрос к встрече.</p><nav class="docnav"><a href="../index.html">☰ Оглавление</a> · Лиды: <b>Карта процесса</b> · <a href="obsledovanie-lidy.html" target="evro-obsl">Вопросы к встрече</a> · <a href="obsledovanie-lidy-podrobno.html" target="evro-obsl">Подробная версия</a></nav></header>
+<section><details><summary><b>Паспорт процесса: кто есть кто</b> — участники, роли (раскрыть)</summary><section id="pasport">
+<h2>Паспорт процесса «Лиды»: кто есть кто</h2>
+
+<h3>О проекте</h3>
+<table class="tbl">
+<tr><th>Что</th><th>Статус</th></tr>
+<tr><td>Компания «Евростекло». Задача — заново выстроить процесс продаж, начиная с лидов <small class="src">решение владельца 28.09</small></td><td><span class="st st-own">решение владельца</span></td></tr>
+<tr><td>Доска Романа — его представление о процессе, а не утверждённый целевой процесс. Расхождения доски и ТЗ выносим клиенту вопросом «какой вариант верный сейчас» <small class="src">решение владельца 28.09</small></td><td><span class="st st-own">решение владельца</span></td></tr>
+<tr><td>Базовая линия прежнего состояния — ТЗ 2024–2025 (метка UNVERIFIED, пока клиент не подтвердит) <small class="src">решение владельца 28.09; sanitized-tz.md</small></td><td><span class="st st-doc">документ клиента</span></td></tr>
+</table>
+
+<h3>Участники процесса лидов</h3>
+<table class="tbl">
+<tr><th>Участник</th><th>Что это</th><th>Откуда известно</th><th>Статус</th></tr>
+<tr><td>Клиент</td><td>B2B и B2C — так подписана рамка «ЛИД - B2B, B2C», но путь нарисован один <span class="pt">4</span></td><td><small class="src">доска, рамка 3074457358429708934; k2 Р-07</small></td><td><span class="st st-board">на доске</span></td></tr>
+<tr><td>Каналы</td><td>На доске 8 каналов: салоны Артиллерийская, Нарвская, Ленинский, Челнокова, а также Сарафан, vk.ru, Telegram, Авито; связи с «ЛИД» только у Челнокова и Авито <span class="pt">1</span>. В ТЗ каналов 3: АТС (звонок), корпоративная почта, «Восстановление» (ручной ввод из «спящей базы»)</td><td><small class="src">k1 П-03; k3 К-28; ТЗ ФТ-1 (sanitized-tz.md)</small></td><td><span class="st st-conf">противоречие</span></td></tr>
+<tr><td>Битрикс24</td><td>Система, в которой создаётся и ведётся лид</td><td><small class="src">доска, рамка 3074457358429708946; ТЗ ФТ-1</small></td><td><span class="st st-board">на доске</span></td></tr>
+<tr><td>1С</td><td>По ТЗ: поиск карточки клиента в 1С по телефону или почте, исполнитель — «ID менеджера (1с)». Владелец: 1С работает только в сделках (воронка «Активные»), в лидах не участвует <span class="pt">14</span></td><td><small class="src">ТЗ ФТ-1, предусловие и альт. сценарий 1; решение владельца 28.09</small></td><td><span class="st st-conf">противоречие</span></td></tr>
+<tr><td>Роман</td><td>Руководитель; автор доски</td><td><small class="src">решение владельца 28.09</small></td><td><span class="st st-own">решение владельца</span></td></tr>
+</table>
+
+<h3>Роли</h3>
+<table class="tbl">
+<tr><th>Роль</th><th>Где названа</th><th>Что делает с лидом по источнику</th><th>Статус</th></tr>
+<tr><td>? кто разбирает лид</td><td>доска — роль не названа</td><td>Кто разбирает лид и за какой срок, не сказано <span class="pt">3</span> <small class="src">k1 П-02; k2 Р-07</small></td><td><span class="st st-unk">не знаем</span></td></tr>
+<tr><td>Распорядитель</td><td>ТЗ; в ТЗ не расшифрован, на доске его нет</td><td>Исполнитель нового лида; к нему переходит задача, если её не взяли за 30 минут <span class="pt">13</span> <span class="pt">16</span> <small class="src">ТЗ ФТ-1; владельцу роль неизвестна (решение 28.09)</small></td><td><span class="st st-unk">не знаем</span></td></tr>
+<tr><td>Менеджер</td><td>ТЗ</td><td>Исполнитель лида, если клиент найден в 1С («ID менеджера (1с)»); заводит лид «Восстановление»; получает задачу «Созвониться с клиентом» → «Создать заявку» или «Отменено» <small class="src">ТЗ ФТ-1, альт. сценарии 1–2</small></td><td><span class="st st-doc">документ клиента</span></td></tr>
+<tr><td>Менеджер ОП, Ассистент ОП</td><td>доска — только в сделках</td><td>С лидом на доске не связаны. Должности «Ассистент ОП» нет в списке сотрудников <small class="src">k3 К-08, К-09; разбор оргструктуры</small></td><td><span class="st st-unk">не знаем</span></td></tr>
+<tr><td>Продавец-консультант</td><td>список сотрудников 2024–2025 (салон Нарвская)</td><td>Роль в лидах не описана <small class="src">sanitized-sotrudniki.md; разбор оргструктуры</small></td><td><span class="st st-unk">не знаем</span></td></tr>
+<tr><td>Руководитель отдела продаж, руководитель направления</td><td>список сотрудников 2024–2025: руководитель ОП — 1 (последний лист), руководители направлений — от 3 (11.02) до 1</td><td>Роль в лидах не описана <small class="src">sanitized-sotrudniki.md; разбор оргструктуры</small></td><td><span class="st st-unk">не знаем</span></td></tr>
+<tr><td>Менеджеры по продажам</td><td>список сотрудников 2024–2025: 3 (11.02), 2 (13.05); на последнем листе — менеджер офисных продаж (3), менеджер отдела продаж (2), ведущий менеджер (1). Салоны в должностях: Советский, Нарвская</td><td>Роль в лидах не описана <small class="src">sanitized-sotrudniki.md; разбор оргструктуры</small></td><td><span class="st st-unk">не знаем</span></td></tr>
+</table>
+<p><small>Список сотрудников — 2024–2025 гг., нынешний состав клиентом не подтверждён. Поэтому роли описаны как должности, а не как люди.</small></p>
+
+<h3>Салоны</h3>
+<table class="tbl">
+<tr><th>На доске</th><th>В списке сотрудников 2024–2025</th><th>Статус</th><th>Вопрос клиенту</th></tr>
+<tr><td>Артиллерийская, Нарвская, Ленинский, Челнокова <small class="src">k1 П-03</small></td><td>Нарвская — на всех листах; Советский — до 13.05, к 23.08 пропал; Судостроительная — только 11.02; Артиллерийская, 46а — только как пост охраны; Ленинского и Челнокова нет <small class="src">sanitized-sotrudniki.md; разбор оргструктуры</small></td><td><span class="st st-conf">противоречие</span></td><td>Какие салоны действуют сейчас? Артиллерийская — это салон или офис/склад?</td></tr>
+</table>
+</section>
+</details></section><section><h2>Как читать</h2><div class="legend">
+<span><span class="st st-board">на доске</span> есть на доске Miro</span>
+<span><span class="st st-doc">документ клиента</span> ТЗ и статусная модель 2024–2025 (UNVERIFIED)</span>
+<span><span class="st st-own">решение владельца</span> журнал решений владельца</span>
+<span><span class="st st-said">со слов</span> запись экрана и речь интегратора</span>
+<span><span class="st st-unk">не знаем</span> источника нет — спросить</span>
+<span><span class="st st-conf">противоречие</span> источники расходятся</span>
+<span><span class="pt">N</span> конфликтная точка — вопрос в документе «Обследование»</span></div>
+<p class="src">Источник: доска клиента «Copy of Евростекло» (Miro, только чтение, 28.09.2026) и запись портала. Доска не изменялась. Это взгляд на схему клиента, а не утверждённый процесс.</p></section><section><h2>Карта «Лиды»</h2><p class="src">Карту можно тянуть мышью; масштаб схемы — кнопки справа внизу, клавиши + и − или Ctrl + колесо над схемой (меняется только схема). Подпись роли слева — нажмите: кто за что отвечает. Красный номер — откроется страница вопросов в отдельном окне (клиент вопросов на карте не видит). Над картой: «Слои» — доска Романа, ТЗ 2024–2025 или обе; «Показ клиенту» — прячет наши служебные пометки.</p><div class="ptnav" id="ptnav"><span class="ptnav-h">Найти точку:</span><span class="ptg"><b>А. Доска Романа</b><button type="button" data-p="1" title="8 каналов, линия-связь с «ЛИД» только у 2 (Челнокова, Авито) — как попадают остальные">1</button><button type="button" data-p="3" title="кто разбирает лид и за какой срок — роль не названа">3</button><button type="button" data-p="4" title="в названии рамки «B2B, B2C», а путь один">4</button><button type="button" data-p="6" title="недозвон — на доске нет: сколько попыток, куда уходит лид">6</button><button type="button" data-p="7" title="повторная заявка / клиент уже есть в базе — не описано">7</button><button type="button" data-p="8" title="«с обязательным занесением всех реквизитов в карточку компании» — состава нет; применимость к B2C-физлицу (у него компании нет) — наш вывод, К-26">8</button><button type="button" data-p="9" title="что есть после конвертации: сделка на какой стадии; «Предв. расчёт» левее «Заявки», стрелок между стадиями нет">9</button><button type="button" data-p="10" title="«единый формат занесения информации о контрагенте» (к.7365) и «структура карточек (от Л.А., М.А.)» (к.7350) — самих документов нет; «от» ≠ «одобрено»">10</button><button type="button" data-p="11" title="отказ: «воронка отказников» с 4 причинами без связей на доске и «Отменено» в ТЗ — откуда уходят в отказ, обязательна ли причина">11</button><button type="button" data-p="12" title="«Закупка отложена» лежит среди причин отказа; по смыслу может быть переносом (наш вывод, клиент не подтверждал)">12</button></span><span class="ptg"><b>Б. По ТЗ</b><button type="button" data-p="13" title="«Распорядитель» — кто это: по ТЗ исполнитель нового лида, в ТЗ не расшифрован, на доске нет">13</button><button type="button" data-p="14" title="1С в лидах: по ТЗ участвует (поиск клиента в 1С, исполнитель из 1С), по словам владельца — нет; 1С — неизвестно, уточнить">14</button><button type="button" data-p="15" title="лид или заявка: по ТЗ статус «Новый», задача «Созвониться с клиентом» → «Создать заявку» / «Отменено»; модель заявки начинается с «Создание лида → Новый» — где кончается лид">15</button><button type="button" data-p="16" title="задача не взята 30 минут → передаётся Распорядителю; что с лидом при «Отменено» — не сказано">16</button></span><span class="ptg"><b>В. Портал</b><button type="button" data-p="2" title="источники лида: на доске — каналы (салоны, сарафан, vk.ru, Telegram, Авито), в ТЗ — «АТС», «Почта», «Восстановление»">2</button><button type="button" data-p="5" title="состояния лида: на доске их нет (и нет связи с конвертацией), в ТЗ — один статус «Новый», движется задача">5</button></span><div class="ptsel" id="ptsel">Нажмите номер — карта прокрутится к точке и подсветит её.</div></div><div class="mapwrap"><svg class="map" viewBox="0 0 2300 1880" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Карта процесса «Лиды» Евростекла в упрощённом BPMN, три слоя: доска Романа (предположение), ТЗ ФТ-1 (как задумано), портал (справочно); конфликтные точки 1–16">
+<style>
+.map text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;fill:#1f2937}
+.map .ttl{font-size:20px;font-weight:700}
+.map .blk{font-size:18px;font-weight:700}
+.map .sub{font-size:14px;fill:#5f6670}
+.map .lane-h{font-size:16px;font-weight:700}
+.map .lbl{font-size:14px}
+.map .b{font-size:14px;font-weight:700}
+.map .h16{font-size:16px;font-weight:700}
+.map .gray{font-size:14px;fill:#6b7280;font-style:italic}
+.map .our{font-size:14px;fill:#9a5b00;font-style:italic}
+.map .red{font-size:14px;fill:#f24726}
+.map .redb{font-size:14px;fill:#f24726;font-weight:700}
+.map .warn{font-size:14px;fill:#b3261e;font-style:italic}
+.map .pg{font-size:14px;fill:#6b7280}
+.map .pgb{font-size:16px;font-weight:700;fill:#6b7280}
+.map .node{fill:#fff;stroke:#1f2937;stroke-width:1.4}
+.map .chipb{fill:#fff;stroke:#6b7280;stroke-width:1.2}
+.map .frame{fill:#f7f9fc;stroke:#1f2937;stroke-width:1.4}
+.map .ln-solid{fill:none;stroke:#1f2937;stroke-width:2}
+.map .ln-dash{fill:none;stroke:#8a9099;stroke-width:1.6;stroke-dasharray:7 5}
+.map .assoc{fill:none;stroke:#8a9099;stroke-width:1.4;stroke-dasharray:2 4}
+.map .pt circle{fill:#d93025;stroke:#fff;stroke-width:2}
+.map .pt text{fill:#fff;font-size:15px;font-weight:700}
+.map .chip{fill:#f3f4f6;stroke:#b0b6bf;stroke-width:1}
+</style>
+<defs>
+<marker id="ah-solid" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f2937"/></marker>
+<marker id="ah-dash" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8a9099"/></marker>
+</defs>
+<rect x="0" y="0" width="2300" height="1880" fill="#fbfaf7"/>
+<text x="20" y="32" class="ttl" text-anchor="start">Процесс «Лиды» — три слоя: доска Романа · ТЗ 2024–2025 · портал (упрощённый BPMN)</text>
+<text x="2280" y="32" class="sub" text-anchor="end">расхождение слоёв не решаем сами — вопрос клиенту: какой вариант верный сейчас</text>
+<rect x="20" y="50" width="1860" height="44" fill="#fff4e0" stroke="#4b5563" stroke-width="1.6"/>
+<text x="34" y="78" class="blk" text-anchor="start">А. Доска Романа (предположение, не истина)</text>
+<text x="530" y="78" class="sub" text-anchor="start">доска «Copy of Евростекло», только чтение; контакты салонов не выводятся; дорожек на доске нет — разбивка по дорожкам наша</text>
+<rect x="20" y="94" width="1860" height="776" fill="#fff" stroke="#4b5563" stroke-width="1.6"/>
+<rect x="20" y="94" width="170" height="96" fill="#eef1f5" stroke="#4b5563" stroke-width="1.2"/>
+<text x="32" y="120" class="lane-h" text-anchor="start">Клиент</text>
+<text x="32" y="140" class="our" text-anchor="start">наша разметка</text>
+<line x1="20" y1="190" x2="1880" y2="190" stroke="#9aa0a6" stroke-width="1.2"/>
+<rect x="20" y="190" width="170" height="110" fill="#eef1f5" stroke="#4b5563" stroke-width="1.2"/>
+<text x="32" y="216" class="lane-h" text-anchor="start">Каналы</text>
+<text x="32" y="236" class="gray" text-anchor="start">8 узлов колонкой;</text>
+<text x="32" y="256" class="gray" text-anchor="start">подписи «Каналы»</text>
+<text x="32" y="276" class="gray" text-anchor="start">на доске нет</text>
+<line x1="20" y1="300" x2="1880" y2="300" stroke="#9aa0a6" stroke-width="1.2"/>
+<rect x="20" y="300" width="170" height="220" fill="#eef1f5" stroke="#4b5563" stroke-width="1.2"/>
+<text x="32" y="326" class="lane-h" text-anchor="start">? Кто разбирает</text>
+<text x="32" y="346" class="gray" text-anchor="start">роль не названа</text>
+<text x="32" y="366" class="our" text-anchor="start">наша разметка</text>
+<line x1="20" y1="520" x2="1880" y2="520" stroke="#9aa0a6" stroke-width="1.2"/>
+<rect x="20" y="520" width="170" height="350" fill="#eef1f5" stroke="#4b5563" stroke-width="1.2"/>
+<text x="32" y="546" class="lane-h" text-anchor="start">Битрикс24</text>
+<text x="32" y="566" class="gray" text-anchor="start">на доске — рамка,</text>
+<text x="32" y="586" class="gray" text-anchor="start">не дорожка;</text>
+<text x="32" y="606" class="our" text-anchor="start">наша разметка</text>
+<g><title>Старт «Обращение клиента» — выведено: отдельного узла на доске нет, клиент обращается через канал</title><circle cx="230" cy="140" r="16" fill="#fff" stroke="#1f2937" stroke-width="1.6"/></g>
+<text x="256" y="136" class="b" text-anchor="start">Обращение клиента</text>
+<text x="256" y="156" class="gray" text-anchor="start">выведено: узла на доске нет</text>
+<path d="M200,184 L200,176 L1512,176 L1512,184" fill="none" stroke="#8a9099" stroke-width="1.4"/>
+<polyline points="230,157 230,173" class="ln-dash" marker-end="url(#ah-dash)"/>
+<g><title>id Miro 3074457358429708938 · канал «Артиллерийская» (салон; контакты на доске — ПДн, здесь не выводятся)</title><rect x="200" y="215" width="150" height="50" rx="4" class="chipb"/>
+<text x="275" y="245" class="lbl" text-anchor="middle">Артиллерийская</text>
+</g>
+<g><title>Артиллерийская → ЛИД: связи на доске нет, выведено по расположению</title>
+<polyline points="275,265 720,388" class="ln-dash" marker-end="url(#ah-dash)"/>
+</g>
+<g><title>id Miro 3074457358429708935 · канал «Нарвская» (салон; контакты на доске — ПДн, здесь не выводятся)</title><rect x="366" y="215" width="150" height="50" rx="4" class="chipb"/>
+<text x="441" y="245" class="lbl" text-anchor="middle">Нарвская</text>
+</g>
+<g><title>Нарвская → ЛИД: связи на доске нет, выведено по расположению</title>
+<polyline points="441,265 755,388" class="ln-dash" marker-end="url(#ah-dash)"/>
+</g>
+<g><title>id Miro 3074457358429708936 · канал «Ленинский» (салон; контакты на доске — ПДн, здесь не выводятся)</title><rect x="532" y="215" width="150" height="50" rx="4" class="chipb"/>
+<text x="607" y="245" class="lbl" text-anchor="middle">Ленинский</text>
+</g>
+<g><title>Ленинский → ЛИД: связи на доске нет, выведено по расположению</title>
+<polyline points="607,265 790,388" class="ln-dash" marker-end="url(#ah-dash)"/>
+</g>
+<g><title>id Miro 3458764681641484921 · канал «Челнокова» (салон; контакты на доске — ПДн, здесь не выводятся)</title><rect x="698" y="215" width="150" height="50" rx="4" class="chipb"/>
+<text x="773" y="245" class="lbl" text-anchor="middle">Челнокова</text>
+</g>
+<g><title>коннектор Miro 3458764681641805249: Челнокова — ЛИД (линия есть на доске, без наконечника; направление не нарисовано)</title>
+<polyline points="773,265 825,390" class="ln-solid"/>
+</g>
+<g><title>id Miro 3074457358429708937 · канал «Сарафан»</title><rect x="864" y="215" width="150" height="50" rx="4" class="chipb"/>
+<text x="939" y="245" class="lbl" text-anchor="middle">Сарафан</text>
+</g>
+<g><title>Сарафан → ЛИД: связи на доске нет, выведено по расположению</title>
+<polyline points="939,265 860,388" class="ln-dash" marker-end="url(#ah-dash)"/>
+</g>
+<g><title>id Miro 3074457358429708943 · канал «vk.ru» (на доске текст красный)</title><rect x="1030" y="215" width="150" height="50" rx="4" class="chipb"/>
+<text x="1105" y="245" class="redb" text-anchor="middle">vk.ru</text>
+</g>
+<g><title>vk.ru → ЛИД: связи на доске нет, выведено по расположению</title>
+<polyline points="1105,265 895,388" class="ln-dash" marker-end="url(#ah-dash)"/>
+</g>
+<g><title>id Miro 3074457358429708944 · канал «Telegram» (на доске текст красный)</title><rect x="1196" y="215" width="150" height="50" rx="4" class="chipb"/>
+<text x="1271" y="245" class="redb" text-anchor="middle">Telegram</text>
+</g>
+<g><title>Telegram → ЛИД: связи на доске нет, выведено по расположению</title>
+<polyline points="1271,265 930,388" class="ln-dash" marker-end="url(#ah-dash)"/>
+</g>
+<g><title>id Miro 3458764681641922534 · канал «Авито» (на доске текст красный)</title><rect x="1362" y="215" width="150" height="50" rx="4" class="chipb"/>
+<text x="1437" y="245" class="redb" text-anchor="middle">Авито</text>
+</g>
+<g><title>коннектор Miro 3458764681641922880: Авито — ЛИД (линия есть на доске, без наконечника; направление не нарисовано)</title>
+<polyline points="1437,265 965,390" class="ln-solid"/>
+</g>
+<text x="230" y="440" class="gray" text-anchor="start">Кто разбирает лид и за какой срок —</text>
+<text x="230" y="460" class="gray" text-anchor="start">на доске не указано</text>
+<text x="230" y="490" class="gray" text-anchor="start">Менеджер ОП на доске — только в стадиях</text>
+<text x="230" y="510" class="gray" text-anchor="start">сделки; для лида шагов МОП нет</text>
+<g><title>id Miro 3074457358429708934 (рамка) / 3074457358429708933 (подпись «ЛИД - B2B, B2C»)</title>
+<rect x="700" y="390" width="300" height="80" class="frame"/>
+<text x="850" y="425" class="h16" text-anchor="middle">ЛИД - B2B, B2C</text>
+<text x="850" y="450" class="gray" text-anchor="middle">рамка на доске</text>
+</g>
+<g><title>ЛИД → Конвертация: связи на доске нет, выведено по расположению</title>
+<polyline points="1000,440 1118,440" class="ln-dash" marker-end="url(#ah-dash)"/>
+</g>
+<g><title>id Miro 3074457358430916255 · «Конвертация ЛИД-а в Сделку с обязательным занесением всех реквизитов в карточку компании»; исполнитель на доске не указан</title>
+<rect x="1120" y="375" width="280" height="130" rx="12" class="node"/>
+<text x="1260" y="400" class="lbl" text-anchor="middle">Конвертация ЛИД-а в Сделку</text>
+<text x="1260" y="420" class="lbl" text-anchor="middle">с обязательным занесением</text>
+<text x="1260" y="440" class="lbl" text-anchor="middle">всех реквизитов</text>
+<text x="1260" y="460" class="lbl" text-anchor="middle">в карточку компании</text>
+<text x="1260" y="490" class="gray" text-anchor="middle">на доске роль не указана</text>
+</g>
+<g><title>комментарий Miro 3458764685196477365 (к.7365), на доске прикреплён к узлу «Конвертация» 3074457358430916255</title>
+<polyline points="1400,440 1440,440" class="assoc"/>
+<path d="M1450,405 L1440,405 L1440,475 L1450,475" fill="none" stroke="#4b5563" stroke-width="1.6"/>
+<text x="1456" y="422" class="gray" text-anchor="start">к.7365 (прикреплён к «Конвертации»):</text>
+<text x="1456" y="443" class="lbl" text-anchor="start">«единый формат занесения информации</text>
+<text x="1456" y="463" class="lbl" text-anchor="start">о контрагенте»</text>
+</g>
+<g><title>id Miro 3074457358429708946 · рамка «Битрикс24» (на доске — первая рамка в строке рамок стадий)</title>
+<rect x="200" y="545" width="200" height="70" class="frame"/>
+<text x="300" y="586" class="h16" text-anchor="middle">Битрикс24</text>
+</g>
+<g><title>комментарий Miro 3458764685196477350 (к.7350), прикреплён к рамке «Битрикс24»</title>
+<polyline points="400,580 440,580" class="assoc"/>
+<path d="M450,552 L440,552 L440,608 L450,608" fill="none" stroke="#4b5563" stroke-width="1.6"/>
+<text x="456" y="570" class="gray" text-anchor="start">к.7350 (прикреплён к рамке «Битрикс24»):</text>
+<text x="456" y="592" class="lbl" text-anchor="start">«структура карточек: ЛИДа, компании, сделки (от Л.А., М.А.)»</text>
+</g>
+<g><title>id Miro 3074457358431590461 · «Воронка отказников» — на доске ромб с красным текстом, без связей; стоит под рамкой «Битрикс24». Это сущность (воронка), не шлюз</title>
+<path d="M200,672 L200,742 A100,14 0 0 0 400,742 L400,672" fill="#fff" stroke="#f24726" stroke-width="2"/>
+<ellipse cx="300" cy="672" rx="100" ry="14" fill="#fff" stroke="#f24726" stroke-width="2"/>
+<text x="300" y="712" class="redb" text-anchor="middle">Воронка</text>
+<text x="300" y="732" class="redb" text-anchor="middle">отказников</text>
+<text x="200" y="784" class="gray" text-anchor="start">на доске ни с чем не связана</text>
+<text x="200" y="804" class="gray" text-anchor="start">(ромб под рамкой «Битрикс24»)</text>
+</g>
+<g><title>id Miro 3074457358431099074 · причина отказа «Закупка не согласована» (на доске без связей; значение, не задача)</title><rect x="500" y="640" width="280" height="30" rx="4" class="chipb"/>
+<text x="640" y="660" class="lbl" text-anchor="middle">Закупка не согласована</text>
+</g>
+<g><title>Воронка → причина: связи на доске нет, выведено по расположению (причины стоят правее)</title><polyline points="400,712 498,655" class="ln-dash" marker-end="url(#ah-dash)"/></g>
+<g><title>причина → Отказ: связи на доске нет, выведено</title><polyline points="780,655 861,712" class="ln-dash" marker-end="url(#ah-dash)"/></g>
+<g><title>id Miro 3074457358431099075 · причина отказа «Закупили у конкурентов» (на доске без связей; значение, не задача)</title><rect x="500" y="682" width="280" height="30" rx="4" class="chipb"/>
+<text x="640" y="702" class="lbl" text-anchor="middle">Закупили у конкурентов</text>
+</g>
+<g><title>Воронка → причина: связи на доске нет, выведено по расположению (причины стоят правее)</title><polyline points="400,712 498,697" class="ln-dash" marker-end="url(#ah-dash)"/></g>
+<g><title>причина → Отказ: связи на доске нет, выведено</title><polyline points="780,697 861,712" class="ln-dash" marker-end="url(#ah-dash)"/></g>
+<g><title>id Miro 3074457358431099076 · причина отказа «Тендер конечника не состоялся» (на доске без связей; значение, не задача)</title><rect x="500" y="724" width="280" height="30" rx="4" class="chipb"/>
+<text x="640" y="744" class="lbl" text-anchor="middle">Тендер конечника не состоялся</text>
+</g>
+<g><title>Воронка → причина: связи на доске нет, выведено по расположению (причины стоят правее)</title><polyline points="400,712 498,739" class="ln-dash" marker-end="url(#ah-dash)"/></g>
+<g><title>причина → Отказ: связи на доске нет, выведено</title><polyline points="780,739 861,712" class="ln-dash" marker-end="url(#ah-dash)"/></g>
+<g><title>id Miro 3074457358431099077 · причина отказа «Закупка отложена» (на доске без связей; значение, не задача)</title><rect x="500" y="766" width="280" height="30" rx="4" class="chipb"/>
+<text x="640" y="786" class="lbl" text-anchor="middle">Закупка отложена</text>
+</g>
+<g><title>Воронка → причина: связи на доске нет, выведено по расположению (причины стоят правее)</title><polyline points="400,712 498,781" class="ln-dash" marker-end="url(#ah-dash)"/></g>
+<g><title>причина → Отказ: связи на доске нет, выведено</title><polyline points="780,781 861,712" class="ln-dash" marker-end="url(#ah-dash)"/></g>
+<g><title>Финал «Отказ» — выведено: отдельного узла на доске нет; слово «Отказ» есть в комментарии к.7339, не прикреплён, лежит под рамкой «ПРЕДВ. РАСЧЕТ»</title><circle cx="880" cy="712" r="17" fill="#fff" stroke="#1f2937" stroke-width="4"/></g>
+<text x="906" y="708" class="b" text-anchor="start">Отказ</text>
+<text x="906" y="730" class="gray" text-anchor="start">выведено: узла на доске нет;</text>
+<text x="906" y="750" class="gray" text-anchor="start">к.7339 «Отказ» не прикреплён,</text>
+<text x="906" y="770" class="gray" text-anchor="start">лежит под «ПРЕДВ. РАСЧЕТ»</text>
+<g><title>Конвертация → Сделка «Предварительный расчёт»: связи на доске нет, выведено по расположению</title>
+<polyline points="1260,505 1260,581" class="ln-dash" marker-end="url(#ah-dash)"/>
+</g>
+<g><title>id Miro 3074457358430445405 · рамка «Сделка: стадия ПРЕДВАРИТЕЛЬНЫЙ РАСЧЕТ» — финал этой карты (наша граница)</title>
+<circle cx="1260" cy="600" r="17" fill="#fff" stroke="#1f2937" stroke-width="4"/>
+<text x="1290" y="596" class="b" text-anchor="start">Сделка: стадия</text>
+<text x="1290" y="616" class="b" text-anchor="start">ПРЕДВАРИТЕЛЬНЫЙ РАСЧЕТ</text>
+<text x="1290" y="638" class="gray" text-anchor="start">финал этой карты (наша граница)</text>
+</g>
+<text x="1290" y="820" class="gray" text-anchor="start">Права доступа по ролям — на доске нет (не знаем)</text>
+<rect x="1900" y="50" width="380" height="820" rx="10" fill="#fff" stroke="#c3c8cf" stroke-width="1.2"/>
+<text x="1916" y="80" class="h16" text-anchor="start">Легенда</text>
+<line x1="1916" y1="107" x2="1970" y2="107" class="ln-solid"/>
+<text x="1990" y="112" class="lbl" text-anchor="start">линия есть на доске</text>
+<text x="1990" y="131" class="lbl" text-anchor="start">(без направления)</text>
+<line x1="1916" y1="161" x2="1970" y2="161" class="ln-dash" marker-end="url(#ah-dash)"/>
+<text x="1990" y="166" class="lbl" text-anchor="start">связи на доске нет —</text>
+<text x="1990" y="185" class="lbl" text-anchor="start">выведено по расположению</text>
+<text x="1990" y="204" class="lbl" text-anchor="start">(пунктир — не BPMN-смысл)</text>
+<line x1="1916" y1="234" x2="1970" y2="234" class="ln-solid" marker-end="url(#ah-solid)"/>
+<text x="1990" y="239" class="lbl" text-anchor="start">поток по ТЗ (блок Б)</text>
+<g class="pt"><circle cx="1930" cy="269" r="12"/><text x="1930" y="274" text-anchor="middle" style="font-size:13px">N</text></g>
+<text x="1990" y="274" class="lbl" text-anchor="start">конфликтная точка</text>
+<text x="1990" y="293" class="lbl" text-anchor="start">(наведите — суть)</text>
+<circle cx="1924" cy="323" r="9" fill="#fff" stroke="#1f2937" stroke-width="1.6"/><circle cx="1954" cy="323" r="9" fill="#fff" stroke="#1f2937" stroke-width="3.5"/>
+<text x="1990" y="328" class="lbl" text-anchor="start">старт (тонкий) · финал (жирный)</text>
+<polygon points="1943,344 1961,358 1943,372 1925,358" fill="#fff" stroke="#1f2937" stroke-width="1.4"/>
+<text x="1990" y="363" class="lbl" text-anchor="start">шлюз (развилка) — только</text>
+<text x="1990" y="382" class="lbl" text-anchor="start">в блоке ТЗ</text>
+<circle cx="1943" cy="412" r="11" fill="#fff" stroke="#1f2937" stroke-width="1.4"/><circle cx="1943" cy="412" r="7.5" fill="none" stroke="#1f2937" stroke-width="1"/><path d="M1943,407 L1943,412 L1947,414" fill="none" stroke="#1f2937" stroke-width="1.2"/>
+<text x="1990" y="417" class="lbl" text-anchor="start">таймер (срок по ТЗ)</text>
+<rect x="1920" y="436" width="48" height="24" rx="8" class="node"/>
+<text x="1990" y="452" class="lbl" text-anchor="start">задача (действие)</text>
+<rect x="1920" y="471" width="48" height="24" rx="3" class="chipb"/>
+<text x="1990" y="487" class="lbl" text-anchor="start">узел доски: канал / причина</text>
+<text x="1990" y="506" class="lbl" text-anchor="start">(не действие, не задача)</text>
+<path d="M1924,529 L1924,547 A20,5 0 0 0 1964,547 L1964,529" fill="#fff" stroke="#f24726" stroke-width="2"/><ellipse cx="1944" cy="529" rx="20" ry="5" fill="#fff" stroke="#f24726" stroke-width="2"/>
+<text x="1990" y="541" class="lbl" text-anchor="start">объект (воронка) — на доске</text>
+<text x="1990" y="560" class="lbl" text-anchor="start">ромб, но не шлюз</text>
+<rect x="1920" y="579" width="48" height="24" fill="#f7f9fc" stroke="#1f2937" stroke-width="1.2"/>
+<text x="1990" y="595" class="lbl" text-anchor="start">рамка доски</text>
+<path d="M1936,614 L1926,614 L1926,638 L1936,638" fill="none" stroke="#4b5563" stroke-width="1.6"/>
+<text x="1990" y="630" class="lbl" text-anchor="start">заметка (комментарий доски</text>
+<text x="1990" y="649" class="lbl" text-anchor="start">или текст ТЗ)</text>
+<text x="1920" y="684" class="redb">Авито</text>
+<text x="1990" y="684" class="lbl" text-anchor="start">красный текст — так на доске,</text>
+<text x="1990" y="703" class="lbl" text-anchor="start">смысл уточнить</text>
+<text x="1920" y="738" class="our">разм.</text>
+<text x="1990" y="738" class="lbl" text-anchor="start">«наша разметка» — дорожки,</text>
+<text x="1990" y="757" class="lbl" text-anchor="start">которых на доске нет</text>
+<text x="1920" y="792" class="gray">серое</text>
+<text x="1990" y="792" class="lbl" text-anchor="start">«выведено», «не знаем» —</text>
+<text x="1990" y="811" class="lbl" text-anchor="start">наш вывод, не доска</text>
+<rect x="20" y="900" width="2260" height="44" fill="#e8f0fb" stroke="#4b5563" stroke-width="1.6"/>
+<text x="34" y="928" class="blk" text-anchor="start">Б. По ТЗ 2024–2025 (как задумано)</text>
+<text x="420" y="928" class="sub" text-anchor="start">ФТ-1 «Регистрация и маршрутизация нового обращения», client-materials/sanitized-tz.md; год — со слов владельца; дорожки — из ТЗ</text>
+<rect x="20" y="944" width="2260" height="666" fill="#fff" stroke="#4b5563" stroke-width="1.6"/>
+<rect x="20" y="944" width="170" height="306" fill="#eef1f5" stroke="#4b5563" stroke-width="1.2"/>
+<text x="32" y="970" class="lane-h" text-anchor="start">Система</text>
+<text x="32" y="990" class="lane-h" text-anchor="start">(Б24)</text>
+<text x="32" y="1010" class="gray" text-anchor="start">источник: ТЗ ФТ-1</text>
+<text x="32" y="1034" class="warn" text-anchor="start">1С — неизвестно,</text>
+<text x="32" y="1052" class="warn" text-anchor="start">уточнить</text>
+<line x1="20" y1="1250" x2="2280" y2="1250" stroke="#9aa0a6" stroke-width="1.2"/>
+<rect x="20" y="1250" width="170" height="150" fill="#eef1f5" stroke="#4b5563" stroke-width="1.2"/>
+<text x="32" y="1276" class="lane-h" text-anchor="start">Распорядитель</text>
+<text x="32" y="1296" class="gray" text-anchor="start">роль не</text>
+<text x="32" y="1316" class="gray" text-anchor="start">расшифрована</text>
+<text x="32" y="1336" class="gray" text-anchor="start">источник: ТЗ ФТ-1</text>
+<line x1="20" y1="1400" x2="2280" y2="1400" stroke="#9aa0a6" stroke-width="1.2"/>
+<rect x="20" y="1400" width="170" height="210" fill="#eef1f5" stroke="#4b5563" stroke-width="1.2"/>
+<text x="32" y="1426" class="lane-h" text-anchor="start">Менеджер</text>
+<text x="32" y="1446" class="gray" text-anchor="start">источник: ТЗ ФТ-1</text>
+<g><title>ТЗ ФТ-1 Л1: «Битрикс24 далее (Система) синхронизирована с 1с.» — 1С — неизвестно, уточнить</title>
+<path d="M210,960 L200,960 L200,1000 L210,1000" fill="none" stroke="#4b5563" stroke-width="1.6"/>
+<text x="216" y="976" class="lbl" text-anchor="start">Предусловие (Л1): «Битрикс24 далее (Система)</text>
+<text x="216" y="995" class="lbl" text-anchor="start">синхронизирована с 1с.»</text>
+<text x="216" y="1016" class="warn" text-anchor="start">1С — неизвестно, уточнить</text>
+</g>
+<g><title>ТЗ ФТ-1 Л3: «Поступила заявка на заказ посредством звонка ( виртуальная АТС) или корпоративной почты. Система автоматически создает лид»</title>
+<circle cx="240" cy="1100" r="17" fill="#fff" stroke="#1f2937" stroke-width="1.6"/>
+<rect x="230" y="1093" width="20" height="14" fill="#fff" stroke="#1f2937" stroke-width="1.2"/><path d="M230,1093 L240,1101 L250,1093" fill="none" stroke="#1f2937" stroke-width="1.2"/>
+<text x="205" y="1050" class="b" text-anchor="start">Обращение: звонок (АТС) / корп. почта (Л3)</text>
+</g>
+<polyline points="257,1100 318,1100" class="ln-solid" marker-end="url(#ah-solid)"/>
+<g><title>ТЗ ФТ-1 Л2: «Запущена валидация наличия существующей карточки клиента в 1С по номеру телефона ( 3 цифра с начала и далее)  / почты»</title>
+<rect x="320" y="1060" width="240" height="80" rx="12" class="node"/>
+<text x="440" y="1090" class="lbl" text-anchor="middle">Поиск клиента в 1С</text>
+<text x="440" y="1110" class="lbl" text-anchor="middle">по телефону / почте (Л2)</text>
+<text x="440" y="1166" class="warn" text-anchor="middle">1С — неизвестно, уточнить</text>
+<text x="440" y="1186" class="warn" text-anchor="middle">(по ТЗ 1С в лидах; владелец:</text>
+<text x="440" y="1206" class="warn" text-anchor="middle">1С только в сделках)</text>
+</g>
+<polyline points="560,1100 628,1100" class="ln-solid" marker-end="url(#ah-solid)"/>
+<g><title>ТЗ ФТ-1 Л9: «Альтернативный сценарий №1: Определена существующая карточка клиента в 1с.» — шлюз «клиент найден в 1С?»; 1С — неизвестно, уточнить</title>
+<polygon points="660,1068 692,1100 660,1132 628,1100" fill="#fff" stroke="#1f2937" stroke-width="1.6"/>
+<text x="660" y="1236" class="warn" text-anchor="middle">1С — неизвестно, уточнить</text>
+</g>
+<text x="705" y="1100" class="b" text-anchor="start">клиент найден</text>
+<text x="705" y="1118" class="b" text-anchor="start">в 1С?</text>
+<polyline points="660,1068 660,1030 778,1030" class="ln-solid" marker-end="url(#ah-solid)"/>
+<text x="670" y="1022" class="b" text-anchor="start">да</text>
+<polyline points="660,1132 660,1170 778,1170" class="ln-solid" marker-end="url(#ah-solid)"/>
+<text x="670" y="1192" class="b" text-anchor="start">нет</text>
+<g><title>ТЗ ФТ-1 Л7, Л9: «Статус: "Новый"– Исполнитель = ID менеджера (1с) – Заполняются базовые поля = значения из полей 1С– Уведомление на Исполнитель» — 1С — неизвестно, уточнить</title>
+<rect x="780" y="990" width="310" height="80" rx="12" class="node"/>
+<text x="935" y="980" class="warn" text-anchor="middle">1С — неизвестно, уточнить</text>
+<text x="935" y="1013" class="lbl" text-anchor="middle">Лид: статус «Новый»,</text>
+<text x="935" y="1033" class="lbl" text-anchor="middle">исполнитель = менеджер из 1С,</text>
+<text x="935" y="1053" class="lbl" text-anchor="middle">поля из 1С, уведомление (Л7, Л9)</text>
+</g>
+<g><title>ТЗ ФТ-1 Л7, Л8: «Статус: "Новый"– Исполнитель = роль Распорядитель– Уведомление на Исполнитель»</title>
+<rect x="780" y="1130" width="310" height="80" rx="12" class="node"/>
+<text x="935" y="1156" class="lbl" text-anchor="middle">Лид: статус «Новый»,</text>
+<text x="935" y="1176" class="lbl" text-anchor="middle">исполнитель = Распорядитель,</text>
+<text x="935" y="1196" class="lbl" text-anchor="middle">уведомление (Л7, Л8)</text>
+</g>
+<polyline points="1090,1030 1160,1030 1160,1100 1198,1100" class="ln-solid" marker-end="url(#ah-solid)"/>
+<polyline points="1090,1170 1160,1170 1160,1100" class="ln-solid"/>
+<g><title>ТЗ ФТ-1 Л11: «При событии “Создан лид” формируется задача на менеджера “Созвонится с клиентом”»</title>
+<rect x="1200" y="1060" width="260" height="80" rx="12" class="node"/>
+<text x="1330" y="1086" class="lbl" text-anchor="middle">Сформировать задачу</text>
+<text x="1330" y="1106" class="lbl" text-anchor="middle">«Созвониться с клиентом»</text>
+<text x="1330" y="1126" class="lbl" text-anchor="middle">на менеджера (Л11)</text>
+<text x="1330" y="1050" class="gray" text-anchor="middle">при событии «Создан лид»</text>
+</g>
+<g><title>ТЗ ФТ-1 Л8: «Исполнитель = роль Распорядитель» — что Распорядитель делает с лидом, в ТЗ не сказано</title>
+<polyline points="935,1210 935,1282" class="assoc"/>
+<path d="M830,1284 L820,1284 L820,1340 L830,1340" fill="none" stroke="#4b5563" stroke-width="1.6"/>
+<text x="836" y="1306" class="gray" text-anchor="start">что делает Распорядитель с лидом —</text>
+<text x="836" y="1326" class="gray" text-anchor="start">в ТЗ не сказано</text>
+</g>
+<g><title>ТЗ ФТ-1 Л6: «Менеджер заводит лид вручную из “спящей базы клиентов”.»</title>
+<circle cx="240" cy="1480" r="17" fill="#fff" stroke="#1f2937" stroke-width="1.6"/>
+<text x="205" y="1420" class="b" text-anchor="start">Восстановление из спящей базы (вручную, Л6)</text>
+</g>
+<polyline points="257,1480 318,1480" class="ln-solid" marker-end="url(#ah-solid)"/>
+<g><title>ТЗ ФТ-1 Л5, Л10: «Источник (указывается вручную: "Восстановление")» · «Исполнитель = ID менеджера (указывается вручную) – Заполняются базовые поля = значения из полей 1С» — 1С — неизвестно, уточнить</title>
+<rect x="320" y="1430" width="290" height="100" rx="12" class="node"/>
+<text x="465" y="1550" class="warn" text-anchor="middle">1С — неизвестно, уточнить</text>
+<text x="465" y="1455" class="lbl" text-anchor="middle">Завести лид вручную:</text>
+<text x="465" y="1475" class="lbl" text-anchor="middle">источник «Восстановление»,</text>
+<text x="465" y="1495" class="lbl" text-anchor="middle">статус «Новый», исполнитель —</text>
+<text x="465" y="1515" class="lbl" text-anchor="middle">вручную, поля из 1С (Л5, Л10)</text>
+</g>
+<polyline points="610,1480 1240,1480 1240,1142" class="ln-solid" marker-end="url(#ah-solid)"/>
+<polyline points="1400,1140 1400,1448" class="ln-solid" marker-end="url(#ah-solid)"/>
+<g><title>ТЗ ФТ-1 Л11, Л12: «задача на менеджера “Созвонится с клиентом” Статусы задачи - Ожидает исполнения / В работе»</title>
+<rect x="1300" y="1450" width="270" height="100" rx="12" class="node"/>
+<text x="1435" y="1482" class="b" text-anchor="middle">Созвониться с клиентом</text>
+<text x="1435" y="1504" class="lbl" text-anchor="middle">Ожидает исполнения /</text>
+<text x="1435" y="1524" class="lbl" text-anchor="middle">В работе (Л12)</text>
+</g>
+<g><title>ТЗ ФТ-1 Л13: «Если “Ожидает исполнения” >30 мин, тогда смена Исполнителя = Распорядитель + Уведомление»</title>
+<circle cx="1530" cy="1450" r="15" fill="#fff" stroke="#1f2937" stroke-width="1.4"/><circle cx="1530" cy="1450" r="11" fill="none" stroke="#1f2937" stroke-width="1"/><path d="M1530,1442 L1530,1450 L1536,1453" fill="none" stroke="#1f2937" stroke-width="1.3"/>
+</g>
+<polyline points="1530,1435 1530,1325 1628,1325" class="ln-solid" marker-end="url(#ah-solid)"/>
+<text x="1544" y="1392" class="lbl" text-anchor="start">&gt;30 мин в «Ожидает исполнения»</text>
+<g><title>ТЗ ФТ-1 Л13: «смена Исполнителя = Распорядитель + Уведомление»</title>
+<rect x="1630" y="1280" width="290" height="80" rx="12" class="node"/>
+<text x="1775" y="1310" class="lbl" text-anchor="middle">Исполнитель = Распорядитель</text>
+<text x="1775" y="1330" class="lbl" text-anchor="middle">+ уведомление (Л13)</text>
+</g>
+<polyline points="1570,1500 1668,1500" class="ln-solid" marker-end="url(#ah-solid)"/>
+<g><title>ТЗ ФТ-1 Л12: «→ Результирующий статус: Создать заявку /  Отменено»</title>
+<polygon points="1700,1468 1732,1500 1700,1532 1668,1500" fill="#fff" stroke="#1f2937" stroke-width="1.6"/>
+</g>
+<text x="1700" y="1590" class="gray" text-anchor="middle">результат задачи (Л12)</text>
+<polyline points="1700,1468 1700,1440 1873,1440" class="ln-solid" marker-end="url(#ah-solid)"/>
+<text x="1712" y="1432" class="b" text-anchor="start">Создать заявку</text>
+<polyline points="1700,1532 1700,1560 1873,1560" class="ln-solid" marker-end="url(#ah-solid)"/>
+<text x="1712" y="1552" class="b" text-anchor="start">Отменено</text>
+<g><title>ТЗ ФТ-1 Л14: «Постусловия: Заявка создана»</title>
+<circle cx="1890" cy="1440" r="17" fill="#fff" stroke="#1f2937" stroke-width="4"/>
+<text x="1916" y="1436" class="b" text-anchor="start">Заявка (Л14)</text>
+</g>
+<g><title>ТЗ ФТ-1 Л15: «Менеджер позвонил клиенту. Менеджер задал вопрос “Есть чертежи? Размеры? / Требуется замер.”» (следующее ФТ-2)</title>
+<text x="1916" y="1458" class="gray" text-anchor="start">далее ФТ-2 (Л15): «Менеджер</text>
+<text x="1916" y="1478" class="gray" text-anchor="start">позвонил клиенту…»</text>
+</g>
+<g><title>ТЗ ФТ-1 Л12: «Результирующий статус: … Отменено» — что при этом с лидом, в ТЗ не сказано</title>
+<circle cx="1890" cy="1560" r="17" fill="#fff" stroke="#1f2937" stroke-width="4"/>
+<text x="1916" y="1556" class="b" text-anchor="start">? что с лидом</text>
+<text x="1916" y="1576" class="gray" text-anchor="start">в ТЗ не сказано</text>
+</g>
+<rect x="20" y="1640" width="2260" height="220" rx="10" fill="#f3f4f6" stroke="#9aa0a6" stroke-width="1.4" stroke-dasharray="8 6"/>
+<text x="40" y="1670" class="pgb" text-anchor="start">В. Портал — справочно, для аудита интегратора</text>
+<text x="520" y="1670" class="pg" text-anchor="start">(запись экрана интегратора, со слов; не как факт)</text>
+<text x="40" y="1704" class="pg" text-anchor="start">Источник у лида в портале:</text>
+<g><title>портал: источник «Звонок» — на карточках лидов и сделок (as-is §2.5)</title><rect x="40" y="1716" width="90" height="28" rx="6" class="chip"/>
+<text x="85" y="1735" class="pg" text-anchor="middle">Звонок</text>
+</g>
+<g><title>портал: лид «Открытая линия (Авито)» — Источник: Авито; Мессенджер: Открытая линия (Авито) (as-is §2.5)</title><rect x="140" y="1716" width="200" height="28" rx="6" class="chip"/>
+<text x="240" y="1735" class="pg" text-anchor="middle">Открытая линия (Авито)</text>
+</g>
+<text x="40" y="1774" class="pg" text-anchor="start">Видны у сделок / компаний, не у лида:</text>
+<g><title>портал: «Приложение» — источник сквозной аналитики у сделок и в списке компаний, не у лида (as-is §2.5)</title><rect x="40" y="1786" width="256" height="28" rx="6" class="chip"/>
+<text x="168" y="1805" class="pg" text-anchor="middle">Приложение (сделки, компании)</text>
+</g>
+<g><title>портал: «Почта» — путь компании «Обращения из почты › Почта», не у лида (as-is §2.5)</title><rect x="306" y="1786" width="184" height="28" rx="6" class="chip"/>
+<text x="398" y="1805" class="pg" text-anchor="middle">Почта (путь компании)</text>
+</g>
+<text x="40" y="1846" class="pg" text-anchor="start">frame_0001, 0006, 0014, 0023</text>
+<text x="620" y="1704" class="pg" text-anchor="start">5 стадий лида — колонки канбана (frame_0001, frame_0021); переходы в записи не показаны:</text>
+<g><title>портал: стадия лида «Не обработан 982» (frame_0001 / frame_0021)</title><rect x="620" y="1716" width="170" height="30" rx="6" class="chip"/>
+<text x="705.0" y="1736" class="pg" text-anchor="middle">Не обработан 982</text>
+</g>
+<g><title>портал: стадия лида «В работе 291» (frame_0001 / frame_0021)</title><rect x="804" y="1716" width="140" height="30" rx="6" class="chip"/>
+<text x="874.0" y="1736" class="pg" text-anchor="middle">В работе 291</text>
+</g>
+<g><title>портал: стадия лида «Обработан 1552» (frame_0001 / frame_0021)</title><rect x="958" y="1716" width="160" height="30" rx="6" class="chip"/>
+<text x="1038.0" y="1736" class="pg" text-anchor="middle">Обработан 1552</text>
+</g>
+<g><title>портал: стадия лида «Качественный лид» (frame_0001 / frame_0021)</title><rect x="1132" y="1716" width="170" height="30" rx="6" class="chip"/>
+<text x="1217.0" y="1736" class="pg" text-anchor="middle">Качественный лид</text>
+</g>
+<g><title>портал: стадия лида «Некачественный лид» (frame_0001 / frame_0021)</title><rect x="1316" y="1716" width="190" height="30" rx="6" class="chip"/>
+<text x="1411.0" y="1736" class="pg" text-anchor="middle">Некачественный лид</text>
+</g>
+<text x="620" y="1784" class="pg" text-anchor="start">«за ними не следят» (о лидах; речь 00:00:07, в таблице речи 00:00:03 — сверить) — 982 лида в «Не обработан»</text>
+<a href="obsledovanie-lidy.html#t1" target="evro-obsl"><g class="pt ptlink" id="p1"><title>Точка 1: 8 каналов, линия-связь с «ЛИД» только у 2 (Челнокова, Авито) — как попадают остальные</title><circle cx="1540" cy="240" r="14"/><text x="1540" y="245" text-anchor="middle">1</text></g></a>
+<a href="obsledovanie-lidy.html#t2" target="evro-obsl"><g class="pt ptlink" id="p2"><title>Точка 2: источники лида: на доске — каналы (салоны, сарафан, vk.ru, Telegram, Авито), в ТЗ — «АТС», «Почта», «Восстановление»</title><circle cx="512" cy="1800" r="14"/><text x="512" y="1805" text-anchor="middle">2</text></g></a>
+<a href="obsledovanie-lidy.html#t3" target="evro-obsl"><g class="pt ptlink" id="p3"><title>Точка 3: кто разбирает лид и за какой срок — роль не названа</title><circle cx="212" cy="435" r="14"/><text x="212" y="440" text-anchor="middle">3</text></g></a>
+<a href="obsledovanie-lidy.html#t4" target="evro-obsl"><g class="pt ptlink" id="p4"><title>Точка 4: в названии рамки «B2B, B2C», а путь один</title><circle cx="700" cy="470" r="14"/><text x="700" y="475" text-anchor="middle">4</text></g></a>
+<a href="obsledovanie-lidy.html#t5" target="evro-obsl"><g class="pt ptlink" id="p5"><title>Точка 5: состояния лида: на доске их нет (и нет связи с конвертацией), в ТЗ — один статус «Новый», движется задача</title><circle cx="1620" cy="1780" r="14"/><text x="1620" y="1785" text-anchor="middle">5</text></g></a>
+<a href="obsledovanie-lidy.html#t6" target="evro-obsl"><g class="pt ptlink" id="p6"><title>Точка 6: недозвон — на доске нет: сколько попыток, куда уходит лид</title><circle cx="1000" cy="470" r="14"/><text x="1000" y="475" text-anchor="middle">6</text></g></a>
+<a href="obsledovanie-lidy.html#t7" target="evro-obsl"><g class="pt ptlink" id="p7"><title>Точка 7: повторная заявка / клиент уже есть в базе — не описано</title><circle cx="1060" cy="412" r="14"/><text x="1060" y="417" text-anchor="middle">7</text></g></a>
+<a href="obsledovanie-lidy.html#t8" target="evro-obsl"><g class="pt ptlink" id="p8"><title>Точка 8: «с обязательным занесением всех реквизитов в карточку компании» — состава нет; применимость к B2C-физлицу (у него компании нет) — наш вывод, К-26</title><circle cx="1400" cy="375" r="14"/><text x="1400" y="380" text-anchor="middle">8</text></g></a>
+<a href="obsledovanie-lidy.html#t9" target="evro-obsl"><g class="pt ptlink" id="p9"><title>Точка 9: что есть после конвертации: сделка на какой стадии; «Предв. расчёт» левее «Заявки», стрелок между стадиями нет</title><circle cx="1228" cy="578" r="14"/><text x="1228" y="583" text-anchor="middle">9</text></g></a>
+<a href="obsledovanie-lidy.html#t10" target="evro-obsl"><g class="pt ptlink" id="p10"><title>Точка 10: «единый формат занесения информации о контрагенте» (к.7365) и «структура карточек (от Л.А., М.А.)» (к.7350) — самих документов нет; «от» ≠ «одобрено»</title><circle cx="400" cy="545" r="14"/><text x="400" y="550" text-anchor="middle">10</text></g></a>
+<a href="obsledovanie-lidy.html#t11" target="evro-obsl"><g class="pt ptlink" id="p11"><title>Точка 11: отказ: «воронка отказников» с 4 причинами без связей на доске и «Отменено» в ТЗ — откуда уходят в отказ, обязательна ли причина</title><circle cx="400" cy="668" r="14"/><text x="400" y="673" text-anchor="middle">11</text></g></a>
+<a href="obsledovanie-lidy.html#t12" target="evro-obsl"><g class="pt ptlink" id="p12"><title>Точка 12: «Закупка отложена» лежит среди причин отказа; по смыслу может быть переносом (наш вывод, клиент не подтверждал)</title><circle cx="780" cy="781" r="14"/><text x="780" y="786" text-anchor="middle">12</text></g></a>
+<a href="obsledovanie-lidy.html#t13" target="evro-obsl"><g class="pt ptlink" id="p13"><title>Точка 13: «Распорядитель» — кто это: по ТЗ исполнитель нового лида, в ТЗ не расшифрован, на доске нет</title><circle cx="1090" cy="1130" r="14"/><text x="1090" y="1135" text-anchor="middle">13</text></g></a>
+<a href="obsledovanie-lidy.html#t14" target="evro-obsl"><g class="pt ptlink" id="p14"><title>Точка 14: 1С в лидах: по ТЗ участвует (поиск клиента в 1С, исполнитель из 1С), по словам владельца — нет; 1С — неизвестно, уточнить</title><circle cx="574" cy="1140" r="14"/><text x="574" y="1145" text-anchor="middle">14</text></g></a>
+<a href="obsledovanie-lidy.html#t15" target="evro-obsl"><g class="pt ptlink" id="p15"><title>Точка 15: лид или заявка: по ТЗ статус «Новый», задача «Созвониться с клиентом» → «Создать заявку» / «Отменено»; модель заявки начинается с «Создание лида → Новый» — где кончается лид</title><circle cx="1745" cy="1500" r="14"/><text x="1745" y="1505" text-anchor="middle">15</text></g></a>
+<a href="obsledovanie-lidy.html#t16" target="evro-obsl"><g class="pt ptlink" id="p16"><title>Точка 16: задача не взята 30 минут → передаётся Распорядителю; что с лидом при «Отменено» — не сказано</title><circle cx="1508" cy="1412" r="14"/><text x="1508" y="1417" text-anchor="middle">16</text></g></a>
+</svg>
+</div></section><script>(function(){var w=document.querySelector('.mapwrap');if(!w)return;var x,y,sl,st,on=false;
+w.addEventListener('mousedown',function(e){if(e.target.closest('a'))return;on=true;x=e.pageX;y=e.pageY;sl=w.scrollLeft;st=w.scrollTop;w.classList.add('drag')});
+addEventListener('mouseup',function(){on=false;w.classList.remove('drag')});
+addEventListener('mousemove',function(e){if(!on)return;w.scrollLeft=sl-(e.pageX-x);w.scrollTop=st-(e.pageY-y)});
+function go(n){var g=document.getElementById('p'+n);if(!g)return;g.scrollIntoView({behavior:'smooth',block:'center',inline:'center'});
+document.querySelectorAll('.pt.flash').forEach(function(x){x.classList.remove('flash')});void g.getBBox();g.classList.add('flash');
+document.querySelectorAll('.ptg button').forEach(function(b){b.classList.toggle('on',b.dataset.p==n)});
+var t=g.querySelector('title');document.getElementById('ptsel').innerHTML='<b>Точка '+n+'.</b> '+(t?t.textContent.replace(/^Точка \d+:\s*/,''):'')+' · <a href="obsledovanie-lidy.html#t'+n+'" target="evro-obsl">вопрос к встрече →</a>';}
+document.getElementById('ptnav').addEventListener('click',function(e){var b=e.target.closest('button[data-p]');if(b)go(b.dataset.p)});
+function fromHash(){var m=location.hash.match(/^#p(\d+)$/);if(m)setTimeout(function(){go(m[1])},150)}
+addEventListener('hashchange',fromHash);fromHash();})();</script><style>
+/* Роли слева: подписи дорожек закреплены у левого края карты (.mapwrap svg) при прокрутке и масштабе. */
+.lanes-pin .lp-sh{opacity:0;transition:opacity .15s}
+.lanes-pin.on .lp-sh{opacity:1}
+.lanes-pin{pointer-events:none}
+/* e4: подпись роли кликабельна — панель «Кто за что отвечает» (mappanel.html) */
+.lanes-pin .lp-role{pointer-events:auto;cursor:pointer}
+.lanes-pin .lp-role:hover text,.lanes-pin .lp-role:focus text{text-decoration:underline}
+.lanes-pin .lp-role:focus{outline:none}.lanes-pin .lp-role:focus rect:not(.lp-sh){stroke:#b8480f;stroke-width:3}
+@media print{.lanes-pin g{transform:none!important}.lanes-pin .lp-sh{display:none}}
+</style>
+<script>
+/* Роли слева (spec 006, ADR-А). Подписи дорожек остаются в SVG: скрипт собирает полосу подписей
+   (rect x ≤ 20, ширина ≤ 200, заливка полосы; text x < 40 внутри полосы; заголовки слоёв) в g.lanes-pin
+   в конце SVG (перед точками, если они идут последними) и сдвигает её на видимый левый край.
+   Сдвиг пересчитывается при прокрутке .mapwrap и при изменении размера SVG (ResizeObserver) — zoom.html не меняется.
+   Красные точки (g.pt) и связи не трогаются. Без JS и при печати подписи на месте. */
+(function(){
+function run(){
+var wrap=document.querySelector('.mapwrap'),svg=wrap&&wrap.querySelector('svg');
+if(!svg||svg.querySelector('.lanes-pin')||!svg.getScreenCTM)return;
+var NS='http://www.w3.org/2000/svg',LANE='#eef1f5',vb=svg.viewBox&&svg.viewBox.baseVal;
+var vbW=vb&&vb.width?vb.width:svg.getBBox().width;
+var S=svg.getScreenCTM();if(!S)return;var Si=S.inverse();
+function skip(el){return el.closest('.pt,defs,marker,.lanes-pin,.mv-bg')}  /* .mv-bg — фон слоёв из mapview.html (e6) */
+function base(el){var m=Si.multiply(el.getScreenCTM());return{e:m.e,f:m.f}}
+function num(el,a){var v=el.getAttribute(a);return v==null?0:parseFloat(v)||0}
+function box(el){var b=el.getBBox(),m=base(el);return{x:b.x+m.e,y:b.y+m.f,w:b.width,h:b.height,m:m}}
+var rects=[].slice.call(svg.querySelectorAll('rect')).filter(function(r){return !skip(r)}),
+    lanes=[],wide=[],bands=[];
+rects.forEach(function(r){var x=num(r,'x'),w=num(r,'width'),h=num(r,'height'),f=(r.getAttribute('fill')||'').toLowerCase();
+ if(x<=20&&w>0&&w<=200&&h>=30&&f===LANE)lanes.push({el:r,b:box(r),items:[]});
+ else if(x<=20&&w>=1000){var o={el:r,b:box(r)};wide.push(o);if(h<=60&&f&&f!=='none')bands.push(o)}});
+if(!lanes.length)return;
+function inside(a,b){return a.x>=b.x-1&&a.y>=b.y-1&&a.x+a.w<=b.x+b.w+1&&a.y+a.h<=b.y+b.h+1}
+function limitOf(b){var lim=vbW-(b.x+b.w),best=null;
+ wide.forEach(function(o){if(o.b.h>60&&inside(b,o.b)&&(!best||o.b.w*o.b.h<best.w*best.h))best=o.b});
+ if(best)lim=Math.min(lim,best.x+best.w-(b.x+b.w));return Math.max(0,lim)}
+var heads=[];
+[].slice.call(svg.querySelectorAll('text')).forEach(function(t){
+ if(skip(t)||t.getAttribute('x')==null||num(t,'x')>=40)return;var b=box(t),cy=b.y+b.h/2,cx=b.x+2;
+ for(var i=0;i<lanes.length;i++){var L=lanes[i].b;if(cx>=L.x&&cx<=L.x+L.w&&cy>=L.y&&cy<=L.y+L.h){lanes[i].items.push(t);return}}
+ for(var j=0;j<bands.length;j++){var B=bands[j].b;if(cy>=B.y&&cy<=B.y+B.h){heads.push({t:t,b:b,band:bands[j]});return}}});
+/* тень справа */
+var defs=svg.querySelector('defs')||svg.insertBefore(document.createElementNS(NS,'defs'),svg.firstChild),
+    gr=document.createElementNS(NS,'linearGradient');gr.id='lanes-pin-sh';
+[['0','.22'],['1','0']].forEach(function(s){var st=document.createElementNS(NS,'stop');st.setAttribute('offset',s[0]);
+ st.setAttribute('stop-color','#0f172a');st.setAttribute('stop-opacity',s[1]);gr.appendChild(st)});defs.appendChild(gr);
+function mk(tag,at){var e=document.createElementNS(NS,tag);for(var k in at)e.setAttribute(k,at[k]);return e}
+var pin=mk('g',{'class':'lanes-pin'}),units=[];
+function unit(m,x0,lim,nodes,sh){var outer=mk('g',{transform:'translate('+m.e+','+m.f+')'}),inner=mk('g',{});
+ if(sh)inner.appendChild(mk('rect',{'class':'lp-sh',x:sh.x,y:sh.y,width:10,height:sh.h,fill:'url(#lanes-pin-sh)'}));
+ nodes.forEach(function(n){inner.appendChild(n)});outer.appendChild(inner);pin.appendChild(outer);
+ units.push({g:inner,x0:x0,lim:lim});return outer}
+lanes.forEach(function(L){var r=L.el,b=L.b,m=b.m;
+ /* подложка непрозрачная: заливка полосы как есть (#eef1f5), без прозрачности */
+ r.removeAttribute('fill-opacity');r.removeAttribute('opacity');
+ L.lim=limitOf(b);L.g=unit(m,b.x,L.lim,[r].concat(L.items),{x:num(r,'x')+num(r,'width'),y:num(r,'y'),h:num(r,'height')})});
+heads.forEach(function(H){var bb=H.band.b,br=H.band.el,m=H.b.m,sw=parseFloat(br.getAttribute('stroke-width'))||0,
+ lx=bb.x-m.e+sw/2,ly=bb.y-m.f+sw/2,w=H.b.x+H.b.w-bb.x+16,h=bb.h-sw,
+ bg=mk('rect',{x:lx,y:ly,width:w,height:h,fill:br.getAttribute('fill')});
+ unit(m,bb.x,Math.max(0,bb.x+bb.w-(bb.x+w)),[bg,H.t],{x:lx+w,y:ly,h:h})});
+/* в самый конец SVG: закреплённая колонка ролей перекрывает всё, что уезжает под неё при прокрутке (в т.ч. красные точки) */
+svg.appendChild(pin);
+roles();
+var raf=0;
+function upd(){raf=0;var R=svg.getBoundingClientRect();if(!R.width)return;
+ var wr=wrap.getBoundingClientRect(),s=(wr.left+wrap.clientLeft-R.left)*vbW/R.width,on=false;
+ units.forEach(function(u){var t=Math.max(0,Math.min(s-u.x0,u.lim));if(t>.5)on=true;
+  var v='translate('+t.toFixed(2)+',0)';if(u.v!==v){u.v=v;u.g.setAttribute('transform',v)}});
+ pin.classList.toggle('on',on)}
+function req(){if(!raf)raf=requestAnimationFrame(upd)}
+/* e4 «Кто за что отвечает»: клик по подписи роли → панель справа. Данные только с карты: узлы — g с <title>,
+   центр рамки внутри полосы роли по Y и правее полосы (в пределах слоя) по X; текст — видимые <text> узла
+   без служебного «id Miro …»; красные точки (g.pt) в той же полосе — номер, заголовок из <title>, ссылка точки. */
+function roles(){
+ function tl(e){var f=e.firstElementChild;return !!f&&f.tagName.toLowerCase()==='title'}
+ function owner(t){for(var e=t.parentNode;e&&e!==svg;e=e.parentNode)if(e.tagName&&e.tagName.toLowerCase()==='g'&&tl(e))return e;return null}
+ function clean(s){return (s||'').replace(/\s+/g,' ').trim()}
+ function inLane(L,cx,cy){var b=L.b;return cy>=b.y&&cy<=b.y+b.h&&cx>b.x+b.w&&cx<=b.x+b.w+L.lim+1}
+ var nodes=[];
+ [].slice.call(svg.querySelectorAll('g')).forEach(function(g){if(!tl(g)||skip(g))return;
+  var tx=[].slice.call(g.querySelectorAll('text')).filter(function(t){return owner(t)===g})
+   .map(function(t){return clean(t.textContent)}).filter(function(s){return s&&!/^id Miro/i.test(s)});
+  if(!tx.length)return;var b=box(g);nodes.push({x:b.x+b.w/2,y:b.y+b.h/2,text:tx.join(' ')})});
+ var pts=[];
+ [].slice.call(svg.querySelectorAll('g.pt')).forEach(function(g){var c=g.querySelector('circle');if(!c)return;
+  var b=box(c),ti=g.querySelector('title'),lb=g.querySelector('text'),a=g.closest('a'),m=/^p(\d+)$/.exec(g.id||'');
+  pts.push({x:b.x+b.w/2,y:b.y+b.h/2,n:m?m[1]:'',lab:clean(lb&&lb.textContent),
+   title:clean(ti&&ti.textContent).replace(/^Точка \d+:\s*/,''),href:a&&(a.getAttribute('href')||a.getAttribute('xlink:href')),tgt:a&&a.getAttribute('target')})});
+ lanes.forEach(function(L){
+  var bold=[],rest=[];
+  L.items.slice().sort(function(a,b){return box(a).y-box(b).y}).forEach(function(t){var s=clean(t.textContent);if(!s)return;
+   var w=parseInt(getComputedStyle(t).fontWeight,10)||400;(w>=600?bold:rest).push(s)});
+  var name=bold.join(' ')||rest.shift()||'роль',
+      mine=nodes.filter(function(n){return inLane(L,n.x,n.y)}).sort(function(a,b){return a.x-b.x||a.y-b.y}),
+      mp=pts.filter(function(p){return inLane(L,p.x,p.y)}).sort(function(a,b){return a.x-b.x||a.y-b.y}),
+      head=null;
+  heads.forEach(function(H){if(H.b.y<L.b.y&&(!head||H.b.y>head.b.y))head=H});
+  var g=L.g,tt=document.createElementNS(NS,'title');tt.textContent=name+' — нажмите: кто за что отвечает';g.insertBefore(tt,g.firstChild);
+  g.setAttribute('class','lp-role');g.setAttribute('tabindex','0');g.setAttribute('role','button');
+  g.setAttribute('aria-label','Кто за что отвечает — '+name);
+  function show(){var P=window.evroPanel;if(!P)return;var out=[];
+   function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+   if(head)out.push(el('p','mp-sub','Раздел карты: '+clean(head.t.textContent)));
+   if(rest.length)out.push(el('p','mp-sub','Подпись на карте: '+rest.join(' · ')));
+   out.push(el('h3',null,'Действия и документы в дорожке ('+mine.length+')'));
+   if(mine.length){var ul=el('ul','mp-list');mine.forEach(function(n){ul.appendChild(el('li',null,n.text))});out.push(ul)}
+   else out.push(el('p','mp-sub','В этой дорожке на карте нет узлов с подписью.'));
+   out.push(el('h3',null,'Красные точки — вопросы в дорожке ('+mp.length+')'));
+   if(mp.length){var ul2=el('ul','mp-pts');mp.forEach(function(p){var li=el('li'),a=el('a','pt',p.lab||p.n);
+     if(p.href)a.href=p.href;if(p.tgt)a.target=p.tgt;if(p.n)a.setAttribute('data-n',p.n);a.title='Вопрос к встрече';
+     li.appendChild(a);li.appendChild(el('span',null,p.title));ul2.appendChild(li)});out.push(ul2)}
+   else out.push(el('p','mp-sub','Красных точек в этой дорожке нет.'));
+   out.push(el('p','mp-note','Собрано с карты: всё, что нарисовано в полосе роли. Разбивка по дорожкам — разметка карты, а не утверждённый регламент.'));
+   P.open('Кто за что отвечает — '+name,out,g)}
+  var dx=0,dy=0;
+  g.addEventListener('mousedown',function(e){dx=e.clientX;dy=e.clientY});
+  g.addEventListener('click',function(e){if(Math.abs(e.clientX-dx)>5||Math.abs(e.clientY-dy)>5)return;show()});
+  g.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();show()}})})}
+wrap.addEventListener('scroll',req,{passive:true});addEventListener('resize',req);
+if(window.ResizeObserver)new ResizeObserver(req).observe(svg);
+upd()}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
+})();
+</script>
+<style>
+/* Вид карты (e6): цвет слоёв, переключатель слоёв «Доска · ТЗ · Обе», режим «Показ клиенту / Рабочий вид».
+   Панель создаётся скриптом над .mapwrap (под навигатором точек). */
+.mapview{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:center;margin:0 0 10px;font-size:15px}
+.mapview .mv-h{font-weight:700}
+.mapview .mv-seg{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#fff}
+.mapview .mv-seg button{border:0;border-left:1px solid var(--line);background:#fff;color:var(--ink);font:600 15px/1 inherit;font-family:inherit;padding:8px 13px;cursor:pointer;min-height:36px}
+.mapview .mv-seg button:first-child{border-left:0}
+.mapview .mv-seg button[aria-pressed="true"]{background:#1d2530;color:#fff}
+.mapview .mv-seg button:focus-visible{outline:3px solid #b8480f;outline-offset:-3px}
+.mapview .mv-seg button .mv-sw{display:inline-block;width:12px;height:12px;border-radius:3px;border:1px solid rgba(0,0,0,.25);margin-right:6px;vertical-align:-1px}
+.mapview .mv-note{flex:1 1 100%;margin:0;font-size:13px;color:var(--muted)}
+.mapview .mv-note[hidden]{display:none}
+/* Показ клиенту: служебные пометки не рисуются, но сохраняют место и размеры (getBBox для lanes.html) */
+.mapwrap svg.mv-client .mv-svc{visibility:hidden}
+@media print{.mapview{display:none}}
+</style>
+<script>
+/* Вид карты (e6, шаги 2–4 плана specs/006-ispravlenie-kart/PLAN-e6.md). Карта (.mapwrap svg) не пересобирается:
+   скрипт только добавляет фон слоёв, меняет viewBox и ставит класс mv-svc служебным подписям.
+
+   СЛОИ. Границы по Y: из комментария <!-- layers: A<yA B<yB --> рядом с SVG (сделки); если его нет (лиды) —
+   по заголовкам слоёв «А. …», «Б. …», «В. …» в SVG: граница слоя = верх самой маленькой широкой (≥1000) рамки,
+   в которой стоит заголовок, минус 10. Слой А = [0, yA), Б = [yA, yB), В = [yB, низ карты).
+   ФОН. Под всем содержимым (первым после исходного фона SVG — прямоугольника на весь viewBox) три прямоугольника:
+   А #fff7e0 (тёплый), Б #eef5ff (голубой), В #f3f4f6 (серый). Белые рамки слоёв (rect с белой заливкой,
+   x ≤ 20, ширина ≥ 75% карты, высота ≥ 300) делаются прозрачными (fill-opacity 0), иначе фон под ними не виден;
+   узлы, полосы заголовков и дорожек не меняются. Подписи слоёв укрупняются до 22px, если справа есть место.
+   ПЕРЕКЛЮЧАТЕЛЬ. «Доска · ТЗ» — viewBox обрезается по Y до своего слоя (ширина прежняя); «Обе» — исходный viewBox.
+   Подписи кнопок — с карты (заголовок слоя без «А. », «По », пояснения в скобках и после «+»/«—»).
+   Навигатор точек: номер точки из другого слоя (или адрес #pN) сначала переключает на «Обе».
+
+   ПОКАЗ КЛИЕНТУ — правило скрытия (по разбору обеих карт 30.09.2026). Служебная подпись (класс mv-svc) — это <text>:
+   (1) цвета нашей разметки (серый #6b7280 / #5f6670 или оранжевый #9a5b00) с текстом-меткой разметки
+       /наша разметка|^разм\.|id Miro|только чтение|наведите|sanitized|client-materials/ — в любом начертании;
+   (2) курсив серого #6b7280 или оранжевого #9a5b00 — наши пояснения («выведено…», «на доске роль не указана»,
+       «блок между рамками», «место на доске — уточнить», «источник: …», «к.7341 — на рамке», легенда пометок),
+       КРОМЕ текста клиента:
+       (а) строка из цитаты «…» длиной от трёх слов (цитата может идти на несколько строк одного абзаца —
+           подписи одного родителя с тем же x, шаг по Y ≤ 26);
+       (б) строка комментария доски: в ближайшей группе с <title> «комментарий Miro …» ≥ 60% слов строки
+           (по первым 5 буквам) есть в цитате «…» этого title (если цитаты нет — во всём title);
+       исключения (а)/(б) не действуют, если в курсиве есть /UNVERIFIED|источник:|выведено|место на доске|
+       роль подчёркнута|блок между рамками|прикреплён|привязк|наша разметка/.
+   Скобка-комментарий «[» (path из 4 точек: короткий зубец вправо, вертикаль, зубец вправо; fill none) скрывается,
+   только если все подписи того же родителя справа от неё в её высоте — служебные.
+   Никогда не скрываются: узлы и рамки (rect/path/ellipse), стрелки и линии, подписи ролей (жирные), заголовки слоёв,
+   красные точки (g.pt), текст обычного тёмного цвета, красный (#f24726, #b3261e, #d93025), тёмно-серый курсив
+   направлений обмена (#374151). Сомнение — подпись остаётся видимой. Скрытие — visibility:hidden (место сохраняется).
+   Состояние (слой, режим) — localStorage «mapview:<файл>», при недоступности хранилища — по умолчанию «Обе» + рабочий вид. */
+(function(){
+function run(){
+var wrap=document.querySelector('.mapwrap'),svg=wrap&&wrap.querySelector('svg');
+if(!svg||svg.getAttribute('data-mv')||!svg.getScreenCTM)return;svg.setAttribute('data-mv','1');
+var NS='http://www.w3.org/2000/svg',KEY='mapview:'+location.pathname.split('/').pop(),
+    VB0=svg.getAttribute('viewBox'),vb=svg.viewBox&&svg.viewBox.baseVal;
+if(!VB0||!vb||!vb.width)return;
+var X0=vb.x,Y0=vb.y,W=vb.width,H=vb.height,S=svg.getScreenCTM();if(!S)return;var Si=S.inverse();
+function num(el,a){var v=el.getAttribute(a);return v==null?0:parseFloat(v)||0}
+function box(el){var b=el.getBBox(),m=Si.multiply(el.getScreenCTM());
+ return{x:b.x*m.a+m.e,y:b.y*m.d+m.f,w:b.width*m.a,h:b.height*m.d}}
+function clean(s){return (s||'').replace(/\s+/g,' ').trim()}
+var texts=[].slice.call(svg.querySelectorAll('text')).filter(function(t){return !t.closest('.pt,defs,marker')});
+
+/* ---------- слои: границы и подписи ---------- */
+var heads={};
+texts.forEach(function(t){var s=clean(t.textContent),m=/^([АБВ])\.\s+\S/.exec(s);if(m&&!heads[m[1]])heads[m[1]]={t:t,s:s,b:box(t)}});
+var wide=[].slice.call(svg.querySelectorAll('rect')).filter(function(r){return !r.closest('.pt,defs,marker')})
+ .map(function(r){return{el:r,b:box(r)}}).filter(function(o){return o.b.w>=1000});
+function topOf(h){var cy=h.b.y+h.b.h/2,best=null;
+ wide.forEach(function(o){var b=o.b;if(cy>=b.y&&cy<=b.y+b.h&&h.b.x>=b.x-1&&(!best||b.w*b.h<best.w*best.h))best=b});
+ return best?best.y:h.b.y-30}
+var yA=null,yB=null,src='';
+(function(){var it=document.createTreeWalker(wrap,NodeFilter.SHOW_COMMENT),c;
+ while((c=it.nextNode())){var m=/layers:\s*A<(\d+(?:\.\d+)?)\s+B<(\d+(?:\.\d+)?)/.exec(c.nodeValue);if(m){yA=+m[1];yB=+m[2];src='comment';return}}})();
+if(yA==null&&heads['Б']){yA=Math.round(topOf(heads['Б'])-10);yB=heads['В']?Math.round(topOf(heads['В'])-10):Y0+H;src='heads'}
+var LAY=yA==null?null:{A:[Y0,yA],B:[yA,yB],V:[yB,Y0+H]};
+function lab(L,def){var h=heads[L];if(!h)return def;
+ var s=h.s.replace(/^[АБВ]\.\s*/,'').split(/\s+[(+—–]\s*|\s*\(/)[0].replace(/^По\s+/,'').trim();return s||def}
+var NAMES={A:lab('А','Доска Романа'),B:lab('Б','ТЗ 2024–2025')};
+function layerOf(y){if(!LAY)return 'all';return y<LAY.A[1]?'A':(y<LAY.B[1]?'B':'V')}
+
+/* ---------- фон слоёв (шаг 2) ---------- */
+if(LAY){
+ var first=null,kids=[].slice.call(svg.children);
+ for(var i=0;i<kids.length;i++){var k=kids[i],tn=k.tagName.toLowerCase();
+  if(/^(style|defs|title|desc|metadata)$/.test(tn))continue;
+  if(tn==='rect'&&num(k,'x')<=X0&&num(k,'y')<=Y0&&num(k,'width')>=W&&num(k,'height')>=H)first=k;break}
+ var g=document.createElementNS(NS,'g');g.setAttribute('class','mv-bg');g.setAttribute('aria-hidden','true');
+ [['A','#fff7e0'],['B','#eef5ff'],['V','#f3f4f6']].forEach(function(c){var r=LAY[c[0]];if(!(r[1]>r[0]))return;
+  var e=document.createElementNS(NS,'rect');e.setAttribute('x',X0);e.setAttribute('y',r[0]);e.setAttribute('width',W);
+  e.setAttribute('height',r[1]-r[0]);e.setAttribute('fill',c[1]);g.appendChild(e)});
+ if(first)svg.insertBefore(g,first.nextSibling);
+ else{var fg=null;for(var j=0;j<kids.length;j++)if(!/^(style|defs|title|desc|metadata)$/i.test(kids[j].tagName)){fg=kids[j];break}svg.insertBefore(g,fg)}
+ /* белые рамки слоёв — прозрачные, чтобы был виден цвет слоя */
+ wide.forEach(function(o){var f=(o.el.getAttribute('fill')||'').toLowerCase().replace(/\s/g,'');
+  if(/^(#fff|#ffffff|white|rgb\(255,255,255\))$/.test(f)&&num(o.el,'x')<=20&&o.b.w>=.75*W&&o.b.h>=300)o.el.setAttribute('fill-opacity','0')});
+ /* подписи слоёв крупнее — до 22px, если правее в той же строке есть место */
+ Object.keys(heads).forEach(function(L){var h=heads[L],t=h.t,fs=parseFloat(getComputedStyle(t).fontSize)||16,room=Infinity;
+  texts.forEach(function(o){if(o===t)return;var b=box(o);
+   if(b.x>h.b.x+h.b.w-1&&b.y<h.b.y+h.b.h&&b.y+b.h>h.b.y)room=Math.min(room,b.x-12-h.b.x)});
+  var k=Math.min(22/fs,room/h.b.w);if(k>1.02)t.style.fontSize=(fs*k).toFixed(1)+'px'})}
+
+/* ---------- служебные пометки (шаг 4) ---------- */
+var GRAY=['rgb(107, 114, 128)','rgb(95, 102, 112)','rgb(154, 91, 0)'],ITAL=['rgb(107, 114, 128)','rgb(154, 91, 0)'],
+    P_ANY=/наша разметка|^разм\.|id Miro|только чтение|наведите|sanitized|client-materials/i,
+    P_IT=/UNVERIFIED|источник:|выведено|место на доске|роль подчёркнута|блок между рамками|прикреплён|привязк|наша разметка/i;
+function words(s){return (s.toLowerCase().match(/[\p{L}\p{N}]+/gu)||[]).map(function(w){return w.length>5?w.slice(0,5):w})}
+function quotes(s){var r=[],re=/«([^»]*)»/g,m;while((m=re.exec(s)))r.push(m[1]);return r}
+function ctitle(t){for(var e=t.parentNode;e&&e!==svg;e=e.parentNode){var f=e.firstElementChild;
+ if(e.tagName.toLowerCase()==='g'&&f&&f.tagName.toLowerCase()==='title'){var s=clean(f.textContent);return /^комментарий Miro/i.test(s)?s:null}}return null}
+/* абзацы: подписи одного родителя с тем же x и выравниванием, подряд по Y (шаг ≤ 26) */
+var inQuote=new Set(),paras={};
+texts.forEach(function(t){var k=(t.parentNode.__mvid||(t.parentNode.__mvid=Math.random().toString(36).slice(2)))+'|'+t.getAttribute('x')+'|'+(t.getAttribute('text-anchor')||'');
+ (paras[k]=paras[k]||[]).push(t)});
+Object.keys(paras).forEach(function(k){var L=paras[k].sort(function(a,b){return num(a,'y')-num(b,'y')}),run_=[];
+ function flush(){if(!run_.length)return;var s='',off=[];run_.forEach(function(t){off.push(s.length);s+=clean(t.textContent)+' '});
+  var re=/«([^»]*)(»|$)/g,m;while((m=re.exec(s))){if(words(m[1]).length<3)continue;
+   var a=m.index,b=m.index+m[0].length;run_.forEach(function(t,i){var e=off[i]+clean(t.textContent).length;if(off[i]<b&&e>a)inQuote.add(t)})}
+  run_=[]}
+ L.forEach(function(t,i){if(i&&num(t,'y')-num(L[i-1],'y')>26)flush();run_.push(t)});flush()});
+var svc=[];
+texts.forEach(function(t){var s=clean(t.textContent);if(!s)return;var c=getComputedStyle(t),f=c.fill;
+ if(GRAY.indexOf(f)<0)return;
+ if(P_ANY.test(s)){svc.push(t);return}
+ if(c.fontStyle!=='italic'||ITAL.indexOf(f)<0)return;
+ if(!P_IT.test(s)){
+  if(inQuote.has(t))return;
+  var ti=ctitle(t);if(ti){var q=quotes(ti),ref=words(q.length?q.join(' '):ti.replace(/^комментарий Miro[^)]*\)\s*/i,'')),w=words(s),hit=0;
+   w.forEach(function(x){if(ref.indexOf(x)>=0)hit++});if(w.length&&hit/w.length>=.6)return}}
+ svc.push(t)});
+svc.forEach(function(t){t.classList.add('mv-svc')});
+/* скобки «[»: M x+d,y1 L x,y1 L x,y2 L x+d,y2 (d 4…16) */
+[].slice.call(svg.querySelectorAll('path')).forEach(function(p){if(p.closest('.pt'))return;
+ var f=(p.getAttribute('fill')||'').toLowerCase();if(f&&f!=='none')return;
+ var n=(p.getAttribute('d')||'').match(/-?\d+(?:\.\d+)?/g);if(!n||n.length!==8||!/^\s*M[^A-Za-z]*L[^A-Za-z]*L[^A-Za-z]*L[^A-Za-z]*$/i.test(p.getAttribute('d')))return;n=n.map(Number);
+ var d=n[0]-n[2];if(!(n[1]===n[3]&&n[2]===n[4]&&n[5]===n[7]&&n[0]===n[6]&&d>=4&&d<=16&&n[5]>n[3]))return;
+ var mine=[].slice.call(p.parentNode.children).filter(function(t){if(t.tagName.toLowerCase()!=='text')return false;
+  var x=num(t,'x'),y=num(t,'y');return x>=n[2]&&x<=n[2]+700&&y>=n[3]-4&&y<=n[5]+18});
+ if(mine.length&&mine.every(function(t){return t.classList.contains('mv-svc')}))p.classList.add('mv-svc')});
+
+/* ---------- панель над картой (шаги 3–4) ---------- */
+function load(){try{return JSON.parse(localStorage.getItem(KEY)||'null')||{}}catch(e){return{}}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify({layer:st.layer,client:st.client}))}catch(e){}}
+var st=load();if(!LAY||['A','B','all'].indexOf(st.layer)<0)st.layer='all';st.client=!!st.client;
+var bar=document.createElement('div');bar.className='mapview';bar.setAttribute('role','toolbar');bar.setAttribute('aria-label','Вид карты');
+function seg(label,items,on){var h=document.createElement('span');h.className='mv-h';h.textContent=label;bar.appendChild(h);
+ var s=document.createElement('span');s.className='mv-seg';s.setAttribute('role','group');s.setAttribute('aria-label',label.replace(/:$/,''));
+ items.forEach(function(it){var b=document.createElement('button');b.type='button';b.setAttribute('data-v',it[0]);
+  if(it[2]){var sw=document.createElement('span');sw.className='mv-sw';sw.style.background=it[2];b.appendChild(sw)}
+  b.appendChild(document.createTextNode(it[1]));if(it[3])b.title=it[3];
+  b.addEventListener('click',function(){on(it[0])});s.appendChild(b)});bar.appendChild(s);return s}
+var segL=LAY?seg('Слои:',[['A',NAMES.A,'#fff7e0','Только слой А — '+NAMES.A],['B',NAMES.B,'#eef5ff','Только слой Б — '+NAMES.B],
+  ['all','Обе',null,'Вся карта: оба слоя и справочный слой портала']],function(v){setLayer(v,true)}):null;
+var segC=seg('Вид:',[['work','Рабочий вид',null,'Все пометки нашей разметки видны'],
+  ['client','Показ клиенту',null,'Скрыть служебные пометки: наша разметка, источники, id, «уточнить»; узлы, стрелки, роли и красные точки остаются']],
+  function(v){setClient(v==='client',true)});
+var note=document.createElement('p');note.className='mv-note';note.hidden=true;bar.appendChild(note);
+wrap.parentNode.insertBefore(bar,wrap);
+function mark(s,v){[].forEach.call(s.querySelectorAll('button'),function(b){b.setAttribute('aria-pressed',String(b.getAttribute('data-v')===v))})}
+function setLayer(v,user){if(!LAY)v='all';st.layer=v;
+ if(v==='all')svg.setAttribute('viewBox',VB0);
+ else{var r=LAY[v];svg.setAttribute('viewBox',[X0,r[0],W,r[1]-r[0]].join(' '))}
+ if(segL)mark(segL,v);
+ note.hidden=v==='all';note.textContent=v==='all'?'':'Показан только слой «'+NAMES[v]+'». Точка из другого слоя в «Найти точку» — карта переключится на «Обе».';
+ if(user){save();var top=wrap.getBoundingClientRect().top;if(top<0)scrollBy(0,top-80);wrap.scrollTop=0}}
+function setClient(on,user){st.client=on;svg.classList.toggle('mv-client',on);mark(segC,on?'client':'work');if(user)save()}
+/* точки: слой по центру круга (в исходных координатах) */
+var ptLayer={};
+[].forEach.call(svg.querySelectorAll('g.pt'),function(g){var c=g.querySelector('circle'),m=/^p(\d+)$/.exec(g.id||'');
+ if(c&&m){var b=box(c);ptLayer[m[1]]=layerOf(b.y+b.h/2)}});
+function need(n){if(st.layer!=='all'&&ptLayer[n]&&ptLayer[n]!==st.layer)setLayer('all',true)}
+/* навигатор: до его обработчика (фаза перехвата на document) */
+document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('#ptnav button[data-p]');if(b)need(b.getAttribute('data-p'))},true);
+function fromHash(){var m=/^#p(\d+)$/.exec(location.hash);if(m)need(m[1])}
+addEventListener('hashchange',fromHash);
+setLayer(st.layer,false);setClient(st.client,false);fromHash()}
+if(document.querySelector('.mapwrap svg'))run();else document.addEventListener('DOMContentLoaded',run);
+})();
+</script>
+<script type="application/json" id="mapdata">{"pfx":"","short":"obsledovanie-lidy.html","win":"evro-obsl","cards":{"1":{"title":"Каналов восемь, в лид ведут связи только от двух","type":"предусловие (вход)","q":"«Покажите на последнем лиде из салона: как он оказался в Битрикс24 и кто его туда внёс?»","ifs":[{"id":"e1","text":"А если клиент пришёл в салон лично, без звонка и письма?"},{"id":"e2","text":"А если клиент написал во «ВКонтакте» или в Telegram?"},{"id":"e3","text":"А если клиент пришёл по рекомендации знакомых (сарафан)?"}],"sees":[{"text":"А если один и тот же клиент написал сразу в два канала?","where":"в точке 7","href":"obsledovanie-lidy.html#t7","win":"evro-obsl","n":7}]},"2":{"title":"Источники лида: на доске — каналы, в ТЗ — «АТС», «Почта», «Восстановление»","type":"разный уровень (доска ↔ ТЗ)","q":"«Покажите на последнем лиде: что записано в поле „Источник“ и кто это поле заполнил? И то же — на нескольких лидах до него.»","ifs":[{"id":"e1","text":"А если клиент увидел объявление на Авито, а потом позвонил — какой источник у лида?"},{"id":"e5","text":"А если клиент позвонил в салон — источник «АТС» (как в ТЗ) или салон (как на доске)?"},{"id":"e4","text":"А если поле «Источник» осталось пустым?"}],"sees":[]},"3":{"title":"Кто разбирает лид и за какой срок","type":"роль","q":"«Покажите на последнем лиде: кто первым взял его в работу и сколько времени прошло от обращения до первого ответа клиенту?»","ifs":[{"id":"e2","text":"А если заявка пришла в салон — кто её разбирает?"},{"id":"e3","text":"А если обратилась организация, а не частное лицо — разбирает тот же человек?"}],"sees":[{"text":"А если лид пришёл вечером или в выходной?","where":"в «Сделках» — С23","href":"../sdelki/obsledovanie-sdelki.html#t23","win":"evro-see"},{"text":"А если ответственный не взял лид — кто это замечает?","where":"в точке 16","href":"obsledovanie-lidy.html#t16","win":"evro-obsl","n":16}]},"4":{"title":"В названии «B2B, B2C», а путь один","type":"развилка","q":"«Покажите на последнем лиде от организации и на последнем лиде от частного лица: что в работе с ними шло по-разному?»","ifs":[{"id":"e1","text":"А если частное лицо потом просит оформить заказ на фирму?"},{"id":"e2","text":"А если организация — подрядчик, который закупает для своего заказчика?"}],"sees":[{"text":"А если организация приносит договор по своей форме?","where":"в «Сделках» — С7","href":"../sdelki/obsledovanie-sdelki.html#t7","win":"evro-see"},{"text":"А если у частного лица нет реквизитов для карточки компании?","where":"в точке 8","href":"obsledovanie-lidy.html#t8","win":"evro-obsl","n":8}]},"5":{"title":"Состояния лида: на доске их нет, в ТЗ — один статус «Новый»","type":"состояние","q":"«Покажите на последнем лиде: через какие стадии он прошёл и кто переводил его с одной на другую?»","ifs":[{"id":"e2","text":"А если с клиентом поговорили, а он ещё думает — в какой он стадии?"}],"sees":[{"text":"А если с лидом неделю никто не работает — что с ним происходит?","where":"в точке 16","href":"obsledovanie-lidy.html#t16","win":"evro-obsl","n":16},{"text":"А если клиент сказал «вернёмся позже» — куда ставят лид?","where":"в точке 12","href":"obsledovanie-lidy.html#t12","win":"evro-obsl","n":12}]},"6":{"title":"Недозвон: что делать, если клиент не отвечает","type":"развилка / сценарий","q":"«Покажите на последнем лиде, до которого не дозвонились с первого раза: что ответственный сделал дальше и чем это закончилось?»","ifs":[{"id":"e1","text":"А если клиент не ответил и на следующий день — сколько ещё попыток?"},{"id":"e2","text":"А если клиент сам перезвонил, но в другой салон или на другой номер?"},{"id":"e3","text":"А если клиент не берёт трубку, но отвечает в мессенджере?"},{"id":"e4","text":"А если после всех попыток клиент так и не ответил — в какой стадии остаётся лид?"}],"sees":[]},"7":{"title":"Повторная заявка от клиента, который уже есть в базе","type":"сценарий","q":"«Покажите на последнем лиде от клиента, который уже обращался раньше: как вы узнали, что он уже был, и что сделали с новой заявкой?»","ifs":[{"id":"e1","text":"А если у клиента уже есть незакрытая сделка?"},{"id":"e2","text":"А если клиент раньше отказался и теперь вернулся?"},{"id":"e3","text":"А если от одной организации пишут разные сотрудники?"},{"id":"e4","text":"А если частное лицо заказывает второй раз через год?"}],"sees":[]},"8":{"title":"«…занесением всех реквизитов в карточку компании» — каких именно","type":"предусловие (готовность к конвертации)","q":"«Покажите на последнем лиде, который стал сделкой: какие данные клиента были заполнены в момент перевода, а какие добавили позже?»","ifs":[{"id":"e1","text":"А если клиент пока не даёт реквизиты?"},{"id":"e2","text":"А если клиент — частное лицо?"}],"sees":[{"text":"А если компания уже заведена в базе?","where":"в точке 7","href":"obsledovanie-lidy.html#t7","win":"evro-obsl","n":7},{"text":"А если реквизиты потом поменялись — например, договор на другое юрлицо?","where":"в «Сделках» — С9","href":"../sdelki/obsledovanie-sdelki.html#t9","win":"evro-see"}]},"9":{"title":"Что есть после конвертации и на какой стадии сделка","type":"постусловие","q":"«Покажите на последнем лиде, который стал сделкой: на какой стадии появилась сделка и что ответственный сделал в ней первым?»","ifs":[],"sees":[{"text":"А если клиенту нужен сначала замер — сделка начинается с той же стадии?","where":"в «Сделках» — С2","href":"../sdelki/obsledovanie-sdelki.html#t2","win":"evro-see"},{"text":"А если расчёт отправили, а клиент думает?","where":"в «Сделках» — С1","href":"../sdelki/obsledovanie-sdelki.html#t1","win":"evro-see"},{"text":"А если клиент отказался сразу после расчёта — куда уходит сделка?","where":"в «Сделках» — С21","href":"../sdelki/obsledovanie-sdelki.html#t21","win":"evro-see"},{"text":"А если сделка по этому клиенту уже была?","where":"в точке 7","href":"obsledovanie-lidy.html#t7","win":"evro-obsl","n":7}]},"10":{"title":"«Единый формат» и «структура карточек» — самих документов нет","type":"документ / user story","q":"«Покажите на последнем лиде: как заполнена его карточка и по какому образцу её заполняли?»","ifs":[{"id":"e1","text":"А если структура карточек ещё обсуждается — кто утверждает окончательный вариант?"}],"sees":[{"text":"А если для организации и частного лица образец разный?","where":"в точке 8","href":"obsledovanie-lidy.html#t8","win":"evro-obsl","n":8},{"text":"А если данные клиента уже есть в 1С — откуда их берут в карточку?","where":"в точке 14","href":"obsledovanie-lidy.html#t14","win":"evro-obsl","n":14}]},"11":{"title":"Отказ: «воронка отказников» с причинами на доске и «Отменено» в ТЗ","type":"развилка","q":"«Покажите на последнем лиде, который не стал сделкой: где и кем отмечено, что работа с ним закончена, и почему?»","ifs":[{"id":"e2","text":"А если причина не из четырёх — например, цена или сроки?"},{"id":"e3","text":"А если отказ случился ещё на этапе лида — причину записывают?"}],"sees":[{"text":"А если клиент отказался уже после расчёта, когда сделка создана?","where":"в «Сделках» — С21","href":"../sdelki/obsledovanie-sdelki.html#t21","win":"evro-see"},{"text":"А если клиент из отказников вернулся?","where":"в точке 7","href":"obsledovanie-lidy.html#t7","win":"evro-obsl","n":7}]},"12":{"title":"«Закупка отложена» — отказ или перенос","type":"состояние","q":"«Покажите на последнем лиде, где клиент сказал „позже“: что с ним сделали и как вы узнаёте, что пора к нему вернуться?»","ifs":[{"id":"e1","text":"А если клиент назвал срок — кто и как напомнит?"},{"id":"e3","text":"А если клиент не вернулся и через полгода?"}],"sees":[{"text":"А если вернулся — это новая сделка или прежняя?","where":"в точке 7","href":"obsledovanie-lidy.html#t7","win":"evro-obsl","n":7}]},"13":{"title":"«Распорядитель» — кто это","type":"роль","q":"«Как у вас сейчас: кто получает обращение от нового клиента, которого ещё нет в базе, и кто подхватывает обращение, если за него никто не взялся?»","ifs":[{"id":"e2","text":"А если обращений много одновременно — их распределяет один человек или группа?"}],"sees":[{"text":"А если этот человек в отпуске или на больничном — кто его заменяет?","where":"в «Сделках» — С23","href":"../sdelki/obsledovanie-sdelki.html#t23","win":"evro-see"},{"text":"А если обращение пришло вечером или в выходной?","where":"в «Сделках» — С23","href":"../sdelki/obsledovanie-sdelki.html#t23","win":"evro-see"},{"text":"А если и тот, кому передали просроченное обращение, за него не взялся?","where":"в точке 16","href":"obsledovanie-lidy.html#t16","win":"evro-obsl","n":16}]},"14":{"title":"1С в лидах: по ТЗ участвует, по словам владельца — нет","type":"противоречие (ТЗ ↔ владелец)","q":"«Как у вас сейчас: когда обращается клиент, как вы узнаёте, покупал ли он у вас раньше, и где смотрите его данные?»","ifs":[{"id":"e1","text":"А если клиент обратился с другого номера телефона или с другой почты?"},{"id":"e2","text":"А если у клиента в базе записан ответственный, который уже уволился?"},{"id":"e3","text":"А если клиент новый — где его данные появляются впервые?"},{"id":"e4","text":"А если данные клиента в двух системах расходятся?"}],"sees":[]},"15":{"title":"Лид или заявка: где кончается лид","type":"постусловие / состояние","q":"«Покажите на последнем обращении: в какой момент вы начинаете называть его заявкой и что в этот момент появляется в системе?»","ifs":[{"id":"e1","text":"А если клиент позвонил только узнать цену?"},{"id":"e2","text":"А если по обращению решили «Создать заявку» — что именно создаётся в системе?"}],"sees":[{"text":"А если заявка создана, а клиент перестал отвечать — где она остаётся?","where":"в «Сделках» — С1","href":"../sdelki/obsledovanie-sdelki.html#t1","win":"evro-see"},{"text":"А если у клиента уже есть открытая заявка?","where":"в точке 7","href":"obsledovanie-lidy.html#t7","win":"evro-obsl","n":7}]},"16":{"title":"Задача по лиду «Ожидает исполнения» больше 30 минут и «Отменено»: что дальше с лидом","type":"развилка","q":"«Как у вас сейчас: что происходит с новым обращением, если за него долго никто не берётся, и кто это замечает?»","ifs":[{"id":"e1","text":"А если обращение пришло за несколько минут до конца рабочего дня?"},{"id":"e2","text":"А если за обращение не взялся и тот, кому его передали?"},{"id":"e3","text":"А если работу по обращению закрыли без заявки — что происходит с самим лидом?"}],"sees":[{"text":"А если клиент перезвонил после того, как работу по нему закрыли?","where":"в точке 7","href":"obsledovanie-lidy.html#t7","win":"evro-obsl","n":7}]}}}</script>
+<script>(function(){var K='evro-lidy-answers.v3',K2='evro-lidy-answers.v2',K1='evro-lidy-answers';
+function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function jp(k){try{return JSON.parse(get(k)||'null')}catch(e){return null}}
+function blank(){return {v:3,meeting:'',items:{}}}
+function load(){var d=jp(K);
+if(!d||typeof d!=='object'||d.v!==3){d=blank();var o2=jp(K2),o=jp(K1);
+ /* v2 и старый ключ только читаются и не стираются; v2: ifs["N"] (позиция) → ifs["eN"] (data-id) */
+ if(o2&&typeof o2==='object'&&o2.items&&typeof o2.items==='object'){d.meeting=o2.meeting||'';
+  Object.keys(o2.items).forEach(function(n){var r=o2.items[n];if(!r||typeof r!=='object')return;var x={};
+   Object.keys(r).forEach(function(k){x[k]=r[k]});
+   if(r.ifs&&typeof r.ifs==='object'){x.ifs={};Object.keys(r.ifs).forEach(function(k){if(r.ifs[k])x.ifs[/^\d+$/.test(k)?'e'+k:k]=true})}
+   d.items[n]=x});store(d)}
+ /* перенос старого формата {N:{v,t}} */
+ else if(o&&typeof o==='object'){var any=false;Object.keys(o).forEach(function(n){var r=o[n];if(r&&(r.v||r.t)){d.items[n]={s:r.v||'',t:r.t||''};any=true}});if(any)store(d)}}
+if(!d.items||typeof d.items!=='object')d.items={};return d}
+function store(x){try{localStorage.setItem(K,JSON.stringify(x))}catch(e){}}
+window.evroAns={K:K,load:load,store:store};})();</script><aside class="mpanel" id="mpanel" hidden role="dialog" aria-labelledby="mp-t"><div class="mp-h"><h2 id="mp-t"></h2><button type="button" class="mp-x" aria-label="Закрыть (Esc)" title="Закрыть (Esc)">×</button></div><div class="mp-b" id="mp-b"></div></aside>
+<style>
+/* Панель справа на карте: «Кто за что отвечает» (клик по роли, lanes.html). e6: карточки вопроса по красной точке нет —
+   точка снова открывает страницу вопросов obsledovanie-<slug>.html#tN в окне evro-obsl (ссылка в разметке карты). */
+.mpanel{position:fixed;top:0;right:0;bottom:0;width:min(460px,100vw);z-index:60;background:var(--paper);border-left:1px solid var(--line);box-shadow:-6px 0 24px rgba(0,0,0,.18);display:flex;flex-direction:column;font-size:16px;line-height:1.45}
+.mpanel[hidden]{display:none}
+.mp-h{display:flex;gap:10px;align-items:flex-start;padding:12px 16px 10px;border-top:6px solid var(--accent);border-bottom:1px solid var(--line)}
+.mp-h h2{flex:1;margin:0;font-size:19px;line-height:1.3}
+.mp-x{flex:0 0 auto;width:38px;height:38px;border:1px solid var(--line);border-radius:8px;background:#fff;font:700 22px/1 system-ui,sans-serif;color:var(--ink);cursor:pointer}
+.mp-b{flex:1;overflow:auto;padding:10px 16px 28px}
+.mp-b h3{margin:14px 0 6px;font-size:16px;color:var(--muted)}
+.mp-sub{margin:0 0 6px;color:var(--muted);font-size:14px}
+.mp-list{margin:0;padding-left:20px}.mp-list li{margin:3px 0}
+.mp-pts{list-style:none;margin:0;padding:0}.mp-pts li{display:flex;gap:8px;align-items:flex-start;margin:6px 0}
+.mpanel a.pt{flex:0 0 auto;text-decoration:none;color:#fff}
+.mp-note{margin:10px 0 0;font-size:13px;color:var(--muted)}
+@media print{.mpanel{display:none!important}}
+</style>
+<script>
+/* Панель справа. window.evroPanel.open(заголовок, [узлы], откуда) — общий вызов (роли в lanes.html); close() — закрыть.
+   Клики по красным точкам на карте и по номерам точек в панели не перехватываются: это обычные ссылки
+   на страницу вопросов (target evro-obsl) — e6, шаг 1. */
+(function(){
+var P=document.getElementById('mpanel');if(!P)return;
+var T=document.getElementById('mp-t'),B=document.getElementById('mp-b'),X=P.querySelector('.mp-x'),back=null;
+function open(title,nodes,from){T.textContent=title;B.textContent='';nodes.forEach(function(n){B.appendChild(n)});
+ P.hidden=false;B.scrollTop=0;if(from)back=from;try{X.focus({preventScroll:true})}catch(e){}}
+function close(){if(P.hidden)return;P.hidden=true;var b=back;back=null;if(b&&b.focus)try{b.focus({preventScroll:true})}catch(e){}}
+X.addEventListener('click',close);
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!P.hidden)close()});
+window.evroPanel={open:open,close:close};
+})();
+</script>
+
+</div><div class="zoombar" role="toolbar" aria-label="Масштаб">
+<button type="button" data-z="-" title="Уменьшить (−)">−</button><span class="zv">100%</span><button type="button" data-z="+" title="Увеличить (+)">+</button><button type="button" data-z="0" title="Сбросить (0)">100%</button>
+</div>
+<style>
+.zoombar{position:fixed;right:14px;bottom:14px;z-index:50;display:flex;gap:4px;align-items:center;background:#fff;border:1px solid #cfc8bb;border-radius:10px;padding:5px;box-shadow:0 3px 12px rgba(0,0,0,.15);font:600 15px system-ui,sans-serif}
+.zoombar button{min-width:38px;height:36px;border:1px solid #cfc8bb;background:#f7f4ed;border-radius:8px;font:700 18px system-ui,sans-serif;cursor:pointer;color:#1d2530}
+.zoombar button[data-z="0"]{font-size:13px;min-width:50px}
+.zoombar .zv{min-width:48px;white-space:nowrap;padding:0 4px;text-align:center;color:#5b6573}
+@media print{.zoombar{display:none}}
+</style>
+<script>
+/* Масштаб. На странице с картой (.mapwrap svg) меняется только блок-схема; на остальных — вся страница. */
+(function(){var KEY='zoom:'+location.pathname.split('/').pop(),z=1;
+try{z=parseFloat(localStorage.getItem(KEY))||1}catch(e){}
+var wrap=document.querySelector('.mapwrap'),svg=wrap&&wrap.querySelector('svg'),
+    root=document.querySelector('[data-zoom]')||document.body,bar=document.querySelector('.zoombar'),out=bar.querySelector('.zv');
+if(svg)bar.title='Масштаб схемы';
+function set(v){var nz=Math.min(4,Math.max(.4,Math.round(v*10)/10));
+ if(svg){var cx=(wrap.scrollLeft+wrap.clientWidth/2)/Math.max(1,wrap.scrollWidth),
+   cy=(scrollY+innerHeight/2-wrap.getBoundingClientRect().top-scrollY)/Math.max(1,wrap.scrollHeight),top0=wrap.getBoundingClientRect().top+scrollY;
+   svg.style.width=(100*nz)+'%';svg.style.minWidth=(1400*nz)+'px';
+   wrap.scrollLeft=cx*wrap.scrollWidth-wrap.clientWidth/2;
+   if(z!==nz&&cy>0&&cy<1)scrollTo(scrollX,top0+cy*wrap.scrollHeight-innerHeight/2);}
+ else root.style.zoom=nz;
+ z=nz;out.textContent=(svg?'схема ':'')+Math.round(z*100)+'%';try{localStorage.setItem(KEY,z)}catch(e){}}
+set(z);
+bar.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var d=b.dataset.z;set(d==='+'?z+.1:d==='-'?z-.1:1)});
+document.addEventListener('keydown',function(e){if(/INPUT|TEXTAREA/.test(e.target.tagName)||e.ctrlKey||e.metaKey)return;if(e.key==='+'||e.key==='=')set(z+.1);else if(e.key==='-')set(z-.1);else if(e.key==='0')set(1)});
+/* Ctrl + колесо над схемой — масштаб только схемы (не всей страницы) */
+if(wrap)wrap.addEventListener('wheel',function(e){if(!(e.ctrlKey||e.metaKey))return;e.preventDefault();set(z+(e.deltaY<0?.1:-.1))},{passive:false});
+})();
+</script>
+</body></html>

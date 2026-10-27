@@ -1,0 +1,12 @@
+{
+  "id": "cdfef608-a2fe-4656-b0b4-e6657f613194",
+  "source": "GR8",
+  "status": "completed",
+  "models": [
+    "universal-3-5-pro",
+    "universal-2"
+  ],
+  "language": "ru",
+  "speaker_labels": true,
+  "speech_model_used": "universal-2"
+}

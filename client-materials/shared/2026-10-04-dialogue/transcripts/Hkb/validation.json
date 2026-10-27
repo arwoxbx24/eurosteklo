@@ -1,0 +1,19 @@
+{
+  "source": "Hkb",
+  "status": "completed",
+  "words": 9123,
+  "utterances": 388,
+  "audio_duration_seconds": 6605,
+  "last_word_end_ms": 6590561,
+  "low_confidence_words": 3783,
+  "speaker_count": 3,
+  "language_code": "ru",
+  "speech_model": null,
+  "speech_models": [
+    "universal-3-5-pro",
+    "universal-2"
+  ],
+  "sha256": "8e8c9e0fa2f35305af943b7579c3ab2ce6dd46be620bd8180ca373a389de61e6",
+  "validation_errors": 0,
+  "semantic_acceptance": false
+}
