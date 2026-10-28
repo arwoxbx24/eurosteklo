@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Как будет: общая схема</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./ppo.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#0154C8}a:hover{color:#006DFF}
+.lane{position:absolute;left:56px;width:1168px;box-sizing:border-box;border-radius:12px}
+.lt{position:absolute;left:72px;font-size:12px;font-weight:700;color:#3d4160;text-transform:uppercase;letter-spacing:.05em}
+.rl{position:absolute;font-size:11.5px;font-weight:600;color:#3d4160;background:#fff;padding:0 4px;border-radius:4px}
+.lg{display:flex;align-items:center;gap:6px;font-size:11.5px;color:#3d4160}
+.sw{display:inline-block;width:22px;height:14px;box-sizing:border-box}
+</style>
+</helmet>
+<div class="slide">
+  <div class="top"><span><b>ARWOX</b> · Евростекло</span><span>5 / 14</span></div>
+  <h2 style="margin-top: 10px; font-size: 26px">Как будет: обращение → сделка → 1С</h2>
+
+  <div class="lane" style="top: 106px; height: 216px; background: #f5f8fe"></div>
+  <span class="lt" style="top: 116px">Битрикс24 — продажа</span>
+  <div class="lane" style="top: 344px; height: 136px; background: #f3faf6"></div>
+  <span class="lt" style="top: 354px">1С — учёт и производство</span>
+
+  <div class="box" style="left: 56px; top: 150px; width: 110px; height: 84px; background: #eef0f5; border-radius: 30px; align-items: center; text-align: center">Обращения<small>салоны, сайт, мессенджеры</small></div>
+  <div class="box" style="left: 188px; top: 150px; width: 136px; height: 84px; border: 2px solid #0154C8; background: #fff; align-items: center; text-align: center">Лид<small>менеджер · РОП</small></div>
+  <div class="box" style="left: 338px; top: 150px; width: 136px; height: 84px; border: 2px solid #0154C8; background: #fff; align-items: center; text-align: center">Расчёт и замер<small>менеджер · проектный отдел</small></div>
+  <div class="box" style="left: 488px; top: 150px; width: 136px; height: 84px; border: 2px solid #0154C8; background: #fff; align-items: center; text-align: center">Договор и подписание<small>менеджер · юрист</small></div>
+  <div class="box" style="left: 638px; top: 150px; width: 136px; height: 84px; border: 2px solid #0154C8; background: #fff; align-items: center; text-align: center">Предоплата<small>менеджер · бухгалтерия</small></div>
+  <div class="box" style="left: 788px; top: 150px; width: 136px; height: 84px; border: 2px solid #0154C8; background: #fff; align-items: center; text-align: center">Производство<small>ПТО · снабжение</small></div>
+  <div class="box" style="left: 938px; top: 150px; width: 136px; height: 84px; border: 2px solid #0154C8; background: #fff; align-items: center; text-align: center">Отгрузка и монтаж<small>менеджер · ПТО · сервис</small></div>
+  <div class="box" style="left: 1088px; top: 150px; width: 136px; height: 84px; background: #CCF31E; border-radius: 30px; align-items: center; text-align: center">Завершение<small style="color: #12112F">ассистент</small></div>
+
+  <div class="ln" style="left: 166px; top: 191px; width: 8px; height: 2px"></div><div class="hd r" style="left: 175px; top: 186px"></div>
+  <div class="ln" style="left: 324px; top: 191px; width: 1px; height: 2px"></div><div class="hd r" style="left: 325px; top: 186px"></div>
+  <div class="hd r" style="left: 475px; top: 186px"></div>
+  <div class="hd r" style="left: 625px; top: 186px"></div>
+  <div class="hd r" style="left: 775px; top: 186px"></div>
+  <div class="hd r" style="left: 925px; top: 186px"></div>
+  <div class="hd r" style="left: 1075px; top: 186px"></div>
+
+  <div class="box" style="left: 56px; top: 262px; width: 268px; height: 48px; background: #fdecec; color: #8e1b1b; border-radius: 24px; align-items: center; text-align: center; font-size: 13px">Отказники — с причиной<small style="color: #8e1b1b">из лида или из сделки до предоплаты</small></div>
+  <div class="ln red" style="left: 255px; top: 234px; width: 2px; height: 16px"></div><div class="hd d red" style="left: 250px; top: 250px"></div>
+
+  <div class="box" style="left: 338px; top: 392px; width: 136px; height: 76px; background: #fff; border: 1px solid #b9dcc8; align-items: center; text-align: center; font-size: 13px">Контрагент и заказ<small>КП, договор, счёт</small></div>
+  <div class="box" style="left: 638px; top: 392px; width: 136px; height: 76px; background: #fff; border: 1px solid #b9dcc8; align-items: center; text-align: center; font-size: 13px">Оплата разнесена<small>бухгалтерия</small></div>
+  <div class="box" style="left: 788px; top: 392px; width: 136px; height: 76px; background: #fff; border: 1px solid #b9dcc8; align-items: center; text-align: center; font-size: 13px">График ПТО<small>дата готовности, «изготовлено»</small></div>
+  <div class="box" style="left: 938px; top: 392px; width: 136px; height: 76px; background: #fff; border: 1px solid #b9dcc8; align-items: center; text-align: center; font-size: 13px">Реализация<small>УПД, закрывающие</small></div>
+
+  <div class="ln" style="left: 375px; top: 234px; width: 2px; height: 146px"></div><div class="hd d" style="left: 370px; top: 380px"></div>
+  <span class="rl" style="left: 381px; top: 300px">заказ</span>
+  <div class="ln" style="left: 435px; top: 246px; width: 2px; height: 146px"></div><div class="hd u" style="left: 430px; top: 234px"></div>
+  <span class="rl" style="left: 441px; top: 330px">документы</span>
+  <div class="ln" style="left: 705px; top: 246px; width: 2px; height: 146px"></div><div class="hd u" style="left: 700px; top: 234px"></div>
+  <span class="rl" style="left: 711px; top: 330px">оплата</span>
+  <div class="ln" style="left: 855px; top: 246px; width: 2px; height: 146px"></div><div class="hd u" style="left: 850px; top: 234px"></div>
+  <span class="rl" style="left: 861px; top: 330px">статус</span>
+  <div class="ln" style="left: 1005px; top: 246px; width: 2px; height: 146px"></div><div class="hd u" style="left: 1000px; top: 234px"></div>
+  <span class="rl" style="left: 1011px; top: 330px">документы</span>
+
+  <div style="position: absolute; left: 56px; top: 500px; width: 1168px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px">
+    <div class="card w" style="padding: 12px 16px"><p style="margin: 0; font-size: 13.5px"><b>Лид — только фильтр.</b> Проверили, заполнили данные — сразу сделка.</p></div>
+    <div class="card w" style="padding: 12px 16px"><p style="margin: 0; font-size: 13.5px"><b>Стадии двигают задачи.</b> После предоплаты сделка назад не возвращается.</p></div>
+    <div class="card w" style="padding: 12px 16px"><p style="margin: 0; font-size: 13.5px"><b>Каждая запись — в одной системе.</b> Продажа — в Битрикс24, учёт — в 1С.</p></div>
+  </div>
+
+  <div style="position: absolute; left: 56px; top: 584px; width: 1168px; display: flex; flex-wrap: wrap; gap: 4px 22px">
+    <span class="lg"><span class="sw" style="height: 2px; background: #0154C8"></span>дальше / передача данных</span>
+    <span class="lg"><span class="sw" style="height: 2px; background: #c62828"></span>отказ</span>
+    <span class="lg"><span class="sw" style="border: 2px solid #0154C8; border-radius: 3px"></span>стадия, под ней — кто работает</span>
+    <span class="lg"><span class="sw" style="border: 1px solid #b9dcc8; background: #fff; border-radius: 3px"></span>что происходит в 1С</span>
+  </div>
+  <p class="note" style="position: absolute; left: 56px; top: 618px; margin: 0; width: 1168px">Монтаж — только если входит в заказ. Подробно по стадиям, срокам и ролям — на следующих слайдах. Схема показывает принцип; точная настройка определяется на этапе проектирования.</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":720}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>
