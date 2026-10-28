@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Ваша ситуация</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./ppo.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#0154C8}a:hover{color:#006DFF}
+.t{width:100%;border-collapse:collapse;font-size:13.5px;line-height:1.38}
+.t th{text-align:left;font-size:12px;font-weight:700;color:#565a74;text-transform:uppercase;letter-spacing:.04em;padding:0 10px 7px;border-bottom:2px solid #12112F}
+.t td{padding:7px 10px;border-bottom:1px solid #e2e9f7;vertical-align:top}
+.t td:first-child{font-weight:700;width:220px}
+</style>
+</helmet>
+<div class="slide">
+  <div class="top"><span><b>ARWOX</b> · Евростекло</span><span>2 / 10</span></div>
+  <h2 style="margin-top: 10px; font-size: 26px">Ваша ситуация</h2>
+  <table class="t" style="margin-top: 14px">
+    <thead><tr><th>Параметр</th><th>Что есть сейчас</th></tr></thead>
+    <tbody>
+      <tr><td>Бизнес</td><td>Калининград: 4 салона, собственное производство, доставка и монтаж</td></tr>
+      <tr><td>Команда</td><td>Отдел продаж — менеджеры салонов, руководитель, ассистент; проектный отдел, юрист, бухгалтерия, ПТО, снабжение, служба сервиса. Все работают в 1С и имеют доступ в Битрикс24</td></tr>
+      <tr><td>Битрикс24 сегодня</td><td>Облако, «Профессиональный», действует до 26.06.2027. Используется только как чат: задачи создаются при каждом звонке — 99+ висят месяцами; данные дублируются в 1С и таблицах; отчётности по работе отдела нет</td></tr>
+      <tr><td>Учёт и документы</td><td>«1С: Комплексная автоматизация» с доработанным блоком производства — заказ покупателя, заказ на производство и их формы. КП, договор, счета и закрывающие формируются в 1С</td></tr>
+      <tr><td>Связка с 1С</td><td>В текущей базе обмена с Битрикс24 нет; прежний делался под «1С: УНФ» и к новой базе не подходит — строим заново</td></tr>
+      <tr><td>Каналы обращений</td><td>4 салона (телефон, почта, визит), сарафан, сайт, Telegram, ВКонтакте; добавляется MAX, к мессенджерам подключаются рабочие номера менеджеров</td></tr>
+      <tr><td>Подписка Маркетплейс</td><td>Сейчас не оформлена; вы готовы её подключить — без неё не работают приложения телефонии и мессенджеров</td></tr>
+      <tr><td>Данные в 1С</td><td>После сбоя часть данных требует исправления — этим занимаются ваши специалисты</td></tr>
+    </tbody>
+  </table>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":720}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>
