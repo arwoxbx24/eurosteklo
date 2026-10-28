@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Сделка: до предоплаты</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./ppo.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#0154C8}a:hover{color:#006DFF}
+.t{width:100%;border-collapse:separate;border-spacing:8px 0;font-size:12.5px;line-height:1.38;table-layout:fixed}
+.t th{text-align:left;font-size:14px;font-weight:800;color:#12112F;padding:10px 12px;background:#e9f2ff;border-radius:10px 10px 0 0}
+.t th:first-child{background:none}
+.t td{padding:8px 12px;vertical-align:top;background:#fff;border-left:1px solid #e2e9f7;border-right:1px solid #e2e9f7;border-bottom:1px solid #e2e9f7}
+.t td:first-child{background:none;border:none;font-size:11px;font-weight:700;color:#565a74;text-transform:uppercase;letter-spacing:.04em;padding-left:0}
+.t tr.go td:not(:first-child){color:#0b4d2c;background:#f3faf6}
+.t tr.back td:not(:first-child){color:#8e1b1b;background:#fdf3f3}
+</style>
+</helmet>
+<div class="slide">
+  <div class="top"><span><b>ARWOX</b> · Евростекло</span><span>7 / 14</span></div>
+  <h2 style="margin-top: 10px; font-size: 26px">Сделка: от расчёта до предоплаты</h2>
+  <table class="t" style="margin-top: 16px; margin-left: -8px; width: 1184px">
+    <thead><tr><th style="width: 120px"></th><th>Расчёт и замер</th><th>Договор</th><th>Подписание</th><th>Предоплата</th></tr></thead>
+    <tbody>
+      <tr><td>Что происходит</td>
+        <td>Менеджер вносит товары, отмечает «нужен замер». Замер оплачивается отдельно. Проектный отдел загружает оценку, чертёж, спецификации фурнитуры и расходников. КП, договор и спецификация формируются в 1С и уходят клиенту</td>
+        <td>Договор по вашей форме — сразу клиенту, для физлиц и для строительных организаций своя форма. Договор по форме клиента — задача юристу; пакет к подписанию — договор, протокол разногласий и протокол их согласования</td>
+        <td>Менеджер загружает скан договора, подписанного с 2 сторон. Счёт на предоплату формируется в 1С и уходит клиенту</td>
+        <td>Оплата приходит из 1С. Менеджер оформляет заказ в производство с файлом для станка и чертежом и заявку снабжению на фурнитуру</td></tr>
+      <tr><td>Кто</td><td>Менеджер, руководитель проектного отдела</td><td>Менеджер, юрист</td><td>Менеджер</td><td>Менеджер, бухгалтерия, руководитель ПТО</td></tr>
+      <tr class="go"><td>Дальше, когда</td><td>Загружены оценка, чертёж и спецификации; клиент согласовал цену</td><td>Договор отправлен на подпись</td><td>Скан подписанного договора в сделке</td><td>Оплачено не меньше 35 %, документы переданы руководителю ПТО</td></tr>
+      <tr class="back"><td>Назад или стоп</td><td>Клиент не отвечает 10 рабочих дней — задача руководителю отдела продаж</td><td>Клиент изменил состав или проект — назад на расчёт</td><td>Нет скана 3 рабочих дня — назад на «Договор»; напоминания на 2-й и 3-й день</td><td>Нет оплаты 3 рабочих дня — назад на «Договор». После оплаты — только вперёд</td></tr>
+    </tbody>
+  </table>
+  <p class="note" style="position: absolute; left: 56px; top: 632px; margin: 0; width: 1168px">Стадию двигает выполнение задач: пока задача не выполнена, сделка стоит, а просрочка видна руководителю. Цена фиксируется в договоре: подписанный скан — согласие клиента.</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":720}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

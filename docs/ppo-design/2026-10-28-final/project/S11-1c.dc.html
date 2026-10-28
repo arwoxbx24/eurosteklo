@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Связка с 1С</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./ppo.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#0154C8}a:hover{color:#006DFF}
+.t{width:100%;border-collapse:collapse;font-size:13.5px;line-height:1.38}
+.t th{text-align:left;font-size:12px;font-weight:700;color:#565a74;text-transform:uppercase;letter-spacing:.04em;padding:0 10px 7px;border-bottom:2px solid #12112F}
+.t td{padding:8px 10px;border-bottom:1px solid #e2e9f7;vertical-align:top}
+.t td:first-child{font-weight:700;width:250px}
+.t td:nth-child(2){width:190px;font-weight:600;color:#0154C8}
+.t td:nth-child(3){width:290px}
+</style>
+</helmet>
+<div class="slide">
+  <div class="top"><span><b>ARWOX</b> · Евростекло</span><span>11 / 14</span></div>
+  <h2 style="margin-top: 10px; font-size: 26px">Связка с 1С: что куда передаётся</h2>
+  <table class="t" style="margin-top: 14px">
+    <thead><tr><th>Что</th><th>Направление</th><th>Когда</th><th>Правило</th></tr></thead>
+    <tbody>
+      <tr><td>Контрагент и заказ клиента</td><td>Битрикс24 → 1С</td><td>Когда в сделке есть клиент и товары</td><td>Создаётся 1 раз — без дублей в двух системах</td></tr>
+      <tr><td>Номенклатура</td><td>1С → Битрикс24</td><td>По расписанию</td><td>Товары в сделке выбираются из справочника 1С</td></tr>
+      <tr><td>КП, договор, спецификация, счета, закрывающие</td><td>1С → Битрикс24</td><td>После формирования в 1С</td><td>Документ появляется в сделке; правки — только в 1С</td></tr>
+      <tr><td>Оплата</td><td>1С → Битрикс24</td><td>После разнесения бухгалтерией</td><td>Менеджер видит факт и сумму в сделке</td></tr>
+      <tr><td>Дата готовности, «изготовлено»</td><td>1С → Битрикс24</td><td>По отметкам руководителя ПТО</td><td>Ставятся только в 1С; в сделке — для информации</td></tr>
+    </tbody>
+  </table>
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 18px">
+    <div class="card" style="border: 2px solid #0154C8; padding: 14px 18px">
+      <h3 style="margin-bottom: 6px">Каждая запись — в одной системе</h3>
+      <p style="margin: 0; font-size: 13.5px">Стадии продажи ведёт Битрикс24, 1С их не меняет. Оплату, производство и документы ведёт 1С, Битрикс24 их принимает. Одно и то же поле не правится с двух сторон — путаницы между системами нет.</p>
+    </div>
+    <div class="card w" style="padding: 14px 18px">
+      <h3 style="margin-bottom: 6px">Уточняется на аудите после старта</h3>
+      <p style="margin: 0; font-size: 13.5px">Типовой обмен «Комплексной автоматизации» или доработка под изменённые документы производства; перечень статусов заказа после переименования; где создаётся заказ — из сделки или в 1С.</p>
+    </div>
+  </div>
+  <p class="note" style="position: absolute; left: 56px; top: 640px; margin: 0; width: 1168px">Календарь заданий — замер, монтаж, доставка — ведётся в Битрикс24; синхронизация с календарём 1С желательна, но не обязательна.</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":720}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

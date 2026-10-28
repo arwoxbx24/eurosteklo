@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Сроки и решения</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./ppo.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#0154C8}a:hover{color:#006DFF}
+.t{width:100%;border-collapse:collapse;font-size:13px;line-height:1.36}
+.t th{text-align:left;font-size:12px;font-weight:700;color:#565a74;text-transform:uppercase;letter-spacing:.04em;padding:0 10px 7px;border-bottom:2px solid #12112F}
+.t td{padding:6px 10px;border-bottom:1px solid #e2e9f7;vertical-align:top}
+.t td:first-child{font-weight:700;width:270px}
+.t td:nth-child(2){width:170px}
+.t td:nth-child(4){width:230px}
+</style>
+</helmet>
+<div class="slide">
+  <div class="top"><span><b>ARWOX</b> · Евростекло</span><span>9 / 14</span></div>
+  <h2 style="margin-top: 10px; font-size: 26px">Сроки, напоминания и кто решает</h2>
+  <table class="t" style="margin-top: 14px">
+    <thead><tr><th>Ситуация</th><th>Срок</th><th>Что делает система</th><th>Кто решает</th></tr></thead>
+    <tbody>
+      <tr><td>Новое обращение</td><td>около 15 минут в рабочее время</td><td>Уведомление менеджеру о непринятом обращении</td><td>Руководитель смотрит статистику</td></tr>
+      <tr><td>Лид без ответа клиента</td><td>до 2 недель</td><td>—</td><td>Менеджер переводит в отказники</td></tr>
+      <tr><td>Ответ клиента по расчёту</td><td>10 рабочих дней</td><td>Задача руководителю отдела продаж</td><td>Руководитель отдела продаж</td></tr>
+      <tr><td>Договор по форме клиента у юриста</td><td>3 рабочих дня</td><td>Задача юристу, просрочка видна</td><td>—</td></tr>
+      <tr><td>Подписание договора</td><td>3 рабочих дня</td><td>Напоминания менеджеру на 2-й и 3-й день, затем возврат на «Договор»</td><td>—</td></tr>
+      <tr><td>Предоплата</td><td>3 рабочих дня</td><td>Те же напоминания и возврат, пока оплата не пришла</td><td>—</td></tr>
+      <tr><td>Понижающий коэффициент в расчёте</td><td>—</td><td>Уведомление на визирование</td><td>Руководитель службы сервиса</td></tr>
+      <tr><td>Новая позиция номенклатуры</td><td>—</td><td>Уведомление руководителю снабжения</td><td>Руководитель снабжения</td></tr>
+      <tr><td>Отгрузка или монтаж без полной оплаты</td><td>—</td><td>Задача на разрешение</td><td>Руководитель отдела продаж</td></tr>
+      <tr><td>Объект не готов, перенос, отказ подписать акт</td><td>—</td><td>—</td><td>Руководитель службы сервиса</td></tr>
+      <tr><td>Звонки клиенту после сделки</td><td>14, 90 и 270 дней</td><td>Задачи ассистенту; недозвон — повтор через 3 дня, до 5 попыток</td><td>—</td></tr>
+    </tbody>
+  </table>
+  <p class="note" style="position: absolute; left: 56px; top: 640px; margin: 0; width: 1168px">Просроченные задачи не прячутся: по ним видно, кто и на каком шаге держит сделку. Точные тексты уведомлений и получатели определяются на проектировании.</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":720}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>
