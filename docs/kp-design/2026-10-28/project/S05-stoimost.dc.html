@@ -4,43 +4,39 @@
 <meta charset="utf-8">
 <title>Стоимость</title>
 <script src="./support.js"></script>
-<link rel="stylesheet" href="./ppo.css">
+<link rel="stylesheet" href="./kp.css">
 </head>
 <body>
 <x-dc>
 <helmet>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap">
 <style>
 body{margin:0}
-a{color:#0154C8}a:hover{color:#006DFF}
-.t{width:100%;border-collapse:collapse;font-size:14px;line-height:1.4}
-.t th{text-align:left;font-size:12px;font-weight:700;color:#565a74;text-transform:uppercase;letter-spacing:.04em;padding:0 12px 7px;border-bottom:2px solid #12112F}
-.t td{padding:10px 12px;border-bottom:1px solid #e2e9f7;vertical-align:top}
-.t td:first-child{font-weight:700;width:330px}
-.t td:last-child{width:170px;text-align:right;font-weight:700;white-space:nowrap}
-.t th:last-child{text-align:right}
-.t tr.sum td{border-bottom:none;background:#CCF31E;font-size:16px;font-weight:800}
-.cap{font-size:12px;font-weight:700;color:#0154C8;text-transform:uppercase;letter-spacing:.05em;margin:0 0 8px}
+a{color:#2746e0}a:hover{color:#6b3ff5}
+.cap{margin:0 0 10px;font-size:15px;font-weight:700;color:#0f2147}
 </style>
 </helmet>
 <div class="slide">
-  <div class="top"><span><b>ARWOX</b> · Евростекло</span><span>5 / 10</span></div>
-  <h2 style="margin-top: 10px; font-size: 26px">Стоимость</h2>
+  <div class="bar"><img src="/_blob/2d13f70378f3606a62bea08f50f6129b" alt="ARWOX"><span>Коммерческое предложение · <b>Евростекло</b> · <span>4 / 8</span></span></div>
+  <h2 class="h2">Стоимость</h2>
   <p class="cap" style="margin-top: 18px">Услуги ARWOX</p>
-  <table class="t">
-    <thead><tr><th>Услуга</th><th>Что входит</th><th>Стоимость</th></tr></thead>
+  <table class="tb">
+    <thead><tr><th style="width: 330px">Услуга</th><th>Что входит</th><th style="width: 150px; text-align: right">Стоимость</th></tr></thead>
     <tbody>
-      <tr><td>Внедрение: продажи в Битрикс24 и обмен с 1С</td><td>Аудит 1С и техническое задание, настройка портала и ролей, лиды, сделка, обмен с 1С, отчёты, обучение, пилот и сдача — полный состав на слайде 6</td><td>260&nbsp;000&nbsp;₽</td></tr>
-      <tr class="sum"><td>Итого по предложению</td><td></td><td>260&nbsp;000&nbsp;₽</td></tr>
+      <tr><td>Внедрение: продажи в Битрикс24 и обмен с 1С</td><td>Аудит 1С и техническое задание, настройка портала и ролей, лиды, сделка, обмен с 1С, отчёты, обучение, пилот и сдача</td><td class="pr">260&nbsp;000&nbsp;₽</td></tr>
     </tbody>
   </table>
-  <p class="cap" style="margin-top: 26px">Оплачивается напрямую владельцам — в итог не входит</p>
-  <table class="t">
-    <thead><tr><th>Позиция</th><th>Комментарий</th><th>Стоимость</th></tr></thead>
+  <div style="margin-top: 12px; display: flex; align-items: center; justify-content: space-between; padding: 16px 22px; border-radius: 14px; background: linear-gradient(135deg, #0f2147 0%, #1f2f73 100%); color: #fff">
+    <span style="font-size: 16px; font-weight: 700">Итого по предложению</span>
+    <span style="font-size: 30px; font-weight: 800; letter-spacing: -.5px">260&nbsp;000&nbsp;₽</span>
+  </div>
+  <p class="cap" style="margin-top: 24px">Оплачивается напрямую владельцам — в итог не входит</p>
+  <table class="tb">
+    <thead><tr><th style="width: 330px">Позиция</th><th>Комментарий</th><th style="width: 150px; text-align: right">Стоимость</th></tr></thead>
     <tbody>
-      <tr><td>Лицензия Битрикс24 «Профессиональный», облако</td><td>Уже действует у вас до 26.06.2027</td><td></td></tr>
-      <tr><td>Подписка «Битрикс24 Маркетплейс» «Профессиональный», 12&nbsp;месяцев</td><td>Нужна для приложений телефонии и мессенджеров и для собственных интеграций портала. Если подписка для портала оформляется впервые, у вендора может действовать сниженная цена — проверим при оформлении</td><td>87&nbsp;840&nbsp;₽</td></tr>
-      <tr><td>Сервисы телефонии и мессенджеров</td><td>По тарифам их владельцев; подбираем на проектировании</td><td></td></tr>
+      <tr><td>Лицензия Битрикс24 «Профессиональный», облако</td><td>Уже действует у вас до 26.06.2027</td><td class="pr"></td></tr>
+      <tr><td>Подписка «Битрикс24 Маркетплейс» «Профессиональный», 12&nbsp;месяцев</td><td>Нужна для приложений телефонии и мессенджеров и для собственных интеграций портала. Если подписка для портала оформляется впервые, у вендора может действовать сниженная цена — проверим при оформлении</td><td class="pr">87&nbsp;840&nbsp;₽</td></tr>
+      <tr><td>Сервисы телефонии и мессенджеров</td><td>По тарифам их владельцев; подбираем на проектировании</td><td class="pr"></td></tr>
     </tbody>
   </table>
 </div>
