@@ -13,34 +13,36 @@
 <style>
 body{margin:0}
 a{color:#0154C8}a:hover{color:#006DFF}
-.t{width:100%;border-collapse:separate;border-spacing:8px 0;font-size:12px;line-height:1.36;table-layout:fixed}
+.t{width:100%;border-collapse:separate;border-spacing:8px 0;font-size:12.5px;line-height:1.36;table-layout:fixed}
 .t th{text-align:left;font-size:13.5px;font-weight:800;color:#12112F;padding:10px 10px;background:#e9f2ff;border-radius:10px 10px 0 0}
 .t th:first-child{background:none}
-.t td{padding:8px 10px;vertical-align:top;background:#fff;border-left:1px solid #e2e9f7;border-right:1px solid #e2e9f7;border-bottom:1px solid #e2e9f7}
+.t td{padding:7px 10px;vertical-align:top;background:#fff;border-left:1px solid #e2e9f7;border-right:1px solid #e2e9f7;border-bottom:1px solid #e2e9f7}
 .t td:first-child{background:none;border:none;font-size:11px;font-weight:700;color:#565a74;text-transform:uppercase;letter-spacing:.04em;padding-left:0}
-.t tr.go td:not(:first-child){color:#0b4d2c;background:#f3faf6}
-.t tr.back td:not(:first-child){color:#8e1b1b;background:#fdf3f3}
-.t th.opt{background:#fff;border:2px dashed #0154C8;border-bottom:none}
+.t tr.go td:not(:first-child){color:#0b3d82;background:#f5f8fe}
+.t tr.ex td:not(:first-child){color:#3d4160;background:#f6f7fa}
+.t th:nth-child(5){background:#fff;border:2px dashed #0154C8;border-bottom:none}
+.t td:nth-child(5){border-left:2px dashed #0154C8;border-right:2px dashed #0154C8}
+.t tr:last-child td:nth-child(5){border-bottom:2px dashed #0154C8}
 </style>
 </helmet>
 <div class="slide">
   <div class="top"><span><b>ARWOX</b> · Евростекло</span><span>8 / 14</span></div>
   <h2 style="margin-top: 10px; font-size: 26px">Сделка: от производства до завершения</h2>
-  <table class="t" style="margin-top: 16px; margin-left: -8px; width: 1184px">
-    <thead><tr><th style="width: 110px"></th><th>В производстве</th><th>Изготовлено</th><th>Отгрузка</th><th class="opt">Монтаж, если есть</th><th>Завершена</th></tr></thead>
+  <table class="t" style="margin-top: 14px; margin-left: -8px; width: 1184px">
+    <thead><tr><th style="width: 104px"></th><th>В производстве</th><th>Изготовлено</th><th>Отгрузка</th><th>Монтаж, если&nbsp;есть</th><th>Сделка завершена</th></tr></thead>
     <tbody>
       <tr><td>Что происходит</td>
-        <td>Руководитель ПТО ставит заказ в график с датой готовности — менеджер получает дату. Снабжение закупает фурнитуру, ставит срок поставки, сообщает о приёмке на склад</td>
-        <td>Менеджер сообщает клиенту о готовности, выставляет счёт на остаток, получает доверенность на груз, согласует дату. Закрывающие формируются в 1С</td>
-        <td>Руководитель ПТО получает уведомление и планирует доставку. Водитель или клиент при самовывозе подписывает документы</td>
-        <td>Проектный отдел — монтажная схема, менеджер — наряд-задание. Служба сервиса: бригада, дата, выезд, фото, акт</td>
-        <td>Ассистент собирает оригиналы или документы по ЭДО и звонит клиенту через 14, 90 и 270 дней</td></tr>
-      <tr><td>Кто</td><td>ПТО, снабжение</td><td>Менеджер</td><td>ПТО, ассистент</td><td>Служба сервиса</td><td>Ассистент</td></tr>
-      <tr class="go"><td>Дальше, когда</td><td>ПТО отмечает «изготовлено» в 1С — статус приходит в сделку</td><td>Остаток оплачен, закрывающие и доверенность в сделке</td><td>Монтаж нужен — на монтаж; нет — завершение</td><td>Акт подписан, фото и документы в сделке</td><td>Оригиналы получены</td></tr>
-      <tr class="back"><td>Исключения</td><td>Срок сдвинулся — ПТО меняет дату, менеджер видит новую</td><td>Отгрузить без полной оплаты — только по решению руководителя отдела продаж</td><td>Самовывоз — документы подписываются на месте</td><td>Объект не готов, перенос, отказ подписать акт — решает руководитель службы сервиса</td><td>Звонки — по заказам от 100 000 ₽; недозвон — повтор через 3 дня, до 5 попыток</td></tr>
+        <td>Руководитель ПТО ставит заказ в&nbsp;график с&nbsp;датой готовности — менеджеру приходит уведомление. Снабжение: фурнитура со склада или закупка со сроком поставки — менеджеру уведомление</td>
+        <td>Менеджер сообщает клиенту о&nbsp;готовности, выставляет счёт на&nbsp;остаток, согласует дату; доверенность — если нужна. Ассистент готовит закрывающие из&nbsp;1С и&nbsp;прикладывает к&nbsp;сделке</td>
+        <td>Руководитель ПТО получает уведомление и планирует доставку; подписанные документы от&nbsp;водителя передаёт ассистенту. При самовывозе клиент подписывает на&nbsp;месте</td>
+        <td>Проектный отдел — монтажная схема, менеджер — наряд&#8209;задание. Руководитель службы сервиса: бригада, дата, выезд, фото, акт</td>
+        <td>Ассистент собирает оригиналы или документы по&nbsp;ЭДО. По&nbsp;заказам от&nbsp;100&nbsp;000&nbsp;₽ звонит клиенту через 14, 90 и&nbsp;270&nbsp;дней от&nbsp;сдачи монтажа или завершения; итог — примечание в&nbsp;сделке</td></tr>
+      <tr><td>Кто</td><td>Руководитель ПТО, руководитель снабжения</td><td>Менеджер, ассистент отдела продаж</td><td>Руководитель ПТО</td><td>Руководитель службы сервиса</td><td>Ассистент отдела продаж</td></tr>
+      <tr class="go"><td>Дальше, когда</td><td>Руководитель ПТО отмечает «изготовлено»</td><td>Остаток оплачен, закрывающие в&nbsp;сделке</td><td>Монтаж нужен — на&nbsp;монтаж; нет — завершение</td><td>Акт подписан, фото и документы в&nbsp;сделке</td><td>Оригиналы получены</td></tr>
+      <tr class="ex"><td>Исключения</td><td>Срок сдвинулся — ПТО меняет дату, менеджер видит новую</td><td>Отгрузить без полной оплаты — решает руководитель отдела продаж</td><td></td><td>Объект не&nbsp;готов — сделка остаётся на&nbsp;монтаже; перенос и&nbsp;отказ подписать акт — решает руководитель службы сервиса, причина — в&nbsp;акте о&nbsp;недостатках</td><td>Недозвон — повтор через 3&nbsp;дня, до&nbsp;5&nbsp;попыток</td></tr>
     </tbody>
   </table>
-  <p class="note" style="position: absolute; left: 56px; top: 632px; margin: 0; width: 1168px">Даты и статусы производства ставятся вручную в 1С: сроки критичны, автоматика их не меняет. Монтаж стандартно оплачивается полностью до выезда; по отдельным договорам 30 % — после подписания акта.</p>
+  <p class="note" style="position: absolute; left: 56px; top: 632px; margin: 0; width: 1168px">Сроки производства ставятся вручную: автоматика их не&nbsp;меняет. Монтаж стандартно оплачивается полностью до&nbsp;выезда, по&nbsp;отдельным договорам 30&nbsp;% — после подписания акта; монтаж без оплаченного остатка — по&nbsp;решению руководителя отдела продаж.</p>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":720}}'>
